@@ -1,3 +1,12 @@
-1 mybatis-config.xml需要添加所有要入库的bean
+# 二手书交易系统
+<!-- toc -->
 
-2 mapper需要根据dao修改，且mapper中语句的id必须和dao中接口方法的名字一致
+- [二手书交易系统](#二手书交易系统)
+	- [项目](#项目)
+
+<!-- tocstop -->
+## 项目
+
+1. mybatis-config.xml需要添加所有要入库的bean
+
+2. mapper需要根据dao修改，且mapper中语句的id必须和dao中接口方法的名字一致
