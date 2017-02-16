@@ -1,0 +1,3 @@
+1 mybatis-config.xml需要添加所有要入库的bean
+
+2 mapper需要根据dao修改，且mapper中语句的id必须和dao中接口方法的名字一致

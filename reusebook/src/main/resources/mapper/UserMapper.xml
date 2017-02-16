@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 这里要改为某个bean的dao -->
+<mapper namespace="com.gs.demo.springmvctest.dao.UserDao">
+           <!-- 
+         <insert id="insertUser" parameterType="User" keyProperty="id">
+             insert into 
+             
+             tab_user(  
+             id,
+	         username,
+	         password)
+	         
+	         values (
+	         #{id},
+	         #{username},
+	         #{password})
+         </insert>
+         
+         <select id="selectAll" resultType="User">
+         	select * from tab_user
+         </select>
+         
+         <select id="selectByName" parameterType="String" resultType="User">
+         	select * from tab_user where username like #{username}
+         </select>
+         
+         <delete id="deleteById" parameterType="int">
+         	delete from tab_user where id = #{id}
+         </delete>
+         
+         <update id="updateUsername">
+         	update tab_user set username = #{username} where id = #{id}
+         </update>
+          -->
+</mapper>
