@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <!-- 命名空间 -->
     <typeAliases>
     	<!-- 这里要写所有要入库的bean -->
-         <!-- <typeAlias alias="User" type="com.gs.demo.springmvctest.bean.User"/> --> 
+        <typeAlias alias="User" type="com.gs.reusebook.bean.User"/> 
     </typeAliases>
 
     <!-- 映射map -->

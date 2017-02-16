@@ -11,12 +11,17 @@ tmp/
 *.swp
 *~.nib
 local.properties
-.settings/
+/.settings/
 .loadpath
 .recommenders
 
 # Eclipse Core
 .project
+
+#eclipse myself
+/target/
+/Users
+/src/main/webapp/WEB-INF/logs/*.log
 
 # External tool builders
 .externalToolBuilders/
