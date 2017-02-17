@@ -11,5 +11,5 @@ public interface UserDao {
 	public List<User> selectAll();
 	public List<User> selectByName(String username);
 	public void deleteById(int id);
-	public void updateUsername(@Param("username") String username, @Param("id") int id);
+	public void updateUsername(@Param("username") String username, @Param("id") String id);
 }

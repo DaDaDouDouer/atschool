@@ -2,6 +2,11 @@ package com.gs.reusebook.util;
 
 import java.security.MessageDigest;
 
+/**
+ * 生成MD5
+ * @author IceAsh
+ *
+ */
 public class MD5Util {
 	public static String getMD5(String message) {
 		if(message == null){
