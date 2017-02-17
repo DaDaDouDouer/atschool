@@ -84,4 +84,17 @@ public class AuthController {
 		}
 
 	}
+	
+
+	/**
+	 * 注销操作
+	 */
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@ResponseBody
+	public UiReturn logout(HttpSession session) {
+		
+		session.invalidate();
+		
+		return UiReturn.ok(null, "注销成功");
+	}
 }
