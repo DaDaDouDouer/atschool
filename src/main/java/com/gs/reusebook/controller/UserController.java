@@ -100,7 +100,7 @@ public class UserController {
 	@RequestMapping(value = "/sessionTest", method = RequestMethod.GET)
 	@ResponseBody
 	public String sessionTest(@RequestParam String token, HttpSession session){
-		String oldToken = (String) session.getAttribute("token");
+		String oldToken = (String) session.getAttribute(	"token");
 		session.setAttribute("token", token);
 		
 		return "" + oldToken + "," + token;

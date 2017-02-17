@@ -1,6 +1,10 @@
 package com.gs.reusebook.bean;
 
-
+/**
+ * 网站一般用户
+ * @author IceAsh
+ *
+ */
 public class User {
 	
 	int id;
