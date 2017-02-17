@@ -19,9 +19,9 @@ public class UserService {
 
 	/**
 	 * 一般用户注册
-	 * @param username
-	 * @param password
-	 * @return
+	 * @param username 用户名
+	 * @param password 密码
+	 * @return 
 	 */
 	public User register(String username, String password){
 
@@ -40,8 +40,8 @@ public class UserService {
 
 	/**
 	 * 一般用户登录
-	 * @param username
-	 * @param password
+	 * @param username 用户名
+	 * @param password 密码
 	 * @return
 	 */
 	public UiReturn login(String username, String password){

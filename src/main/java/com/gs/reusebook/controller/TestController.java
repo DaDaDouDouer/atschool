@@ -16,7 +16,7 @@ import com.gs.reusebook.service.UserService;
 
 @Controller
 @RequestMapping("/")
-public class UserController {
+public class TestController {
 	
 	@Autowired
 	private UserService userService;

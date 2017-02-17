@@ -14,7 +14,7 @@ import com.gs.reusebook.util.ReusebookStatic;
 import com.gs.reusebook.util.UiReturn;
 
 /**
- * 登录注册等身份验证
+ * 一般用户登录注册等身份验证
  * 
  * @author IceAsh
  *
@@ -26,6 +26,11 @@ public class AuthController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * 注册操作
+	 * @param username 用户名
+	 * @param password 密码
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
 	public UiReturn register(String username, String password, HttpSession session) {
@@ -45,13 +50,18 @@ public class AuthController {
 		return UiReturn.ok(user, "注册成功");
 	}
 
+	/**
+	 * 登录操作
+	 * @param username 用户名
+	 * @param password 密码
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public UiReturn login(String username, String password, HttpSession session) {
 
 		// TODO 校验
 
-		// 如果是同一用户登录则跳过登录
+		// 如果已经有同一用户登录则跳过登录
 		String usernameInSession = (String) session.getAttribute(ReusebookStatic.USER_NAME_SESSION_KEY);
 		if (username.equals(usernameInSession)) {
 

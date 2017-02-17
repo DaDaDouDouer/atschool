@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style type="text/css">
+		tr.auth-user {
+			background-color: #d9d919
+		}
+		
+		tr.user {
+			background-color: #12ff7c
+		}
+		
+		tr.borrowhistory {
+			background-color: #f498ee
+		}
+		
+		tr.book {
+			background-color: #e47833
+		}
+		
+		tr.admin {
+			background-color: #ff7f00
+		}
+		
+		tr.usercrud {
+			background-color: #cdcdcd
+		}
+		
+		tr.bookcrud {
+			background-color: #bc8f8f
+		}
+		
+		tr.historycrud {
+			background-color: #93db70
+		}
+		
+		tr.mainpage {
+			background-color: #855e42
+		}
+		
+		td.pre {
+			width: 100%
+		}
+		
+		#indexlist {
+			height: 330px;
+			filter: alpha(Opacity=80);
+			-moz-opacity: 0.5;
+			opacity: 0.5;
+			z-index: 100;
+			background-color: #ffffff;
+			position: fixed;
+			left: 90%
+		}
+	</style>
+	<meta charset="UTF-8">
+	<title>reusebook interface doc</title>
+</head>
+
+<body>
+
+	<div id="indexlist">
+		<h3>index</h3>
+		<a href="#login">login</a><br>
+		<a href="#user">user</a><br>
+		<a href="#book">book</a><br>
+		<a href="#borrowhistory">borrow history</a><br>
+		<a href="#admin">admin</a><br>
+
+		<a href="#usercrud">user crud</a><br>
+		<a href="#bookcrud">book crud</a><br>
+		<a href="#historycrud">borrow history crud</a><br>
+		<a href="#mainpage">mainpage</a><br>
+	</div>
+
+	<table>
+		<thead>
+			<tr>
+				<th>name</th>
+				<th>url</th>
+				<th>method</th>
+				<th>params</th>
+				<th>tips</th>
+				<th>success return</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr class="auth-user" id="auth-user-login">
+				<td>一般用户登录</td>
+				<td>/auth/user/login.do</td>
+				<td>post</td>
+				<td>
+					<p>username 用户名</p>
+					<p>password 密码</p>
+				</td>
+				<td>返回的password为空</td>
+				<td>
+					<pre>
+登录成功
+{
+    "status": 200,
+    "msg": "登录成功",
+    "data": {
+        "id": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "username": "sad",
+        "password": ""
+    },
+    "other": null
+}
+该用户已登录
+{
+    "status": 200,
+    "msg": "已登录",
+    "data": {
+        "id": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "username": "sad",
+        "password": ""
+    },
+    "other": null
+}
+用户名输入错误
+{
+    "status": 400,
+    "msg": "用户不存在",
+    "data": null,
+    "other": null
+}
+密码输入错误
+{
+    "status": 400,
+    "msg": "密码错误",
+    "data": null,
+    "other": null
+}
+						</pre>
+				</td>
+			</tr>
+			<tr class="auth-user" id="auth-user-register">
+				<td>一般用户注册</td>
+				<td>
+					/auth/user/register.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>username 用户名</p>
+					<p>password 密码</p>
+				</td>
+				<td>返回的password为空</td>
+				<td>
+					<pre>
+注册成功
+{
+    "status": 200,
+    "msg": "注册成功",
+    "data": {
+        "id": "3b07f71d-50c7-4861-a25d-b598093bf861",
+        "username": "happy",
+        "password": ""
+    },
+    "other": null
+}
+						</pre>
+				</td>
+			</tr>
+			<tr class="book" id="book">
+				<td>搜书</td>
+				<td>/book!search.action
+
+					<form action="book!search.action" method="post">
+						bookname:<input type="text" name="book.bookname"><br> author:
+						<input type="text" name="book.author"><br>
+						<input type="submit" value="搜索">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>书名 book.bookname</p>
+					<p>作者 book.author</p>
+				</td>
+				<td></td>
+				<td>
+					<pre>		
+{
+	"data": [
+		{
+			"author": "Andrew S. Tanenbaum",
+			"bookname": "计算机网络",
+			"count": 2,
+			"createtime": {
+				"date": 30,
+				"day": 1,
+				"hours": 9,
+				"minutes": 42,
+				"month": 10,
+				"nanos": 0,
+				"seconds": 58,
+				"time": 1448847778000,
+				"timezoneOffset": -480,
+				"year": 115
+			},
+			"description": "《计算机网络（第4版）》...",
+			"holdplace": "二楼右面",
+			"id": 15,
+			"imgpic": "http://...",
+			"isbn": "9787302089773",
+			"label": "技术-通信",
+			"nowcount": 2,
+			"publisher": ""
+		}
+	],
+	"msg": "搜索成功",
+	"status": 200,
+	"other": {}
+}
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="borrowhistory" id="borrowhistory">
+				<td>正在借的书</td>
+				<td><a href="borrowhistory!isBorrowing.action">/borrowhistory!isBorrowing.action</a></td>
+				<td>get</td>
+				<td></td>
+				<td>需要登录</td>
+				<td>
+					<pre>	
+{
+	"data": [],
+	"msg": "查询成功",
+	"status": 200,
+	"other": {}
+}	
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="borrowhistory">
+				<td>曾经借过的书</td>
+				<td><a href="borrowhistory!haveBorrowed.action">/borrowhistory!haveBorrowed.action</a></td>
+				<td>get</td>
+				<td></td>
+				<td>需要登录</td>
+				<td>
+					<pre>
+{
+	"data": [
+		{
+			"bookitemid": 2,
+			"borrowtime": {
+				"date": 29,
+				"day": 0,
+				"hours": 17,
+				"minutes": 35,
+				"month": 10,
+				"nanos": 0,
+				"seconds": 47,
+				"time": 1448789747000,
+				"timezoneOffset": -480,
+				"year": 115
+			},
+			"id": 3,
+			"returntime": {
+				"date": 29,
+				"day": 0,
+				"hours": 17,
+				"minutes": 36,
+				"month": 10,
+				"nanos": 0,
+				"seconds": 52,
+				"time": 1448789812000,
+				"timezoneOffset": -480,
+				"year": 115
+			},
+			"userid": 1,
+			"book": {
+				"author": "桥居",
+				"bookname": "重炮齿轮",
+				"count": 2,
+				"createtime": {
+					"date": 29,
+					"day": 0,
+					"hours": 17,
+					"minutes": 30,
+					"month": 10,
+					"nanos": 0,
+					"seconds": 30,
+					"time": 1448789430000,
+					"timezoneOffset": -480,
+					"year": 115
+				},
+				"description": "自己写的",
+				"holdplace": "宿舍",
+				"id": 1,
+				"imgpic": "http://...",
+				"isbn": "无",
+				"label": "科幻-军事-特工",
+				"nowcount": 2,
+				"publisher": "听风"
+			}
+		}
+	],
+	"msg": "查询成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+			<tr class="user" id="user">
+				<td>用户信息</td>
+				<td><a href="user!showinfo.action">/user!showinfo.action</a></td>
+				<td>get</td>
+				<td></td>
+				<td>需要登录</td>
+				<td>
+					<pre>		
+{
+	"data": {
+		"isBorrowing": [],
+		"haveBorrowing": []
+	},
+	"msg": "获取成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+			<tr class="admin" id="admin">
+				<td>借书</td>
+				<td>/admin!borrowBook.action
+					<form action="admin!borrowBook.action" method="post">
+						userid:<input type="text" name="userid"><br> bookitemid:
+						<input type="text" name="bookitemid"><br>
+						<input type="submit" value="借书">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>借书人id userid</p>
+					<p>借的图书项id bookitemid</p>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+	"data": {
+		"bookid": 1,
+		"borrowtime": {
+			"date": 29,
+			"day": 0,
+			"hours": 10,
+			"minutes": 20,
+			"month": 10,
+			"seconds": 45,
+			"time": 1448763645205,
+			"timezoneOffset": -480,
+			"year": 115
+		},
+		"id": 1,
+		"returntime": null,
+		"userid": 1
+	},
+	"msg": "借书成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+			<tr class="admin">
+				<td>还书</td>
+				<td>/admin!returnBook.action
+					<form action="admin!returnBook.action" method="post">
+						bookitemid:<input type="text" name="bookitemid"><br>
+						<input type="submit" value="还书">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>图书项id bookitemid</p>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+	"data": {
+		"bookid": 1,
+		"borrowtime": {
+			"date": 29,
+			"day": 0,
+			"hours": 10,
+			"minutes": 20,
+			"month": 10,
+			"nanos": 0,
+			"seconds": 45,
+			"time": 1448763645000,
+			"timezoneOffset": -480,
+			"year": 115
+		},
+		"id": 1,
+		"returntime": {
+			"date": 29,
+			"day": 0,
+			"hours": 10,
+			"minutes": 25,
+			"month": 10,
+			"seconds": 23,
+			"time": 1448763923886,
+			"timezoneOffset": -480,
+			"year": 115
+		},
+		"userid": 1
+	},
+	"msg": "还书成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+
+
+			<tr class="usercrud" id="usercrud">
+				<td>查询所有用户</td>
+				<td><a href="admin!loadAllUser.action">/admin!loadAllUser.action</a></td>
+				<td>get</td>
+				<td>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+	"data": [
+		{
+			"id": 1,
+			"isadmin": true,
+			"password": "1",
+			"username": "q"
+		},
+		{
+			"id": 2,
+			"isadmin": true,
+			"password": "1",
+			"username": "w"
+		}
+	],
+	"msg": "查询所有用户成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+			<tr class="usercrud">
+				<td>增加用户</td>
+				<td>/admin!createUser.action
+					<form action="admin!createUser.action" method="post">
+						username:<input type="text" name="user.username"><br> password:
+						<input type="text" name="user.password"><br> isadmin:
+						<input type="text" name="user.isadmin"><br>
+						<input type="submit" value="增加">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>用户名 user.username</p>
+					<p>密码 user.password</p>
+					<p>是否是管理员 user.isadmin</p>
+					<p></p>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+	"data": {
+		"id": 4,
+		"isadmin": false,
+		"password": "1",
+		"username": "e"
+	},
+	"msg": "增加用户成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+			<tr class="usercrud">
+				<td>删除用户通过id</td>
+				<td>/admin!deleteUser.action
+					<form action="admin!deleteUser.action" method="post">
+						userid:<input type="text" name="user.id"><br>
+						<input type="submit" value="删除">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>用户id user.id</p>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+					</pre>
+				</td>
+			</tr>
+			<tr class="usercrud">
+				<td>删除用户通过名字</td>
+				<td>/admin!deleteUserByUsername.action
+					<form action="admin!deleteUserByUsername.action" method="post">
+						username:<input type="text" name="user.username"><br>
+						<input type="submit" value="删除">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>用户名字 user.username</p>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+					</pre>
+				</td>
+			</tr>
+			<tr class="usercrud">
+				<td>更新用户</td>
+				<td>/admin!updateUser.action
+					<form action="admin!updateUser.action" method="post">
+						id:<input type="text" name="user.id"><br> username:
+						<input type="text" name="user.username"><br> password:
+						<input type="text" name="user.password"><br> isadmin:
+						<input type="text" name="user.isadmin"><br>
+						<input type="submit" value="更新">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>用户名 user.id</p>
+					<p>用户名 user.username</p>
+					<p>密码 user.password</p>
+					<p>是否是管理员 user.isadmin(0 or 1;"true" or "false")</p>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+	"data": {
+		"id": 1,
+		"isadmin": false,
+		"password": "2",
+		"username": "qi"
+	},
+	"msg": "增加用户成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="historycrud" id="historycrud">
+				<td>查询所有历史记录</td>
+				<td><a href="admin!loadAllBorrowHistory.action">/admin!loadAllBorrowHistory.action</a></td>
+				<td>get</td>
+				<td>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+	"data": [
+		{
+			"bookitemid": 1,
+			"borrowtime": {
+				"date": 29,
+				"day": 0,
+				"hours": 17,
+				"minutes": 33,
+				"month": 10,
+				"nanos": 0,
+				"seconds": 40,
+				"time": 1448789620000,
+				"timezoneOffset": -480,
+				"year": 115
+			},
+			"id": 1,
+			"returntime": {
+				"date": 29,
+				"day": 0,
+				"hours": 17,
+				"minutes": 34,
+				"month": 10,
+				"nanos": 0,
+				"seconds": 17,
+				"time": 1448789657000,
+				"timezoneOffset": -480,
+				"year": 115
+			},
+			"userid": 1,
+			"book": {
+				"author": "桥居",
+				"bookname": "重炮齿轮",
+				"count": 2,
+				"createtime": {
+					"date": 29,
+					"day": 0,
+					"hours": 17,
+					"minutes": 30,
+					"month": 10,
+					"nanos": 0,
+					"seconds": 30,
+					"time": 1448789430000,
+					"timezoneOffset": -480,
+					"year": 115
+				},
+				"description": "自己写的",
+				"holdplace": "宿舍",
+				"id": 1,
+				"imgpic": "http://...",
+				"isbn": "无",
+				"label": "科幻-军事-特工",
+				"nowcount": 2,
+				"publisher": "听风"
+			}
+		}
+	],
+	"msg": "查询所有借阅历史成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="historycrud">
+				<td>删除历史记录</td>
+				<td>/admin!deleteBorrowHistory.action
+					<form action="admin!deleteBorrowHistory.action" method="post">
+						historyid:<input type="text" name="borrowHistory.id"><br>
+						<input type="submit" value="删除">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>借阅历史id borrowHistory.id</p>
+				</td>
+				<td>不能是正在被借的历史记录</td>
+				<td>
+					<pre>
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="bookcrud" id="bookcrud">
+				<td>增加书</td>
+				<td>/admin!addBook.action
+					<form action="admin!addBook.action" method="post">
+						isbn:<input type="text" name="book.isbn"><br> label:
+						<input type="text" name="book.label"><br> holdplace:
+						<input type="text" name="book.holdplace"><br>
+						<input type="submit" value="增加">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>书isbn book.isbn</p>
+					<p>书标签 book.label</p>
+					<p>书存放地 book.holdplace</p>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+	"data": {
+		"author": "",
+		"bookname": "Hibernate开发与实战",
+		"count": 0,
+		"createtime": {
+			"date": 29,
+			"day": 0,
+			"hours": 20,
+			"minutes": 49,
+			"month": 10,
+			"seconds": 30,
+			"time": 1448801370269,
+			"timezoneOffset": -480,
+			"year": 115
+		},
+		"description": "《Hibernate开发与实战》采用...",
+		"holdplace": "",
+		"id": 2,
+		"imgpic": "http://...",
+		"isbn": "9787121092848",
+		"label": "",
+		"nowcount": 0,
+		"publisher": ""
+	},
+	"msg": "新书添加成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+			<tr class="bookcrud">
+				<td>更新书</td>
+				<td>/admin!updateBook.action
+					<form action="admin!updateBook.action" method="post">
+
+						id:<input type="text" name="book.id"><br> label:
+						<input type="text" name="book.label"><br> holdplace:
+						<input type="text" name="book.holdplace"><br> author:
+						<input type="text" name="book.author"><br> publisher:
+						<input type="text" name="book.publisher"><br> description:
+						<input type="text" name="book.description"><br> imgpic:
+						<input type="text" name="book.imgpic"><br>
+						<input type="submit" value="更新">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>书id book.id</p>
+					<p>书标签 book.label</p>
+					<p>书存放地 book.holdplace</p>
+					<p>书作者 book.author</p>
+					<p>书出版社 book.publisher</p>
+					<p>书介绍 book.description</p>
+					<p>书图片地址 book.imgpic</p>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+
+					</pre>
+				</td>
+			</tr>
+			<tr class="bookcrud">
+				<td>查询所有书</td>
+				<td><a href="admin!loadAllBook.action">/admin!loadAllBook.action</a></td>
+				<td>get</td>
+				<td></td>
+				<td></td>
+				<td>
+					<pre>
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="bookcrud">
+				<td>通过id获取书</td>
+				<td>/book!getBookById.action
+					<form action="book!getBookById.action" method="post">
+						bookid:<input type="text" name="book.id"><br>
+						<input type="submit" value="获取">
+					</form>
+				</td>
+				<td>post</td>
+				<td>
+					<p>书id book.id</p>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+	"data": {
+		"author": "桥居",
+		"bookname": "重炮齿轮",
+		"count": 2,
+		"createtime": {
+			"date": 29,
+			"day": 0,
+			"hours": 17,
+			"minutes": 30,
+			"month": 10,
+			"nanos": 0,
+			"seconds": 30,
+			"time": 1448789430000,
+			"timezoneOffset": -480,
+			"year": 115
+		},
+		"description": "自己写的",
+		"holdplace": "宿舍",
+		"id": 1,
+		"imgpic": "http://...",
+		"isbn": "无",
+		"label": "科幻-军事-特工",
+		"nowcount": 2,
+		"publisher": "听风"
+	},
+	"msg": "获取成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="mainpage" id="mainpage">
+				<td>获取推荐书</td>
+				<td><a href="mainpage!recommendBooks.action">/mainpage!recommendBooks.action</a></td>
+				<td>get</td>
+				<td></td>
+				<td></td>
+				<td>
+					<pre>
+{
+	"data": [
+		{
+			"author": "杭州华三通信技术有限公司",
+			"bookname": "路由交换技术 第3卷",
+			"count": 1,
+			"createtime": {
+				"date": 30,
+				"day": 1,
+				"hours": 9,
+				"minutes": 42,
+				"month": 10,
+				"nanos": 0,
+				"seconds": 8,
+				"time": 1448847728000,
+				"timezoneOffset": -480,
+				"year": 115
+			},
+			"description": ".....",
+			"holdplace": "二楼右面",
+			"id": 14,
+			"imgpic": "http://...",
+			"isbn": "9787302276296",
+			"label": "技术-通信",
+			"nowcount": 1,
+			"publisher": ""
+		}
+	],
+	"msg": "推荐书成功",
+	"status": 200,
+	"other": {}
+}
+						</pre>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+</body>
+
+</html>
