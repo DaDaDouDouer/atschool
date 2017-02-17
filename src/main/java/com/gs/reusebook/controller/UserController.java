@@ -28,7 +28,7 @@ public class UserController {
 		
 		User user = new User();
 		int i = (int) (1000 * Math.random());
-		user.setId(i);
+		user.setId("dfasd");
 		user.setUsername("erwtwret" + i);
 		user.setPassword("3431" + i);
 		
@@ -71,7 +71,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/updateUsername", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateUsername(int id, String username){
+	public String updateUsername(String id, String username){
 		userService.updateUsername(username, id);
 		return "update success";
 	}

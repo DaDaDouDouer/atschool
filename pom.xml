@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.gs</groupId>
-  <artifactId>reusebook</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>reusebook Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.gs</groupId>
+	<artifactId>reusebook</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>reusebook Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
 	<properties>
 		<!-- spring版本号 -->
 		<spring.version>3.2.4.RELEASE</spring.version>
@@ -140,7 +140,15 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<!-- log end -->
-
+		
+		<!-- tomcat lib -->
+		<!-- 
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>6.0.39</version>
+		</dependency>
+ 		-->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -148,8 +156,8 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
-  <build>
-    <finalName>reusebook</finalName>
-  </build>
+
+	<build>
+		<finalName>reusebook</finalName>
+	</build>
 </project>
