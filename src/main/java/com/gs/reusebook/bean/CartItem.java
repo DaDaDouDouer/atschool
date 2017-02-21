@@ -1,5 +1,12 @@
 package com.gs.reusebook.bean;
 
+/**
+ * 购物车项，和用户、商品关联<br>
+ * 用户每加入购物车一个商品，数据库就增加一行
+ * 
+ * @author IceAsh
+ *
+ */
 public class CartItem {
 	private String id;
 

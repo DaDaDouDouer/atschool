@@ -1,9 +1,22 @@
 package com.gs.reusebook.bean;
 
+/**
+ * 
+ * 商品的抽象层，包含商品需要展示的最基本的信息
+ * 
+ * @author IceAsh
+ *
+ */
 public class Goods {
 	private String id;
+	/**
+	 * 对应实际商品的id
+	 */
 	private String realGoodsId;
 	private String sellerId;
+	/**
+	 * 表示实际的商品在哪张数据库表中，因为以后可能有多种商品（大概吧）
+	 */
 	private String linkTable;
 
 	private String name;
