@@ -2,12 +2,20 @@ package com.gs.reusebook.util;
 
 import java.security.MessageDigest;
 
+import org.apache.log4j.Logger;
+
 /**
  * 生成MD5
  * @author IceAsh
  *
  */
 public class MD5Util {
+	
+	private static Logger logger = Logger.getLogger(MD5Util.class);
+	
+	private MD5Util() {
+	}
+	
 	public static String getMD5(String message) {
 		if(message == null){
 			return null;
@@ -23,7 +31,7 @@ public class MD5Util {
 			md5str = bytesToHex(buff);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return md5str;
 	}

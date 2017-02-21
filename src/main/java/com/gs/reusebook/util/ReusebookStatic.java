@@ -6,18 +6,22 @@ package com.gs.reusebook.util;
  *
  */
 public class ReusebookStatic {
+	
+	private ReusebookStatic() {
+	}
+	
 	/**
 	 * session中保存user的键
 	 */
-	public static String USER_SESSION_KEY = "thenowuser";
+	public final static String USER_SESSION_KEY = "thenowuser";
 	
 	/**
 	 * session中保存user的id的键
 	 */
-	public static String USER_ID_SESSION_KEY = "thenowuserid";
+	public final static String USER_ID_SESSION_KEY = "thenowuserid";
 	
 	/**
 	 * session中保存user的name的键
 	 */
-	public static String USER_NAME_SESSION_KEY = "thenowusername";
+	public final static String USER_NAME_SESSION_KEY = "thenowusername";
 }
