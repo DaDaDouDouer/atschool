@@ -15,7 +15,7 @@ import com.gs.reusebook.util.UiReturn;
 public class UserService {
 
 	@Autowired
-	private UserDao userDao;
+	public UserDao userDao;
 
 	/**
 	 * 一般用户注册
@@ -59,27 +59,5 @@ public class UserService {
 		userInDB.setPassword("");
 		return UiReturn.ok(userInDB, "登录成功");
 	}
-	
-	
-	public int insertUser(User user) {
-		return userDao.insertUser(user);
-	}
-
-	public void deleteById(int id) {
-		userDao.deleteById(id);
-	}
-	
-	public void updateUsername(String username, String id) {
-		userDao.updateUsername(username, id);
-	}
-	
-	public List<User> selectAll() {
-		return userDao.selectAll();
-	}
-	
-	public List<User> selectByName(String username) {
-		return userDao.selectByName("%" + username + "%");
-	}
-	
 	
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 这里要改为某个bean的dao -->
+<mapper namespace="com.gs.reusebook.dao.CartItemDao">
+
+	<select id="selectAllWithGoods" resultType="CartItem" resultMap="cartItemResultMap">
+		select * from tab_cart_item c, tab_goods g where g.id = c.goods_id
+	</select>
+
+	<!-- 解决bean字段和数据库列名不一致的问题， 需要用到此map的地方需要添加属性resultMap="userResultMap" 比如selectAll -->
+	<resultMap type="com.gs.reusebook.bean.CartItem" id="cartItemResultMap">
+		<!-- 用id标签来映射主键字段 -->
+		<id property="id" column="id" />
+		<!-- 用result标签来映射非主键字段 -->
+		<result property="userId" column="user_id" />
+		<result property="goodsId" column="goods_id" />
+		<association property="goods" javaType="com.gs.reusebook.bean.Goods">
+			<id property="id" column="id" />
+			<result property="realGoodsId" column="real_goods_id" />
+			<result property="sellerId" column="seller_id" />
+			<result property="linkTable" column="link_table" />
+			<result property="name" column="name" />
+			
+			<result property="price" column="price" />
+			<result property="count" column="count" />
+		</association>
+	</resultMap>
+
+</mapper>
