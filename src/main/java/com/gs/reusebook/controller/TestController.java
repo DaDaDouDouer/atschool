@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.bean.User;
-import com.gs.reusebook.service.UserService;
+import com.gs.reusebook.service.TestService;
 
 @Controller
 @RequestMapping("/")
 public class TestController {
 	
 	@Autowired
-	private UserService userService;
+	private TestService testService;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	@ResponseBody
@@ -32,7 +32,7 @@ public class TestController {
 		user.setUsername("erwtwret" + i);
 		user.setPassword("3431" + i);
 		
-		userService.insertUser(user);
+		testService.insertUser(user);
 		
 		System.out.println("---------------out index---------------");
 		
@@ -42,13 +42,13 @@ public class TestController {
 	@RequestMapping(value = "/selectAll", method = RequestMethod.GET)
 	@ResponseBody
 	public List<User> selectAll(){
-		return userService.selectAll();
+		return testService.selectAll();
 	}
 
 	@RequestMapping(value = "/selectByName", method = RequestMethod.GET)
 	@ResponseBody
 	public List<User> selectByName(){
-		return userService.selectByName("5");
+		return testService.selectByName("5");
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class TestController {
 	@RequestMapping(value = "/deleteById", method = RequestMethod.GET)
 	@ResponseBody
 	public String deleteById(@RequestParam Integer id){
-		userService.deleteById(id);
+		testService.deleteById(id);
 		return "delete success";
 	}
 
@@ -71,7 +71,7 @@ public class TestController {
 	@RequestMapping(value = "/selectUserCarts", method = RequestMethod.GET)
 	@ResponseBody
 	public List<User> selectUserCarts(@RequestParam String userId){
-		return userService.selectUserWithCartItems(userId);
+		return testService.selectUserWithCartItems(userId);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class TestController {
 	@RequestMapping(value = "/updateUsername", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateUsername(String id, String username){
-		userService.updateUsername(username, id);
+		testService.updateUsername(username, id);
 		return "update success";
 	}
 	
@@ -98,7 +98,7 @@ public class TestController {
 	@RequestMapping(value = "/updateUsernameBean", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateUsernameBean(User user){
-		userService.updateUsername(user.getUsername(), user.getId());
+		testService.updateUsername(user.getUsername(), user.getId());
 		return "update success";
 	}
 	

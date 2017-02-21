@@ -6,7 +6,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <!-- 命名空间 -->
     <typeAliases>
     	<!-- 这里要写所有要入库的bean -->
-        <typeAlias alias="User" type="com.gs.reusebook.bean.User"/> 
+        <typeAlias alias="User" type="com.gs.reusebook.bean.User"/>
+        <typeAlias alias="CartItem" type="com.gs.reusebook.bean.CartItem"/> 
+        <typeAlias alias="Goods" type="com.gs.reusebook.bean.Goods"/>  
     </typeAliases>
 
     <!-- 映射map -->
