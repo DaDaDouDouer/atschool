@@ -26,7 +26,8 @@
 
 	<select id="selectUserWithCartItems" resultType="User" parameterType="String" resultMap="userResultMap">
 		select *
-		 from tab_user u, tab_cart_item c where u.id = c.user_id and u.id = #{userId}
+		 from tab_user u, tab_cart_item c, tab_goods g 
+		  where g.id = c.goods_id and u.id = c.user_id and u.id = #{userId}
 	</select>
 
 	<select id="selectByName" parameterType="String" resultType="User">
@@ -58,6 +59,18 @@
 			<id property="id" column="id" />
 			<result property="userId" column="user_id" />
 			<result property="goodsId" column="goods_id" />
+			
+			<association property="goods" javaType="com.gs.reusebook.bean.Goods">
+				<id property="id" column="id" />
+				<result property="realGoodsId" column="real_goods_id" />
+				<result property="sellerId" column="seller_id" />
+				<result property="linkTable" column="link_table" />
+				<result property="name" column="name" />
+				
+				<result property="price" column="price" />
+				<result property="count" column="count" />
+			</association>
+			
 		</collection>
 	</resultMap>
 
