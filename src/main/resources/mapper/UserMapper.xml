@@ -60,6 +60,7 @@
 			<result property="userId" column="user_id" />
 			<result property="goodsId" column="goods_id" />
 			
+			<!-- 购物车关联的商品 -->
 			<association property="goods" javaType="com.gs.reusebook.bean.Goods">
 				<id property="id" column="id" />
 				<result property="realGoodsId" column="real_goods_id" />
