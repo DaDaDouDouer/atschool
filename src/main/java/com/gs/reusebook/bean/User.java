@@ -1,6 +1,7 @@
 package com.gs.reusebook.bean;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 网站一般用户
@@ -17,6 +18,8 @@ public class User {
 	private String password;
 
 	private Date createTime;
+
+	private List<CartItem> cartItems;
 
 	public User() {
 	}
@@ -53,4 +56,11 @@ public class User {
 		this.createTime = createTime;
 	}
 
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public List<CartItem> getCartItems() {
+		return cartItems;
+	}
 }

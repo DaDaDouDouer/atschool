@@ -77,6 +77,10 @@ public class UserService {
 		return userDao.selectAll();
 	}
 	
+	public List<User> selectUserWithCartItems(String userId) {
+		return userDao.selectUserWithCartItems(userId);
+	}
+	
 	public List<User> selectByName(String username) {
 		return userDao.selectByName("%" + username + "%");
 	}

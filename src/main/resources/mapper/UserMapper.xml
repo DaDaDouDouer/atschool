@@ -24,6 +24,11 @@
 		select * from tab_user
 	</select>
 
+	<select id="selectUserWithCartItems" resultType="User" parameterType="String" resultMap="userResultMap">
+		select *
+		 from tab_user u, tab_cart_item c where u.id = c.user_id and u.id = #{userId}
+	</select>
+
 	<select id="selectByName" parameterType="String" resultType="User">
 		select * from tab_user where username like #{username}
 	</select>
@@ -48,6 +53,12 @@
 		<result property="username" column="username" />
 		<result property="password" column="password" />
 		<result property="createTime" column="create_time" />
+		<!-- 购物车list -->
+		<collection property="cartItems" column="user_id" ofType="com.gs.reusebook.bean.CartItem">
+			<id property="id" column="id" />
+			<result property="userId" column="user_id" />
+			<result property="goodsId" column="goods_id" />
+		</collection>
 	</resultMap>
 
 </mapper>

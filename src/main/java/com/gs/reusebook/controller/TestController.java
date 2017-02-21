@@ -62,6 +62,17 @@ public class TestController {
 		userService.deleteById(id);
 		return "delete success";
 	}
+
+	/**
+	 * get url后面跟的参数必须加注解@RequestParam
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/selectUserCarts", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> selectUserCarts(@RequestParam String userId){
+		return userService.selectUserWithCartItems(userId);
+	}
 	
 	/**
 	 * post参数的话不用加注解直接写参数，前端传来的必须是x-www-form-urlencoded的参数
