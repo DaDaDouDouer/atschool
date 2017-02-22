@@ -85,9 +85,38 @@
 
 ### 后台
 
+#### 环境配置
+
+1. 安装JDK8（推荐8u111及以上），环境变量配置
+
+2. 安装Tomcat（7.0.53），用exe安装则不需要进行环境变量配置
+
+3. 安装maven（3.3.9），环境变量配置。从coding网站下载配置文件，修改本地库路径
+
+4. 项目导入eclipse，导入安装的JRE系统库以及Tomcat库
+
+5.
+    修改tomcat的配置文件：server.xml，修改段应该位于该文件的最下方，
+    
+    修改前：
+    ```
+        <Context docBase="reusebook" path="/reusebook" reloadable="true" source="org.eclipse.jst.j2ee.server:reusebook"/>
+    ```
+    修改后：    
+    ```
+        <Context docBase="reusebook" debug="0" path="" reloadable="true" source="org.eclipse.jst.j2ee.server:reusebook"/>
+    ```
+
+    需要注意的是，修改的属性只有docBase，path，之后增加debug属性，别的属性维持原状，比如source以各自的为准
+
+#### 开始运行
+
 1. 如果出现log4j的报错，找不到文件WEB-INF/logs/error.log，则不用管
 
-2. 项目运行后，context为**reusebook**，后面的接口路径取决于controller中的路径写法，最后以.do结尾。
-形如：http://localhost:8080/reusebook/selectAll.do
+2. 项目运行后，context为**reusebook**，如果已修改了tomcat的配置文件，则context为空。
+    
+    context后面的接口路径取决于controller中的路径写法，最后以.do结尾。
+    
+    形如：http://localhost:8080/reusebook/selectAll.do，http://localhost:8080/selectAll.do
 
-3.
+    前端访问方法以前端为准
