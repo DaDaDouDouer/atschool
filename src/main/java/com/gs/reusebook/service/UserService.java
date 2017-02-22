@@ -23,8 +23,14 @@ public class UserService {
 	 * @param password 密码
 	 * @return 
 	 */
-	public User register(String username, String password){
+	public UiReturn register(String username, String password){
 
+		// 检查是否重名
+		List<User> usersInDB = userDao.selectByName(username);
+		if(usersInDB != null && !usersInDB.isEmpty()){
+			return UiReturn.notOk(null, "名字重复", GlobalStatus.REQ_ERROR_400);
+		}
+		
 		// 构建bean
 		User user = new User();
 		user.setId(UUID.randomUUID().toString());
@@ -34,7 +40,10 @@ public class UserService {
 		// 入库
 		userDao.insertUser(user);
 		
-		return user;
+		// 去除敏感信息
+		user.setPassword("");
+		
+		return UiReturn.ok(user, "注册成功");
 	}
 	
 
