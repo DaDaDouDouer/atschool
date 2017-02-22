@@ -14,10 +14,10 @@ public class GoodsService {
 	@Autowired
 	private GoodsDao goodsDao;
 
-	public List<Goods> selectAndPagedByName(String keyword, long pageNo, long limit) {
+	public List<Goods> selectAndPagedByName(String keyword, int pageNo, int limit) {
 		// TODO 参数校验
 
-		long offset = (pageNo - 1) * limit;
+		int offset = (pageNo - 1) * limit;
 
 		return goodsDao.selectAndPagedByName("%" + keyword + "%", offset, limit);
 	}
