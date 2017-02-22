@@ -1,5 +1,7 @@
 package com.gs.reusebook.util;
 
+import static com.gs.reusebook.util.GlobalStatus.SUCCESS_200;
+
 /**
  * 用于生成返回给前端的标准json格式
  * 
@@ -16,14 +18,14 @@ public class UiReturn {
 	private UiReturn(Object data, String msg) {
 		this.msg = msg;
 		this.data = data;
-		this.status = GlobalStatus.SUCCESS_200;
+		this.status = SUCCESS_200;
 		this.other = null;
 	}
 
 	private UiReturn(Object data, String msg, Object other) {
 		this.msg = msg;
 		this.data = data;
-		this.status = GlobalStatus.SUCCESS_200;
+		this.status = SUCCESS_200;
 		this.other = other;
 	}
 
