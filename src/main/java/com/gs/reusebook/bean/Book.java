@@ -7,21 +7,42 @@ package com.gs.reusebook.bean;
  * @author IceAsh
  *
  */
-public class Book {
+public class Book extends RealGoods{
+	private String id;
+
 	private String name;
+	private String author;
 	private String isbn;
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getId() {
+		return id;
+	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getIsbn() {
 		return isbn;
 	}
+
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-	
-	
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
 }

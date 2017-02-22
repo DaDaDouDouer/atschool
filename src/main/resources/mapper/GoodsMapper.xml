@@ -9,6 +9,10 @@
 		SELECT * FROM tab_goods WHERE NAME LIKE #{name} LIMIT #{offset},#{limit}
 	</select>
 
+	<select id="selectById" resultType="Goods" resultMap="normalGoodsResultMap">
+		SELECT * FROM tab_goods WHERE id = #{id}
+	</select>
+
 	<!-- 解决bean字段和数据库列名不一致的问题， 需要用到此map的地方需要添加属性resultMap="userResultMap" 比如selectAll -->
 	<resultMap type="com.gs.reusebook.bean.Goods" id="normalGoodsResultMap">
 		<!-- 用id标签来映射主键字段 -->

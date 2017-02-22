@@ -15,7 +15,7 @@
 			background-color: #f498ee
 		}
 		
-		tr.book {
+		tr.goods {
 			background-color: #e47833
 		}
 		
@@ -89,11 +89,17 @@
 		<tbody>
 			<tr class="auth-user" id="auth-user-login">
 				<td>一般用户登录</td>
-				<td>/auth/user/login.do</td>
+				<td>auth/user/login.do</td>
 				<td>post</td>
 				<td>
 					<p>username 用户名</p>
 					<p>password 密码</p>
+					<pre>
+{
+	"username":"sad",
+	"password":"987"
+}
+					</pre>
 				</td>
 				<td>返回的password为空</td>
 				<td>
@@ -140,12 +146,18 @@
 			<tr class="auth-user" id="auth-user-register">
 				<td>一般用户注册</td>
 				<td>
-					/auth/user/register.do
+					auth/user/register.do
 				</td>
 				<td>post</td>
 				<td>
 					<p>username 用户名</p>
 					<p>password 密码</p>
+					<pre>
+{
+	"username":"sad",
+	"password":"987"
+}
+					</pre>
 				</td>
 				<td>返回的password为空</td>
 				<td>
@@ -167,7 +179,7 @@
 			<tr class="auth-user" id="auth-user-logout">
 				<td>一般用户注销</td>
 				<td>
-					/auth/user/logout.do
+					auth/user/logout.do
 				</td>
 				<td>get</td>
 				<td>
@@ -185,55 +197,51 @@
 						</pre>
 				</td>
 			</tr>
-			<tr class="book" id="book">
-				<td>搜书</td>
-				<td>/book!search.action
-
-					<form action="book!search.action" method="post">
-						bookname:<input type="text" name="book.bookname"><br> author:
-						<input type="text" name="book.author"><br>
-						<input type="submit" value="搜索">
-					</form>
+			<tr class="goods" id="goods-search">
+				<td>通过关键字分页搜商品</td>
+				<td>
+					goods/search.do
 				</td>
 				<td>post</td>
 				<td>
-					<p>书名 book.bookname</p>
-					<p>作者 book.author</p>
+					<p>keyword 搜索关键字</p>
+					<p>pageNo 页数</p>
+					<p>limit 每页条数</p>
+					<pre>
+{
+	"keyword" : "C",
+	"pageNo" : 1,
+	"limit" : 1
+}
+					</pre>
 				</td>
 				<td></td>
 				<td>
 					<pre>		
 {
-	"data": [
-		{
-			"author": "Andrew S. Tanenbaum",
-			"bookname": "计算机网络",
-			"count": 2,
-			"createtime": {
-				"date": 30,
-				"day": 1,
-				"hours": 9,
-				"minutes": 42,
-				"month": 10,
-				"nanos": 0,
-				"seconds": 58,
-				"time": 1448847778000,
-				"timezoneOffset": -480,
-				"year": 115
-			},
-			"description": "《计算机网络（第4版）》...",
-			"holdplace": "二楼右面",
-			"id": 15,
-			"imgpic": "http://...",
-			"isbn": "9787302089773",
-			"label": "技术-通信",
-			"nowcount": 2,
-			"publisher": ""
-		}
-	],
-	"msg": "搜索成功",
-	"status": 200,
-	"other": {}
+  "status": 200,
+  "msg": "搜索成功",
+  "data": [
+    {
+      "id": "1",
+      "realGoodsId": "11",
+      "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "linkTable": "tab_book",
+      "name": "C",
+      "price": 321.2,
+      "count": 3
+    },
+    {
+      "id": "3",
+      "realGoodsId": "13",
+      "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "linkTable": "tab_book",
+      "name": "C++",
+      "price": 439.2,
+      "count": 3
+    }
+  ],
+  "other": null
 }
 					</pre>
 				</td>
