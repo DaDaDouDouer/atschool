@@ -24,6 +24,26 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	/**
+	 * 获取在商城中的用户信息
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/getUserInfoInMarketByUserId", method = RequestMethod.GET)
+	@ResponseBody
+	public UiReturn getUserInfoInMarketByUserId(HttpSession session) {
+		String userId = (String) session.getAttribute(USER_ID_SESSION_KEY);
+		// TODO 为空校验
+		return userService.getUserInfoInMarketByUserId(userId);
+	}
+	
+	
+	/**
+	 * 修改密码
+	 * @param params
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	@ResponseBody
 	public UiReturn changePassword(@RequestBody ChangePasswordParams params, HttpSession session) {
@@ -41,6 +61,12 @@ public class UserController {
 		return uiReturn;
 	}
 	
+	/**
+	 * 添加收货地址
+	 * @param deliveryAddressParams
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/addAddress", method = RequestMethod.POST)
 	@ResponseBody
 	public UiReturn addAddress(@RequestBody DeliveryAddress deliveryAddressParams, HttpSession session) {
@@ -51,6 +77,12 @@ public class UserController {
 		return userService.addAddress(userId, deliveryAddressParams);
 	}
 	
+	/**
+	 * 删除收货地址
+	 * @param deliveryAddressParams
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/deleteAddress", method = RequestMethod.POST)
 	@ResponseBody
 	public UiReturn deleteAddress(@RequestBody DeliveryAddress deliveryAddressParams, HttpSession session) {

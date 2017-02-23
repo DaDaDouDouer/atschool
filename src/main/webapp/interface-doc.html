@@ -257,7 +257,7 @@
 					<p>id 商品id</p>
 					<pre>
 {
-	"id":"2"
+  "id":"2"
 }
 					</pre>
 				</td>
@@ -285,122 +285,101 @@
 
 
 
-----------------------------------------------------------------------------------------------------------------
 
 
+			<tr class="user" id="user-changePassword">
+				<td>修改密码</td>
+				<td>
+					user/changePassword.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>oldPassword 旧密码</p>
+					<p>newPassword 新密码</p>
+					<pre>
+{
+  "oldPassword":"000",
+  "newPassword":"000sdad"
+}
+					</pre>
+				</td>
+				<td>需要登录，不会返回密码</td>
+				<td>
+					<pre>	
+{
+  "status": 200,
+  "msg": "修改成功",
+  "data": {
+    "id": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+    "username": "sad",
+    "password": "",
+    "createTime": 1487088000000,
+    "cartItems": null
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
 
-
-
-			<tr class="borrowhistory" id="borrowhistory">
-				<td>正在借的书</td>
-				<td><a href="borrowhistory!isBorrowing.action">/borrowhistory!isBorrowing.action</a></td>
+			<tr class="user" id="addAddress">
+				<td>添加收货地址</td>
+				<td>
+					user/addAddress.do
+				</td>
 				<td>get</td>
-				<td></td>
+				<td>
+					<p>address 收货地址</p>
+					<pre>
+{
+  "address":"江苏省南京市栖霞区文苑路南京邮电大学"
+}
+					</pre>
+				</td>
 				<td>需要登录</td>
 				<td>
 					<pre>	
 {
-	"data": [],
-	"msg": "查询成功",
-	"status": 200,
-	"other": {}
-}	
+  "status": 200,
+  "msg": "添加收货地址成功",
+  "data": null,
+  "other": null
+}
 						</pre>
 				</td>
 			</tr>
 
-			<tr class="borrowhistory">
-				<td>曾经借过的书</td>
-				<td><a href="borrowhistory!haveBorrowed.action">/borrowhistory!haveBorrowed.action</a></td>
-				<td>get</td>
-				<td></td>
-				<td>需要登录</td>
+			<tr class="user" id="deleteAddress">
+				<td>删除收货地址</td>
 				<td>
+					user/deleteAddress.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id 收货地址的id</p>
 					<pre>
 {
-	"data": [
-		{
-			"bookitemid": 2,
-			"borrowtime": {
-				"date": 29,
-				"day": 0,
-				"hours": 17,
-				"minutes": 35,
-				"month": 10,
-				"nanos": 0,
-				"seconds": 47,
-				"time": 1448789747000,
-				"timezoneOffset": -480,
-				"year": 115
-			},
-			"id": 3,
-			"returntime": {
-				"date": 29,
-				"day": 0,
-				"hours": 17,
-				"minutes": 36,
-				"month": 10,
-				"nanos": 0,
-				"seconds": 52,
-				"time": 1448789812000,
-				"timezoneOffset": -480,
-				"year": 115
-			},
-			"userid": 1,
-			"book": {
-				"author": "桥居",
-				"bookname": "重炮齿轮",
-				"count": 2,
-				"createtime": {
-					"date": 29,
-					"day": 0,
-					"hours": 17,
-					"minutes": 30,
-					"month": 10,
-					"nanos": 0,
-					"seconds": 30,
-					"time": 1448789430000,
-					"timezoneOffset": -480,
-					"year": 115
-				},
-				"description": "自己写的",
-				"holdplace": "宿舍",
-				"id": 1,
-				"imgpic": "http://...",
-				"isbn": "无",
-				"label": "科幻-军事-特工",
-				"nowcount": 2,
-				"publisher": "听风"
-			}
-		}
-	],
-	"msg": "查询成功",
-	"status": 200,
-	"other": {}
+	"id":"6abd4f8d-3a79-4fb7-b573-add4f449d32c"
 }
-						</pre>
+					</pre>
 				</td>
-			</tr>
-			<tr class="user" id="user">
-				<td>用户信息</td>
-				<td><a href="user!showinfo.action">/user!showinfo.action</a></td>
-				<td>get</td>
-				<td></td>
 				<td>需要登录</td>
 				<td>
-					<pre>		
+					<pre>	
 {
-	"data": {
-		"isBorrowing": [],
-		"haveBorrowing": []
-	},
-	"msg": "获取成功",
-	"status": 200,
-	"other": {}
+  "status": 200,
+  "msg": "删除收货地址成功",
+  "data": null,
+  "other": null
 }
-						</pre>
+					</pre>
 				</td>
 			</tr>
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
 			<tr class="admin" id="admin">
 				<td>借书</td>
 				<td>/admin!borrowBook.action

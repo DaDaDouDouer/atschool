@@ -23,6 +23,13 @@ public class UserService {
 	@Autowired
 	private DeliveryAddressDao deliveryAddressDao;
 	
+	
+	public UiReturn getUserInfoInMarketByUserId(String userId){
+
+		// TODO 参数校验
+		return UiReturn.ok(userDao.getUserInfoInMarketWithAddressByUserId(userId), "获取个人信息成功");
+	}
+	
 	/**
 	 * 修改密码，旧密码和session中的user比较<br>
 	 * 如果修改成功则返回修改之后的user

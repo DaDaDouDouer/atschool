@@ -1,5 +1,7 @@
 package com.gs.reusebook.bean;
 
+import java.util.List;
+
 /**
  * 当用户处在商城时的用户信息
  * 
@@ -12,6 +14,8 @@ public class UserInfoInMarket {
 
 	private String userId;
 
+	private List<DeliveryAddress> deliveryAddresses;
+	
 	public String getId() {
 		return id;
 	}
@@ -28,4 +32,12 @@ public class UserInfoInMarket {
 		this.userId = userId;
 	}
 
+	public List<DeliveryAddress> getDeliveryAddresses() {
+		return deliveryAddresses;
+	}
+	
+	public void setDeliveryAddresses(List<DeliveryAddress> deliveryAddresses) {
+		this.deliveryAddresses = deliveryAddresses;
+	}
+	
 }
