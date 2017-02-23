@@ -247,6 +247,50 @@
 				</td>
 			</tr>
 
+			<tr class="goods" id="goods-getRealGoods">
+				<td>通过商品id获取实际商品信息</td>
+				<td>
+					goods/getRealGoods.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id 商品id</p>
+					<pre>
+{
+	"id":"2"
+}
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>		
+{
+  "status": 200,
+  "msg": "获取成功",
+  "data": {
+    "id": "12",
+    "name": "Java",
+    "author": "ytutre",
+    "isbn": "6744533"
+	还包含其他商品信息
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 			<tr class="borrowhistory" id="borrowhistory">
 				<td>正在借的书</td>
 				<td><a href="borrowhistory!isBorrowing.action">/borrowhistory!isBorrowing.action</a></td>

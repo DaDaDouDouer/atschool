@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.bean.RealGoods;
+import com.gs.reusebook.util.UiReturn;
 
 public class GoodsTest {
 
@@ -25,13 +26,13 @@ public class GoodsTest {
 	
 //	@Test
 	public void testSelectAndPagedByName(){
-		List<Goods> goodses = goodsService.selectAndPagedByName("%%", 2, 3);
+		UiReturn goodses = goodsService.selectAndPagedByName("%%", 2, 3);
 		System.out.println(goodses);
 	}
 	
 	@Test
 	public void testGetRealGoods(){
-		RealGoods realGoods = goodsService.getRealGoods("1");
+		UiReturn realGoods = goodsService.getRealGoods("1");
 		System.out.println(realGoods);
 	}
 }

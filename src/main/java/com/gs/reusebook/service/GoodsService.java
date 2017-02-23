@@ -1,16 +1,14 @@
 package com.gs.reusebook.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.Goods;
-import com.gs.reusebook.bean.RealGoods;
 import com.gs.reusebook.dao.BookDao;
 import com.gs.reusebook.dao.DaoForRealGoods;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.util.DaoPool;
+import com.gs.reusebook.util.UiReturn;
 
 @Service
 public class GoodsService implements ServiceWhichUseDaoPool{
@@ -22,12 +20,12 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	private BookDao bookDao;
 
 	/**
-	 * 用于存储实际商品的dao
+	 * 用于存储实际商品dao的dao池
 	 */
 	private DaoPool daoPool = null;
 	
 	/**
-	 * 构造时初始化dao池
+	 * 构造service时时初始化dao池
 	 */
 	public GoodsService() {
 		daoPool = new DaoPool();
@@ -41,20 +39,27 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 * @param limit
 	 * @return
 	 */
-	public List<Goods> selectAndPagedByName(String keyword, int pageNo, int limit) {
-		// TODO 参数校验
+	public UiReturn selectAndPagedByName(String keyword, int pageNo, int limit) {
+		// TODO 参数校验修正
 
 		int offset = (pageNo - 1) * limit;
 
-		return goodsDao.selectAndPagedByName("%" + keyword + "%", offset, limit);
+		return UiReturn.ok(goodsDao.selectAndPagedByName("%" + keyword + "%", offset, limit), "搜索成功");
 	}
 
-	public RealGoods getRealGoods(String goodsId){
+	/**
+	 * 通过goods中的实际商品id和表名获取实际商品对象
+	 * @param goodsId 商品id，不是实际商品id
+	 * @return
+	 */
+	public UiReturn getRealGoods(String goodsId){
 		// TODO 参数校验
 		Goods goods = goodsDao.selectById(goodsId);
-		// 为空校验
+		
+		// TODO 为空校验
 		DaoForRealGoods<?> realGoodsDao = daoPool.getDao(goods.getLinkTable());
-		return realGoodsDao.selectById(goods.getRealGoodsId());
+		
+		return UiReturn.ok(realGoodsDao.selectById(goods.getRealGoodsId()), "获取成功");
 	}
 	
 	
