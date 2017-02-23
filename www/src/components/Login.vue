@@ -6,23 +6,16 @@
         <v-spacer></v-spacer>
       </v-card-title>
     </v-card-row>
-    <v-card-text class="input">
+    <v-card-text class="input" v-for='(input, index) in formItems'>
       <v-text-input
-        id="test3"
-        name="test3"
-        type="text"
-        label="用户名"
-        placeholder="请输入您的用户名"
+        v-model="form[input.name]"
+        :id="input.index"
+        :name="input.name"
+        :type="input.type"
+        :label="input.label"
+        :placeholder="input.placeholder"
       ></v-text-input>
     </v-card-text>
-    <v-card-text class="input">
-      <v-text-input
-        id="test3"
-        name="test3"
-        type="password"
-        label="密码"
-        placeholder="请输入您的密码"
-      ></v-text-input>
     </v-card-text>
     <v-card-text>
       <v-btn primary dark>登录</v-btn>
@@ -35,7 +28,24 @@ export default {
   name: 'login',
   data () {
     return {
-      login: 'login'
+      formItems: [
+        {
+          name: 'username',
+          type: 'text',
+          label: '用户名',
+          placeholder: '请输入您的用户名'
+        },
+        {
+          name: 'password',
+          type: 'password',
+          label: '密码',
+          placeholder: '请输入您的密码'
+        }
+      ],
+      form: {
+        username: '',
+        password: ''
+      }
     }
   }
 }
