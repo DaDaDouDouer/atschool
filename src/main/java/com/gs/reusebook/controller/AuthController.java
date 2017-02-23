@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.bean.User;
-import com.gs.reusebook.service.UserService;
+import com.gs.reusebook.service.AuthService;
 import com.gs.reusebook.util.ReusebookStatic;
 import com.gs.reusebook.util.UiReturn;
 
@@ -25,7 +25,7 @@ import com.gs.reusebook.util.UiReturn;
 public class AuthController {
 
 	@Autowired
-	private UserService userService;
+	private AuthService authService;
 
 	/**
 	 * 注册操作
@@ -39,7 +39,7 @@ public class AuthController {
 		// TODO 校验
 
 		// 注册操作
-		UiReturn uiReturn = userService.register(userParams.getUsername(), userParams.getPassword());
+		UiReturn uiReturn = authService.register(userParams.getUsername(), userParams.getPassword());
 
 		// 如果登录成功，加入session
 		if (200 == uiReturn.getStatus()) {
@@ -72,7 +72,7 @@ public class AuthController {
 		} else {
 
 			// 登录操作
-			UiReturn uiReturn = userService.login(userParams.getUsername(), userParams.getPassword());
+			UiReturn uiReturn = authService.login(userParams.getUsername(), userParams.getPassword());
 
 			// 如果登录成功，加入session
 			if (200 == uiReturn.getStatus()) {

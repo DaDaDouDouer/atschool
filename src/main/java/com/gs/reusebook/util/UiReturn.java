@@ -118,4 +118,9 @@ public class UiReturn {
 	public void setOther(Object other) {
 		this.other = other;
 	}
+	
+	@Override
+	public String toString() {
+		return this.msg;
+	}
 }
