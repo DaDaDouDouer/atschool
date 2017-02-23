@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.User;
 import com.gs.reusebook.dao.UserDao;
-import com.gs.reusebook.util.GlobalStatus;
 import com.gs.reusebook.util.UiReturn;
+import static com.gs.reusebook.util.GlobalStatus.*;
 
 @Service
 public class UserService {
@@ -23,8 +23,14 @@ public class UserService {
 	 * @param password 密码
 	 * @return 
 	 */
-	public User register(String username, String password){
+	public UiReturn register(String username, String password){
 
+		// 检查是否重名
+		List<User> usersInDB = userDao.selectByName(username);
+		if(usersInDB != null && !usersInDB.isEmpty()){
+			return UiReturn.notOk(null, "名字重复", REQ_ERROR_400);
+		}
+		
 		// 构建bean
 		User user = new User();
 		user.setId(UUID.randomUUID().toString());
@@ -34,7 +40,10 @@ public class UserService {
 		// 入库
 		userDao.insertUser(user);
 		
-		return user;
+		// 去除敏感信息
+		user.setPassword("");
+		
+		return UiReturn.ok(user, "注册成功");
 	}
 	
 
@@ -48,11 +57,11 @@ public class UserService {
 
 		List<User> users = userDao.selectByName(username);
 		if(users == null || users.isEmpty()){
-			return UiReturn.notOk(null, "用户不存在", GlobalStatus.REQ_ERROR_400);
+			return UiReturn.notOk(null, "用户不存在", REQ_ERROR_400);
 		}
 		User userInDB = users.get(0);
 		if(!password.equals(userInDB.getPassword())){
-			return UiReturn.notOk(null, "密码错误", GlobalStatus.REQ_ERROR_400);
+			return UiReturn.notOk(null, "密码错误", REQ_ERROR_400);
 		}
 		
 		// 去除敏感信息

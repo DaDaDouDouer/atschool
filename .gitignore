@@ -23,6 +23,9 @@ local.properties
 /Users
 /src/main/webapp/WEB-INF/logs/*.log
 
+# Ignore jdbc conf
+/src/main/resources/conf/jdbc.properties
+
 # External tool builders
 .externalToolBuilders/
 
@@ -212,5 +215,3 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/windows,linux,macos,java,eclipse,node,git
 
-# Ignore jdbc conf
-src/main/resources/conf/jdbc.properties
