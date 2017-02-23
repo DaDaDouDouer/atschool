@@ -18,12 +18,14 @@
     </v-card-text>
     </v-card-text>
     <v-card-text>
-      <v-btn primary dark>登录</v-btn>
+      <v-btn primary dark @click.native="submit">登录</v-btn>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'login',
   data () {
@@ -46,6 +48,13 @@ export default {
         username: '',
         password: ''
       }
+    }
+  },
+  methods: {
+    submit () {
+      axios.post('auth/user/login.do', this.form).then(function (response) {
+        console.log(response)
+      })
     }
   }
 }
