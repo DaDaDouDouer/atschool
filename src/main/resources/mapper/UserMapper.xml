@@ -5,6 +5,17 @@
 <!-- 这里要改为某个bean的dao -->
 <mapper namespace="com.gs.reusebook.dao.UserDao">
 
+	<update id="updatePassword">
+		update tab_user set password = #{password} where id = #{id}
+	</update>
+	
+	<select id="getUserInfoInMarketByUserId" parameterType="String" resultType="User" 
+		resultMap="normalUserInfoInMarketResultMap">
+		SELECT * FROM tab_user_info_in_market WHERE user_id = #{userId}
+	</select>
+	
+	
+	
 	<insert id="insertUser" parameterType="User" keyProperty="id">
 		insert
 		into
@@ -20,6 +31,10 @@
 		#{password})
 	</insert>
 
+	<select id="selectById" resultType="User" resultMap="normalUserResultMap">
+		SELECT * FROM tab_user WHERE id = #{id}
+	</select>
+
 	<select id="selectAll" resultType="User" resultMap="userResultMap">
 		select * from tab_user
 	</select>
@@ -34,7 +49,7 @@
 		select * from tab_user where username like #{username}
 	</select>
 
-	<delete id="deleteById" parameterType="int">
+	<delete id="deleteById" parameterType="String">
 		delete from tab_user where
 		id = #{id}
 	</delete>
@@ -44,6 +59,14 @@
 		#{id}
 	</update>
 
+	<resultMap type="com.gs.reusebook.bean.User" id="normalUserResultMap">
+		<!-- 用id标签来映射主键字段 -->
+		<id property="id" column="id" />
+		<!-- 用result标签来映射非主键字段 -->
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
 	<!-- 解决bean字段和数据库列名不一致的问题，
 	需要用到此map的地方需要添加属性resultMap="userResultMap"
 	比如selectAll -->
@@ -73,6 +96,14 @@
 			</association>
 			
 		</collection>
+	</resultMap>
+	
+	
+	<resultMap type="com.gs.reusebook.bean.UserInfoInMarket" id="normalUserInfoInMarketResultMap">
+		<!-- 用id标签来映射主键字段 -->
+		<id property="id" column="id" />
+		<!-- 用result标签来映射非主键字段 -->
+		<result property="userId" column="user_id" />
 	</resultMap>
 
 </mapper>

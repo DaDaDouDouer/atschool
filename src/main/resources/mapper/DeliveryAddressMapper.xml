@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 这里要改为某个bean的dao -->
+<mapper namespace="com.gs.reusebook.dao.DeliveryAddressDao">
+
+	<insert id="insertDeliveryAddress" parameterType="DeliveryAddress" keyProperty="id">
+		INSERT
+		INTO
+
+		tab_delivery_address(
+		id,
+		user_info_id,
+		address)
+
+		VALUES (
+		#{id},
+		#{userInfoId},
+		#{address})
+	</insert>
+	
+	<delete id="deleteDeliveryAddress" parameterType="String">
+		DELETE FROM tab_delivery_address WHERE id = #{id}
+	</delete>
+	
+	<select id="selectById" resultType="DeliveryAddress" resultMap="normalDeliveryAddressResultMap">
+		SELECT * FROM tab_delivery_address WHERE id = #{id}
+	</select>
+	
+
+	<!-- 解决bean字段和数据库列名不一致的问题， 需要用到此map的地方需要添加属性resultMap="userResultMap" 比如selectAll -->
+	<resultMap type="com.gs.reusebook.bean.DeliveryAddress" id="normalDeliveryAddressResultMap">
+		<!-- 用id标签来映射主键字段 -->
+		<id property="id" column="id" />
+		<!-- 用result标签来映射非主键字段 -->
+		<result property="address" column="address" />
+		<result property="userInfoId" column="user_info_id" />
+	</resultMap>
+
+</mapper>
