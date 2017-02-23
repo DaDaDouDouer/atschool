@@ -2,7 +2,8 @@
   <v-app top-toolbar footer>
     <header>
       <v-toolbar>
-        <v-toolbar-logo>logo</v-toolbar-logo>
+        <v-toolbar-logo></v-toolbar-logo>
+        <app-header></app-header>
       </v-toolbar>
     </header>
     <main>
@@ -12,12 +13,16 @@
         </v-container>
       </v-content>
     </main>
-    <v-footer>&copy 2017</v-footer>
+    <v-footer><app-footer></app-footer></v-footer>
   </v-app>
 </template>
 
 <script>
+import AppHeader from 'components/AppHeader'
+import AppFooter from 'components/AppFooter'
+
 export default {
+  components: { AppHeader, AppFooter },
   name: 'app'
 }
 </script>
