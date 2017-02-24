@@ -23,7 +23,7 @@
 			background-color: #ff7f00
 		}
 		
-		tr.usercrud {
+		tr.evaluation {
 			background-color: #cdcdcd
 		}
 		
@@ -532,240 +532,91 @@
 				</td>
 			</tr>
 
+			<tr class="evaluation" id="evaluation-">
+				<td>添加一条评论</td>
+				<td>
+					evaluation/add.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>goodsId 商品的id</p>
+					<p>content 评论内容</p>
+					<pre>
+{
+	"goodsId":"",
+	"content":"111111是分隔符"
+}
+					</pre>
+				</td>
+				<td>需要登陆，一个用户不能对同一个商品多次评论</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "添加评论成功",
+  "data": {
+    "id": "8f4b6144-6da8-4d60-b0aa-5a70a5ec3915",
+    "goodsId": "",
+    "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+    "content": "111111是短发当时的分隔符",
+    "createTime": 1487935630866
+  },
+  "other": null
+}
+{
+  "status": 400,
+  "msg": "不能对商品重复添加评论",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="evaluation" id="evaluation-">
+				<td>查询某个商品的全部评论</td>
+				<td>
+					evaluation/selectAll.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>goodsId 商品的id</p>
+					<pre>
+{
+	"goodsId":"3"
+}
+					</pre>
+				</td>
+				<td>不需要登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "查询商品评论成功",
+  "data": [
+    {
+      "id": "6d91f93f-2102-4833-846a-0226a5cbbb6f",
+      "goodsId": "3",
+      "userId": "0cc95799-4660-4758-9f7e-0053187eac7a",
+      "content": "sdftt内容65676yut",
+      "createTime": 1487933948000
+    },
+    {
+      "id": "77fb089a-23c1-4f7d-ad3d-f8de1f9a6d63",
+      "goodsId": "3",
+      "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "content": "sdf3435内容443",
+      "createTime": 1487933886000
+    }
+  ],
+  "other": null
+}
+
+					</pre>
+				</td>
+			</tr>
 ----------------------------------------------------------------------------------------------------------------
 
 
-			<tr class="admin" id="admin">
-				<td>借书</td>
-				<td>/admin!borrowBook.action
-					<form action="admin!borrowBook.action" method="post">
-						userid:<input type="text" name="userid"><br> bookitemid:
-						<input type="text" name="bookitemid"><br>
-						<input type="submit" value="借书">
-					</form>
-				</td>
-				<td>post</td>
-				<td>
-					<p>借书人id userid</p>
-					<p>借的图书项id bookitemid</p>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-{
-	"data": {
-		"bookid": 1,
-		"borrowtime": {
-			"date": 29,
-			"day": 0,
-			"hours": 10,
-			"minutes": 20,
-			"month": 10,
-			"seconds": 45,
-			"time": 1448763645205,
-			"timezoneOffset": -480,
-			"year": 115
-		},
-		"id": 1,
-		"returntime": null,
-		"userid": 1
-	},
-	"msg": "借书成功",
-	"status": 200,
-	"other": {}
-}
-						</pre>
-				</td>
-			</tr>
-			<tr class="admin">
-				<td>还书</td>
-				<td>/admin!returnBook.action
-					<form action="admin!returnBook.action" method="post">
-						bookitemid:<input type="text" name="bookitemid"><br>
-						<input type="submit" value="还书">
-					</form>
-				</td>
-				<td>post</td>
-				<td>
-					<p>图书项id bookitemid</p>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-{
-	"data": {
-		"bookid": 1,
-		"borrowtime": {
-			"date": 29,
-			"day": 0,
-			"hours": 10,
-			"minutes": 20,
-			"month": 10,
-			"nanos": 0,
-			"seconds": 45,
-			"time": 1448763645000,
-			"timezoneOffset": -480,
-			"year": 115
-		},
-		"id": 1,
-		"returntime": {
-			"date": 29,
-			"day": 0,
-			"hours": 10,
-			"minutes": 25,
-			"month": 10,
-			"seconds": 23,
-			"time": 1448763923886,
-			"timezoneOffset": -480,
-			"year": 115
-		},
-		"userid": 1
-	},
-	"msg": "还书成功",
-	"status": 200,
-	"other": {}
-}
-						</pre>
-				</td>
-			</tr>
-
-
-			<tr class="usercrud" id="usercrud">
-				<td>查询所有用户</td>
-				<td><a href="admin!loadAllUser.action">/admin!loadAllUser.action</a></td>
-				<td>get</td>
-				<td>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-{
-	"data": [
-		{
-			"id": 1,
-			"isadmin": true,
-			"password": "1",
-			"username": "q"
-		},
-		{
-			"id": 2,
-			"isadmin": true,
-			"password": "1",
-			"username": "w"
-		}
-	],
-	"msg": "查询所有用户成功",
-	"status": 200,
-	"other": {}
-}
-						</pre>
-				</td>
-			</tr>
-			<tr class="usercrud">
-				<td>增加用户</td>
-				<td>/admin!createUser.action
-					<form action="admin!createUser.action" method="post">
-						username:<input type="text" name="user.username"><br> password:
-						<input type="text" name="user.password"><br> isadmin:
-						<input type="text" name="user.isadmin"><br>
-						<input type="submit" value="增加">
-					</form>
-				</td>
-				<td>post</td>
-				<td>
-					<p>用户名 user.username</p>
-					<p>密码 user.password</p>
-					<p>是否是管理员 user.isadmin</p>
-					<p></p>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-{
-	"data": {
-		"id": 4,
-		"isadmin": false,
-		"password": "1",
-		"username": "e"
-	},
-	"msg": "增加用户成功",
-	"status": 200,
-	"other": {}
-}
-						</pre>
-				</td>
-			</tr>
-			<tr class="usercrud">
-				<td>删除用户通过id</td>
-				<td>/admin!deleteUser.action
-					<form action="admin!deleteUser.action" method="post">
-						userid:<input type="text" name="user.id"><br>
-						<input type="submit" value="删除">
-					</form>
-				</td>
-				<td>post</td>
-				<td>
-					<p>用户id user.id</p>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-					</pre>
-				</td>
-			</tr>
-			<tr class="usercrud">
-				<td>删除用户通过名字</td>
-				<td>/admin!deleteUserByUsername.action
-					<form action="admin!deleteUserByUsername.action" method="post">
-						username:<input type="text" name="user.username"><br>
-						<input type="submit" value="删除">
-					</form>
-				</td>
-				<td>post</td>
-				<td>
-					<p>用户名字 user.username</p>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-					</pre>
-				</td>
-			</tr>
-			<tr class="usercrud">
-				<td>更新用户</td>
-				<td>/admin!updateUser.action
-					<form action="admin!updateUser.action" method="post">
-						id:<input type="text" name="user.id"><br> username:
-						<input type="text" name="user.username"><br> password:
-						<input type="text" name="user.password"><br> isadmin:
-						<input type="text" name="user.isadmin"><br>
-						<input type="submit" value="更新">
-					</form>
-				</td>
-				<td>post</td>
-				<td>
-					<p>用户名 user.id</p>
-					<p>用户名 user.username</p>
-					<p>密码 user.password</p>
-					<p>是否是管理员 user.isadmin(0 or 1;"true" or "false")</p>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-{
-	"data": {
-		"id": 1,
-		"isadmin": false,
-		"password": "2",
-		"username": "qi"
-	},
-	"msg": "增加用户成功",
-	"status": 200,
-	"other": {}
-}
-						</pre>
-				</td>
-			</tr>
 
 			<tr class="historycrud" id="historycrud">
 				<td>查询所有历史记录</td>

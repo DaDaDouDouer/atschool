@@ -11,7 +11,8 @@ import java.util.Date;
 public class Evaluation {
 	private String id;
 
-	private String goods;
+	private String goodsId;
+	private String userId;
 	private String content;
 	private Date createTime;
 
@@ -23,12 +24,12 @@ public class Evaluation {
 		this.id = id;
 	}
 
-	public String getGoods() {
-		return goods;
+	public String getGoodsId() {
+		return goodsId;
 	}
 
-	public void setGoods(String goods) {
-		this.goods = goods;
+	public void setGoodsId(String goodsId) {
+		this.goodsId = goodsId;
 	}
 
 	public String getContent() {
@@ -47,4 +48,11 @@ public class Evaluation {
 		this.createTime = createTime;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 }

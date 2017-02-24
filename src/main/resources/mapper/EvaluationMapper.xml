@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gs.reusebook.dao.EvaluationDao">
+
+	<select id="selectAll" parameterType="String" resultType="Evaluation" resultMap="normalEvaluationMap">
+		SELECT * FROM tab_evaluation WHERE goods_id = #{goodsId}
+	</select>
+
+	<select id="selectByUserIdAndGoodsId" resultType="Evaluation" resultMap="normalEvaluationMap">
+		SELECT * FROM tab_evaluation WHERE goods_id = #{goodsId} AND user_id = #{userId}
+	</select>
+
+	<insert id="insertEvaluation" parameterType="Evaluation" keyProperty="id">
+		INSERT INTO
+		tab_evaluation(
+		id,
+		goods_id,
+		user_id,
+		content,
+		create_time)
+		VALUES (
+		#{id},
+		#{goodsId},
+		#{userId},
+		#{content},
+		#{createTime})
+	</insert>
+	
+	<resultMap type="com.gs.reusebook.bean.Evaluation" id="normalEvaluationMap">
+		<id property="id" column="id" />
+		<result property="goodsId" column="goods_id" />
+		<result property="userId" column="user_id" />
+		<result property="content" column="content" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+</mapper>

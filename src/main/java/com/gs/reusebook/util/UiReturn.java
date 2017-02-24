@@ -2,6 +2,8 @@ package com.gs.reusebook.util;
 
 import static com.gs.reusebook.util.GlobalStatus.SUCCESS_200;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 /**
  * 用于生成返回给前端的标准json格式
  * 
@@ -121,6 +123,13 @@ public class UiReturn {
 	
 	@Override
 	public String toString() {
-		return this.msg;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return this.msg + "\n" + mapper.writeValueAsString(data);
+		} catch (Exception e) {
+			// TODO 测试用，此处可删
+			e.printStackTrace();
+		}
+		return "error";
 	}
 }

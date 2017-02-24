@@ -18,9 +18,9 @@ public class CartItemTest {
 		cartItemService = (CartItemService) context.getBean("cartItemService");
 	}
 	
-//	 @Test
+	 @Test
 	public void testAddCartItem(){
-		System.out.println(cartItemService.addToCart("0cc95799-4660-4758-9f7e-0053187eac7a","3" , 3));
+		System.out.println(cartItemService.addToCart("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab","3" , 3));
 	}
 	
 
@@ -35,7 +35,7 @@ public class CartItemTest {
 				("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab", "69ba6683-911c-4ae8-8a25-0ba7129123fc", 10));
 	}
 
-	 @Test
+//	 @Test
 	public void testSelectAll(){
 		System.out.println(cartItemService.selectAll("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 	}
