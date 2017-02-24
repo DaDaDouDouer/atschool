@@ -9,12 +9,18 @@
 		update tab_user set password = #{password} where id = #{id}
 	</update>
 	
-	<select id="getUserInfoInMarketByUserId" parameterType="String" resultType="User" 
+	<select id="getUserInfoInMarketByUserId" parameterType="String" resultType="UserInfoInMarket" 
 		resultMap="normalUserInfoInMarketResultMap">
 		SELECT * FROM tab_user_info_in_market WHERE user_id = #{userId}
 	</select>
-	
-	
+
+	<!-- 如果有重复列则必须起别名，否则赋值会错乱 -->
+	<select id="getUserInfoInMarketWithAddressByUserId"	parameterType="String" resultType="UserInfoInMarket"
+		resultMap="userInfoInMarketWithAddressResultMap">
+		SELECT ui.id, ui.user_id, a.id address_id, a.user_info_id, a.address
+		FROM tab_user_info_in_market ui, tab_delivery_address a 
+		WHERE ui.user_id = #{userId} AND ui.id = a.user_info_id
+	</select>
 	
 	<insert id="insertUser" parameterType="User" keyProperty="id">
 		insert
@@ -98,11 +104,21 @@
 		</collection>
 	</resultMap>
 	
-	
-	<resultMap type="com.gs.reusebook.bean.UserInfoInMarket" id="normalUserInfoInMarketResultMap">
-		<!-- 用id标签来映射主键字段 -->
+	<!-- 带收货地址的返回值映射 -->
+	<!-- 自动填充collection必须保证所有列的列名都不重复 -->
+	<resultMap type="com.gs.reusebook.bean.UserInfoInMarket" id="userInfoInMarketWithAddressResultMap">
 		<id property="id" column="id" />
-		<!-- 用result标签来映射非主键字段 -->
+		<result property="userId" column="user_id" />
+		<collection property="deliveryAddresses" column="user_info_id" ofType="com.gs.reusebook.bean.DeliveryAddress">
+			<id property="id" column="address_id" />
+			<result property="userInfoId" column="user_info_id" />
+			<result property="address" column="address" />
+		</collection>
+	</resultMap>
+	
+	<!-- 不带收货地址的返回值映射 -->
+	<resultMap type="com.gs.reusebook.bean.UserInfoInMarket" id="normalUserInfoInMarketResultMap">
+		<id property="id" column="id" />
 		<result property="userId" column="user_id" />
 	</resultMap>
 

@@ -18,6 +18,7 @@ public interface UserDao {
 	public int insertUser(User user);
 	public void updatePassword(@Param("id") String id, @Param("password") String password);
 	public UserInfoInMarket getUserInfoInMarketByUserId(String userId);
+	public UserInfoInMarket getUserInfoInMarketWithAddressByUserId(String userId);
 	public User selectById(String id);
 	
 	// ---------------test---------------

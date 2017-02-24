@@ -5,19 +5,69 @@
 <!-- 这里要改为某个bean的dao -->
 <mapper namespace="com.gs.reusebook.dao.CartItemDao">
 
-	<select id="selectAllWithGoods" resultType="CartItem" resultMap="cartItemResultMap">
-		select * from tab_cart_item c, tab_goods g where g.id = c.goods_id
+	<select id="selectAllWithGoods" resultType="CartItem" resultMap="cartItemWithGoodsResultMap">
+		select 
+		c.id, c.goods_id, c.goods_count, 
+		g.id goods_id_pk, g.real_goods_id, g.seller_id, g.link_table, g.name, g.price, g.count
+		from tab_cart_item c, tab_goods g where g.id = c.goods_id
 	</select>
 
-	<!-- 解决bean字段和数据库列名不一致的问题， 需要用到此map的地方需要添加属性resultMap="userResultMap" 比如selectAll -->
-	<resultMap type="com.gs.reusebook.bean.CartItem" id="cartItemResultMap">
-		<!-- 用id标签来映射主键字段 -->
+	<select id="selectById" resultType="CartItem" resultMap="normalCartItemResultMap">
+		SELECT * FROM tab_cart_item  WHERE id = #{id}
+	</select>
+
+	<select id="selectByGoodsId" resultType="CartItem" resultMap="normalCartItemResultMap">
+		SELECT * FROM tab_cart_item  WHERE user_id = #{userId} AND goods_id = #{goodsId}
+	</select>
+
+	<select id="selectAllByUserId" parameterType="String" resultType="CartItem"
+		resultMap="cartItemWithGoodsResultMap">
+		SELECT c.id, c.goods_id, c.goods_count, 
+		g.id goods_id_pk, g.real_goods_id, g.seller_id, g.link_table, g.name, g.price, g.count 
+		FROM tab_cart_item c, tab_goods g, tab_user u WHERE
+		g.id = c.goods_id AND u.id = c.user_id
+	</select>
+	
+	<insert id="insertCartItem" parameterType="CartItem" keyProperty="id">
+		insert
+		into
+
+		tab_cart_item(
+		id,
+		user_id,
+		goods_id,
+		goods_count)
+
+		values (
+		#{id},
+		#{userId},
+		#{goodsId},
+		#{goodsCount})
+	</insert>
+	
+	<delete id="deleteById" parameterType="String">
+		delete from tab_cart_item where id = #{id}
+	</delete>
+	
+	<update id="updateGoodsCount">
+		update tab_cart_item set goods_count = #{goodsCount} where id = #{id}
+	</update>
+	
+	
+	<resultMap type="com.gs.reusebook.bean.CartItem" id="normalCartItemResultMap">
 		<id property="id" column="id" />
-		<!-- 用result标签来映射非主键字段 -->
 		<result property="userId" column="user_id" />
 		<result property="goodsId" column="goods_id" />
+		<result property="goodsCount" column="goods_count" />
+	</resultMap>
+	
+	<resultMap type="com.gs.reusebook.bean.CartItem" id="cartItemWithGoodsResultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="goodsId" column="goods_id" />
+		<result property="goodsCount" column="goods_count" />
 		<association property="goods" javaType="com.gs.reusebook.bean.Goods">
-			<id property="id" column="id" />
+			<id property="id" column="goods_id_pk" />
 			<result property="realGoodsId" column="real_goods_id" />
 			<result property="sellerId" column="seller_id" />
 			<result property="linkTable" column="link_table" />

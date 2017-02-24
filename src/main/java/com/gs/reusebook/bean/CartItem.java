@@ -13,6 +13,8 @@ public class CartItem {
 	private String userId;
 	private String goodsId;
 
+	private int goodsCount;
+	
 	private Goods goods;
 
 	public String getId() {
@@ -45,5 +47,13 @@ public class CartItem {
 
 	public void setGoods(Goods goods) {
 		this.goods = goods;
+	}
+	
+	public void setGoodsCount(int goodsCount) {
+		this.goodsCount = goodsCount;
+	}
+	
+	public int getGoodsCount() {
+		return goodsCount;
 	}
 }
