@@ -4,7 +4,6 @@
 ### Eclipse ###
 
 .metadata
-bin/
 tmp/
 *.tmp
 *.bak
@@ -214,4 +213,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/windows,linux,macos,java,eclipse,node,git
-
