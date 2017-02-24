@@ -21,6 +21,11 @@ public class CartItemController {
 	@Autowired
 	private CartItemService cartItemService;
 	
+	/**
+	 * 获取当前用户所有的购物车项
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/selectAll", method = RequestMethod.GET)
 	@ResponseBody
 	public UiReturn selectAll(HttpSession session) {
@@ -29,6 +34,12 @@ public class CartItemController {
 		return cartItemService.selectAll(userId);
 	}
 
+	/**
+	 * 添加商品到当前用户的购物车
+	 * @param cartItem
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	public UiReturn add(@RequestBody CartItem cartItem, HttpSession session) {
@@ -37,6 +48,12 @@ public class CartItemController {
 		return cartItemService.addToCart(userId, cartItem.getGoodsId(), cartItem.getGoodsCount());
 	}
 
+	/**
+	 * 通过id删除一个购物车项
+	 * @param cartItem
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/deleteById", method = RequestMethod.POST)
 	@ResponseBody
 	public UiReturn deleteById(@RequestBody CartItem cartItem, HttpSession session) {
@@ -45,7 +62,12 @@ public class CartItemController {
 		return cartItemService.deleteCartItem(userId, cartItem.getId());
 	}
 	
-
+	/**
+	 * 更新某购物车项的商品数量
+	 * @param cartItem
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/updateGoodsCount", method = RequestMethod.POST)
 	@ResponseBody
 	public UiReturn updateGoodsCount(@RequestBody CartItem cartItem, HttpSession session) {

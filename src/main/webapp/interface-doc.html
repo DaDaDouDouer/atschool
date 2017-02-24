@@ -19,7 +19,7 @@
 			background-color: #e47833
 		}
 		
-		tr.admin {
+		tr.cartitem {
 			background-color: #ff7f00
 		}
 		
@@ -59,7 +59,20 @@
 </head>
 
 <body>
-
+	<div>
+		<p>成功</p>
+		<p>SUCCESS_200 = 200;</p>
+		<p>请求有错，比如参数错误等</p>
+		<p>REQ_ERROR_400 = 400;</p>
+		<p>未验证</p>
+		<p>NOT_VALIDATE_401 = 401;</p>
+		<p>服务器拒绝响应</p>
+		<p>public static final int ACCESS_DECLINE_403 = 403;</p>
+		<p>没有找到对应的资源</p>
+		<p>NO_RESOURCE_404 = 404;</p>
+		<p>服务器错误</p>
+		<p>SERVICE_ERROR_500= 50</p>
+	</div>
 	<div id="indexlist">
 		<h3>index</h3>
 		<a href="#login">login</a><br>
@@ -376,6 +389,148 @@
 				</td>
 			</tr>
 
+			<tr class="cartitem" id="cartitem-selectAll">
+				<td>返回一个用户的所有购物车项</td>
+				<td>
+					cartitem/selectAll.do
+				</td>
+				<td>get</td>
+				<td>
+				</td>
+				<td>需要登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "返回购物车项成功",
+  "data": [
+    {
+      "id": "69ba6683-911c-4ae8-8a25-0ba7129123fc",
+      "userId": null,
+      "goodsId": "3",
+      "goodsCount": 3,
+      "goods": {
+        "id": "3",
+        "realGoodsId": "13",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C++",
+        "price": 439.2,
+        "count": 3
+      }
+    },
+    {
+      "id": "dc31af78-035d-410b-9d13-82e3fa7e393c",
+      "userId": null,
+      "goodsId": "2",
+      "goodsCount": 10,
+      "goods": {
+        "id": "2",
+        "realGoodsId": "12",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "Java",
+        "price": 432.4,
+        "count": 9
+      }
+    }
+  ],
+  "other": null
+}
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="cartitem" id="cartitem-add">
+				<td>某商品添加至购物车</td>
+				<td>
+					cartitem/add.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>goodsId 添加的商品id</p>
+					<p>goodsCount 添加的商品数量</p>
+					<pre>
+{
+	"goodsId":"3",
+	"goodsCount":3
+}
+					</pre>
+				</td>
+				<td>需要登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "添加至购物车成功",
+  "data": {
+    "id": "bf1210b5-4bc1-4c32-853a-0257d0150bfd",
+    "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+    "goodsId": "3",
+    "goodsCount": 3,
+    "goods": null
+  },
+  "other": null
+}
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="cartitem" id="cartitem-updateGoodsCount">
+				<td>借书</td>
+				<td>
+					cartitem/updateGoodsCount.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id 购物车项的id</p>
+					<p>goodsCount 要修改为的数量</p>
+					<pre>
+{
+	"id":"bf1210b5-4bc1-4c32-853a-0257d0150bfd",
+	"goodsCount":12
+}
+					</pre>
+				</td>
+				<td>需要登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改购物车商品数量成功",
+  "data": "",
+  "other": null
+}
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="cartitem" id="cartitem-">
+				<td>根据id删除商品项</td>
+				<td>
+					cartitem/deleteById.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id 商品项的id</p>
+					<pre>
+{
+	"id":"bf1210b5-4bc1-4c32-853a-0257d0150bfd"
+}
+					</pre>
+				</td>
+				<td>需要登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "删除购物车项成功",
+  "data": "",
+  "other": null
+}
+						</pre>
+				</td>
+			</tr>
 
 ----------------------------------------------------------------------------------------------------------------
 
