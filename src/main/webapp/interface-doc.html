@@ -43,8 +43,7 @@
 			width: 100%
 		}
 		
-		#indexlist {
-			height: 330px;
+		#indexList {
 			filter: alpha(Opacity=80);
 			-moz-opacity: 0.5;
 			opacity: 0.5;
@@ -59,6 +58,44 @@
 </head>
 
 <body>
+	
+	<script>
+		window.onload = function(){
+			var indexListDiv = document.getElementById("indexList");
+			var interfaceTBody = document.getElementById("interfaces");
+			var indexListStruct = {};
+			var trs = interfaceTBody.getElementsByTagName("tr");
+			for(var i = 0; i < trs.length; i++){
+				var aTr = trs[i];
+				var className = aTr.getAttribute("class");
+				var idName = aTr.getAttribute("id");
+				if(indexListStruct[className] == null){
+					indexListStruct[className] = [];
+				}
+				indexListStruct[className].push(idName);
+			}
+
+			for(var e in indexListStruct){
+				var oneh1 = document.createElement("p");
+				oneh1.innerText = e;
+				indexListDiv.appendChild(oneh1);
+				var strings = indexListStruct[e];
+				for(var e2 in strings){
+					var onea = document.createElement("a");
+
+					var methodName = strings[e2];
+					var methodNameCut = methodName.substr(e.length + 1);
+
+					onea.setAttribute("href","#" + methodName);
+					onea.innerText = methodNameCut;
+					indexListDiv.appendChild(onea);
+					indexListDiv.appendChild(document.createElement("br"));
+				}
+			}
+
+		}
+	</script>
+<!--	
 	<div>
 		<p>成功</p>
 		<p>SUCCESS_200 = 200;</p>
@@ -73,18 +110,8 @@
 		<p>服务器错误</p>
 		<p>SERVICE_ERROR_500= 50</p>
 	</div>
-	<div id="indexlist">
-		<h3>index</h3>
-		<a href="#login">login</a><br>
-		<a href="#user">user</a><br>
-		<a href="#book">book</a><br>
-		<a href="#borrowhistory">borrow history</a><br>
-		<a href="#admin">admin</a><br>
-
-		<a href="#usercrud">user crud</a><br>
-		<a href="#bookcrud">book crud</a><br>
-		<a href="#historycrud">borrow history crud</a><br>
-		<a href="#mainpage">mainpage</a><br>
+	-->
+	<div id="indexList">
 	</div>
 
 	<table>
@@ -99,7 +126,7 @@
 			</tr>
 		</thead>
 
-		<tbody>
+		<tbody id="interfaces">
 			<tr class="auth-user" id="auth-user-login">
 				<td>一般用户登录</td>
 				<td>auth/user/login.do</td>
@@ -260,7 +287,7 @@
 				</td>
 			</tr>
 
-			<tr class="goods" id="goods-getRealGoods">
+			<tr class="goods" id="goods-get-real-goods">
 				<td>通过商品id获取实际商品信息</td>
 				<td>
 					goods/getRealGoods.do
@@ -300,7 +327,7 @@
 
 
 
-			<tr class="user" id="user-changePassword">
+			<tr class="user" id="user-change-password">
 				<td>修改密码</td>
 				<td>
 					user/changePassword.do
@@ -335,7 +362,7 @@
 				</td>
 			</tr>
 
-			<tr class="user" id="addAddress">
+			<tr class="user" id="user-add-address">
 				<td>添加收货地址</td>
 				<td>
 					user/addAddress.do
@@ -362,7 +389,7 @@
 				</td>
 			</tr>
 
-			<tr class="user" id="deleteAddress">
+			<tr class="user" id="user-delete-address">
 				<td>删除收货地址</td>
 				<td>
 					user/deleteAddress.do
@@ -389,7 +416,7 @@
 				</td>
 			</tr>
 
-			<tr class="cartitem" id="cartitem-selectAll">
+			<tr class="cartitem" id="cartitem-select-all">
 				<td>返回一个用户的所有购物车项</td>
 				<td>
 					cartitem/selectAll.do
@@ -476,7 +503,7 @@
 				</td>
 			</tr>
 
-			<tr class="cartitem" id="cartitem-updateGoodsCount">
+			<tr class="cartitem" id="cartitem-update-goods-count">
 				<td>借书</td>
 				<td>
 					cartitem/updateGoodsCount.do
@@ -505,7 +532,7 @@
 				</td>
 			</tr>
 
-			<tr class="cartitem" id="cartitem-">
+			<tr class="cartitem" id="cartitem-delete-by-id">
 				<td>根据id删除商品项</td>
 				<td>
 					cartitem/deleteById.do
@@ -532,7 +559,7 @@
 				</td>
 			</tr>
 
-			<tr class="evaluation" id="evaluation-">
+			<tr class="evaluation" id="evaluation-add">
 				<td>添加一条评论</td>
 				<td>
 					evaluation/add.do
@@ -572,7 +599,7 @@
 					</pre>
 				</td>
 			</tr>
-			<tr class="evaluation" id="evaluation-">
+			<tr class="evaluation" id="evaluation-select-all">
 				<td>查询某个商品的全部评论</td>
 				<td>
 					evaluation/selectAll.do
@@ -692,7 +719,7 @@
 				</td>
 			</tr>
 
-			<tr class="historycrud">
+			<tr class="historycrud" id="sdfa">
 				<td>删除历史记录</td>
 				<td>/admin!deleteBorrowHistory.action
 					<form action="admin!deleteBorrowHistory.action" method="post">
@@ -762,7 +789,7 @@
 						</pre>
 				</td>
 			</tr>
-			<tr class="bookcrud">
+			<tr class="bookcrud" id="sddasfa">
 				<td>更新书</td>
 				<td>/admin!updateBook.action
 					<form action="admin!updateBook.action" method="post">
@@ -794,7 +821,7 @@
 					</pre>
 				</td>
 			</tr>
-			<tr class="bookcrud">
+			<tr class="bookcrud" id="sdfa">
 				<td>查询所有书</td>
 				<td><a href="admin!loadAllBook.action">/admin!loadAllBook.action</a></td>
 				<td>get</td>
@@ -802,55 +829,6 @@
 				<td></td>
 				<td>
 					<pre>
-						</pre>
-				</td>
-			</tr>
-
-			<tr class="bookcrud">
-				<td>通过id获取书</td>
-				<td>/book!getBookById.action
-					<form action="book!getBookById.action" method="post">
-						bookid:<input type="text" name="book.id"><br>
-						<input type="submit" value="获取">
-					</form>
-				</td>
-				<td>post</td>
-				<td>
-					<p>书id book.id</p>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-{
-	"data": {
-		"author": "桥居",
-		"bookname": "重炮齿轮",
-		"count": 2,
-		"createtime": {
-			"date": 29,
-			"day": 0,
-			"hours": 17,
-			"minutes": 30,
-			"month": 10,
-			"nanos": 0,
-			"seconds": 30,
-			"time": 1448789430000,
-			"timezoneOffset": -480,
-			"year": 115
-		},
-		"description": "自己写的",
-		"holdplace": "宿舍",
-		"id": 1,
-		"imgpic": "http://...",
-		"isbn": "无",
-		"label": "科幻-军事-特工",
-		"nowcount": 2,
-		"publisher": "听风"
-	},
-	"msg": "获取成功",
-	"status": 200,
-	"other": {}
-}
 						</pre>
 				</td>
 			</tr>
