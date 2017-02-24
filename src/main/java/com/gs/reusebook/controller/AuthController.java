@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.bean.User;
 import com.gs.reusebook.service.AuthService;
-import com.gs.reusebook.util.ReusebookStatic;
 import com.gs.reusebook.util.UiReturn;
+import static com.gs.reusebook.util.ReusebookStatic.*;
 
 /**
  * 一般用户登录注册等身份验证
@@ -44,16 +44,16 @@ public class AuthController {
 		// 如果登录成功，加入session
 		if (200 == uiReturn.getStatus()) {
 			User user = (User) uiReturn.getData();
-			session.setAttribute(ReusebookStatic.USER_SESSION_KEY, user);
-			session.setAttribute(ReusebookStatic.USER_ID_SESSION_KEY, user.getId());
-			session.setAttribute(ReusebookStatic.USER_NAME_SESSION_KEY, user.getUsername());
+			session.setAttribute(USER_SESSION_KEY, user);
+			session.setAttribute(USER_ID_SESSION_KEY, user.getId());
+			session.setAttribute(USER_NAME_SESSION_KEY, user.getUsername());
 		}
 		
 		return uiReturn;
 	}
 
 	/**
-	 * 登录操作
+	 * 登录操作   
 	 * @param username 用户名
 	 * @param password 密码
 	 */
@@ -64,10 +64,10 @@ public class AuthController {
 		// TODO 校验
 
 		// 如果已经有同一用户登录则跳过登录
-		String usernameInSession = (String) session.getAttribute(ReusebookStatic.USER_NAME_SESSION_KEY);
+		String usernameInSession = (String) session.getAttribute(USER_NAME_SESSION_KEY);
 		if (userParams.getUsername().equals(usernameInSession)) {
 
-			return UiReturn.ok(session.getAttribute(ReusebookStatic.USER_SESSION_KEY), "已登录");
+			return UiReturn.ok(session.getAttribute(USER_SESSION_KEY), "已登录");
 
 		} else {
 
@@ -77,9 +77,9 @@ public class AuthController {
 			// 如果登录成功，加入session
 			if (200 == uiReturn.getStatus()) {
 				User user = (User) uiReturn.getData();
-				session.setAttribute(ReusebookStatic.USER_SESSION_KEY, user);
-				session.setAttribute(ReusebookStatic.USER_ID_SESSION_KEY, user.getId());
-				session.setAttribute(ReusebookStatic.USER_NAME_SESSION_KEY, user.getUsername());
+				session.setAttribute(USER_SESSION_KEY, user);
+				session.setAttribute(USER_ID_SESSION_KEY, user.getId());
+				session.setAttribute(USER_NAME_SESSION_KEY, user.getUsername());
 			}
 
 			return uiReturn;
