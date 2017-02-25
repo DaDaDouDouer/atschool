@@ -14,22 +14,50 @@ public class ReusebookStatic {
 	 * session中保存user的键
 	 */
 	public final static String USER_SESSION_KEY = "thenowuser";
-	
 	/**
 	 * session中保存user的id的键
 	 */
 	public final static String USER_ID_SESSION_KEY = "thenowuserid";
-	
 	/**
 	 * session中保存user的name的键
 	 */
 	public final static String USER_NAME_SESSION_KEY = "thenowusername";
 	
 	
+	
+	
+	
+	
+
+	/**
+	 * session中保存user的键
+	 */
+	public final static String SELLER_SESSION_KEY = "thenowseller";
+	/**
+	 * session中保存user的id的键
+	 */
+	public final static String SELLER_ID_SESSION_KEY = "thenowseller";
+	/**
+	 * session中保存user的name的键
+	 */
+	public final static String SELLER_NAME_SESSION_KEY = "thenowsellername";
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 数据库表名
 	 */
 	public final static String TABLE_NAME_BOOK = "tab_book";
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 订单状态

@@ -31,7 +31,7 @@
 			background-color: #bc8f8f
 		}
 		
-		tr.historycrud {
+		tr.order {
 			background-color: #93db70
 		}
 		
@@ -50,7 +50,9 @@
 			z-index: 100;
 			background-color: #ffffff;
 			position: fixed;
-			left: 90%
+			left: 90%;
+			font-size: 70%
+			
 		}
 	</style>
 	<meta charset="UTF-8">
@@ -641,102 +643,109 @@
 					</pre>
 				</td>
 			</tr>
-----------------------------------------------------------------------------------------------------------------
 
-
-
-			<tr class="historycrud" id="historycrud">
-				<td>查询所有历史记录</td>
-				<td><a href="admin!loadAllBorrowHistory.action">/admin!loadAllBorrowHistory.action</a></td>
+			
+			<tr class="order" id="order-select-all-by-seller-id">
+				<td>查询卖家的所有订单</td>
+				<td>
+					/order/selectAllBySellerId.do
+				</td>
 				<td>get</td>
 				<td>
 				</td>
-				<td></td>
+				<td>需要卖家登陆</td>
 				<td>
 					<pre>
-{
-	"data": [
-		{
-			"bookitemid": 1,
-			"borrowtime": {
-				"date": 29,
-				"day": 0,
-				"hours": 17,
-				"minutes": 33,
-				"month": 10,
-				"nanos": 0,
-				"seconds": 40,
-				"time": 1448789620000,
-				"timezoneOffset": -480,
-				"year": 115
-			},
-			"id": 1,
-			"returntime": {
-				"date": 29,
-				"day": 0,
-				"hours": 17,
-				"minutes": 34,
-				"month": 10,
-				"nanos": 0,
-				"seconds": 17,
-				"time": 1448789657000,
-				"timezoneOffset": -480,
-				"year": 115
-			},
-			"userid": 1,
-			"book": {
-				"author": "桥居",
-				"bookname": "重炮齿轮",
-				"count": 2,
-				"createtime": {
-					"date": 29,
-					"day": 0,
-					"hours": 17,
-					"minutes": 30,
-					"month": 10,
-					"nanos": 0,
-					"seconds": 30,
-					"time": 1448789430000,
-					"timezoneOffset": -480,
-					"year": 115
-				},
-				"description": "自己写的",
-				"holdplace": "宿舍",
-				"id": 1,
-				"imgpic": "http://...",
-				"isbn": "无",
-				"label": "科幻-军事-特工",
-				"nowcount": 2,
-				"publisher": "听风"
-			}
-		}
-	],
-	"msg": "查询所有借阅历史成功",
-	"status": 200,
-	"other": {}
-}
-						</pre>
-				</td>
-			</tr>
-
-			<tr class="historycrud" id="sdfa">
-				<td>删除历史记录</td>
-				<td>/admin!deleteBorrowHistory.action
-					<form action="admin!deleteBorrowHistory.action" method="post">
-						historyid:<input type="text" name="borrowHistory.id"><br>
-						<input type="submit" value="删除">
-					</form>
-				</td>
-				<td>post</td>
-				<td>
-					<p>借阅历史id borrowHistory.id</p>
-				</td>
-				<td>不能是正在被借的历史记录</td>
-				<td>
-					<pre>
+						...
 					</pre>
 				</td>
 			</tr>
+			
+			<tr class="order" id="order-select-all-by-user-id">
+				<td></td>
+				<td>
+					order/selectAllByUserId.do
+				</td>
+				<td>get</td>
+				<td>
+					
+				</td>
+				<td>需要登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "查询买家订单成功",
+  "data": [
+    {
+      "id": "92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c",
+      "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "status": 1000,
+      "orderItems": [
+        {
+          "id": "34f6ec8d-a855-40d3-b271-3a720b6f23dd",
+          "orderId": "92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c",
+          "goodsId": "1",
+          "goodsCount": 2
+        },
+        {
+          "id": "68f72aea-9893-4fa1-aab5-9851b8a7ea3f",
+          "orderId": "92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c",
+          "goodsId": "2",
+          "goodsCount": 3
+        }
+      ]
+    }
+  ],
+  "other": null
+}
+
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="order" id="order-add">
+				<td>提交一个订单</td>
+				<td>
+					order/add.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>goodsIdAndCount 存放商品id及其数量的map</p>
+					<p>map的键为商品id，值为数量</p>
+					<pre>
+{
+	"goodsIdAndCount":{
+		"fb653ed2-f8e3-4346-9bdb-bc9f9279d0f1":1,
+		"ad259009-d18a-42e6-898b-8f79d14da0bd":1
+	}
+}
+					</pre>
+				</td>
+				<td>可能会发生数量不够的情况</td>
+				<td>
+					<pre>
+有某商品的数量不够
+{
+  "status": 400,
+  "msg": "商品的数量不够",
+  "data": "",
+  "other": null
+}
+成功
+{
+  "status": 200,
+  "msg": "生成订单成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+----------------------------------------------------------------------------------------------------------------
+
+
 
 			<tr class="bookcrud" id="bookcrud">
 				<td>增加书</td>
