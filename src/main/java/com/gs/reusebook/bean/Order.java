@@ -1,5 +1,7 @@
 package com.gs.reusebook.bean;
 
+import java.util.List;
+
 /**
  * 
  * 用户订单
@@ -15,6 +17,8 @@ public class Order {
 	
 	private int status;
 
+	private List<OrderItem> orderItems;
+	
 	/*
 	 * 其他订单信息
 	 */
@@ -49,6 +53,14 @@ public class Order {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+	
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
 	}
 	
 }

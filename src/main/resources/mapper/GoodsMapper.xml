@@ -13,11 +13,19 @@
 		SELECT * FROM tab_goods WHERE id = #{id}
 	</select>
 
-	<!-- 解决bean字段和数据库列名不一致的问题， 需要用到此map的地方需要添加属性resultMap="userResultMap" 比如selectAll -->
+	<update id="updateCount">
+		UPDATE tab_goods SET count = #{count} WHERE id = #{id}
+	</update>
+
+	<select id="selectByIds" resultType="Goods" resultMap="normalGoodsResultMap">
+		SELECT * FROM tab_goods WHERE id IN
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+        </foreach>
+	</select>
+
 	<resultMap type="com.gs.reusebook.bean.Goods" id="normalGoodsResultMap">
-		<!-- 用id标签来映射主键字段 -->
 		<id property="id" column="id" />
-		<!-- 用result标签来映射非主键字段 -->
 		<result property="realGoodsId" column="real_goods_id" />
 		<result property="sellerId" column="seller_id" />
 		<result property="linkTable" column="link_table" />

@@ -26,6 +26,13 @@ public class ReusebookStatic {
 	public final static String USER_NAME_SESSION_KEY = "thenowusername";
 	
 	
-	//数据库表名
+	/**
+	 * 数据库表名
+	 */
 	public final static String TABLE_NAME_BOOK = "tab_book";
+	
+	/**
+	 * 订单状态
+	 */
+	public final static int ORDER_STATUS_START = 1000;
 }

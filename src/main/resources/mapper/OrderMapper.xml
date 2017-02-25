@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gs.reusebook.dao.OrderDao">
+
+	<select id="selectAllBySellerId" parameterType="String" resultType="Order" resultMap="orderResultMap">
+		SELECT o.id id, o.user_id user_id, o.seller_id seller_id, o.status status, i.id order_item_id, i.order_id order_id, i.goods_id goods_id, i.goods_count goods_count
+		FROM tab_order o, tab_order_item i 
+		WHERE seller_id = #{seller_id} AND i.order_id = o.id
+	</select>
+
+	<select id="selectAllByUserId" parameterType="String" resultType="Order" resultMap="orderResultMap">
+		SELECT o.id id, o.user_id user_id, o.seller_id seller_id, o.status status, i.id order_item_id, i.order_id order_id, i.goods_id goods_id, i.goods_count goods_count
+		FROM tab_order o, tab_order_item i 
+		WHERE user_id = #{user_id} AND i.order_id = o.id
+	</select>
+
+	<insert id="insertOrder" parameterType="Order" keyProperty="id">
+		INSERT INTO
+		tab_order(
+		id,
+		user_id,
+		seller_id,
+		status)
+		VALUES (
+		#{id},
+		#{userId},
+		#{sellerId},
+		#{status})
+	</insert>
+	
+	<resultMap type="com.gs.reusebook.bean.Order" id="orderResultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="sellerId" column="seller_id" />
+		<result property="status" column="status" />
+		<collection property="orderItems" column="order_id" ofType="com.gs.reusebook.bean.OrderItem">
+			<id property="id" column="order_item_id" />
+			<result property="orderId" column="order_id" />
+			<result property="goodsId" column="goods_id" />
+			<result property="goodsCount" column="goods_count" />
+		</collection>
+	</resultMap>
+
+</mapper>

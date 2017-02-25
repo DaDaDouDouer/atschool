@@ -12,4 +12,6 @@ public interface GoodsDao {
 	(@Param("name") String name, @Param("offset") int offset, @Param("limit") int limit);
 	
 	public Goods selectById(String id);
+	public List<Goods> selectByIds(List<String> ids);
+	public void updateCount(@Param("id") String id, @Param("count") int count);
 }

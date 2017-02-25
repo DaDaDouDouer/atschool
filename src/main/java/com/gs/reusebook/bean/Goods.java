@@ -21,7 +21,7 @@ public class Goods {
 
 	private String name;
 	private double price;
-	private long count;
+	private int count;
 
 	public String getId() {
 		return id;
@@ -70,12 +70,12 @@ public class Goods {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
-	public long getCount() {
+	
+	public int getCount() {
 		return count;
 	}
-
-	public void setCount(long count) {
+	
+	public void setCount(int count) {
 		this.count = count;
 	}
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gs.reusebook.dao.OrderItemDao">
+
+	<insert id="insertOrderItem" parameterType="OrderItem" keyProperty="id">
+		INSERT INTO
+		tab_order_item(
+		id,
+		order_id,
+		goods_id,
+		goods_count)
+		VALUES (
+		#{id},
+		#{orderId},
+		#{goodsId},
+		#{goodsCount})
+	</insert>
+
+</mapper>
