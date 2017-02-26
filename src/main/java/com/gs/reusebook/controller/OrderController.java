@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.paramsbean.OrderAddParams;
 import com.gs.reusebook.service.OrderService;
 import com.gs.reusebook.util.UiReturn;
@@ -41,6 +42,7 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/selectAllByUserId", method = RequestMethod.GET)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn selectAllByUserId(HttpSession session){
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 		return orderService.selectAllByUserId(userId);
@@ -53,6 +55,7 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn add(@RequestBody OrderAddParams params, HttpSession session){
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 		return orderService.insertOrder(userId, params.goodsIdAndCount);

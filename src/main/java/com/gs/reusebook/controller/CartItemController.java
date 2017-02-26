@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.bean.CartItem;
 import com.gs.reusebook.service.CartItemService;
 import com.gs.reusebook.util.UiReturn;
@@ -28,6 +29,7 @@ public class CartItemController {
 	 */
 	@RequestMapping(value = "/selectAll", method = RequestMethod.GET)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn selectAll(HttpSession session) {
 		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
@@ -42,6 +44,7 @@ public class CartItemController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn add(@RequestBody CartItem cartItem, HttpSession session) {
 		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
@@ -56,6 +59,7 @@ public class CartItemController {
 	 */
 	@RequestMapping(value = "/deleteById", method = RequestMethod.POST)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn deleteById(@RequestBody CartItem cartItem, HttpSession session) {
 		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
@@ -70,6 +74,7 @@ public class CartItemController {
 	 */
 	@RequestMapping(value = "/updateGoodsCount", method = RequestMethod.POST)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn updateGoodsCount(@RequestBody CartItem cartItem, HttpSession session) {
 		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);

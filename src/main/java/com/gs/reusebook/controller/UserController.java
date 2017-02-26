@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.bean.DeliveryAddress;
 import com.gs.reusebook.bean.User;
 import com.gs.reusebook.paramsbean.ChangePasswordParams;
@@ -31,6 +32,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/getUserInfoInMarketByUserId", method = RequestMethod.GET)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn getUserInfoInMarketByUserId(HttpSession session) {
 		String userId = (String) session.getAttribute(USER_ID_SESSION_KEY);
 		// TODO 为空校验
@@ -46,6 +48,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn changePassword(@RequestBody ChangePasswordParams params, HttpSession session) {
 
 		// TODO 校验
@@ -69,6 +72,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/addAddress", method = RequestMethod.POST)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn addAddress(@RequestBody DeliveryAddress deliveryAddressParams, HttpSession session) {
 
 		// TODO 校验
@@ -85,6 +89,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/deleteAddress", method = RequestMethod.POST)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn deleteAddress(@RequestBody DeliveryAddress deliveryAddressParams, HttpSession session) {
 
 		// TODO 校验

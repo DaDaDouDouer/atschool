@@ -44,7 +44,7 @@ public class LoginCheckFilter extends GenericFilterBean{
 	
 	/**
 	 * 自动扫描controller包下的controller，<br>
-	 * 读取所有方法的StringMVC路径并检查是否有需要登录的注解
+	 * 读取所有方法的SpringMVC路径并检查是否有需要登录的注解
 	 */
 	@Override
 	protected void initFilterBean() throws ServletException {

@@ -30,6 +30,7 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
+	@NeedUserLogin
 	public UiReturn add(@RequestBody Evaluation evaluation, HttpSession session){
 		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
