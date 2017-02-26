@@ -121,6 +121,22 @@ public class UiReturn {
 		this.other = other;
 	}
 	
+	/**
+	 * 用于在过滤器中返回json字符串
+	 * @return
+	 */
+	public String toJsonString(){
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(this);
+		} catch (Exception e) {
+			// 此处应该打日志
+			e.printStackTrace();
+		}
+		// 如果出错则手动拼接返回值
+		return "{\"status\": 500,\"msg\":\"服务器错误\",\"data\": \"\",\"other\": null}";
+	}
+	
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();

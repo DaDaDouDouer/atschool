@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.bean.Evaluation;
 import com.gs.reusebook.service.EvaluationService;
 import com.gs.reusebook.util.UiReturn;

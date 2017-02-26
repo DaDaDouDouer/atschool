@@ -20,7 +20,7 @@
 		<param-name>webAppRootKey</param-name>
 		<param-value>reusebook.root</param-value>
 	</context-param>
-
+	
 	<!-- Spring字符集过滤器 -->
 	<filter>
 		<filter-name>SpringEncodingFilter</filter-name>
@@ -39,6 +39,18 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	
+	<!-- 登录检查滤器 -->
+	<filter>
+		<filter-name>loginCheckFilter</filter-name>
+		<filter-class>com.gs.reusebook.filter.LoginCheckFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginCheckFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping> 
+	
+	
 	<!-- 日志记录 -->
 	<context-param>
 		<!-- 日志配置文件路径 -->
