@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.bean.User;
 import com.gs.reusebook.controller.base.AuthUserBaseController;
-import com.gs.reusebook.service.AuthService;
+import com.gs.reusebook.service.AuthUserService;
 import com.gs.reusebook.util.UiReturn;
 
 /**
@@ -25,7 +25,7 @@ import com.gs.reusebook.util.UiReturn;
 public class AuthController extends AuthUserBaseController{
 
 	@Autowired
-	private AuthService authService;
+	private AuthUserService authUserService;
 
 	/**
 	 * 注册操作
@@ -37,7 +37,7 @@ public class AuthController extends AuthUserBaseController{
 	public UiReturn register(@RequestBody User userParams, HttpSession session) {
 
 		// TODO 校验
-		setAuthService(authService);
+		setAuthBaseService(authUserService);
 		return registerProcess(userParams, session);
 	}
 
@@ -51,7 +51,7 @@ public class AuthController extends AuthUserBaseController{
 	public UiReturn login(@RequestBody User userParams, HttpSession session) {
 
 		// TODO 校验
-		setAuthService(authService);
+		setAuthBaseService(authUserService);
 		return loginProcess(userParams, session);
 
 	}

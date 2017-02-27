@@ -14,7 +14,7 @@ import com.gs.reusebook.util.UiReturn;
 import static com.gs.reusebook.util.GlobalStatus.*;
 
 @Service
-public class AuthService implements AuthBaseService{
+public class AuthUserService implements AuthBaseService{
 
 	@Autowired
 	public AuthBaseDao<User> userDao;

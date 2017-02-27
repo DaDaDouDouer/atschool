@@ -21,7 +21,7 @@ public class AuthBaseController {
 		this.nameSessionKey = nameSessionKey;
 	}
 
-	public void setAuthService(AuthBaseService authBaseService) {
+	public void setAuthBaseService(AuthBaseService authBaseService) {
 		if(this.authBaseService == null){
 			this.authBaseService = authBaseService;
 		}
