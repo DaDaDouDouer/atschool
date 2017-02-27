@@ -45,11 +45,6 @@
 		select * from tab_user
 	</select>
 
-	<select id="selectUserWithCartItems" resultType="User" parameterType="String" resultMap="userResultMap">
-		select *
-		 from tab_user u, tab_cart_item c, tab_goods g 
-		  where g.id = c.goods_id and u.id = c.user_id and u.id = #{userId}
-	</select>
 
 	<select id="selectByName" parameterType="String" resultType="User">
 		select * from tab_user where username like #{username}
@@ -59,11 +54,6 @@
 		delete from tab_user where
 		id = #{id}
 	</delete>
-
-	<update id="updateUsername">
-		update tab_user set username = #{username} where id =
-		#{id}
-	</update>
 
 	<resultMap type="com.gs.reusebook.bean.User" id="normalUserResultMap">
 		<!-- 用id标签来映射主键字段 -->

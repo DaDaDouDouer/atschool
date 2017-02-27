@@ -23,7 +23,5 @@ public interface UserDao {
 	
 	// ---------------test---------------
 	public List<User> selectAll();
-	public List<User> selectUserWithCartItems(String userId);
 	public void deleteById(int id);
-	public void updateUsername(@Param("username") String username, @Param("id") String id);
 }

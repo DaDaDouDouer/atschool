@@ -37,6 +37,12 @@ import com.gs.reusebook.util.UiReturn;
 public class LoginCheckFilter extends GenericFilterBean{
 
 	private final static String CONTROLLER_PACKAGE_PATH = "com.gs.reusebook.controller";
+	
+	/**
+	 * java类文件编译之后的后缀
+	 */
+	private final static String CLASS_FILE_SUFIX = ".class";
+	
 	/**
 	 * 存放所有需要登录才能访问的接口路径
 	 */
@@ -64,10 +70,12 @@ public class LoginCheckFilter extends GenericFilterBean{
 		
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		
-		String uri = httpRequest.getRequestURI();
+		String requestUri = httpRequest.getRequestURI();
 		
-		if(limitedURI.contains(uri)){
+		if(limitedURI.contains(requestUri)){
 			HttpSession session = httpRequest.getSession();
+			
+			// 检查session中是否有登录之后的信息
 			String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 			
 			if(StringUtils.isEmpty(userId)){
@@ -87,17 +95,17 @@ public class LoginCheckFilter extends GenericFilterBean{
 	 * @throws IOException
 	 */
 	private void initLimitedURI() throws IOException {
-		// 第一个class类的集合
+		// class类的集合
         Set<Class<?>> controllerClasses = new LinkedHashSet<Class<?>>();
         // 是否循环迭代
         boolean recursive = true;
         // 包路径
 		String packageName = CONTROLLER_PACKAGE_PATH;
 		String packageDirName = packageName.replace('.', '/');
-		// 定义一个枚举的集合 并进行循环来处理这个目录下的things
-		Enumeration<URL> dirs;
-		dirs = Thread.currentThread().getContextClassLoader().getResources(packageDirName);
-		// 循环迭代下去
+		// 定义一个枚举的集合 并进行循环来处理这个目录下的文件夹或文件
+		Enumeration<URL> dirs = 
+				Thread.currentThread().getContextClassLoader().getResources(packageDirName);
+		// 循环迭代
 		while (dirs.hasMoreElements()) {
 			// 获取下一个元素
 			URL url = dirs.nextElement();
@@ -108,7 +116,13 @@ public class LoginCheckFilter extends GenericFilterBean{
                     recursive, controllerClasses);
 			
 		}
-
+		
+		/*
+		 * 循环存放类的集合，检查类上是否有springMVC路径注解，如果有则获取，
+		 * 之后获取全部方法，检查方法上是否有springMVC路径注解，如果有则获取，
+		 * 之后检查方法上是否有自定义登录检查注解，
+		 * 如果有，则把类上的路径和方法上的路径合并再加上.do拼合成为请求路径的形式。
+		 */
 		limitedURI = new ArrayList<String>();
 		for(Class<?> clazz : controllerClasses){
 			
@@ -130,11 +144,14 @@ public class LoginCheckFilter extends GenericFilterBean{
 									limitedURI.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
 								}
 							}
+							
 						}
 					}
 				}
+				
 			}
 		}
+		
 	}
 
 	/**
@@ -155,26 +172,28 @@ public class LoginCheckFilter extends GenericFilterBean{
 		if (!dir.exists() || !dir.isDirectory()) {
 			throw new IOException("不存在该controller目录");
 		}
-		// 如果存在 就获取包下的所有文件 包括目录
+		// 如果存在，就获取包下的所有文件，包括目录
+		// 注意由于是在运行期获取文件，所以并不是.java而是.class，编译之后的
 		File[] dirfiles = dir.listFiles(new FileFilter() {
 			public boolean accept(File file) {
-				return (recursive && file.isDirectory()) || (file.getName().endsWith(".class"));
+				return (file.isDirectory() && recursive) || (file.getName().endsWith(CLASS_FILE_SUFIX));
 			}
 		});
 		for (File file : dirfiles) {
 			// 如果是目录 则继续扫描
 			if (file.isDirectory()) {
-				findAndAddClassesInPackageByFile(packageName + "." + file.getName(), file.getAbsolutePath(), recursive,
-						classes);
+				findAndAddClassesInPackageByFile(packageName + "." + file.getName(), 
+						file.getAbsolutePath(), recursive, classes);
 			} else {
 				// 如果是java类文件 去掉后面的.class 只留下类名
-				String className = file.getName().substring(0, file.getName().length() - 6);
+				String className = file.getName().substring(
+						0, file.getName().length() - CLASS_FILE_SUFIX.length());
 				try {
-					// 添加到集合中去
-					classes.add(
-							Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className));
+					// class添加到集合中去
+					classes.add(Thread.currentThread().getContextClassLoader().loadClass(
+									packageName + '.' + className));
 				} catch (ClassNotFoundException e) {
-					throw new IOException("找不到此类的.class文件");
+					throw new IOException("找不到文件对应的class类");
 				}
 			}
 		}
