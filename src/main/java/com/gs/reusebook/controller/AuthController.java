@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.bean.User;
+import com.gs.reusebook.controller.base.AuthUserBaseController;
 import com.gs.reusebook.service.AuthService;
 import com.gs.reusebook.util.UiReturn;
-import static com.gs.reusebook.util.ReusebookStatic.*;
 
 /**
  * 一般用户登录注册等身份验证
@@ -22,7 +22,7 @@ import static com.gs.reusebook.util.ReusebookStatic.*;
  */
 @Controller
 @RequestMapping("/auth/user")
-public class AuthController {
+public class AuthController extends AuthUserBaseController{
 
 	@Autowired
 	private AuthService authService;
@@ -37,19 +37,8 @@ public class AuthController {
 	public UiReturn register(@RequestBody User userParams, HttpSession session) {
 
 		// TODO 校验
-
-		// 注册操作
-		UiReturn uiReturn = authService.register(userParams.getUsername(), userParams.getPassword());
-
-		// 如果登录成功，加入session
-		if (200 == uiReturn.getStatus()) {
-			User user = (User) uiReturn.getData();
-			session.setAttribute(USER_SESSION_KEY, user);
-			session.setAttribute(USER_ID_SESSION_KEY, user.getId());
-			session.setAttribute(USER_NAME_SESSION_KEY, user.getUsername());
-		}
-		
-		return uiReturn;
+		setAuthService(authService);
+		return registerProcess(userParams, session);
 	}
 
 	/**
@@ -62,28 +51,8 @@ public class AuthController {
 	public UiReturn login(@RequestBody User userParams, HttpSession session) {
 
 		// TODO 校验
-
-		// 如果已经有同一用户登录则跳过登录
-		String usernameInSession = (String) session.getAttribute(USER_NAME_SESSION_KEY);
-		if (userParams.getUsername().equals(usernameInSession)) {
-
-			return UiReturn.ok(session.getAttribute(USER_SESSION_KEY), "已登录");
-
-		} else {
-
-			// 登录操作
-			UiReturn uiReturn = authService.login(userParams.getUsername(), userParams.getPassword());
-
-			// 如果登录成功，加入session
-			if (200 == uiReturn.getStatus()) {
-				User user = (User) uiReturn.getData();
-				session.setAttribute(USER_SESSION_KEY, user);
-				session.setAttribute(USER_ID_SESSION_KEY, user.getId());
-				session.setAttribute(USER_NAME_SESSION_KEY, user.getUsername());
-			}
-
-			return uiReturn;
-		}
+		setAuthService(authService);
+		return loginProcess(userParams, session);
 
 	}
 	
@@ -94,9 +63,6 @@ public class AuthController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	@ResponseBody
 	public UiReturn logout(HttpSession session) {
-		
-		session.invalidate();
-		
-		return UiReturn.ok(null, "注销成功");
+		return logoutProcess(session);
 	}
 }

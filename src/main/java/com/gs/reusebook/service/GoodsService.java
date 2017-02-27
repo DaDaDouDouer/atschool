@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.dao.BookDao;
-import com.gs.reusebook.dao.DaoForRealGoods;
 import com.gs.reusebook.dao.GoodsDao;
+import com.gs.reusebook.dao.base.RealGoodsBaseDao;
 import com.gs.reusebook.util.DaoPool;
 import com.gs.reusebook.util.UiReturn;
 
@@ -57,7 +57,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		Goods goods = goodsDao.selectById(goodsId);
 		
 		// TODO 为空校验
-		DaoForRealGoods<?> realGoodsDao = daoPool.getDao(goods.getLinkTable());
+		RealGoodsBaseDao<?> realGoodsDao = daoPool.getDao(goods.getLinkTable());
 		
 		return UiReturn.ok(realGoodsDao.selectById(goods.getRealGoodsId()), "获取成功");
 	}

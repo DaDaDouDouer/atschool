@@ -1,5 +1,7 @@
 package com.gs.reusebook.bean;
 
+import com.gs.reusebook.bean.base.RealGoods;
+
 /**
  * 
  * 书籍为一种商品，书籍信息

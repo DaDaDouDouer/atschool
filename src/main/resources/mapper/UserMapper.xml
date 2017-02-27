@@ -22,19 +22,21 @@
 		WHERE ui.user_id = #{userId} AND ui.id = a.user_info_id
 	</select>
 	
-	<insert id="insertUser" parameterType="User" keyProperty="id">
+	<insert id="insert" parameterType="User" keyProperty="id">
 		insert
 		into
 
 		tab_user(
 		id,
 		username,
-		password)
+		password,
+		create_time)
 
 		values (
 		#{id},
 		#{username},
-		#{password})
+		#{password},
+		#{createTime})
 	</insert>
 
 	<select id="selectById" resultType="User" resultMap="normalUserResultMap">

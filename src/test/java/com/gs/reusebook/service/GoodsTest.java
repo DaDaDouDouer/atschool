@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.gs.reusebook.bean.Goods;
-import com.gs.reusebook.bean.RealGoods;
+import com.gs.reusebook.bean.base.RealGoods;
 import com.gs.reusebook.util.UiReturn;
 
 public class GoodsTest {

@@ -8,15 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.User;
-import com.gs.reusebook.dao.UserDao;
+import com.gs.reusebook.dao.base.AuthBaseDao;
+import com.gs.reusebook.service.base.AuthBaseService;
 import com.gs.reusebook.util.UiReturn;
 import static com.gs.reusebook.util.GlobalStatus.*;
 
 @Service
-public class AuthService {
+public class AuthService implements AuthBaseService{
 
 	@Autowired
-	public UserDao userDao;
+	public AuthBaseDao<User> userDao;
 
 	/**
 	 * 一般用户注册
@@ -40,7 +41,7 @@ public class AuthService {
 		user.setCreateTime(new Date());
 		
 		// 入库
-		userDao.insertUser(user);
+		userDao.insert(user);
 		
 		// 去除敏感信息
 		user.setPassword("");
