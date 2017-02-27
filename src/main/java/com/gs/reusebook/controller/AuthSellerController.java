@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gs.reusebook.bean.Seller;
 import com.gs.reusebook.bean.User;
-import com.gs.reusebook.controller.base.AuthUserBaseController;
-import com.gs.reusebook.service.AuthUserService;
+import com.gs.reusebook.bean.base.AuthBaseBean;
+import com.gs.reusebook.controller.base.AuthSellerBaseController;
+import com.gs.reusebook.service.AuthSellerService;
 import com.gs.reusebook.util.UiReturn;
 
 /**
@@ -21,11 +23,11 @@ import com.gs.reusebook.util.UiReturn;
  *
  */
 @Controller
-@RequestMapping("/auth/user")
-public class AuthController extends AuthUserBaseController{
+@RequestMapping("/auth/seller")
+public class AuthSellerController extends AuthSellerBaseController{
 
 	@Autowired
-	private AuthUserService authUserService;
+	private AuthSellerService authSellerService;
 
 	/**
 	 * 注册操作
@@ -34,11 +36,10 @@ public class AuthController extends AuthUserBaseController{
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
-	public UiReturn register(@RequestBody User userParams, HttpSession session) {
+	public UiReturn register(@RequestBody AuthBaseBean prams, HttpSession session) {
 
 		// TODO 校验
-		setAuthBaseService(authUserService);
-		return registerProcess(userParams, session);
+		return registerProcess(prams, session, authSellerService);
 	}
 
 	/**
@@ -48,11 +49,10 @@ public class AuthController extends AuthUserBaseController{
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public UiReturn login(@RequestBody User userParams, HttpSession session) {
+	public UiReturn login(@RequestBody AuthBaseBean params, HttpSession session) {
 
 		// TODO 校验
-		setAuthBaseService(authUserService);
-		return loginProcess(userParams, session);
+		return loginProcess(params, session, authSellerService);
 
 	}
 	
