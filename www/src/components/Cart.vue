@@ -1,16 +1,15 @@
 <template>
-  <v-toolbar-items>
-    <v-toolbar-item>个人中心</v-toolbar-item>
-    <v-toolbar-item>购物车</v-toolbar-item>
-  </v-toolbar-items>
+  <div class="cart">
+    cart
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'app-header',
+  name: 'cart',
   data () {
     return {
-      header: 'header'
+      msg: 'Welcome to Your Vue.js App'
     }
   }
 }
