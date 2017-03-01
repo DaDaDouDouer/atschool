@@ -6,6 +6,8 @@ public class BookType {
 
 	private String name;
 
+	private String baseName;
+
 	public String getId() {
 		return id;
 	}
@@ -22,4 +24,18 @@ public class BookType {
 		this.name = name;
 	}
 
+	/**
+	 * 大类名
+	 * @return
+	 */
+	public String getBaseName() {
+		return baseName;
+	}
+
+	public void setBaseName(String baseName) {
+		this.baseName = baseName;
+	}
+	
+	
+	
 }

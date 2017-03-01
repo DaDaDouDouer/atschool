@@ -32,7 +32,10 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 	private void saveDefaultBookType(){
 		UiReturn result = bookTypeService.selectById(DEFAULT_BOOK_TYPE_ID);
 		if(result.getData() == null){
-			bookTypeService.insert(DEFAULT_BOOK_TYPE_ID, DEFAULT_BOOK_TYPE);
+			bookTypeService.insert(
+					DEFAULT_BOOK_TYPE_ID,
+					DEFAULT_BOOK_TYPE,
+					DEFAULT_BOOK_TYPE_BASE);
 		}
 	}
 	
