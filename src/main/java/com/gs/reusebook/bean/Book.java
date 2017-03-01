@@ -1,5 +1,8 @@
 package com.gs.reusebook.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.gs.reusebook.bean.base.RealGoods;
 
 /**
@@ -15,6 +18,7 @@ public class Book extends RealGoods{
 	private String name;
 	private String author;
 	private String isbn;
+	private List<BookType> types;
 
 	public void setId(String id) {
 		this.id = id;
@@ -46,5 +50,23 @@ public class Book extends RealGoods{
 
 	public String getAuthor() {
 		return author;
+	}
+
+	public List<BookType> getTypes() {
+		return types;
+	}
+	
+	public void setTypes(List<BookType> types) {
+		this.types = types;
+	}
+	
+	public List<String> fatchTypeIds(){
+		List<String> typeIds = new ArrayList<String>();
+		if(types != null){
+			for(BookType type: types){
+				typeIds.add(type.getId());
+			}
+		}
+		return typeIds; 
 	}
 }

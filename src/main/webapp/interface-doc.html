@@ -3,7 +3,7 @@
 
 <head>
 	<style type="text/css">
-		tr.auth-user {
+		tr.auth {
 			background-color: #d9d919
 		}
 		
@@ -129,9 +129,12 @@
 		</thead>
 
 		<tbody id="interfaces">
-			<tr class="auth-user" id="auth-user-login">
-				<td>一般用户登录</td>
-				<td>auth/user/login.do</td>
+			<tr class="auth" id="auth-login">
+				<td>一般用户或商家登录</td>
+				<td>
+					auth/user/login.do<br>
+					auth/seller/login.do
+				</td>
 				<td>post</td>
 				<td>
 					<p>username 用户名</p>
@@ -185,10 +188,11 @@
 						</pre>
 				</td>
 			</tr>
-			<tr class="auth-user" id="auth-user-register">
-				<td>一般用户注册</td>
+			<tr class="auth" id="auth-register">
+				<td>一般用户或商家注册</td>
 				<td>
-					auth/user/register.do
+					auth/user/register.do<br>
+					auth/seller/register.do
 				</td>
 				<td>post</td>
 				<td>
@@ -218,10 +222,11 @@
 						</pre>
 				</td>
 			</tr>
-			<tr class="auth-user" id="auth-user-logout">
-				<td>一般用户注销</td>
+			<tr class="auth" id="auth-logout">
+				<td>一般用户或商家注销</td>
 				<td>
-					auth/user/logout.do
+					auth/user/logout.do<br>
+					auth/seller/logout.do
 				</td>
 				<td>get</td>
 				<td>
