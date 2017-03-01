@@ -1,7 +1,7 @@
 <template>
   <v-toolbar-items>
-    <v-toolbar-item>Home</v-toolbar-item>
-    <v-toolbar-item>Contact</v-toolbar-item>
+    <v-toolbar-item>个人中心</v-toolbar-item>
+    <v-toolbar-item>购物车</v-toolbar-item>
   </v-toolbar-items>
 </template>
 
