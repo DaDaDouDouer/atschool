@@ -46,11 +46,11 @@ export default {
   display: block;
 }
 
-.menu__content {
+.menu-container .menu__content {
   left: 210px!important;
 }
 
-.menu__activator {
+.menu-container .menu__activator {
     margin-bottom: -11px;
 }
 </style>
