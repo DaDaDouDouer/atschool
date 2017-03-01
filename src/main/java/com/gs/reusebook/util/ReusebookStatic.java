@@ -60,6 +60,20 @@ public class ReusebookStatic {
 	
 	
 	/**
+	 * 默认书的类型，每本书都会有一个这个类型
+	 */
+	public final static String DEFAULT_BOOK_TYPE = "default_book_type";
+	/**
+	 * 默认书的类型ID，每本书都会有一个这个类型
+	 */
+	public final static String DEFAULT_BOOK_TYPE_ID = "09vc8c86-e8ca-hjc7-96f3-f1a4kd4804ab";
+	
+	
+	
+	
+	
+	
+	/**
 	 * 订单状态
 	 */
 	public final static int ORDER_STATUS_START = 1000;

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gs.reusebook.dao.BookTypeDao">
+
+	<select id="selectById" resultType="BookType">
+		SELECT * FROM tab_book_type WHERE id = #{typeId}
+	</select>
+	
+	<insert id="insert" parameterType="BookType" keyProperty="id">
+		INSERT
+		INTO
+
+		tab_book_type(
+		id,
+		name)
+
+		VALUES (
+		#{id},
+		#{name})
+	</insert>
+
+</mapper>

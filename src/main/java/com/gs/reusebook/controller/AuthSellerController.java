@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gs.reusebook.bean.Seller;
-import com.gs.reusebook.bean.User;
 import com.gs.reusebook.bean.base.AuthBaseBean;
 import com.gs.reusebook.controller.base.AuthSellerBaseController;
 import com.gs.reusebook.service.AuthSellerService;
