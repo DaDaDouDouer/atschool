@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -26,8 +27,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.gs.reusebook.annotation.NeedSellerLogin;
 import com.gs.reusebook.annotation.NeedUserLogin;
+import com.gs.reusebook.bean.Seller;
+import com.gs.reusebook.bean.User;
+import com.gs.reusebook.bean.base.AuthBaseBean;
 import com.gs.reusebook.util.UiReturn;
 
 /**
@@ -170,31 +173,26 @@ public class LoginCheckFilter extends GenericFilterBean{
 							
 							for(int i = 0; i<pathValuesOnClass.length;i++){
 								for(int j = 0; j<pathValuesOnMethod.length;j++){
-									limitedURIForUser.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
+									List<Class<? extends AuthBaseBean>> characters = Arrays.asList(needUserLogin.character());
+									if(!characters.isEmpty()){
+										for(Class<? extends AuthBaseBean> characterClass : characters){
+											
+											if(characterClass == User.class){
+												limitedURIForUser.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
+											}
+											
+											if(characterClass == Seller.class){
+												limitedURIForSeller.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
+											}
+											// 之后如果还有bean是需要登陆验证的则写在这里
+										}
+									}
 								}
 							}
 							
 						}
 					}
-					
-					// TODO 此处重复代码可优化
-					// 检查需要商家登录的注解
-					NeedSellerLogin needSellerLogin = (NeedSellerLogin) method.getAnnotation(NeedSellerLogin.class);
-					if(needSellerLogin != null){
-						RequestMapping requestMappingOnMethod= (RequestMapping) method.getAnnotation(RequestMapping.class);
-						if(requestMappingOnMethod != null){
-							String[] pathValuesOnMethod = requestMappingOnMethod.value();
-							
-							for(int i = 0; i<pathValuesOnClass.length;i++){
-								for(int j = 0; j<pathValuesOnMethod.length;j++){
-									limitedURIForSeller.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
-								}
-							}
-							
-						}
-					}
-					
-					
+										
 				}
 				
 			}

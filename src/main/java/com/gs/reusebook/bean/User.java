@@ -1,6 +1,5 @@
 package com.gs.reusebook.bean;
 
-import java.util.Date;
 import java.util.List;
 
 import com.gs.reusebook.bean.base.AuthBaseBean;
