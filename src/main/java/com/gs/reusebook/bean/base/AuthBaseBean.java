@@ -2,7 +2,7 @@ package com.gs.reusebook.bean.base;
 
 import java.util.Date;
 
-public class AuthBaseBean {
+public class AuthBaseBean implements FatchAuthSessionKey{
 
 	private String id;
 
@@ -43,5 +43,16 @@ public class AuthBaseBean {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-
+	
+	public String fatchIdSessionKey() {
+		throw new UnsupportedOperationException("父类不支持此方法，子类未实现。");
+	}
+	public String fatchNameSessionKey() {
+		throw new UnsupportedOperationException("父类不支持此方法，子类未实现。");
+	}
+	public String fatchSessionKey() {
+		throw new UnsupportedOperationException("父类不支持此方法，子类未实现。");
+	}
+	
 }
+

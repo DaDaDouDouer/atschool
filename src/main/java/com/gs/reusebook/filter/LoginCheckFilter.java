@@ -1,6 +1,5 @@
 package com.gs.reusebook.filter;
 
-import static com.gs.reusebook.util.ReusebookStatic.*;
 import static com.gs.reusebook.util.GlobalStatus.*;
 
 import java.io.File;
@@ -12,8 +11,10 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.FilterChain;
@@ -48,14 +49,10 @@ public class LoginCheckFilter extends GenericFilterBean{
 	private final static String CLASS_FILE_SUFIX = ".class";
 	
 	/**
-	 * 存放所有需要一般用户登录才能访问的接口路径
+	 * 存放所有需要验证的用户角色以及其对应的需要验证的url
 	 */
-	private List<String> limitedURIForUser;
-
-	/**
-	 * 存放所有需要商家登录才能访问的接口路径
-	 */
-	private List<String> limitedURIForSeller;
+	private Map<Class<? extends AuthBaseBean>, List<String>> authBeansLimitedUrls;
+	
 	
 	/**
 	 * 自动扫描controller包下的controller，<br>
@@ -84,32 +81,25 @@ public class LoginCheckFilter extends GenericFilterBean{
 		// 保存用户的登录验证状态
 		boolean isLogin = true;
 		
-		// 一般用户登录检查
-		if(limitedURIForUser.contains(requestUri)){
-			HttpSession session = httpRequest.getSession();
-			
-			// 检查session中是否有登录之后的信息
-			String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
-			
-			if(StringUtils.isEmpty(userId)){
-				response.getWriter().append(
-						UiReturn.notOk("", "需要一般用户登录", NOT_VALIDATE_401).toJsonString());
-				isLogin = false;
-			}
-		}
-
-		// TODO 此处重复代码可优化
-		// 商户登录检查
-		if(limitedURIForSeller.contains(requestUri)){
-			HttpSession session = httpRequest.getSession();
-			
-			// 检查session中是否有登录之后的信息
-			String sellerId= (String) session.getAttribute(SELLER_ID_SESSION_KEY);
-			
-			if(StringUtils.isEmpty(sellerId)){
-				response.getWriter().append(
-						UiReturn.notOk("", "需要商家用户登录", NOT_VALIDATE_401).toJsonString());
-				isLogin = false;
+		// 遍历存放限制url的map，对每个角色执行一次查询，看是否对这条url有限制
+		for(Class<? extends AuthBaseBean> characterClass : authBeansLimitedUrls.keySet()){
+			if(authBeansLimitedUrls.get(characterClass).contains(requestUri)){
+				HttpSession session = httpRequest.getSession();
+				
+				try {
+					// 检查session中是否有登录之后的信息
+					String characterId = (String) session.getAttribute(characterClass.newInstance().fatchIdSessionKey());
+					
+					if(StringUtils.isEmpty(characterId)){
+						response.getWriter().append(UiReturn.notOk("", "需要用户登录", NOT_VALIDATE_401).toJsonString());
+						isLogin = false;
+						break;
+					}
+				} catch (Exception e) {
+					// TODO 打印日志
+					e.printStackTrace();
+				}
+				
 			}
 		}
 		
@@ -133,8 +123,7 @@ public class LoginCheckFilter extends GenericFilterBean{
 		String packageName = CONTROLLER_PACKAGE_PATH;
 		String packageDirName = packageName.replace('.', '/');
 		// 定义一个枚举的集合 并进行循环来处理这个目录下的文件夹或文件
-		Enumeration<URL> dirs = 
-				Thread.currentThread().getContextClassLoader().getResources(packageDirName);
+		Enumeration<URL> dirs = Thread.currentThread().getContextClassLoader().getResources(packageDirName);
 		// 循环迭代
 		while (dirs.hasMoreElements()) {
 			// 获取下一个元素
@@ -142,8 +131,7 @@ public class LoginCheckFilter extends GenericFilterBean{
 			// 获取包的物理路径
 			String packagePath = URLDecoder.decode(url.getFile(), "UTF-8");
 			
-			findAndAddClassesInPackageByFile(packageName, packagePath,
-                    recursive, controllerClasses);
+			findAndAddClassesInPackageByFile(packageName, packagePath, recursive, controllerClasses);
 			
 		}
 		
@@ -153,8 +141,10 @@ public class LoginCheckFilter extends GenericFilterBean{
 		 * 之后检查方法上是否有自定义登录检查注解，
 		 * 如果有，则把类上的路径和方法上的路径合并再加上.do拼合成为请求路径的形式。
 		 */
-		limitedURIForUser = new ArrayList<String>();
-		limitedURIForSeller = new ArrayList<String>();
+		authBeansLimitedUrls = new HashMap<Class<? extends AuthBaseBean>, List<String>>();
+		authBeansLimitedUrls.put(User.class, new ArrayList<String>());
+		authBeansLimitedUrls.put(Seller.class, new ArrayList<String>());
+
 		for(Class<?> clazz : controllerClasses){
 			
 			RequestMapping requestMappingOnClass = (RequestMapping) clazz.getAnnotation(RequestMapping.class);
@@ -176,15 +166,7 @@ public class LoginCheckFilter extends GenericFilterBean{
 									List<Class<? extends AuthBaseBean>> characters = Arrays.asList(needUserLogin.character());
 									if(!characters.isEmpty()){
 										for(Class<? extends AuthBaseBean> characterClass : characters){
-											
-											if(characterClass == User.class){
-												limitedURIForUser.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
-											}
-											
-											if(characterClass == Seller.class){
-												limitedURIForSeller.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
-											}
-											// 之后如果还有bean是需要登陆验证的则写在这里
+											authBeansLimitedUrls.get(characterClass).add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
 										}
 									}
 								}
@@ -228,8 +210,7 @@ public class LoginCheckFilter extends GenericFilterBean{
 		for (File file : dirfiles) {
 			// 如果是目录 则继续扫描
 			if (file.isDirectory()) {
-				findAndAddClassesInPackageByFile(packageName + "." + file.getName(), 
-						file.getAbsolutePath(), recursive, classes);
+				findAndAddClassesInPackageByFile(packageName + "." + file.getName(), file.getAbsolutePath(), recursive, classes);
 			} else {
 				// 如果是java类文件 去掉后面的.class 只留下类名
 				String className = file.getName().substring(
