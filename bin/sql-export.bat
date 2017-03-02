@@ -1,3 +1,4 @@
-del /q M:\reusebook_repo\sql\reusebook.sql
-mysql -u root -p 21431 graduate_design > M:\reusebook_repo\sql\reusebook.sql
+set sql_file_path=M:\reusebook_repo\sql\reusebook.sql
+del /q %sql_file_path%
+mysqldump --opt -h localhost -u root -p graduate_design>%sql_file_path%
 pause
