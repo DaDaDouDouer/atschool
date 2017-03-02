@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'login',
   data () {
@@ -52,9 +50,7 @@ export default {
   },
   methods: {
     submit () {
-      axios.post('auth/user/login.do', this.form).then(function (response) {
-        console.log(response)
-      })
+      this.$store.dispatch('login', this.form)
     }
   }
 }

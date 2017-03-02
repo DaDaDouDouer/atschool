@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'sign-up',
   data () {
@@ -59,9 +57,7 @@ export default {
   methods: {
     submit () {
       delete this.form.repeatPassword
-      axios.post('auth/user/register.do', this.form).then(function (response) {
-        console.log(response)
-      })
+      this.$store.dispatch('signUp', this.form)
     }
   }
 }
