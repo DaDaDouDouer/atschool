@@ -23,6 +23,9 @@ public class BookService {
 	 */
 	public UiReturn selectByBookCondition(Book book){
 		// 如果没有给出搜索的书籍类型则默认为默认类型
+		if(book == null){
+			book = new Book();
+		}
 		List<String> typeIds = book.fatchTypeIds();
 		if(typeIds.isEmpty()){
 			typeIds.add(DEFAULT_BOOK_TYPE_ID);

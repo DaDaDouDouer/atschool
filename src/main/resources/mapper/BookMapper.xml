@@ -4,41 +4,35 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gs.reusebook.dao.BookDao">
 
-	<select id="selectById" resultType="Book" resultMap="normalBookResultMap">
-		SELECT
-		  b.id,
-		  b.`name`,
-		  b.`author`,
-		  b.`isbn`,
-		  t.`id` book_type_id,
-		  t.`name` book_type_name
-		FROM
-		  `tab_book` b,
-		  `tab_book_type_rel` r,
-		  `tab_book_type` t 
-		WHERE b.id = #{id} 
-		  AND b.id = r.book_id 
-		  AND r.`book_type_id` = t.`id`
-	</select>
-	
 	<select id="selectByBookCondition" resultType="Book" resultMap="normalBookResultMap">
-		SELECT
-		  b.id,
-		  b.`name`,
-		  b.`author`,
-		  b.`isbn`,
-		  t.`id` book_type_id,
-		  t.`name` book_type_name 
+		SELECT 
+		  b2.id,
+		  b2.`name`,
+		  b2.`author`,
+		  b2.`isbn`,
+		  t2.`id` book_type_id,
+		  t2.`name` book_type_name,
+		  t2.base_name book_type_base_name 
 		FROM
-		  `tab_book` b,
-		  `tab_book_type_rel` r,
-		  `tab_book_type` t 
-		WHERE b.id = r.book_id 
-		  AND r.`book_type_id` = t.`id` 
-		  AND r.book_type_id IN
-		<foreach item="item" index="index" collection="types" open="(" separator="," close=")">
-			#{item}
-        </foreach>
+		  `tab_book` b2,
+		  `tab_book_type_rel` r2,
+		  `tab_book_type` t2 
+		WHERE b2.id = r2.book_id 
+		  AND r2.`book_type_id` = t2.`id` 
+		  AND b2.id IN 
+		  (SELECT 
+		    b.id 
+		  FROM
+		    `tab_book` b,
+		    `tab_book_type_rel` r,
+		    `tab_book_type` t 
+		  WHERE b.id = r.book_id 
+		    AND r.`book_type_id` = t.`id` 
+		    AND r.book_type_id IN 
+			<foreach item="item" index="index" collection="types" open="(" separator="," close=")">
+				#{item}
+	        </foreach>
+        	)
 	</select>
 
 	<resultMap type="com.gs.reusebook.bean.Book" id="normalBookResultMap">
@@ -49,6 +43,7 @@
 		<collection property="types" ofType="com.gs.reusebook.bean.BookType">
 			<id property="id" column="book_type_id" />
 			<result property="name" column="book_type_name" />
+			<result property="baseName" column="book_type_base_name" />
 		</collection>
 	</resultMap>
 

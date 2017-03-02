@@ -27,7 +27,7 @@
 			background-color: #cdcdcd
 		}
 		
-		tr.bookcrud {
+		tr.book {
 			background-color: #bc8f8f
 		}
 		
@@ -35,7 +35,7 @@
 			background-color: #93db70
 		}
 		
-		tr.mainpage {
+		tr.book-type {
 			background-color: #855e42
 		}
 		
@@ -752,142 +752,123 @@
 
 
 
-			<tr class="bookcrud" id="bookcrud">
-				<td>增加书</td>
-				<td>/admin!addBook.action
-					<form action="admin!addBook.action" method="post">
-						isbn:<input type="text" name="book.isbn"><br> label:
-						<input type="text" name="book.label"><br> holdplace:
-						<input type="text" name="book.holdplace"><br>
-						<input type="submit" value="增加">
-					</form>
+			<tr class="book" id="book-find">
+				<td>根据条件查询书</td>
+				<td>
+					book/find.do
 				</td>
 				<td>post</td>
 				<td>
-					<p>书isbn book.isbn</p>
-					<p>书标签 book.label</p>
-					<p>书存放地 book.holdplace</p>
+					<p>types 为一json数组</p>
+					<p>id 每一个id是要进行筛选的类型id</p>
+					<pre>
+{
+  "types":[
+    {
+      "id":"112"
+    }
+  ]
+}
+					</pre>
 				</td>
-				<td></td>
+				<td>返回的json中，每本书都包含一个id固定的默认类型，不予显示即可</td>
 				<td>
 					<pre>
 {
-	"data": {
-		"author": "",
-		"bookname": "Hibernate开发与实战",
-		"count": 0,
-		"createtime": {
-			"date": 29,
-			"day": 0,
-			"hours": 20,
-			"minutes": 49,
-			"month": 10,
-			"seconds": 30,
-			"time": 1448801370269,
-			"timezoneOffset": -480,
-			"year": 115
-		},
-		"description": "《Hibernate开发与实战》采用...",
-		"holdplace": "",
-		"id": 2,
-		"imgpic": "http://...",
-		"isbn": "9787121092848",
-		"label": "",
-		"nowcount": 0,
-		"publisher": ""
-	},
-	"msg": "新书添加成功",
-	"status": 200,
-	"other": {}
+  "status": 200,
+  "msg": "按条件查询书成功",
+  "data": [
+    {
+      "id": "11",
+      "name": "C",
+      "author": "daf",
+      "isbn": "53426436",
+      "types": [
+        {
+          "id": "111",
+          "name": "计算机",
+          "baseName": "b"
+        },
+        {
+          "id": "112",
+          "name": "编程",
+          "baseName": "b"
+        },
+        {
+          "id": "09vc8c86-e8ca-hjc7-96f3-f1a4kd4804ab",
+          "name": "default_book_type",
+          "baseName": "default_book_type_base"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "Java",
+      "author": "ytutre",
+      "isbn": "6744533",
+      "types": [
+        {
+          "id": "111",
+          "name": "计算机",
+          "baseName": "b"
+        }
+      ]
+    }
+  ],
+  "other": null
 }
-						</pre>
-				</td>
-			</tr>
-			<tr class="bookcrud" id="sddasfa">
-				<td>更新书</td>
-				<td>/admin!updateBook.action
-					<form action="admin!updateBook.action" method="post">
-
-						id:<input type="text" name="book.id"><br> label:
-						<input type="text" name="book.label"><br> holdplace:
-						<input type="text" name="book.holdplace"><br> author:
-						<input type="text" name="book.author"><br> publisher:
-						<input type="text" name="book.publisher"><br> description:
-						<input type="text" name="book.description"><br> imgpic:
-						<input type="text" name="book.imgpic"><br>
-						<input type="submit" value="更新">
-					</form>
-				</td>
-				<td>post</td>
-				<td>
-					<p>书id book.id</p>
-					<p>书标签 book.label</p>
-					<p>书存放地 book.holdplace</p>
-					<p>书作者 book.author</p>
-					<p>书出版社 book.publisher</p>
-					<p>书介绍 book.description</p>
-					<p>书图片地址 book.imgpic</p>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-
 					</pre>
 				</td>
 			</tr>
-			<tr class="bookcrud" id="sdfa">
-				<td>查询所有书</td>
-				<td><a href="admin!loadAllBook.action">/admin!loadAllBook.action</a></td>
-				<td>get</td>
-				<td></td>
-				<td></td>
-				<td>
-					<pre>
-						</pre>
-				</td>
-			</tr>
 
-			<tr class="mainpage" id="mainpage">
-				<td>获取推荐书</td>
-				<td><a href="mainpage!recommendBooks.action">/mainpage!recommendBooks.action</a></td>
+			<tr class="book-type" id="book-type-selet-all">
+				<td>获取所有分类</td>
+				<td>
+					book/type/selectAll.do
+				</td>
 				<td>get</td>
 				<td></td>
-				<td></td>
+				<td>实际的返回值包含140多个类型</td>
 				<td>
 					<pre>
+形如：
 {
-	"data": [
-		{
-			"author": "杭州华三通信技术有限公司",
-			"bookname": "路由交换技术 第3卷",
-			"count": 1,
-			"createtime": {
-				"date": 30,
-				"day": 1,
-				"hours": 9,
-				"minutes": 42,
-				"month": 10,
-				"nanos": 0,
-				"seconds": 8,
-				"time": 1448847728000,
-				"timezoneOffset": -480,
-				"year": 115
-			},
-			"description": ".....",
-			"holdplace": "二楼右面",
-			"id": 14,
-			"imgpic": "http://...",
-			"isbn": "9787302276296",
-			"label": "技术-通信",
-			"nowcount": 1,
-			"publisher": ""
-		}
-	],
-	"msg": "推荐书成功",
-	"status": 200,
-	"other": {}
+  "status": 200,
+  "msg": "成功获取全部类型",
+  "data": {
+    "科技": [
+      {
+        "id": "0ebe39f6-42c5-46df-9dee-e8153d0bbd3a",
+        "name": "编程",
+        "baseName": "科技"
+      },
+      {
+        "id": "1afb2e31-a398-4d9d-893f-794052e9e95e",
+        "name": "用户体验",
+        "baseName": "科技"
+      },
+	  {
+        "id": "fa13c1fe-d95a-46c6-ae78-cb86915bc173",
+        "name": "互联网",
+        "baseName": "科技"
+      }
+    ],
+    "生活": [
+      {
+        "id": "0454166e-cb8d-4e9c-9f43-72cdacfebad6",
+        "name": "生活",
+        "baseName": "生活"
+      },
+      {
+        "id": "0fed293c-a1a4-40ce-a9af-57b6b8a1f6e0",
+        "name": "成长",
+        "baseName": "生活"
+      }
+    ]
+  },
+  "other": null
 }
-						</pre>
+					</pre>
 				</td>
 			</tr>
 

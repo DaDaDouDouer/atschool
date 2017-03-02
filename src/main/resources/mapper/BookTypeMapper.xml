@@ -4,7 +4,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gs.reusebook.dao.BookTypeDao">
 
-	<select id="selectById" resultType="BookType">
+	<select id="selectAll" resultType="BookType" resultMap="normalBookTypeResultMap">
+		SELECT * FROM tab_book_type
+	</select>
+
+	<select id="selectById" resultType="BookType" resultMap="normalBookTypeResultMap">
 		SELECT * FROM tab_book_type WHERE id = #{typeId}
 	</select>
 	
@@ -14,11 +18,18 @@
 
 		tab_book_type(
 		id,
-		name)
+		name,
+		base_name)
 
 		VALUES (
 		#{id},
-		#{name})
+		#{name},
+		#{baseName})
 	</insert>
-
+	
+	<resultMap type="com.gs.reusebook.bean.BookType" id="normalBookTypeResultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="baseName" column="base_name" />
+	</resultMap>
 </mapper>
