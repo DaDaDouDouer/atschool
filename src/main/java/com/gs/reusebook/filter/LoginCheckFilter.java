@@ -1,6 +1,6 @@
 package com.gs.reusebook.filter;
 
-import static com.gs.reusebook.util.ReusebookStatic.USER_ID_SESSION_KEY;
+import static com.gs.reusebook.util.ReusebookStatic.*;
 import static com.gs.reusebook.util.GlobalStatus.*;
 
 import java.io.File;
@@ -26,6 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.gs.reusebook.annotation.NeedSellerLogin;
 import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.util.UiReturn;
 
@@ -44,9 +45,14 @@ public class LoginCheckFilter extends GenericFilterBean{
 	private final static String CLASS_FILE_SUFIX = ".class";
 	
 	/**
-	 * 存放所有需要登录才能访问的接口路径
+	 * 存放所有需要一般用户登录才能访问的接口路径
 	 */
-	private List<String> limitedURI;
+	private List<String> limitedURIForUser;
+
+	/**
+	 * 存放所有需要商家登录才能访问的接口路径
+	 */
+	private List<String> limitedURIForSeller;
 	
 	/**
 	 * 自动扫描controller包下的controller，<br>
@@ -72,7 +78,11 @@ public class LoginCheckFilter extends GenericFilterBean{
 		
 		String requestUri = httpRequest.getRequestURI();
 		
-		if(limitedURI.contains(requestUri)){
+		// 保存用户的登录验证状态
+		boolean isLogin = true;
+		
+		// 一般用户登录检查
+		if(limitedURIForUser.contains(requestUri)){
 			HttpSession session = httpRequest.getSession();
 			
 			// 检查session中是否有登录之后的信息
@@ -80,11 +90,28 @@ public class LoginCheckFilter extends GenericFilterBean{
 			
 			if(StringUtils.isEmpty(userId)){
 				response.getWriter().append(
-						UiReturn.notOk("", "需要登录", NOT_VALIDATE_401).toJsonString());
-			}else{
-				chain.doFilter(request, response);
+						UiReturn.notOk("", "需要一般用户登录", NOT_VALIDATE_401).toJsonString());
+				isLogin = false;
 			}
-		}else{
+		}
+
+		// TODO 此处重复代码可优化
+		// 商户登录检查
+		if(limitedURIForSeller.contains(requestUri)){
+			HttpSession session = httpRequest.getSession();
+			
+			// 检查session中是否有登录之后的信息
+			String sellerId= (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+			
+			if(StringUtils.isEmpty(sellerId)){
+				response.getWriter().append(
+						UiReturn.notOk("", "需要商家用户登录", NOT_VALIDATE_401).toJsonString());
+				isLogin = false;
+			}
+		}
+		
+		// 如果在执行了response.getWriter().append()后再调用doFilter会导致报错
+		if(isLogin){
 			chain.doFilter(request, response);
 		}
 	}
@@ -123,7 +150,8 @@ public class LoginCheckFilter extends GenericFilterBean{
 		 * 之后检查方法上是否有自定义登录检查注解，
 		 * 如果有，则把类上的路径和方法上的路径合并再加上.do拼合成为请求路径的形式。
 		 */
-		limitedURI = new ArrayList<String>();
+		limitedURIForUser = new ArrayList<String>();
+		limitedURIForSeller = new ArrayList<String>();
 		for(Class<?> clazz : controllerClasses){
 			
 			RequestMapping requestMappingOnClass = (RequestMapping) clazz.getAnnotation(RequestMapping.class);
@@ -133,6 +161,7 @@ public class LoginCheckFilter extends GenericFilterBean{
 				Method[] methods = clazz.getMethods();
 				for(Method method : methods){
 					
+					// 检查需要用户登录的注解
 					NeedUserLogin needUserLogin = (NeedUserLogin) method.getAnnotation(NeedUserLogin.class);
 					if(needUserLogin != null){
 						RequestMapping requestMappingOnMethod= (RequestMapping) method.getAnnotation(RequestMapping.class);
@@ -141,12 +170,31 @@ public class LoginCheckFilter extends GenericFilterBean{
 							
 							for(int i = 0; i<pathValuesOnClass.length;i++){
 								for(int j = 0; j<pathValuesOnMethod.length;j++){
-									limitedURI.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
+									limitedURIForUser.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
 								}
 							}
 							
 						}
 					}
+					
+					// TODO 此处重复代码可优化
+					// 检查需要商家登录的注解
+					NeedSellerLogin needSellerLogin = (NeedSellerLogin) method.getAnnotation(NeedSellerLogin.class);
+					if(needSellerLogin != null){
+						RequestMapping requestMappingOnMethod= (RequestMapping) method.getAnnotation(RequestMapping.class);
+						if(requestMappingOnMethod != null){
+							String[] pathValuesOnMethod = requestMappingOnMethod.value();
+							
+							for(int i = 0; i<pathValuesOnClass.length;i++){
+								for(int j = 0; j<pathValuesOnMethod.length;j++){
+									limitedURIForSeller.add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
+								}
+							}
+							
+						}
+					}
+					
+					
 				}
 				
 			}

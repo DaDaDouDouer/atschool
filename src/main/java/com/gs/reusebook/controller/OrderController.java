@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gs.reusebook.annotation.NeedSellerLogin;
 import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.paramsbean.OrderAddParams;
 import com.gs.reusebook.service.OrderService;
@@ -29,6 +30,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "/selectAllBySellerId", method = RequestMethod.GET)
+	@NeedSellerLogin
 	@ResponseBody
 	public UiReturn selectAllBySellerId(HttpSession session){
 		String sellerId= (String) session.getAttribute(SELLER_ID_SESSION_KEY);
