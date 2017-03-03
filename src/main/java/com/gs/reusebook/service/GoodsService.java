@@ -1,5 +1,9 @@
 package com.gs.reusebook.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +48,15 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 
 		int offset = (pageNo - 1) * limit;
 
-		return UiReturn.ok(goodsDao.selectAndPagedByName("%" + keyword + "%", offset, limit), "搜索成功");
+		List<Goods> goods = goodsDao.selectAndPagedByName("%" + keyword + "%", offset, limit); 
+		int goodsAllCount = goodsDao.selectCount("%" + keyword + "%");
+		
+		// 将查询到的总页数放入other中返回
+		int pageAllCount = goodsAllCount % limit == 0 ? goodsAllCount / limit : goodsAllCount / limit + 1;
+		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
+		otherMap.put("pageAllCount", pageAllCount);
+		
+		return UiReturn.ok(goods, "查询商品成功", otherMap);
 	}
 
 	/**
