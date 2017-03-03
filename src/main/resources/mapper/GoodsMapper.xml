@@ -5,6 +5,11 @@
 <!-- 这里要改为某个bean的dao -->
 <mapper namespace="com.gs.reusebook.dao.GoodsDao">
 
+
+	<select id="selectCount" resultType="Integer">
+		SELECT count(*) FROM tab_goods WHERE NAME LIKE #{name}
+	</select>
+
 	<select id="selectAndPagedByName" resultType="Goods" resultMap="normalGoodsResultMap">
 		SELECT * FROM tab_goods WHERE NAME LIKE #{name} LIMIT #{offset},#{limit}
 	</select>
