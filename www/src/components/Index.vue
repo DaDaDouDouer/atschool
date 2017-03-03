@@ -1,5 +1,6 @@
 <template>
 <div class="index">
+  <search></search>  
   <div class="menu-container">
     <div v-for="menu in menus">
       <v-menu transition="v-slide-x-transition" bottom right>
@@ -28,8 +29,11 @@
 </template>
 
 <script>
+import Search from './Search'
+
 export default {
   name: 'index',
+  components: { Search },
   data () {
     return {
       index: 'index',
