@@ -5,35 +5,23 @@ import Hello from 'components/Hello'
 import Login from 'components/Login'
 import SignUp from 'components/SignUp'
 import Cart from 'components/Cart'
+import SearchResult from 'components/SearchResult'
+
+const pages = {Index, Hello, Login, SignUp, Cart, SearchResult}
 
 Vue.use(Router)
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Index',
-      component: Index
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/sign-up',
-      name: 'SignUp',
-      component: SignUp
-    },
-    {
-      path: '/cart',
-      name: 'Cart',
-      component: Cart
-    },
-    {
-      path: '/hello',
-      name: 'Hello',
-      component: Hello
-    }
-  ]
+const routes = Object.keys(pages).map((pageName) => {
+  let router = {
+    name: pageName,
+    component: pages[pageName]
+  }
+
+  // 大驼峰转连字符
+  router.path = pageName === 'Index' ? '/'
+  : pageName.replace(/([A-Z])/g, '-$1').replace(/^-/, '/').toLowerCase()
+
+  return router
 })
+
+export default new Router({routes})
