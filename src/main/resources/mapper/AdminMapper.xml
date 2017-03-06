@@ -3,13 +3,13 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 这里要改为某个bean的dao -->
-<mapper namespace="com.gs.reusebook.dao.SellerDao">
+<mapper namespace="com.gs.reusebook.dao.AdminDao">
 
-	<insert id="insert" parameterType="Seller" keyProperty="id">
+	<insert id="insert" parameterType="Admin" keyProperty="id">
 		insert
 		into
 
-		tab_seller(
+		tab_admin(
 		id,
 		username,
 		password,
@@ -23,12 +23,12 @@
 	</insert>
 
 
-	<select id="selectByName" parameterType="String" resultType="Seller" resultMap="normalSellerResultMap">
-		select * from tab_seller where username like #{username}
+	<select id="selectByName" parameterType="String" resultType="Admin" resultMap="normalAdminResultMap">
+		select * from tab_admin where username like #{username}
 	</select>
 
 
-	<resultMap type="com.gs.reusebook.bean.Seller" id="normalSellerResultMap">
+	<resultMap type="com.gs.reusebook.bean.Admin" id="normalAdminResultMap">
 		<!-- 用id标签来映射主键字段 -->
 		<id property="id" column="id" />
 		<!-- 用result标签来映射非主键字段 -->

@@ -36,11 +36,30 @@ public class ReusebookStatic {
 	/**
 	 * session中保存user的id的键
 	 */
-	public final static String SELLER_ID_SESSION_KEY = "thenowseller";
+	public final static String SELLER_ID_SESSION_KEY = "thenowsellerid";
 	/**
 	 * session中保存user的name的键
 	 */
 	public final static String SELLER_NAME_SESSION_KEY = "thenowsellername";
+	
+	
+	
+	
+	
+	
+
+	/**
+	 * session中保存admin的键
+	 */
+	public final static String ADMIN_SESSION_KEY = "thenowadmin";
+	/**
+	 * session中保存user的id的键
+	 */
+	public final static String ADMIN_ID_SESSION_KEY = "thenowadminid";
+	/**
+	 * session中保存user的name的键
+	 */
+	public final static String ADMIN_NAME_SESSION_KEY = "thenowadminname";
 	
 	
 	
