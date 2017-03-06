@@ -10,6 +10,7 @@
 		  b2.`name`,
 		  b2.`author`,
 		  b2.`isbn`,
+		  b2.`img_url`,
 		  t2.`id` book_type_id,
 		  t2.`name` book_type_name,
 		  t2.base_name book_type_base_name 
@@ -40,6 +41,7 @@
 		<result property="name" column="name" />
 		<result property="author" column="author" />
 		<result property="isbn" column="isbn" />
+		<result property="imgUrl" column="img_url" />
 		<collection property="types" ofType="com.gs.reusebook.bean.BookType">
 			<id property="id" column="book_type_id" />
 			<result property="name" column="book_type_name" />
