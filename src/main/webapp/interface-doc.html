@@ -130,10 +130,11 @@
 
 		<tbody id="interfaces">
 			<tr class="auth" id="auth-login">
-				<td>一般用户或商家登录</td>
+				<td>一般用户或商家或管理员登录</td>
 				<td>
 					auth/user/login.do<br>
-					auth/seller/login.do
+					auth/seller/login.do<br>
+					auth/admin/login.do
 				</td>
 				<td>post</td>
 				<td>
@@ -205,7 +206,7 @@
 }
 					</pre>
 				</td>
-				<td>返回的password为空</td>
+				<td>返回的password为空<br>管理员没有注册</td>
 				<td>
 					<pre>
 注册成功
@@ -223,10 +224,11 @@
 				</td>
 			</tr>
 			<tr class="auth" id="auth-logout">
-				<td>一般用户或商家注销</td>
+				<td>一般用户或商家或管理员注销</td>
 				<td>
 					auth/user/logout.do<br>
-					auth/seller/logout.do
+					auth/seller/logout.do<br>
+					auth/admin/logout.do
 				</td>
 				<td>get</td>
 				<td>
@@ -750,8 +752,6 @@
 					</pre>
 				</td>
 			</tr>
-----------------------------------------------------------------------------------------------------------------
-
 
 
 			<tr class="book" id="book-find">
@@ -766,6 +766,9 @@
 					<pre>
 {
   "types":[
+    {
+      "id":"111"
+    },
     {
       "id":"112"
     }

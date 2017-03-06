@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tab_admin`
+--
+
+DROP TABLE IF EXISTS `tab_admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tab_admin` (
+  `id` varchar(36) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tab_admin`
+--
+
+LOCK TABLES `tab_admin` WRITE;
+/*!40000 ALTER TABLE `tab_admin` DISABLE KEYS */;
+INSERT INTO `tab_admin` VALUES ('ad1','12345','admin','2017-03-17 09:35:33');
+/*!40000 ALTER TABLE `tab_admin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tab_book`
 --
 
@@ -335,4 +361,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-05  9:25:56
+-- Dump completed on 2017-03-06  9:54:58
