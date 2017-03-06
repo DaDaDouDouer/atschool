@@ -12,12 +12,13 @@ import com.gs.reusebook.bean.base.RealGoods;
  * @author IceAsh
  *
  */
-public class Book extends RealGoods{
+public class Book extends RealGoods {
 	private String id;
 
 	private String name;
 	private String author;
 	private String isbn;
+	private String imgUrl;
 	private List<BookType> types;
 
 	public void setId(String id) {
@@ -55,18 +56,26 @@ public class Book extends RealGoods{
 	public List<BookType> getTypes() {
 		return types;
 	}
-	
+
 	public void setTypes(List<BookType> types) {
 		this.types = types;
 	}
-	
-	public List<String> fatchTypeIds(){
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public List<String> fatchTypeIds() {
 		List<String> typeIds = new ArrayList<String>();
-		if(types != null){
-			for(BookType type: types){
+		if (types != null) {
+			for (BookType type : types) {
 				typeIds.add(type.getId());
 			}
 		}
-		return typeIds; 
+		return typeIds;
 	}
 }
