@@ -12,7 +12,7 @@ import com.gs.reusebook.service.BookService;
 import com.gs.reusebook.util.UiReturn;
 
 @Controller
-@RequestMapping("book")
+@RequestMapping("/book")
 public class BookController {
 
 	@Autowired
@@ -22,9 +22,9 @@ public class BookController {
 	 * 以键值的形式获取全部的分类
 	 * @return
 	 */
-	@RequestMapping(value = "/find", method = RequestMethod.POST)
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	@ResponseBody
-	public UiReturn findBook(@RequestBody Book book) {
+	public UiReturn search(@RequestBody Book book) {
 		
 		// 参数校验
 		return bookService.selectByBookCondition(book);

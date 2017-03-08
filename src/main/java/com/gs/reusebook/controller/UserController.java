@@ -46,10 +46,10 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin
-	public UiReturn changePassword(@RequestBody ChangePasswordParams params, HttpSession session) {
+	public UiReturn updatePassword(@RequestBody ChangePasswordParams params, HttpSession session) {
 
 		// TODO 校验
 		
