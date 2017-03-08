@@ -1,6 +1,6 @@
 <template>
 <div class="index">
-  <search></search>  
+  <search></search>
   <div class="menu-container">
     <div v-for="menu in menus">
       <v-menu transition="v-slide-x-transition" bottom right>
@@ -34,6 +34,11 @@ import Search from './Search'
 export default {
   name: 'index',
   components: { Search },
+  mounted () {
+    this.$store.dispatch('getAllTypes').then(data => {
+      console.log(data)
+    })
+  },
   data () {
     return {
       index: 'index',
