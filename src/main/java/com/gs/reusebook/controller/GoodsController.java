@@ -28,8 +28,6 @@ public class GoodsController {
 	@ResponseBody
 	public UiReturn search	(@RequestBody GoodsSearchParams params) {
 
-		// TODO 校验
-		
 		return goodsService.selectAndPagedByName(params.keyword, params.pageNo, params.limit);
 	}
 	
@@ -43,6 +41,7 @@ public class GoodsController {
 	public UiReturn getRealGoods	(@RequestBody Goods goodsParams) {
 
 		// TODO 校验
+		
 		
 		return goodsService.getRealGoods(goodsParams.getId());
 	}
