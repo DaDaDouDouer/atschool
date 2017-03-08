@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     search () {
-      this.$store.dispatch('search', this.searchInfo)
+      this.$store.dispatch('goodsSearch', this.searchInfo)
     }
   }
 }
