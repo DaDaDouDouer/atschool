@@ -12,7 +12,7 @@ const getters = {}
 
 // actions
 const actions = {
-  getAllTypes: ({ commit, state }) => {
+  getAllBookTypes: ({ commit, state }) => {
     if (state.bookTypes === null) {
       API.book.getAllTypes().then(bookTypes => {
         commit(BOOK.GET_ALL_TYPES, bookTypes)

@@ -57,7 +57,7 @@ export default {
   methods: {
     submit () {
       delete this.form.repeatPassword
-      this.$store.dispatch('signUp', this.form)
+      this.$store.dispatch('userSignUp', this.form)
     }
   }
 }

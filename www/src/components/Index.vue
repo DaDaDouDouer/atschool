@@ -35,7 +35,7 @@ export default {
   name: 'index',
   components: { Search },
   mounted () {
-    this.$store.dispatch('getAllTypes').then(data => {
+    this.$store.dispatch('getAllBookTypes').then(data => {
       console.log(data)
     })
   },

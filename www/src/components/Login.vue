@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     submit () {
-      this.$store.dispatch('login', this.form)
+      this.$store.dispatch('userLogin', this.form)
     }
   }
 }
