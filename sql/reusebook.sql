@@ -211,6 +211,7 @@ CREATE TABLE `tab_goods` (
   `name` varchar(36) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `count` int(32) DEFAULT NULL,
+  `img_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -221,7 +222,7 @@ CREATE TABLE `tab_goods` (
 
 LOCK TABLES `tab_goods` WRITE;
 /*!40000 ALTER TABLE `tab_goods` DISABLE KEYS */;
-INSERT INTO `tab_goods` VALUES ('1','11','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','C',321.2,1),('2','12','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','Java',432.4,5),('3','13','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','C++',439.2,2),('4','14','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','PHP',32.6,4);
+INSERT INTO `tab_goods` VALUES ('1','11','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','C',321.2,1,'http://evgetgif.qiniudn.com/C-language-book-2.jpg'),('2','12','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','Java',432.4,5,'http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg'),('3','13','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','C++',439.2,2,'http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg'),('4','14','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','PHP',32.6,4,'http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg');
 /*!40000 ALTER TABLE `tab_goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -362,4 +363,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-06 11:00:15
+-- Dump completed on 2017-03-08 17:22:31

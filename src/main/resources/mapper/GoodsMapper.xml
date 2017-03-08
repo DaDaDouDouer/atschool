@@ -6,12 +6,20 @@
 <mapper namespace="com.gs.reusebook.dao.GoodsDao">
 
 
-	<select id="selectCount" resultType="Integer">
-		SELECT count(*) FROM tab_goods WHERE NAME LIKE #{name}
+	<select id="selectCountByName" resultType="Integer">
+		SELECT count(*) FROM tab_goods WHERE name LIKE #{name}
 	</select>
 
+	<select id="selectCountBySellerId" resultType="Integer">
+		SELECT count(*) FROM tab_goods WHERE seller_id = #{sellerId}
+	</select>
+	
+	<select id="selectAndPagedBySellerId" resultType="Goods" resultMap="normalGoodsResultMap">
+		SELECT * FROM tab_goods WHERE seller_id = #{sellerId} LIMIT #{offset},#{limit}
+	</select>
+	
 	<select id="selectAndPagedByName" resultType="Goods" resultMap="normalGoodsResultMap">
-		SELECT * FROM tab_goods WHERE NAME LIKE #{name} LIMIT #{offset},#{limit}
+		SELECT * FROM tab_goods WHERE name LIKE #{name} LIMIT #{offset},#{limit}
 	</select>
 
 	<select id="selectById" resultType="Goods" resultMap="normalGoodsResultMap">
@@ -37,6 +45,7 @@
 		<result property="name" column="name" />
 		<result property="price" column="price" />
 		<result property="count" column="count" />
+		<result property="imgUrl" column="img_url" />
 	</resultMap>
 
 </mapper>

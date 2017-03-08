@@ -23,6 +23,8 @@ public class Goods {
 	private double price;
 	private int count;
 
+	private String imgUrl;
+
 	public String getId() {
 		return id;
 	}
@@ -70,13 +72,21 @@ public class Goods {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
 	public int getCount() {
 		return count;
 	}
-	
+
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
 	}
 
 }

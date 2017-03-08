@@ -11,8 +11,11 @@ import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.dao.BookDao;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.base.RealGoodsBaseDao;
+import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
 import com.gs.reusebook.util.DaoPool;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.CutPageParamsValidator;
+
 import static com.gs.reusebook.util.ReusebookStatic.*;
 
 @Service
@@ -46,36 +49,48 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 */
 	public UiReturn selectAndPagedByName(String keyword, Integer pageNo, Integer limit) {
 		
-		// 为空校验
-		pageNo = pageNo == null ? 1 : pageNo;
-		limit = limit == null ? CUT_PAGE_LIMIT_MIN : limit;
-		
 		// 关键字不能为null
 		keyword = keyword == null ? "" : keyword;
 		// 获取到可查询到的商品总量
-		int goodsAllCount = goodsDao.selectCount("%" + keyword + "%");
-
-		// 每页显示条数必须在规定范围内
-		limit = limit < CUT_PAGE_LIMIT_MIN ? CUT_PAGE_LIMIT_MIN : limit;
-		limit = limit > CUT_PAGE_LIMIT_MAX ? CUT_PAGE_LIMIT_MAX : limit;
+		int goodsAllCount = goodsDao.selectCountByName("%" + keyword + "%");
 		
-		// 页数必须在计算得到的范围内
-		pageNo = pageNo <= 0 ? 1 : pageNo;
-		// 计算最大页数
-		int pageAllCount = goodsAllCount % limit == 0 ? goodsAllCount / limit : goodsAllCount / limit + 1;
-		pageNo = pageNo > pageAllCount ? pageAllCount : pageNo;
+		CutPageValidatorReturnParams rst = 
+				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
 		
-		// 确定数据库使用limit语句查询的偏移量
-		int offset = (pageNo - 1) * limit;
-
 		// 分页查询商品
-		List<Goods> goods = goodsDao.selectAndPagedByName("%" + keyword + "%", offset, limit); 
+		List<Goods> goods = goodsDao.selectAndPagedByName("%" + keyword + "%", rst.offset, rst.limit); 
 		
 		// 将查询到的总页数放入other中返回
 		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
-		otherMap.put("pageAllCount", pageAllCount);
+		otherMap.put("pageAllCount", rst.pageAllCount);
 		
 		return UiReturn.ok(goods, "查询商品成功", otherMap);
+	}
+
+	/**
+	 * 分页获取卖家的所有商品
+	 * @param keyword
+	 * @param pageNo
+	 * @param limit
+	 * @return
+	 */
+	public UiReturn selectAndPagedBySellerId(String sellerId, Integer pageNo, Integer limit) {
+
+		// TODO id校验
+		
+		// 获取到可查询到的商品总量
+		int goodsAllCount = goodsDao.selectCountBySellerId(sellerId);
+		
+		CutPageValidatorReturnParams rst = 
+				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
+		// 分页查询商品
+		List<Goods> goods = goodsDao.selectAndPagedBySellerId(sellerId, rst.offset, rst.limit); 
+		
+		// 将查询到的总页数放入other中返回
+		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
+		otherMap.put("pageAllCount", rst.pageAllCount);
+		
+		return UiReturn.ok(goods, "获取商户的商品成功", otherMap);
 	}
 
 	/**

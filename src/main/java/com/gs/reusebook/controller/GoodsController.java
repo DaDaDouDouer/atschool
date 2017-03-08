@@ -32,6 +32,19 @@ public class GoodsController {
 	}
 	
 	/**
+	 * 通过名字分页搜索商品
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping(value = "/searchBySellerId", method = RequestMethod.POST)
+	@ResponseBody
+	public UiReturn searchBySellerId(@RequestBody GoodsSearchParams params) {
+
+		return goodsService.selectAndPagedBySellerId(params.sellerId, params.pageNo, params.limit);
+	}
+	
+	
+	/**
 	 * 通过商品中的实际商品id获取实际商品对象
 	 * @param goodsParams
 	 * @return
@@ -41,7 +54,6 @@ public class GoodsController {
 	public UiReturn getRealGoods	(@RequestBody Goods goodsParams) {
 
 		// TODO 校验
-		
 		
 		return goodsService.getRealGoods(goodsParams.getId());
 	}
