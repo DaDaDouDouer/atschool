@@ -87,7 +87,6 @@ public class ReusebookStatic {
 	 */
 	public final static String DEFAULT_BOOK_TYPE_BASE = "default_book_type_base";
 	/**
-	/**
 	 * 默认书的类型ID，每本书都会有一个这个类型
 	 */
 	public final static String DEFAULT_BOOK_TYPE_ID = "09vc8c86-e8ca-hjc7-96f3-f1a4kd4804ab";
@@ -101,4 +100,17 @@ public class ReusebookStatic {
 	 * 订单状态
 	 */
 	public final static int ORDER_STATUS_START = 1000;
+	
+	
+	
+	
+	
+	/**
+	 * 分页查询商品的每页显示最小值
+	 */
+	public final static int CUT_PAGE_LIMIT_MIN = 2;
+	/**
+	 * 分页查询商品的每页显示最大值
+	 */
+	public final static int CUT_PAGE_LIMIT_MAX = 3;
 }
