@@ -17,6 +17,7 @@ import com.gs.reusebook.util.DaoPool;
 import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.CutPageParamsValidator;
 import com.gs.reusebook.validator.GeneralValidator;
+import com.gs.reusebook.validator.ValidatorType;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
 
@@ -79,7 +80,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	public UiReturn selectAndPagedBySellerId(String sellerId, Integer pageNo, Integer limit) {
 
 		// id校验
-		ValidatorReturnParams result = GeneralValidator.validate(GeneralValidator.PKID, sellerId);
+		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, sellerId);
 		if(!result.isRight){
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}

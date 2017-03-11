@@ -10,25 +10,23 @@ public class GeneralValidator {
 	/**
 	 * 数据库主键ID验证器的键
 	 */
-	public final static Integer PKID = 0;
-	
-	private static Map<Integer, ParamsValidator> validatorPool;
+	private static Map<ValidatorType, ParamsValidator> validatorPool;
 	
 	static{
-		validatorPool = new HashMap<Integer, ParamsValidator>();
+		validatorPool = new HashMap<ValidatorType, ParamsValidator>();
 		
-		validatorPool.put(PKID, new PKIDValidator());
+		validatorPool.put(ValidatorType.PKID, new PKIDValidator());
 	}
 
 	/**
 	 * 通过传入的key不同获取不同的验证器对传入的参数进行校验
-	 * @param validatorKey
+	 * @param validatorType
 	 * @param params
 	 * @return
 	 */
-	public static ValidatorReturnParams validate(Integer validatorKey, Object... params) {
+	public static ValidatorReturnParams validate(ValidatorType validatorType, Object... params) {
 		
-		ParamsValidator validator = validatorPool.get(validatorKey);
+		ParamsValidator validator = validatorPool.get(validatorType);
 		
 		if(validator == null){
 			return new ValidatorReturnParams(false, "不存在此验证器");

@@ -1,7 +1,11 @@
 package com.gs.reusebook.validator;
 
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
-
+/**
+ * 主键ID验证器
+ * @author IceAsh
+ *
+ */
 public class PKIDValidator implements ParamsValidator {
 
 	private final static int PARAMS_LENGTH = 1;
