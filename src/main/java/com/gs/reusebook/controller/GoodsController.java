@@ -32,7 +32,7 @@ public class GoodsController {
 	}
 	
 	/**
-	 * 通过名字分页搜索商品
+	 * 分页获取卖家的所有商品
 	 * @param params
 	 * @return
 	 */

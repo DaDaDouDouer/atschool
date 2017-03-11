@@ -12,11 +12,13 @@ import com.gs.reusebook.dao.BookDao;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.base.RealGoodsBaseDao;
 import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
+import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.DaoPool;
 import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.CutPageParamsValidator;
+import com.gs.reusebook.validator.GeneralValidator;
 
-import static com.gs.reusebook.util.ReusebookStatic.*;
+import static com.gs.reusebook.util.GlobalStatus.*;
 
 @Service
 public class GoodsService implements ServiceWhichUseDaoPool{
@@ -76,7 +78,11 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 */
 	public UiReturn selectAndPagedBySellerId(String sellerId, Integer pageNo, Integer limit) {
 
-		// TODO id校验
+		// id校验
+		ValidatorReturnParams result = GeneralValidator.validate(GeneralValidator.PKID, sellerId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 		
 		// 获取到可查询到的商品总量
 		int goodsAllCount = goodsDao.selectCountBySellerId(sellerId);

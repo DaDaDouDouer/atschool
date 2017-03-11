@@ -278,7 +278,8 @@
       "linkTable": "tab_book",
       "name": "C",
       "price": 321.2,
-      "count": 3
+      "count": 3,
+      "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg"
     },
     {
       "id": "3",
@@ -287,7 +288,8 @@
       "linkTable": "tab_book",
       "name": "C++",
       "price": 439.2,
-      "count": 3
+      "count": 3,
+      "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg"
     }
   ],
   "other": {
@@ -297,7 +299,59 @@
 					</pre>
 				</td>
 			</tr>
-
+			<tr class="goods" id="goods-search-by-seller-id">
+				<td>分页获取某卖家的商品</td>
+				<td>
+					goods/searchBySellerId.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>sellerId 商家id</p>
+					<p>pageNo 页数</p>
+					<p>limit 每页条数</p>
+					<pre>
+{
+	"sellerId" : "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+	"pageNo" : 1,
+	"limit" : 1
+}
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>		
+{
+  "status": 200,
+  "msg": "搜索成功",
+  "data": [
+    {
+      "id": "1",
+      "realGoodsId": "11",
+      "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "linkTable": "tab_book",
+      "name": "C",
+      "price": 321.2,
+      "count": 3,
+      "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg"
+    },
+    {
+      "id": "3",
+      "realGoodsId": "13",
+      "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "linkTable": "tab_book",
+      "name": "C++",
+      "price": 439.2,
+      "count": 3,
+      "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg"
+    }
+  ],
+  "other": {
+    "pageAllCount": 1
+  }
+}
+					</pre>
+				</td>
+			</tr>
 			<tr class="goods" id="goods-get-real-goods">
 				<td>通过商品id获取实际商品信息</td>
 				<td>
