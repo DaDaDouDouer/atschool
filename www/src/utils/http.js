@@ -1,4 +1,5 @@
 import axios from 'axios'
+import errorProcess from './errorProcess'
 
 const config = {
   // `baseURL` will be prepended to `url` unless `url` is absolute.
@@ -19,9 +20,9 @@ const config = {
   // it is passed to then/catch
   transformResponse: [function (data) {
     // Do whatever you want to transform the data
-
+    console.warn('ajax response:', data)
     return data
-  }],
+  }, errorProcess],
   // `withCredentials` indicates whether or not cross-site Access-Control requests
   // should be made using credentials
   withCredentials: false // default
