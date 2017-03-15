@@ -47,7 +47,7 @@ public class BookTypeService {
 	}
 	
 	/**
-	 * 插入一条书记分类
+	 * 插入一条书籍分类
 	 * @param typeId
 	 * @param name
 	 * @param baseName

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
+import com.gs.reusebook.validator.base.ParamsValidator;
+import com.gs.reusebook.validator.base.ValidatorType;
 
 public class GeneralValidator {
 

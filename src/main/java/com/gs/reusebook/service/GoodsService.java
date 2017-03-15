@@ -17,7 +17,7 @@ import com.gs.reusebook.util.DaoPool;
 import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.CutPageParamsValidator;
 import com.gs.reusebook.validator.GeneralValidator;
-import com.gs.reusebook.validator.ValidatorType;
+import com.gs.reusebook.validator.base.ValidatorType;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
 
@@ -52,7 +52,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 */
 	public UiReturn selectAndPagedByName(String keyword, Integer pageNo, Integer limit) {
 		
-		// 关键字不能为null
+		// 关键字null转化为空字符串
 		keyword = keyword == null ? "" : keyword;
 		// 获取到可查询到的商品总量
 		int goodsAllCount = goodsDao.selectCountByName("%" + keyword + "%");
@@ -107,6 +107,8 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 */
 	public UiReturn getRealGoods(String goodsId){
 		// TODO 参数校验
+		
+		
 		// 获取抽象商品
 		Goods goods = goodsDao.selectById(goodsId);
 		

@@ -30,7 +30,7 @@ public class ReusebookStatic {
 	
 
 	/**
-	 * session中保存user的键
+	 * session中保存seller的键
 	 */
 	public final static String SELLER_SESSION_KEY = "thenowseller";
 	/**

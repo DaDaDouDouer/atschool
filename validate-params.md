@@ -1,17 +1,39 @@
 # 验证类型：
 
-1. UUID id
+1.  UUID id 
 
-1. AuthBaseBean username
+    String 
+    not_empty 
+    符合java.util.UUID的规则 
 
-1. AuthBaseBean password
+1.  AuthBaseBean username
 
-1. BookType name
+    String not_empty length_6_20 a-zA-Z0-9下划线
 
-1. BookType baseName
+1.  AuthBaseBean password
 
-1. goods goodsCount
+    String not_empty length_6_20 a-zA-Z0-9下划线
 
-1. Evaluation content
+1.  BookType name
 
-1. DeliveryAddress address
+    String not_empty
+
+1.  BookType baseName
+
+    String not_empty
+
+1.  goods goodsCount
+
+    Number  >=0
+
+1.  Goods keyword
+
+
+
+1.  Evaluation content
+
+    String length_0_255
+
+1.  DeliveryAddress address
+
+    String not_empty length_0_255

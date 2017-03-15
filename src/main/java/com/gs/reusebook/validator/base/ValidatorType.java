@@ -1,4 +1,4 @@
-package com.gs.reusebook.validator;
+package com.gs.reusebook.validator.base;
 
 /**
  * 验证器类型的枚举，数量取决于有多少种入参
