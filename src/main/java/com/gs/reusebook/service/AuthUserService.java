@@ -14,6 +14,7 @@ import com.gs.reusebook.service.base.AuthBaseService;
 import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
+import static com.gs.reusebook.validator.base.ValidatorType.*;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
 
@@ -31,10 +32,11 @@ public class AuthUserService implements AuthBaseService{
 	 */
 	public UiReturn register(String username, String password){
 
-		ValidatorReturnParams resultUsername = GeneralValidator.validate(ValidatorType.AUTH_USERNAME, username);
-		ValidatorReturnParams resultPassword = GeneralValidator.validate(ValidatorType.AUTH_PASSWORD, password);
-		if(!(resultUsername.isRight && resultPassword.isRight)){
-			return UiReturn.notOk(null, resultUsername.msg + "," + resultPassword.msg, REQ_ERROR_400);
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{AUTH_USERNAME, AUTH_PASSWORD}, 
+				new Object[]{username, password});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
 		
 		// 检查是否重名
@@ -68,10 +70,11 @@ public class AuthUserService implements AuthBaseService{
 	 */
 	public UiReturn login(String username, String password){
 
-		ValidatorReturnParams resultUsername = GeneralValidator.validate(ValidatorType.AUTH_USERNAME, username);
-		ValidatorReturnParams resultPassword = GeneralValidator.validate(ValidatorType.AUTH_PASSWORD, password);
-		if(!(resultUsername.isRight && resultPassword.isRight)){
-			return UiReturn.notOk(null, resultUsername.msg + "," + resultPassword.msg, REQ_ERROR_400);
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{AUTH_USERNAME, AUTH_PASSWORD}, 
+				new Object[]{username, password});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
 		
 		List<User> users = userDao.selectByName(username);
