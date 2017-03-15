@@ -22,5 +22,9 @@ public class ValidatorReturnParams {
 		this.msg = msg;
 	}
 	
+	@Override
+	public String toString() {
+		return "" + isRight + "," + msg;
+	}
 	
 }

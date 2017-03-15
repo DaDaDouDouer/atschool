@@ -6,6 +6,7 @@ import java.util.Map;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.validator.base.ParamsValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
+import static com.gs.reusebook.validator.base.ValidatorType.*;
 
 public class GeneralValidator {
 
@@ -17,7 +18,9 @@ public class GeneralValidator {
 	static{
 		validatorPool = new HashMap<ValidatorType, ParamsValidator>();
 		
-		validatorPool.put(ValidatorType.PKID, new PKIDValidator());
+		validatorPool.put(PKID, new PKIDValidator());
+		validatorPool.put(AUTH_USERNAME, new AuthUsernameValidator());
+		validatorPool.put(AUTH_PASSWORD, new AuthPasswordValidator());
 	}
 
 	/**
@@ -27,7 +30,7 @@ public class GeneralValidator {
 	 * @return
 	 */
 	public static ValidatorReturnParams validate(ValidatorType validatorType, Object... params) {
-		
+
 		ParamsValidator validator = validatorPool.get(validatorType);
 		
 		if(validator == null){

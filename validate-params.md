@@ -8,11 +8,11 @@
 
 1.  AuthBaseBean username
 
-    String not_empty length_6_20 a-zA-Z0-9下划线
+    String not_empty length_6_20 a-z A-Z 0-9 下划线 空格（只保留非前缀后缀的空格，且连续空格会变为一个空格）
 
 1.  AuthBaseBean password
 
-    String not_empty length_6_20 a-zA-Z0-9下划线
+    String not_empty length_6_20 a-z A-Z 0-9 下划线
 
 1.  BookType name
 
