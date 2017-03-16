@@ -2,15 +2,15 @@
 <div class="index">
   <search></search>
   <div class="menu-container">
-    <div v-for="menu in menus">
+    <div v-for="(menu, menuName) in menus">
       <v-menu transition="v-slide-x-transition" bottom right>
         <v-btn primary dark slot="activator" class="deep-orange">
-          Slide X Transition
+          {{ menuName }}
         </v-btn>
         <v-list style="position: relation; left: 190px">
           <v-list-item v-for="menuItem in menu">
             <v-list-tile>
-              <v-list-tile-title>{{ menuItem }}</v-list-tile-title>
+              <v-list-tile-title>{{ menuItem.name }}</v-list-tile-title>
             </v-list-tile>
           </v-list-item>
         </v-list>
@@ -29,23 +29,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Search from './Search'
 
 export default {
   name: 'index',
   components: { Search },
   mounted () {
-    this.$store.dispatch('getAllBookTypes').then(data => {
-      console.log(data)
-    })
+    this.$store.dispatch('getAllBookTypes')
   },
   data () {
     return {
       index: 'index',
-      menus: [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]],
       items: [1, 2, 3, 4]
     }
-  }
+  },
+  computed: mapState({
+    menus (state) {
+      return state.book.bookTypes
+    }
+  })
 }
 </script>
 
