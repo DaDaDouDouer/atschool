@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.CartItem;
 import com.gs.reusebook.dao.CartItemDao;
+import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.GeneralValidator;
+import com.gs.reusebook.validator.base.ValidatorType;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
+import static com.gs.reusebook.validator.base.ValidatorType.PKID;
 
 
 @Service
@@ -24,7 +28,13 @@ public class CartItemService {
 	 * @return
 	 */
 	public UiReturn selectAll(String userId){
-		// TODO 参数校验
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, userId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
 		return UiReturn.ok(cartItemDao.selectAllByUserId(userId), "返回购物车项成功");
 	}
 	
@@ -75,7 +85,14 @@ public class CartItemService {
 	 * @return
 	 */
 	public UiReturn deleteCartItem(String userId, String cartItemId){
-		// TODO 参数校验
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, PKID}, 
+				new Object[]{userId, cartItemId});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 		
 		CartItem cartItem = cartItemDao.selectById(cartItemId);
 		// TODO 为空校验

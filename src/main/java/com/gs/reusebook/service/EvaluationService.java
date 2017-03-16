@@ -33,7 +33,11 @@ public class EvaluationService {
 	 * @return
 	 */
 	public UiReturn selectAll(String goodsId){
-		// TODO 参数校验
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, goodsId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 		
 		return UiReturn.ok(evaluationDao.selectAll(goodsId), "查询商品评论成功");
 	}

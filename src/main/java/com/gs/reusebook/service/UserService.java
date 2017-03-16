@@ -15,6 +15,7 @@ import com.gs.reusebook.validator.base.ValidatorType;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
 import static com.gs.reusebook.validator.base.ValidatorType.PKID;
+import static com.gs.reusebook.validator.base.ValidatorType.AUTH_PASSWORD;
 import static com.gs.reusebook.validator.base.ValidatorType.STRING_255;
 
 import java.util.UUID;
@@ -44,7 +45,14 @@ public class UserService {
 	 * @return
 	 */
 	public UiReturn changePassword(String userId, String oldPassword, String newPassword){
-		// TODO 参数校验
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, AUTH_PASSWORD, AUTH_PASSWORD}, 
+				new Object[]{userId, oldPassword, newPassword});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
 		User user = userDao.selectById(userId);
 		
 		// TODO 为空校验
@@ -93,7 +101,14 @@ public class UserService {
 	 * @return
 	 */
 	public UiReturn deleteAddress(String userId, String deliveryAddressId){
-		// TODO 参数校验
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, PKID}, 
+				new Object[]{userId, deliveryAddressId});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 		
 		// 不能删除别人的收货地址
 		UserInfoInMarket userInfoInMarket = userDao.getUserInfoInMarketByUserId(userId);

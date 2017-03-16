@@ -57,6 +57,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		// 获取到可查询到的商品总量
 		int goodsAllCount = goodsDao.selectCountByName("%" + keyword + "%");
 		
+		// 特殊的分页校验
 		CutPageValidatorReturnParams rst = 
 				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
 		
@@ -88,8 +89,10 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		// 获取到可查询到的商品总量
 		int goodsAllCount = goodsDao.selectCountBySellerId(sellerId);
 		
+		// 特殊的分页校验
 		CutPageValidatorReturnParams rst = 
 				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
+		
 		// 分页查询商品
 		List<Goods> goods = goodsDao.selectAndPagedBySellerId(sellerId, rst.offset, rst.limit); 
 		
@@ -106,8 +109,12 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 * @return
 	 */
 	public UiReturn getRealGoods(String goodsId){
-		// TODO 参数校验
 		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, goodsId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 		
 		// 获取抽象商品
 		Goods goods = goodsDao.selectById(goodsId);

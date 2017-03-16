@@ -7,9 +7,9 @@ import com.gs.reusebook.validator.base.StringLengthValidator;
  * @author IceAsh
  *
  */
-public class String255Validator extends StringLengthValidator{
+public class String20Validator extends StringLengthValidator{
 
-	static public final int STRING_LENGTH = 20;
+	static public final int STRING_LENGTH = 255;
 	
 	@Override
 	public int getRequiredLength() {

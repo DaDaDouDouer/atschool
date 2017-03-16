@@ -9,5 +9,6 @@ public enum ValidatorType {
 	PKID,
 	AUTH_USERNAME,
 	AUTH_PASSWORD,
-	STRING_255
+	STRING_255,
+	STRING_20
 }

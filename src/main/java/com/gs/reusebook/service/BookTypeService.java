@@ -1,5 +1,8 @@
 package com.gs.reusebook.service;
 
+import static com.gs.reusebook.util.GlobalStatus.REQ_ERROR_400;
+import static com.gs.reusebook.validator.base.ValidatorType.STRING_20;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.BookType;
 import com.gs.reusebook.dao.BookTypeDao;
+import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.GeneralValidator;
+import com.gs.reusebook.validator.base.ValidatorType;
 
 @Service
 public class BookTypeService {
@@ -43,6 +49,13 @@ public class BookTypeService {
 	 * @return
 	 */
 	public UiReturn selectById(String typeId){
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, typeId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
 		return UiReturn.ok(bookTypeDao.selectById(typeId), "通过id查询书籍类型成功");
 	}
 	
@@ -54,6 +67,15 @@ public class BookTypeService {
 	 * @return
 	 */
 	public UiReturn insert(String typeId, String name, String baseName){
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{STRING_20, STRING_20}, 
+				new Object[]{name, baseName});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
 		BookType type = new BookType();
 		type.setId(typeId);
 		type.setName(name);

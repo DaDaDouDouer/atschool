@@ -15,7 +15,11 @@ import com.gs.reusebook.bean.OrderItem;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.OrderDao;
 import com.gs.reusebook.dao.OrderItemDao;
+import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.GeneralValidator;
+import com.gs.reusebook.validator.base.ValidatorType;
+
 import static com.gs.reusebook.util.ReusebookStatic.*;
 import static com.gs.reusebook.util.GlobalStatus.*;
 
@@ -39,7 +43,13 @@ public class OrderService {
 	 * @return
 	 */
 	public UiReturn selectAllBySellerId(String sellerId){
-		// TODO 参数校验
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, sellerId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
 		return UiReturn.ok(orderDao.selectAllBySellerId(sellerId), "查询卖家订单成功");
 	}
 	
@@ -49,7 +59,13 @@ public class OrderService {
 	 * @return
 	 */
 	public UiReturn selectAllByUserId(String userId){
-		// TODO 参数校验
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, userId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
 		return UiReturn.ok(orderDao.selectAllByUserId(userId), "查询买家订单成功");
 	}
 	
@@ -60,6 +76,13 @@ public class OrderService {
 	 * @return
 	 */
 	public UiReturn insertOrder(String userId, Map<String, Integer> goodsIdAndCount){
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, userId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		// TODO list的参数校验
 		
 		List<Goods> goods = goodsDao.selectByIds(new ArrayList<String>(goodsIdAndCount.keySet()));
 

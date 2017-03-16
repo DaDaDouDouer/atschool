@@ -22,6 +22,7 @@ public class GeneralValidator {
 		validatorPool.put(AUTH_USERNAME, new AuthUsernameValidator());
 		validatorPool.put(AUTH_PASSWORD, new AuthPasswordValidator());
 		validatorPool.put(STRING_255, new String255Validator());
+		validatorPool.put(STRING_20, new String20Validator());
 	}
 
 	/**
