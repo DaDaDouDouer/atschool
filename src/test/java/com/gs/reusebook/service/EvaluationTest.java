@@ -18,13 +18,13 @@ public class EvaluationTest {
 		evaluationService = (EvaluationService) context.getBean("evaluationService");
 	}
 	
-	@Test
+//	@Test
 	public void testSelectAll(){
 		System.out.println(evaluationService.selectAll("3"));
 	}
 	
-//	@Test
+	@Test
 	public void testAdd(){
-		System.out.println(evaluationService.addEvaluation("0cc95799-4660-4758-9f7e-0053187eac7a", "3", "sdftt65676yut"));
+		System.out.println(evaluationService.addEvaluation("0cc95799-4660-4758-9f7e-0053187eac7a", "0cc95799-4660-4758-9f7e-0053187eac7a", "qewrew4334"));
 	}
 }

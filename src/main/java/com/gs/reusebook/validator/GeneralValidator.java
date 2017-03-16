@@ -21,6 +21,7 @@ public class GeneralValidator {
 		validatorPool.put(PKID, new PKIDValidator());
 		validatorPool.put(AUTH_USERNAME, new AuthUsernameValidator());
 		validatorPool.put(AUTH_PASSWORD, new AuthPasswordValidator());
+		validatorPool.put(STRING_255, new String255Validator());
 	}
 
 	/**
@@ -61,7 +62,7 @@ public class GeneralValidator {
 			isRight = isRight && result.isRight;
 			msg += "," + result.msg;
 		}
-		// 去掉打头的逗号
+		// 去掉打头的逗号，以及替换相连的逗号为一个逗号
 		msg = msg.substring(1).replaceAll(",+", ",");
 		
 		return new ValidatorReturnParams(isRight, msg);

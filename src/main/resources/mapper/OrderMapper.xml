@@ -16,6 +16,12 @@
 		WHERE user_id = #{user_id} AND i.order_id = o.id
 	</select>
 
+	<select id="selectByUserIdAndGoodsId" parameterType="String" resultType="Order" resultMap="orderResultMap">
+		SELECT o.id id, o.user_id user_id, o.seller_id seller_id, o.status status, i.id order_item_id, i.order_id order_id, i.goods_id goods_id, i.goods_count goods_count
+		FROM tab_order o, tab_order_item i 
+		WHERE user_id = #{userId} AND i.order_id = o.id AND i.goods_id = #{goodsId}
+	</select>
+
 	<insert id="insertOrder" parameterType="Order" keyProperty="id">
 		INSERT INTO
 		tab_order(

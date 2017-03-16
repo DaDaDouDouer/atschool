@@ -8,5 +8,6 @@ package com.gs.reusebook.validator.base;
 public enum ValidatorType {
 	PKID,
 	AUTH_USERNAME,
-	AUTH_PASSWORD
+	AUTH_PASSWORD,
+	STRING_255
 }

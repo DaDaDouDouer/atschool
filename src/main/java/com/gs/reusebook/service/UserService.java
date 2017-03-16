@@ -8,9 +8,14 @@ import com.gs.reusebook.bean.User;
 import com.gs.reusebook.bean.UserInfoInMarket;
 import com.gs.reusebook.dao.DeliveryAddressDao;
 import com.gs.reusebook.dao.UserDao;
+import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.GeneralValidator;
+import com.gs.reusebook.validator.base.ValidatorType;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
+import static com.gs.reusebook.validator.base.ValidatorType.PKID;
+import static com.gs.reusebook.validator.base.ValidatorType.STRING_255;
 
 import java.util.UUID;
 
@@ -61,7 +66,14 @@ public class UserService {
 	 * @return
 	 */
 	public UiReturn addAddress(String userId, DeliveryAddress deliveryAddress){
-		// TODO 参数校验
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, STRING_255}, 
+				new Object[]{userId, deliveryAddress});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 		
 		UserInfoInMarket userInfoInMarket = userDao.getUserInfoInMarketByUserId(userId);
 		
