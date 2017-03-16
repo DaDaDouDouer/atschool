@@ -9,6 +9,7 @@ import com.gs.reusebook.validator.base.ParamsValidator;
  */
 public class PKIDValidator extends ParamsValidator {
 	
+	@Override
 	public ValidatorReturnParams validate(Object... params) {
 		
 		// null，长度，数据类型等基本校验
@@ -19,7 +20,7 @@ public class PKIDValidator extends ParamsValidator {
 		
 		// 格式校验
 		String pkid = (String) params[0];
-		if(!pkid.matches("[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}")){
+		if(!pkid.matches("^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$")){
 			return new ValidatorReturnParams(false, "传入参数格式必须符合主键ID格式");
 		}
 		

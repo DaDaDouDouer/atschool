@@ -9,9 +9,15 @@ import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.Seller;
 import com.gs.reusebook.dao.base.AuthBaseDao;
+import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.service.base.AuthBaseService;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.GeneralValidator;
+import com.gs.reusebook.validator.base.ValidatorType;
+
 import static com.gs.reusebook.util.GlobalStatus.*;
+import static com.gs.reusebook.validator.base.ValidatorType.AUTH_PASSWORD;
+import static com.gs.reusebook.validator.base.ValidatorType.AUTH_USERNAME;
 
 @Service
 public class AuthSellerService implements AuthBaseService{
@@ -27,6 +33,13 @@ public class AuthSellerService implements AuthBaseService{
 	 */
 	public UiReturn register(String username, String password){
 
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{AUTH_USERNAME, AUTH_PASSWORD}, 
+				new Object[]{username, password});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
 		// 检查是否重名
 		List<Seller> usersInDB = sellerDao.selectByName(username);
 		if(usersInDB != null && !usersInDB.isEmpty()){
@@ -57,7 +70,14 @@ public class AuthSellerService implements AuthBaseService{
 	 * @return
 	 */
 	public UiReturn login(String username, String password){
-
+		
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{AUTH_USERNAME, AUTH_PASSWORD}, 
+				new Object[]{username, password});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
 		List<Seller> users = sellerDao.selectByName(username);
 		if(users == null || users.isEmpty()){
 			return UiReturn.notOk(null, "用户不存在", REQ_ERROR_400);
