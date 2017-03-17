@@ -14,7 +14,7 @@ import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
-import static com.gs.reusebook.validator.base.ValidatorType.PKID;
+import static com.gs.reusebook.validator.base.ValidatorType.*;
 
 
 @Service
@@ -45,8 +45,14 @@ public class CartItemService {
 	 * @param goodsCount
 	 * @return
 	 */
-	public UiReturn addToCart(String userId, String goodsId, int goodsCount){
-		// TODO 参数校验
+	public UiReturn addToCart(String userId, String goodsId, Integer goodsCount){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, PKID, INT_POSITIVE}, 
+				new Object[]{userId, goodsId, goodsCount});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 		
 		// 不能重复添加商品
 		List<CartItem> cartItems = cartItemDao.selectByGoodsId(userId, goodsId);
@@ -113,8 +119,14 @@ public class CartItemService {
 	 * @param goodsCount
 	 * @return
 	 */
-	public UiReturn updateGoodsCount(String userId, String cartItemId, int goodsCount){
-		// TODO 参数校验
+	public UiReturn updateGoodsCount(String userId, String cartItemId, Integer goodsCount){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, PKID, INT_POSITIVE}, 
+				new Object[]{userId, cartItemId, goodsCount});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 
 		CartItem cartItem = cartItemDao.selectById(cartItemId);
 		// TODO 为空校验

@@ -10,5 +10,6 @@ public enum ValidatorType {
 	AUTH_USERNAME,
 	AUTH_PASSWORD,
 	STRING_255,
-	STRING_20
+	STRING_20,
+	INT_POSITIVE
 }

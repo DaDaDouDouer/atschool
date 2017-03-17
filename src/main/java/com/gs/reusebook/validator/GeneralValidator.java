@@ -10,6 +10,9 @@ import static com.gs.reusebook.validator.base.ValidatorType.*;
 
 public class GeneralValidator {
 
+	public final static String SPLIT_CHAR = ";";
+	
+	
 	/**
 	 * 数据库主键ID验证器的键
 	 */
@@ -23,10 +26,17 @@ public class GeneralValidator {
 		validatorPool.put(AUTH_PASSWORD, new AuthPasswordValidator());
 		validatorPool.put(STRING_255, new String255Validator());
 		validatorPool.put(STRING_20, new String20Validator());
+		validatorPool.put(INT_POSITIVE, new PositiveIntegerValidator());
 	}
 
 	/**
-	 * 通过传入的key不同获取不同的验证器对传入的参数进行校验
+	 * 通过传入的key不同获取不同的验证器对传入的参数进行校验<br>
+	 * 
+	 * 这个方法是对一个或一组有关系的参数进行校验，如<br>
+	 * id或username+password<br>
+	 * 而不是对一群相同参数进行相同格式的校验，如：<br>
+	 * [id1, id2, id3, ...]<br>
+	 * 
 	 * 
 	 * @param validatorType
 	 * @param params
@@ -61,10 +71,10 @@ public class GeneralValidator {
 			ValidatorReturnParams result = validator.validate(params[i]);
 			
 			isRight = isRight && result.isRight;
-			msg += "," + result.msg;
+			msg += SPLIT_CHAR + result.msg;
 		}
-		// 去掉打头的逗号，以及替换相连的逗号为一个逗号
-		msg = msg.substring(1).replaceAll(",+", ",");
+		// 去掉打头的分隔符，以及替换相连的分隔符为一个分隔符
+		msg = msg.substring(1).replaceAll(SPLIT_CHAR + "+", SPLIT_CHAR);
 		
 		return new ValidatorReturnParams(isRight, msg);
 	}

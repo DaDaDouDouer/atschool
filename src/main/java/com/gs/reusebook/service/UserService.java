@@ -31,8 +31,13 @@ public class UserService {
 	
 	
 	public UiReturn getUserInfoInMarketByUserId(String userId){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, userId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 
-		// TODO 参数校验
+		// TODO 可能要进行为空校验
 		return UiReturn.ok(userDao.getUserInfoInMarketWithAddressByUserId(userId), "获取个人信息成功");
 	}
 	
@@ -55,7 +60,10 @@ public class UserService {
 		
 		User user = userDao.selectById(userId);
 		
-		// TODO 为空校验
+		// 校验是否为空
+		if(user == null){
+			return UiReturn.notOk(null, "不存在此用户", REQ_ERROR_400);
+		}
 		
 		if(user.getPassword().equals(oldPassword)){
 			userDao.updatePassword(user.getId(), newPassword);
@@ -84,8 +92,10 @@ public class UserService {
 		}
 		
 		UserInfoInMarket userInfoInMarket = userDao.getUserInfoInMarketByUserId(userId);
-		
-		// TODO 校验是否为空
+		// 校验是否为空
+		if(userInfoInMarket == null){
+			return UiReturn.notOk(null, "不存在此用户", REQ_ERROR_400);
+		}
 		
 		deliveryAddress.setId(UUID.randomUUID().toString());
 		deliveryAddress.setUserInfoId(userInfoInMarket.getId());

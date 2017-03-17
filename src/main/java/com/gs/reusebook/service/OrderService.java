@@ -20,6 +20,7 @@ import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
 
+import static com.gs.reusebook.validator.base.ValidatorType.*;
 import static com.gs.reusebook.util.ReusebookStatic.*;
 import static com.gs.reusebook.util.GlobalStatus.*;
 
@@ -45,7 +46,7 @@ public class OrderService {
 	public UiReturn selectAllBySellerId(String sellerId){
 		
 		// 参数校验
-		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, sellerId);
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, sellerId);
 		if(!result.isRight){
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
@@ -61,7 +62,7 @@ public class OrderService {
 	public UiReturn selectAllByUserId(String userId){
 		
 		// 参数校验
-		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, userId);
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, userId);
 		if(!result.isRight){
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
@@ -77,13 +78,31 @@ public class OrderService {
 	 */
 	public UiReturn insertOrder(String userId, Map<String, Integer> goodsIdAndCount){
 		
-		// 参数校验
-		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, userId);
+		// userId参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, userId);
 		if(!result.isRight){
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
-		// TODO list的参数校验
+		// list的参数校验
+		List<ValidatorType> validatorTypes = new ArrayList<ValidatorType>();
+		List<Object> params = new ArrayList<Object>();
+		for(String goodsId : goodsIdAndCount.keySet()){
+			validatorTypes.add(PKID);
+			params.add(goodsId);
+		}
+		for(Integer count : goodsIdAndCount.values()){
+			validatorTypes.add(INT_POSITIVE);
+			params.add(count);
+		}
+		int arraySize = validatorTypes.size();
+		ValidatorReturnParams result2 = GeneralValidator.validate(
+				validatorTypes.toArray(new ValidatorType[arraySize]), 
+				params.toArray(new Object[arraySize]));
+		if(!result.isRight){
+			return UiReturn.notOk(null, result2.msg, REQ_ERROR_400);
+		}
 		
+		// 获取商品
 		List<Goods> goods = goodsDao.selectByIds(new ArrayList<String>(goodsIdAndCount.keySet()));
 
 		Map<String, Order> orders = new HashMap<String, Order>();

@@ -118,8 +118,11 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		
 		// 获取抽象商品
 		Goods goods = goodsDao.selectById(goodsId);
+		// 为空校验
+		if(goods == null){
+			return UiReturn.notOk(null, "商品不存在", REQ_ERROR_400);
+		}
 		
-		// TODO 为空校验
 		// 获取实际商品对应的dao
 		RealGoodsBaseDao<?> realGoodsDao = daoPool.getDao(goods.getLinkTable());
 		

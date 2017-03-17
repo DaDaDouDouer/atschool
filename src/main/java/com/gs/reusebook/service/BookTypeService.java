@@ -1,7 +1,7 @@
 package com.gs.reusebook.service;
 
 import static com.gs.reusebook.util.GlobalStatus.REQ_ERROR_400;
-import static com.gs.reusebook.validator.base.ValidatorType.STRING_20;
+import static com.gs.reusebook.validator.base.ValidatorType.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,8 +70,8 @@ public class BookTypeService {
 		
 		// 参数校验
 		ValidatorReturnParams result = GeneralValidator.validate(
-				new ValidatorType[]{STRING_20, STRING_20}, 
-				new Object[]{name, baseName});
+				new ValidatorType[]{PKID, STRING_20, STRING_20}, 
+				new Object[]{typeId, name, baseName});
 		if(!result.isRight){
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
