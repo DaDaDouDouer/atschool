@@ -8,9 +8,9 @@
           {{ menuName }}
         </v-btn>
         <v-list style="position: relation; left: 190px">
-          <v-list-item v-for="menuItem in menu">
+          <v-list-item v-for="menuItem in menu" @click="search">
             <v-list-tile>
-              <v-list-tile-title>{{ menuItem.name }}</v-list-tile-title>
+              <v-list-tile-title :id="menuItem.id">{{ menuItem.name }}</v-list-tile-title>
             </v-list-tile>
           </v-list-item>
         </v-list>
@@ -30,7 +30,10 @@
 
 <script>
 import { mapState } from 'vuex'
+import Router from 'vue-router'
 import Search from './Search'
+
+const router = new Router()
 
 export default {
   name: 'index',
@@ -48,7 +51,12 @@ export default {
     menus (state) {
       return state.book.bookTypes
     }
-  })
+  }),
+  methods: {
+    search (e) {
+      router.push('search/' + e.target.id)
+    }
+  }
 }
 </script>
 
