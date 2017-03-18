@@ -14,6 +14,7 @@ const getters = {}
 // actions
 const actions = {
   getAllBookTypes: ({ commit, state }) => {
+    // 缓存 bookTypes
     if (state.bookTypes === null) {
       return API.book.getAllTypes().then(bookTypes => {
         commit(BOOK.GET_ALL_TYPES, bookTypes)
@@ -26,14 +27,10 @@ const actions = {
     }
   },
   getBookByTypes: ({ commit, state }, id) => {
-    if (state.bookList == null) {
-      return API.book.searchByTypes([{id}]).then(bookList => {
-        commit(BOOK.SEARCH_BY_TYPES, bookList)
-        return bookList
-      })
-    } else {
-      commit(BOOK.SEARCH_BY_TYPES)
-    }
+    return API.book.searchByTypes([{id}]).then(bookList => {
+      commit(BOOK.SEARCH_BY_TYPES, bookList)
+      return bookList
+    })
   }
 }
 
