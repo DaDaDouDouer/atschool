@@ -54,7 +54,9 @@ export default {
   }),
   methods: {
     search (e) {
-      router.push('search/' + e.target.id)
+      this.$store.dispatch('getBookByTypes', e.target.id).then(() => {
+        router.push('search-result')
+      })
     }
   }
 }

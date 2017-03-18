@@ -4,7 +4,8 @@ import { BOOK } from '../mutation-types'
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-  bookTypes: null
+  bookTypes: null,
+  bookList: null
 }
 
 // getters
@@ -14,13 +15,24 @@ const getters = {}
 const actions = {
   getAllBookTypes: ({ commit, state }) => {
     if (state.bookTypes === null) {
-      API.book.getAllTypes().then(bookTypes => {
+      return API.book.getAllTypes().then(bookTypes => {
         commit(BOOK.GET_ALL_TYPES, bookTypes)
+        return bookTypes
       }).catch(error => {
         throw error
       })
     } else {
       commit(BOOK.GET_ALL_TYPES)
+    }
+  },
+  getBookByTypes: ({ commit, state }, id) => {
+    if (state.bookList == null) {
+      return API.book.searchByTypes([{id}]).then(bookList => {
+        commit(BOOK.SEARCH_BY_TYPES, bookList)
+        return bookList
+      })
+    } else {
+      commit(BOOK.SEARCH_BY_TYPES)
     }
   }
 }
@@ -31,7 +43,11 @@ const mutations = {
     if (bookTypes) {
       state.bookTypes = bookTypes
     }
-    return state.bookTypes
+  },
+  [BOOK.SEARCH_BY_TYPES] (state, bookList) {
+    if (bookList) {
+      state.bookList = bookList
+    }
   }
 }
 

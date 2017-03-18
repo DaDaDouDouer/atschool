@@ -9,3 +9,10 @@ export const getAllTypes = function () {
       return response.data
     })
 }
+
+export const searchByTypes = function (types) {
+  return http.post('book/search.do', {types})
+    .then(function (response) {
+      return response.data
+    })
+}
