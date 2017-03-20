@@ -12,5 +12,9 @@ public interface OrderDao {
 	
 	public List<Order> selectByUserIdAndGoodsId(@Param("userId") String userId, @Param("goodsId") String goodsId);
 	
+	public Order selectById(String id);
+	
+	public void updateStatus(@Param("status") int status, @Param("id") String id);
+	
 	public int insertOrder(Order order);
 }

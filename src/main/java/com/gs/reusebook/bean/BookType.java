@@ -36,6 +36,4 @@ public class BookType {
 		this.baseName = baseName;
 	}
 	
-	
-	
 }

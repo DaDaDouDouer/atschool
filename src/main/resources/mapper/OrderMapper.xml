@@ -22,6 +22,14 @@
 		WHERE user_id = #{userId} AND i.order_id = o.id AND i.goods_id = #{goodsId}
 	</select>
 
+	<select id="selectById" parameterType="String" resultType="Order" resultMap="normalOrderResultMap">
+		SELECT * FROM tab_order o WHERE id = #{id}
+	</select>
+
+	<update id="updateStatus">
+		UPDATE tab_order SET status = #{status} WHERE id = #{id}
+	</update>
+
 	<insert id="insertOrder" parameterType="Order" keyProperty="id">
 		INSERT INTO
 		tab_order(
@@ -48,5 +56,13 @@
 			<result property="goodsCount" column="goods_count" />
 		</collection>
 	</resultMap>
-
+	
+	<!-- 不带orderItems的返回映射 -->
+	<resultMap type="com.gs.reusebook.bean.Order" id="normalOrderResultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="sellerId" column="seller_id" />
+		<result property="status" column="status" />
+	</resultMap>
+	
 </mapper>

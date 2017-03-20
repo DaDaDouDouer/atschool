@@ -5,7 +5,6 @@
 <!-- 这里要改为某个bean的dao -->
 <mapper namespace="com.gs.reusebook.dao.GoodsDao">
 
-
 	<select id="selectCountByName" resultType="Integer">
 		SELECT count(*) FROM tab_goods WHERE name LIKE #{name}
 	</select>

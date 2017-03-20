@@ -97,10 +97,22 @@ public class ReusebookStatic {
 	
 	
 	/**
-	 * 订单状态
+	 * 订单状态，用户已下单
 	 */
 	public final static int ORDER_STATUS_START = 1000;
-	
+	/*
+	 * 订单状态，用户已付款
+	 */
+	public final static int ORDER_STATUS_PAYED  = 1001;
+	/*
+	 * 订单状态，卖家已发货
+	 */
+	public final static int ORDER_STATUS_SENDED  = 1002;
+	/*
+	 * 订单状态，交易完成
+	 */
+	public final static int ORDER_STATUS_END  = 1003;
+
 	
 	
 	
@@ -112,5 +124,5 @@ public class ReusebookStatic {
 	/**
 	 * 分页查询商品的每页显示最大值
 	 */
-	public final static int CUT_PAGE_LIMIT_MAX = 3;
+	public final static int CUT_PAGE_LIMIT_MAX = 5;
 }

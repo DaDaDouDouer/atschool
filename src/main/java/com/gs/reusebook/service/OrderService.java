@@ -16,6 +16,7 @@ import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.OrderDao;
 import com.gs.reusebook.dao.OrderItemDao;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
+import com.gs.reusebook.util.OrderStatusMachine;
 import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
@@ -155,5 +156,29 @@ public class OrderService {
 		
 		// TODO 这里要返回什么数据
 		return UiReturn.ok("", "生成订单成功");
+	}
+	
+	public UiReturn updateStatus(String orderId, Integer aimStatus){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, INT_POSITIVE},
+				new Object[]{orderId, aimStatus});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
+		Order order = orderDao.selectById(orderId);
+		// null校验
+		if(order == null){
+			return UiReturn.notOk(null, "该订单不存在", REQ_ERROR_400);
+		}
+		
+		// 校验是否可以修改状态
+		if(OrderStatusMachine.changeStatus(order.getStatus(), aimStatus)){
+			orderDao.updateStatus(aimStatus, orderId);
+			return UiReturn.ok("", "修改状态成功");
+		}else{
+			return UiReturn.notOk("", "不能修改订单状态", REQ_ERROR_400);
+		}
 	}
 }
