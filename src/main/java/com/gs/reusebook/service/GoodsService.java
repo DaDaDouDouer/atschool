@@ -1,5 +1,6 @@
 package com.gs.reusebook.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.Goods;
+import com.gs.reusebook.bean.base.RealGoods;
 import com.gs.reusebook.dao.BookDao;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.base.RealGoodsBaseDao;
@@ -20,6 +22,7 @@ import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
+import static com.gs.reusebook.util.ReusebookStatic.DEFAULT_TYPE_ID;
 
 @Service
 public class GoodsService implements ServiceWhichUseDaoPool{
@@ -27,6 +30,9 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	@Autowired
 	private GoodsDao goodsDao;
 	
+	/**
+	 * dao池初始化时候会用到该变量，通过该service的this获取到
+	 */
 	@Autowired
 	private BookDao bookDao;
 
@@ -48,21 +54,44 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 * @param keyword
 	 * @param pageNo
 	 * @param limit
+	 * @param linkTable
+	 * @param typeIds
+	 * @param conditions
 	 * @return
 	 */
-	public UiReturn selectAndPagedByName(String keyword, Integer pageNo, Integer limit) {
+	public UiReturn selectAndPaged
+		(String keyword, Integer pageNo, Integer limit, String linkTable, List<String> typeIds, Map<String, Object> conditions) {
 		
+		// 获取实际商品对应的dao，并检验是否存在实际商品类型
+		RealGoodsBaseDao<?> realGoodsDao = daoPool.getDao(linkTable);
+		if(realGoodsDao == null){
+			return UiReturn.notOk("", "不存在该实际商品类型", REQ_ERROR_400);
+		}
+
+		// 校验传入的类型列表
+		if(typeIds == null){
+			typeIds = new ArrayList<String>();
+		}
+		if(typeIds.isEmpty()){
+			typeIds.add(DEFAULT_TYPE_ID);
+		}
+		// 校验查询条件
+		conditions = conditions == null ? new HashMap<String, Object>() : conditions;
+		
+		// 1 分页参数校正
 		// 关键字null转化为空字符串
 		keyword = keyword == null ? "" : keyword;
 		// 获取到可查询到的商品总量
-		int goodsAllCount = goodsDao.selectCountByName("%" + keyword + "%");
+		int goodsAllCount = realGoodsDao.selectCount("%" + keyword + "%", typeIds, conditions);
 		
 		// 特殊的分页校验
 		CutPageValidatorReturnParams rst = 
 				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
 		
-		// 分页查询商品
-		List<Goods> goods = goodsDao.selectAndPagedByName("%" + keyword + "%", rst.offset, rst.limit); 
+		
+		// 2 分页查询商品
+		List<Goods> goods = 
+				realGoodsDao.selectAndPaged("%" + keyword + "%", rst.offset, rst.limit, typeIds, conditions);
 		
 		// 将查询到的总页数放入other中返回
 		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
@@ -125,9 +154,11 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		
 		// 获取实际商品对应的dao
 		RealGoodsBaseDao<?> realGoodsDao = daoPool.getDao(goods.getLinkTable());
+		RealGoods realGoods = realGoodsDao.selectById(goods.getRealGoodsId());
+		goods.setRealGoods(realGoods);
 		
 		// 通过实际商品dao查询到实际商品
-		return UiReturn.ok(realGoodsDao.selectById(goods.getRealGoodsId()), "获取成功");
+		return UiReturn.ok(goods, "获取成功");
 	}
 	
 	

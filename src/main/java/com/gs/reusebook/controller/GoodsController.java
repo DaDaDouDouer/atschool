@@ -28,7 +28,8 @@ public class GoodsController {
 	@ResponseBody
 	public UiReturn search	(@RequestBody GoodsSearchParams params) {
 
-		return goodsService.selectAndPagedByName(params.keyword, params.pageNo, params.limit);
+		return goodsService.selectAndPaged
+				(params.keyword, params.pageNo, params.limit, params.linkTable, params.fatchTypeIds(), params.conditions);
 	}
 	
 	/**

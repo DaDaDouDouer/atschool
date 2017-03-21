@@ -1,8 +1,8 @@
 package com.gs.reusebook.bean.base;
 
 /**
- * 一个实现此接口的目的应该是：<br>
- * 需要返回与身份验证的bean相关的各种session key
+ * 一个类实现此接口的目的应该是：<br>
+ * 它需要返回与身份验证的bean相关的各种session key
  * @author IceAsh
  *
  */

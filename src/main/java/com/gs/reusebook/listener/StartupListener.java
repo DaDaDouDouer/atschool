@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
-import com.gs.reusebook.service.BookTypeService;
+import com.gs.reusebook.service.GoodsTypeService;
 import com.gs.reusebook.util.UiReturn;
 
 import static com.gs.reusebook.util.ReusebookStatic.*;
@@ -14,7 +14,7 @@ import static com.gs.reusebook.util.ReusebookStatic.*;
 public class StartupListener implements ApplicationListener<ContextRefreshedEvent> {
 	
 	@Autowired
-	private BookTypeService bookTypeService;
+	private GoodsTypeService goodsTypeService;
 	
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		//root application context 没有parent，避免执行两次
@@ -26,16 +26,17 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 	}
 	
 	/**
-	 * spring加载完之后向数据库写入默认的书籍类型。
+	 * spring加载完之后向数据库写入默认的商品类型。
 	 * 如果已经存在则不写入。
 	 */
 	private void saveDefaultBookType(){
-		UiReturn result = bookTypeService.selectById(DEFAULT_BOOK_TYPE_ID);
+		UiReturn result = goodsTypeService.selectById(DEFAULT_TYPE_ID);
 		if(result.getData() == null){
-			bookTypeService.insert(
-					DEFAULT_BOOK_TYPE_ID,
-					DEFAULT_BOOK_TYPE,
-					DEFAULT_BOOK_TYPE_BASE);
+			goodsTypeService.insert(
+					DEFAULT_TYPE_ID,
+					DEFAULT_TYPE,
+					DEFAULT_TYPE_BASE,
+					TABLE_NAME_BOOK);
 		}
 	}
 	

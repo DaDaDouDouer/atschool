@@ -9,12 +9,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.gs.reusebook.bean.Book;
-import com.gs.reusebook.bean.BookType;
+import com.gs.reusebook.bean.GoodsType;
 
 public class BookTest {
 
 	private BookService bookService;
-	private BookTypeService bookTypeService;
+	private GoodsTypeService GoodsTypeService;
 	
 	@Before
 	public void before(){  
@@ -23,23 +23,16 @@ public class BookTest {
 				new String[]{"classpath:conf/spring.xml"
 				,"classpath:conf/spring-mybatis.xml"});
 		bookService = (BookService) context.getBean("bookService");
-		bookTypeService = (BookTypeService) context.getBean("bookTypeService");
+		GoodsTypeService = (GoodsTypeService) context.getBean("goodsTypeService");
 	}
 	
 	@Test
-	public void testSelectByCondition(){
-		Book book = new Book();
-		List<BookType> types = new ArrayList<BookType>();
-		BookType type = new BookType();
-		type.setId("112");
-		types.add(type);
-		book.setTypes(types);
-		
-		System.out.println(bookService.selectByBookCondition(book));
-	}
-//	@Test
 	public void testGetAllType(){
-		System.out.println(bookTypeService.SelectAll());
+		System.out.println(GoodsTypeService.selectAll());
 	}
 	
+//	@Test
+	public void testGetTypeByLinkTable(){
+		System.out.println(GoodsTypeService.selectByLinkTable("tab_book"));
+	}
 }

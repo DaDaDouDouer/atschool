@@ -1,12 +1,14 @@
 package com.gs.reusebook.bean;
 
-public class BookType {
+public class GoodsType {
 
 	private String id;
 
 	private String name;
 
 	private String baseName;
+
+	private String linkTable;
 
 	public String getId() {
 		return id;
@@ -16,6 +18,11 @@ public class BookType {
 		this.id = id;
 	}
 
+	/**
+	 * 小类名
+	 * 
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
@@ -26,6 +33,7 @@ public class BookType {
 
 	/**
 	 * 大类名
+	 * 
 	 * @return
 	 */
 	public String getBaseName() {
@@ -35,5 +43,17 @@ public class BookType {
 	public void setBaseName(String baseName) {
 		this.baseName = baseName;
 	}
-	
+
+	public void setLinkTable(String linkTable) {
+		this.linkTable = linkTable;
+	}
+
+	/**
+	 * 表示该类型用来描述哪个实际商品
+	 * 
+	 * @return
+	 */
+	public String getLinkTable() {
+		return linkTable;
+	}
 }

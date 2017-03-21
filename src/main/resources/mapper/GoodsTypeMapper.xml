@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gs.reusebook.dao.GoodsTypeDao">
+
+	<select id="selectAll" resultType="GoodsType" resultMap="normalBookTypeResultMap">
+		SELECT * FROM tab_goods_type
+	</select>
+
+	<select id="selectById" resultType="GoodsType" resultMap="normalBookTypeResultMap">
+		SELECT * FROM tab_goods_type WHERE id = #{typeId}
+	</select>
+	
+	<select id="selectByLinkTable" resultType="GoodsType" resultMap="normalBookTypeResultMap">
+		SELECT * FROM tab_goods_type where link_table = #{linkTable}
+	</select>
+	
+	<insert id="insert" parameterType="GoodsType" keyProperty="id">
+		INSERT
+		INTO
+
+		tab_goods_type(
+		id,
+		name,
+		base_name,
+		link_table)
+
+		VALUES (
+		#{id},
+		#{name},
+		#{baseName},
+		#{linkTable})
+	</insert>
+	
+	<resultMap type="com.gs.reusebook.bean.GoodsType" id="normalBookTypeResultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="baseName" column="base_name" />
+		<result property="linkTable" column="link_table" />
+	</resultMap>
+	
+</mapper>

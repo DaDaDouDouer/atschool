@@ -4,49 +4,102 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gs.reusebook.dao.BookDao">
 
-	<select id="selectByBookCondition" resultType="Book" resultMap="normalBookResultMap">
+	<select id="selectAndPaged" resultType="Goods" resultMap="normalGoodsResultMap">
 		SELECT 
-		  b2.id,
-		  b2.`name`,
-		  b2.`author`,
-		  b2.`isbn`,
-		  b2.`img_url`,
-		  t2.`id` book_type_id,
-		  t2.`name` book_type_name,
-		  t2.base_name book_type_base_name 
+		  * 
 		FROM
-		  `tab_book` b2,
-		  `tab_book_type_rel` r2,
-		  `tab_book_type` t2 
-		WHERE b2.id = r2.book_id 
-		  AND r2.`book_type_id` = t2.`id` 
-		  AND b2.id IN 
+		  `tab_goods` g2 
+		WHERE g2.`id` IN 
 		  (SELECT 
-		    b.id 
+		    g.id 
 		  FROM
 		    `tab_book` b,
-		    `tab_book_type_rel` r,
-		    `tab_book_type` t 
-		  WHERE b.id = r.book_id 
-		    AND r.`book_type_id` = t.`id` 
-		    AND r.book_type_id IN 
-			<foreach item="item" index="index" collection="types" open="(" separator="," close=")">
+		    `tab_goods` g,
+		    `tab_goods_type` t,
+		    `tab_goods_type_rel` tr 
+		  WHERE b.id = g.`real_goods_id` 
+		    AND g.`id` = tr.`goods_id` 
+		    AND tr.`type_id` = t.`id` 
+		    AND b.name LIKE '%%'
+		    AND t.`id` IN 
+		    <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
 				#{item}
 	        </foreach>
-        	)
+		  ) 
+		  <if test="conditions.minPrice != null">
+		  <![CDATA[ AND g2.`price` >= ]]>#{conditions.minPrice}
+		  </if>
+		  <if test="conditions.maxPrice != null">
+		  <![CDATA[ AND g2.`price` <= ]]>#{conditions.maxPrice}
+		  </if>
+		  <if test="conditions.viaOrder != null">
+		    ORDER BY g2.`via` ${conditions.viaOrder}
+		  </if>
+		  <if test="conditions.priceOrder != null">
+		    ORDER BY g2.`price` ${conditions.priceOrder}
+		  </if>
+		  LIMIT #{offset},#{limit}
 	</select>
-
+	
+	<select id="selectCount" resultType="Integer">
+		SELECT 
+		  count(*) 
+		FROM
+		  `tab_goods` g2 
+		WHERE g2.`id` IN 
+		  (SELECT 
+		    g.id 
+		  FROM
+		    `tab_book` b,
+		    `tab_goods` g,
+		    `tab_goods_type` t,
+		    `tab_goods_type_rel` tr 
+		  WHERE b.id = g.`real_goods_id` 
+		    AND g.`id` = tr.`goods_id` 
+		    AND tr.`type_id` = t.`id` 
+		    AND b.name LIKE '%%'
+		    AND t.`id` IN 
+		    <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
+				#{item}
+	        </foreach>
+		  ) 
+		  <if test="conditions.minPrice != null">
+		  <![CDATA[ AND g2.`price` >= ]]>#{conditions.minPrice}
+		  </if>
+		  <if test="conditions.maxPrice != null">
+		  <![CDATA[ AND g2.`price` <= ]]>#{conditions.maxPrice}
+		  </if>
+		  <if test="conditions.viaOrder != null">
+		    ORDER BY g2.`via` ${conditions.viaOrder}
+		  </if>
+		  <if test="conditions.priceOrder != null">
+		    ORDER BY g2.`price` ${conditions.priceOrder}
+		  </if>
+	</select>
+	
+	<select id="selectById" resultType="Book" resultMap="normalBookResultMap">
+		SELECT * FROM tab_book WHERE id = #{id}
+	</select>
+	
+	<resultMap type="com.gs.reusebook.bean.Goods" id="normalGoodsResultMap">
+		<id property="id" column="id" />
+		<result property="realGoodsId" column="real_goods_id" />
+		<result property="sellerId" column="seller_id" />
+		<result property="linkTable" column="link_table" />
+		<result property="name" column="name" />
+		<result property="price" column="price" />
+		<result property="count" column="count" />
+		<result property="imgUrl" column="img_url" />
+		<result property="via" column="via" />
+	</resultMap>
+	
 	<resultMap type="com.gs.reusebook.bean.Book" id="normalBookResultMap">
 		<id property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="author" column="author" />
 		<result property="isbn" column="isbn" />
 		<result property="imgUrl" column="img_url" />
-		<collection property="types" ofType="com.gs.reusebook.bean.BookType">
-			<id property="id" column="book_type_id" />
-			<result property="name" column="book_type_name" />
-			<result property="baseName" column="book_type_base_name" />
-		</collection>
+		
 	</resultMap>
 
 </mapper>

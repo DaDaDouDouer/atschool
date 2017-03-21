@@ -1,12 +1,18 @@
 package com.gs.reusebook.service;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.gs.reusebook.util.UiReturn;
+import static com.gs.reusebook.util.ReusebookStatic.TABLE_NAME_BOOK;
 
 public class GoodsTest {
 
@@ -23,7 +29,17 @@ public class GoodsTest {
 	
 	@Test
 	public void testSelectAndPagedByName(){
-		UiReturn goodses = goodsService.selectAndPagedByName("p", 1, 2);
+		
+		List<String> typeIds = new ArrayList<String>();
+		typeIds.add("111");
+		typeIds.add("112");
+		typeIds.add("113");
+		
+		Map<String, Object> conditions = new HashMap<String, Object>();
+		conditions.put("maxPrice", 1000);
+		conditions.put("viaOrder", "asc");
+		
+		UiReturn goodses = goodsService.selectAndPaged("", 1, 1, TABLE_NAME_BOOK, typeIds, conditions);
 		System.out.println(goodses);
 	}
 	

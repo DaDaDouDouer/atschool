@@ -8,11 +8,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     	<!-- 这里要写所有要入库的bean -->
         <typeAlias alias="Admin" type="com.gs.reusebook.bean.Admin"/>
         <typeAlias alias="Book" type="com.gs.reusebook.bean.Book"/>
-        <typeAlias alias="BookType" type="com.gs.reusebook.bean.BookType"/>
         <typeAlias alias="CartItem" type="com.gs.reusebook.bean.CartItem"/>
         <typeAlias alias="DeliveryAddress" type="com.gs.reusebook.bean.DeliveryAddress"/>
         <typeAlias alias="Evaluation" type="com.gs.reusebook.bean.Evaluation"/>  
         <typeAlias alias="Goods" type="com.gs.reusebook.bean.Goods"/>
+        <typeAlias alias="GoodsType" type="com.gs.reusebook.bean.GoodsType"/>
         <typeAlias alias="Order" type="com.gs.reusebook.bean.Order"/>
         <typeAlias alias="OrderItem" type="com.gs.reusebook.bean.OrderItem"/>
         <typeAlias alias="Seller" type="com.gs.reusebook.bean.Seller"/>

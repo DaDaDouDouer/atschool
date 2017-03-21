@@ -81,15 +81,15 @@ public class ReusebookStatic {
 	/**
 	 * 默认书的类型，每本书都会有一个这个类型
 	 */
-	public final static String DEFAULT_BOOK_TYPE = "default_book_type";
+	public final static String DEFAULT_TYPE = "default_type";
 	/**
 	 * 默认书的基本，每本书都会有一个这个类型
 	 */
-	public final static String DEFAULT_BOOK_TYPE_BASE = "default_book_type_base";
+	public final static String DEFAULT_TYPE_BASE = "default_type_base";
 	/**
 	 * 默认书的类型ID，每本书都会有一个这个类型
 	 */
-	public final static String DEFAULT_BOOK_TYPE_ID = "09vc8c86-e8ca-hjc7-96f3-f1a4kd4804ab";
+	public final static String DEFAULT_TYPE_ID = "09vc8c86-e8ca-hjc7-96f3-f1a4kd4804ab";
 	
 	
 	

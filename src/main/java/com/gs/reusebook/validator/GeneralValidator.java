@@ -12,7 +12,11 @@ public class GeneralValidator {
 
 	public final static String SPLIT_CHAR = ";";
 	
-	
+	/**
+	 * 控制校验器是否起作用
+	 */
+	public final static boolean ENABLE = false;
+
 	/**
 	 * 数据库主键ID验证器的键
 	 */
@@ -43,40 +47,63 @@ public class GeneralValidator {
 	 * @return
 	 */
 	public static ValidatorReturnParams validate(ValidatorType validatorType, Object... params) {
+		if (ENABLE) {
+			ParamsValidator validator = validatorPool.get(validatorType);
 
-		ParamsValidator validator = validatorPool.get(validatorType);
+			if (validator == null) {
+				return new ValidatorReturnParams(false, "不存在此验证器");
+			}
+			return validator.validate(params);
 
-		if (validator == null) {
-			return new ValidatorReturnParams(false, "不存在此验证器");
+		} else {
+			return new ValidatorReturnParams(true, "");
+
 		}
-		return validator.validate(params);
 	}
 
+	/**
+	 * 该方法是对许多参数进行不同的校验。 params里的每个参数对应validaterTypes里的一个校验类型。 如：<br>
+	 * validatorTypes：[PKID, INT_POSITIVE]<br>
+	 * params：["1432-3413-1234-3124", 123]<br>
+	 * "1432-3413-1234-3124"对应主键校验<br>
+	 * 123对应正整数校验<br>
+	 * 
+	 * 
+	 * @param validatorTypes
+	 * @param params
+	 * @return
+	 */
 	public static ValidatorReturnParams validate(ValidatorType[] validatorTypes, Object[] params) {
-		if (validatorTypes == null || params == null) {
-			return new ValidatorReturnParams(false, "传入的校验参数或验证类型为空");
-		}
-		if (validatorTypes.length != params.length) {
-			return new ValidatorReturnParams(false, "参数数量和类型数量不符");
-		}
 		
-		boolean isRight = true;
-		String msg = "";
-		for (int i = 0; i < validatorTypes.length; i++) {
-			ParamsValidator validator = validatorPool.get(validatorTypes[i]);
-			if (validator == null) {
-				return new ValidatorReturnParams(false, "有验证器不存在");
-			}
+		if (ENABLE) {
 			
-			ValidatorReturnParams result = validator.validate(params[i]);
+			 if (validatorTypes == null || params == null) {
+			 return new ValidatorReturnParams(false, "传入的校验参数或验证类型为空");
+			 }
+			 if (validatorTypes.length != params.length) {
+			 return new ValidatorReturnParams(false, "参数数量和类型数量不符");
+			 }
 			
-			isRight = isRight && result.isRight;
-			msg += SPLIT_CHAR + result.msg;
+			 boolean isRight = true;
+			 String msg = "";
+			 for (int i = 0; i < validatorTypes.length; i++) {
+			 ParamsValidator validator = validatorPool.get(validatorTypes[i]);
+			 if (validator == null) {
+			 return new ValidatorReturnParams(false, "有验证器不存在");
+			 }
+			
+			 ValidatorReturnParams result = validator.validate(params[i]);
+			
+			 isRight = isRight && result.isRight;
+			 msg += SPLIT_CHAR + result.msg;
+			 }
+			 // 去掉打头的分隔符，以及替换相连的分隔符为一个分隔符
+			 msg = msg.substring(1).replaceAll(SPLIT_CHAR + "+", SPLIT_CHAR);
+			
+			 return new ValidatorReturnParams(isRight, msg);
+		}else{
+			return new ValidatorReturnParams(true, "");
 		}
-		// 去掉打头的分隔符，以及替换相连的分隔符为一个分隔符
-		msg = msg.substring(1).replaceAll(SPLIT_CHAR + "+", SPLIT_CHAR);
-		
-		return new ValidatorReturnParams(isRight, msg);
 	}
 
 }

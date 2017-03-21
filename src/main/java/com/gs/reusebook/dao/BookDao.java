@@ -9,11 +9,4 @@ import com.gs.reusebook.dao.base.RealGoodsBaseDao;
 
 public interface BookDao extends RealGoodsBaseDao<Book>{
 	
-	/**
-	 * 把book的属性作为条件查询book
-	 * @param bookCondition
-	 * @return
-	 */
-	public List<Book> selectByBookCondition
-		(@Param("book") Book bookCondition, @Param("types") List<String> types);
 }

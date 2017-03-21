@@ -16,20 +16,4 @@ public class BookService {
 	@Autowired
 	private BookDao bookDao;
 	
-	/**
-	 * 根据搜索条件搜索书
-	 * @param book
-	 * @return
-	 */
-	public UiReturn selectByBookCondition(Book book){
-		// 如果没有给出搜索的书籍类型则默认为默认类型
-		if(book == null){
-			book = new Book();
-		}
-		List<String> typeIds = book.fatchTypeIds();
-		if(typeIds.isEmpty()){
-			typeIds.add(DEFAULT_BOOK_TYPE_ID);
-		}
-		return UiReturn.ok(bookDao.selectByBookCondition(book, typeIds), "按条件查询书成功");
-	}
 }

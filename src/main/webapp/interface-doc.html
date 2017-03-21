@@ -258,9 +258,26 @@
 					<p>limit 每页条数</p>
 					<pre>
 {
-	"keyword" : "C",
+	"keyword" : "",
 	"pageNo" : 1,
-	"limit" : 1
+	"limit" : 3,
+	
+	"linkTable" : "tab_book",
+	"types":[
+		{
+			"id":"111"
+		},
+		{
+			"id":"112"
+		},
+		{
+			"id":"113"
+		}
+	],
+	"conditions" : {
+		"maxPrice": 1000,
+		"priceOrder": "asc"
+	}
 }
 					</pre>
 				</td>
@@ -269,8 +286,21 @@
 					<pre>		
 {
   "status": 200,
-  "msg": "搜索成功",
+  "msg": "查询商品成功",
   "data": [
+    {
+      "id": "4",
+      "realGoodsId": "14",
+      "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "linkTable": "tab_book",
+      "name": "PHP",
+      "price": 32.6,
+      "count": 4,
+      "via": 2,
+      "types": null,
+      "imgUrl": "http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg",
+      "realGoods": null
+    },
     {
       "id": "1",
       "realGoodsId": "11",
@@ -278,22 +308,15 @@
       "linkTable": "tab_book",
       "name": "C",
       "price": 321.2,
-      "count": 3,
-      "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg"
-    },
-    {
-      "id": "3",
-      "realGoodsId": "13",
-      "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
-      "linkTable": "tab_book",
-      "name": "C++",
-      "price": 439.2,
-      "count": 3,
-      "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg"
+      "count": 1,
+      "via": 4,
+      "types": null,
+      "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg",
+      "realGoods": null
     }
   ],
   "other": {
-    "pageAllCount": 1
+    "pageAllCount": 2
   }
 }
 					</pre>
@@ -373,11 +396,48 @@
   "status": 200,
   "msg": "获取成功",
   "data": {
-    "id": "12",
+    "id": "2",
+    "realGoodsId": "12",
+    "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+    "linkTable": "tab_book",
     "name": "Java",
-    "author": "ytutre",
-    "isbn": "6744533"
-	还包含其他商品信息
+    "price": 432.4,
+    "count": 5,
+    "via": 13,
+    "types": [
+      {
+        "id": "111",
+        "name": "计算机",
+        "baseName": "测试类型",
+        "linkTable": "tab_test"
+      },
+      {
+        "id": "113",
+        "name": "呵呵",
+        "baseName": "测试类型",
+        "linkTable": "tab_test"
+      },
+      {
+        "id": "112",
+        "name": "编程",
+        "baseName": "测试类型",
+        "linkTable": "tab_test"
+      },
+      {
+        "id": "09vc8c86-e8ca-hjc7-96f3-f1a4kd4804ab",
+        "name": "default_type",
+        "baseName": "default_type_base",
+        "linkTable": "tab_book"
+      }
+    ],
+    "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg",
+    "realGoods": {
+      "id": "12",
+      "name": "Java",
+      "author": "ytutre",
+      "isbn": "6744533",
+      "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg"
+    }
   },
   "other": null
 }
@@ -808,78 +868,6 @@
 			</tr>
 
 
-			<tr class="book" id="book-search">
-				<td>根据条件查询书</td>
-				<td>
-					book/search.do
-				</td>
-				<td>post</td>
-				<td>
-					<p>types 为一json数组</p>
-					<p>id 每一个id是要进行筛选的类型id</p>
-					<pre>
-{
-  "types":[
-    {
-      "id":"111"
-    },
-    {
-      "id":"112"
-    }
-  ]
-}
-					</pre>
-				</td>
-				<td>返回的json中，每本书都包含一个id固定的默认类型，不予显示即可</td>
-				<td>
-					<pre>
-{
-  "status": 200,
-  "msg": "按条件查询书成功",
-  "data": [
-    {
-      "id": "11",
-      "name": "C",
-      "author": "daf",
-      "isbn": "53426436",
-      "types": [
-        {
-          "id": "111",
-          "name": "计算机",
-          "baseName": "b"
-        },
-        {
-          "id": "112",
-          "name": "编程",
-          "baseName": "b"
-        },
-        {
-          "id": "09vc8c86-e8ca-hjc7-96f3-f1a4kd4804ab",
-          "name": "default_book_type",
-          "baseName": "default_book_type_base"
-        }
-      ]
-    },
-    {
-      "id": "12",
-      "name": "Java",
-      "author": "ytutre",
-      "isbn": "6744533",
-      "types": [
-        {
-          "id": "111",
-          "name": "计算机",
-          "baseName": "b"
-        }
-      ]
-    }
-  ],
-  "other": null
-}
-					</pre>
-				</td>
-			</tr>
-
 			<tr class="book-type" id="book-type-selet-all">
 				<td>获取所有分类</td>
 				<td>
@@ -890,38 +878,90 @@
 				<td>实际的返回值包含140多个类型</td>
 				<td>
 					<pre>
-形如：
 {
   "status": 200,
   "msg": "成功获取全部类型",
   "data": {
-    "科技": [
+    "tab_book": {
+      "科技": [
+        {
+          "id": "0ebe39f6-42c5-46df-9dee-e8153d0bbd3a",
+          "name": "编程",
+          "baseName": "科技",
+          "linkTable": "tab_book"
+        },
+        {
+          "id": "1afb2e31-a398-4d9d-893f-794052e9e95e",
+          "name": "用户体验",
+          "baseName": "科技",
+          "linkTable": "tab_book"
+        }
+      ],
+      "生活": [
+        {
+          "id": "0454166e-cb8d-4e9c-9f43-72cdacfebad6",
+          "name": "生活",
+          "baseName": "生活",
+          "linkTable": "tab_book"
+        }
+       ]
+    },
+    "tab_test": {
+      "测试类型": [
+        {
+          "id": "111",
+          "name": "计算机",
+          "baseName": "测试类型",
+          "linkTable": "tab_test"
+        }
+      ]
+    }
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="book-type" id="book-type-select-by-link-table">
+				<td>获取某种商品的所有分类</td>
+				<td>
+					book/type/selectByLinkTable.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>具体商品表名</p>
+					<pre>
+{
+	"linkTable":"tab_test"
+}
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "成功获取该表名下的全部类型",
+  "data": {
+    "测试类型": [
       {
-        "id": "0ebe39f6-42c5-46df-9dee-e8153d0bbd3a",
+        "id": "111",
+        "name": "计算机",
+        "baseName": "测试类型",
+        "linkTable": "tab_test"
+      },
+      {
+        "id": "112",
         "name": "编程",
-        "baseName": "科技"
+        "baseName": "测试类型",
+        "linkTable": "tab_test"
       },
       {
-        "id": "1afb2e31-a398-4d9d-893f-794052e9e95e",
-        "name": "用户体验",
-        "baseName": "科技"
-      },
-	  {
-        "id": "fa13c1fe-d95a-46c6-ae78-cb86915bc173",
-        "name": "互联网",
-        "baseName": "科技"
-      }
-    ],
-    "生活": [
-      {
-        "id": "0454166e-cb8d-4e9c-9f43-72cdacfebad6",
-        "name": "生活",
-        "baseName": "生活"
-      },
-      {
-        "id": "0fed293c-a1a4-40ce-a9af-57b6b8a1f6e0",
-        "name": "成长",
-        "baseName": "生活"
+        "id": "113",
+        "name": "呵呵",
+        "baseName": "测试类型",
+        "linkTable": "tab_test"
       }
     ]
   },

@@ -1,5 +1,9 @@
 package com.gs.reusebook.bean;
 
+import java.util.List;
+
+import com.gs.reusebook.bean.base.RealGoods;
+
 /**
  * 
  * 商品的抽象层，包含商品需要展示的最基本的信息
@@ -8,23 +12,22 @@ package com.gs.reusebook.bean;
  *
  */
 public class Goods {
+
 	private String id;
-	/**
-	 * 对应实际商品的id
-	 */
 	private String realGoodsId;
 	private String sellerId;
-	/**
-	 * 表示实际的商品在哪张数据库表中，因为以后可能有多种商品（大概吧）
-	 */
 	private String linkTable;
-
 	private String name;
 	private double price;
 	private int count;
-
+	private int via;
+	private List<GoodsType> types;
 	private String imgUrl;
+	private RealGoods realGoods;
 
+	
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -33,6 +36,9 @@ public class Goods {
 		this.id = id;
 	}
 
+	/**
+	 * 对应实际商品的id
+	 */
 	public String getRealGoodsId() {
 		return realGoodsId;
 	}
@@ -49,6 +55,9 @@ public class Goods {
 		this.sellerId = sellerId;
 	}
 
+	/**
+	 * 表示实际的商品在哪张数据库表中，因为以后可能有多种商品（大概吧）
+	 */
 	public String getLinkTable() {
 		return linkTable;
 	}
@@ -89,4 +98,37 @@ public class Goods {
 		return imgUrl;
 	}
 
+	public void setVia(int via) {
+		this.via = via;
+	}
+
+	/**
+	 * 销量
+	 */
+	public int getVia() {
+		return via;
+	}
+
+	public void setTypes(List<GoodsType> types) {
+		this.types = types;
+	}
+
+	/**
+	 * 该商品所具有的分类
+	 */
+	public List<GoodsType> getTypes() {
+		return types;
+	}
+
+	public void setRealGoods(RealGoods realGoods) {
+		this.realGoods = realGoods;
+	}
+	
+	/**
+	 * 该抽象商品所关联的实际商品
+	 * @return
+	 */
+	public RealGoods getRealGoods() {
+		return realGoods;
+	}
 }

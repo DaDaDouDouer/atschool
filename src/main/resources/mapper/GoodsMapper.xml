@@ -2,7 +2,6 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 这里要改为某个bean的dao -->
 <mapper namespace="com.gs.reusebook.dao.GoodsDao">
 
 	<select id="selectCountByName" resultType="Integer">
@@ -18,11 +17,35 @@
 	</select>
 	
 	<select id="selectAndPagedByName" resultType="Goods" resultMap="normalGoodsResultMap">
-		SELECT * FROM tab_goods WHERE name LIKE #{name} LIMIT #{offset},#{limit}
+		SELECT * FROM tab_goods WHERE name LIKE #{name}
+		<if test="amap.price != null">
+			<![CDATA[ AND price < #{amap.price} ]]>
+		</if>
+		LIMIT #{offset},#{limit}
 	</select>
 
-	<select id="selectById" resultType="Goods" resultMap="normalGoodsResultMap">
-		SELECT * FROM tab_goods WHERE id = #{id}
+	<select id="selectById" resultType="Goods" resultMap="goodsWithTypesResultMap">
+		SELECT 
+		  g.`id` id,
+		  g.`real_goods_id` ,
+		  g.`count` `count`,
+		  g.`img_url` img_url,
+		  g.`link_table` link_table,
+		  g.`name` `name`,
+		  g.`price` price,
+		  g.`seller_id` seller_id,
+		  g.`via` via,
+		  t.`base_name` base_name,
+		  t.`id` type_id_pk,
+		  t.`name` type_name,
+		  t.`link_table` type_link_table
+		FROM
+		  `tab_goods` g,
+		  `tab_goods_type_rel` tr,
+		  `tab_goods_type` t 
+		WHERE g.`id` = tr.`goods_id` 
+		  AND tr.`type_id` = t.`id` 
+		  AND g.`id` = #{id}
 	</select>
 
 	<update id="updateCount">
@@ -45,6 +68,24 @@
 		<result property="price" column="price" />
 		<result property="count" column="count" />
 		<result property="imgUrl" column="img_url" />
+		<result property="via" column="via" />
 	</resultMap>
 
+	<resultMap type="com.gs.reusebook.bean.Goods" id="goodsWithTypesResultMap">
+		<id property="id" column="id" />
+		<result property="realGoodsId" column="real_goods_id" />
+		<result property="sellerId" column="seller_id" />
+		<result property="linkTable" column="link_table" />
+		<result property="name" column="name" />
+		<result property="price" column="price" />
+		<result property="count" column="count" />
+		<result property="imgUrl" column="img_url" />
+		<result property="via" column="via" />
+		<collection property="types" javaType="ArrayList" ofType="com.gs.reusebook.bean.GoodsType">
+			<id property="id" column="type_id_pk" />
+			<result property="name" column="type_name" />
+			<result property="baseName" column="base_name" />
+			<result property="linkTable" column="type_link_table" />
+		</collection>
+	</resultMap>
 </mapper>

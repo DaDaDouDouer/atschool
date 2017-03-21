@@ -18,15 +18,4 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
-	/**
-	 * 以键值的形式获取全部的分类
-	 * @return
-	 */
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	@ResponseBody
-	public UiReturn search(@RequestBody Book book) {
-		
-		// 参数校验
-		return bookService.selectByBookCondition(book);
-	}
 }
