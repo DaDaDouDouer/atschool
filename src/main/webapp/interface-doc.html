@@ -867,6 +867,114 @@
 				</td>
 			</tr>
 
+			<tr class="order" id="order-user-payed">
+				<td>买家确认已付款</td>
+				<td>
+					order/userPayed.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id 订单的id</p>
+					<pre>
+{
+	"id":"92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c"
+}
+					</pre>
+				</td>
+				<td>需要买家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改状态成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="order" id="order-user-payed-ok">
+				<td>卖家确认买家已付款</td>
+				<td>
+					order/userPayedOk.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id 订单的id</p>
+					<pre>
+{
+	"id":"92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c"
+}
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改状态成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="order" id="order-seller-sended">
+				<td>卖家已发货</td>
+				<td>
+					order/sellerSended.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id 订单的id</p>
+					<pre>
+{
+	"id":"92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c"
+}
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改状态成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="order" id="order-user-received">
+				<td>买家确认已收货</td>
+				<td>
+					order/userReceived.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id 订单的id</p>
+					<pre>
+{
+	"id":"92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c"
+}
+					</pre>
+				</td>
+				<td>需要买家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改状态成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
 
 			<tr class="book-type" id="book-type-selet-all">
 				<td>获取所有分类</td>

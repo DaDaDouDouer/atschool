@@ -158,29 +158,40 @@ public class OrderService {
 		return UiReturn.ok("", "生成订单成功");
 	}
 	
+	/**
+	 * 修改订单状态。<br>
+	 * 把给定的订单状态修改为目标状态，在修改前会校验是否可以修改。<br>
+	 * 并且还会校验是否是属于给定用户的订单。<br>
+	 * @param orderId
+	 * @param aimStatus
+	 * @param isUser 是用户修改还是商家修改
+	 * @param authId 用户或者商家的id
+	 * @return
+	 */
 	public UiReturn updateStatus(String orderId, Integer aimStatus, boolean isUser, String authId){
-		// 参数校验
+		// 参数校验，isUser不参与校验
 		ValidatorReturnParams result = GeneralValidator.validate(
-				new ValidatorType[]{PKID, INT_POSITIVE},
-				new Object[]{orderId, aimStatus});
+				new ValidatorType[]{PKID, INT_POSITIVE, PKID},
+				new Object[]{orderId, aimStatus, authId});
 		if(!result.isRight){
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
 		
 		Order order = orderDao.selectById(orderId);
+		
 		// null校验
 		if(order == null){
 			return UiReturn.notOk(null, "该订单不存在", REQ_ERROR_400);
 		}
 		
-		// 校验是否是属于当前用户自己的订单
+		// 校验当前订单是否是属于当前用户自己的订单
 		if(isUser){
 			if(!order.getUserId().equals(authId)){
-				return UiReturn.notOk(null, "只能修改自己的订单", REQ_ERROR_400);
+				return UiReturn.notOk(null, "只能修改自己的订单状态", REQ_ERROR_400);
 			}
 		}else{
 			if(!order.getSellerId().equals(authId)){
-				return UiReturn.notOk(null, "只能修改自己的订单", REQ_ERROR_400);
+				return UiReturn.notOk(null, "只能修改自己的订单状态", REQ_ERROR_400);
 			}
 		}
 		
@@ -189,7 +200,7 @@ public class OrderService {
 			orderDao.updateStatus(aimStatus, orderId);
 			return UiReturn.ok("", "修改状态成功");
 		}else{
-			return UiReturn.notOk("", "不能修改订单状态", REQ_ERROR_400);
+			return UiReturn.notOk("", "不能进行这样的订单状态修改", REQ_ERROR_400);
 		}
 	}
 }
