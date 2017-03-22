@@ -105,13 +105,17 @@ public class ReusebookStatic {
 	 */
 	public final static int ORDER_STATUS_PAYED  = 1001;
 	/*
+	 * 订单状态，卖家确认付款
+	 */
+	public final static int ORDER_STATUS_PAYED_OK  = 1002;
+	/*
 	 * 订单状态，卖家已发货
 	 */
-	public final static int ORDER_STATUS_SENDED  = 1002;
+	public final static int ORDER_STATUS_SENDED  = 1003;
 	/*
 	 * 订单状态，交易完成
 	 */
-	public final static int ORDER_STATUS_END  = 1003;
+	public final static int ORDER_STATUS_END  = 1004;
 
 	
 	

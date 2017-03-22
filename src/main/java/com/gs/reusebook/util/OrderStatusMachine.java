@@ -25,7 +25,8 @@ public class OrderStatusMachine {
 	public static boolean changeStatus(int now, int aim){
 		
 		if((now == ORDER_STATUS_START && aim == ORDER_STATUS_PAYED)
-			||(now == ORDER_STATUS_PAYED && aim == ORDER_STATUS_SENDED)
+			||(now == ORDER_STATUS_PAYED && aim == ORDER_STATUS_PAYED_OK)
+			||(now == ORDER_STATUS_PAYED_OK && aim == ORDER_STATUS_SENDED)
 			||(now == ORDER_STATUS_SENDED && aim == ORDER_STATUS_END)){
 			
 			return true;

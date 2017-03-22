@@ -158,7 +158,7 @@ public class OrderService {
 		return UiReturn.ok("", "生成订单成功");
 	}
 	
-	public UiReturn updateStatus(String orderId, Integer aimStatus){
+	public UiReturn updateStatus(String orderId, Integer aimStatus, boolean isUser, String authId){
 		// 参数校验
 		ValidatorReturnParams result = GeneralValidator.validate(
 				new ValidatorType[]{PKID, INT_POSITIVE},
@@ -171,6 +171,17 @@ public class OrderService {
 		// null校验
 		if(order == null){
 			return UiReturn.notOk(null, "该订单不存在", REQ_ERROR_400);
+		}
+		
+		// 校验是否是属于当前用户自己的订单
+		if(isUser){
+			if(!order.getUserId().equals(authId)){
+				return UiReturn.notOk(null, "只能修改自己的订单", REQ_ERROR_400);
+			}
+		}else{
+			if(!order.getSellerId().equals(authId)){
+				return UiReturn.notOk(null, "只能修改自己的订单", REQ_ERROR_400);
+			}
 		}
 		
 		// 校验是否可以修改状态
