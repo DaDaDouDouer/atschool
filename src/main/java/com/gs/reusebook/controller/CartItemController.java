@@ -15,6 +15,8 @@ import com.gs.reusebook.service.CartItemService;
 import com.gs.reusebook.util.UiReturn;
 import static com.gs.reusebook.util.ReusebookStatic.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/cartitem")
 public class CartItemController {
@@ -80,4 +82,21 @@ public class CartItemController {
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 		return cartItemService.updateGoodsCount(userId, cartItem.getId(), cartItem.getGoodsCount()); 
 	}
+	
+
+	/**
+	 * 更新某购物车项的商品数量
+	 * @param cartItem
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/updateAll", method = RequestMethod.POST)
+	@ResponseBody
+	@NeedUserLogin
+	public UiReturn updateAll(@RequestBody List<CartItem> cartItems, HttpSession session) {
+		// TODO 参数校验
+		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
+		return cartItemService.updateAll(userId, cartItems); 
+	}
+	
 }

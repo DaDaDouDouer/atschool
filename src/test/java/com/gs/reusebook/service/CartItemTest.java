@@ -1,9 +1,15 @@
 package com.gs.reusebook.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;import com.sun.org.apache.xml.internal.security.encryption.CipherData;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.gs.reusebook.bean.CartItem;
+import com.sun.org.apache.xml.internal.security.encryption.CipherData;
 
 public class CartItemTest {
 
@@ -18,7 +24,7 @@ public class CartItemTest {
 		cartItemService = (CartItemService) context.getBean("cartItemService");
 	}
 	
-	 @Test
+//	 @Test
 	public void testAddCartItem(){
 		System.out.println(cartItemService.addToCart("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab","3" , 3));
 	}
@@ -40,4 +46,19 @@ public class CartItemTest {
 		System.out.println(cartItemService.selectAll("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 	}
 	
+	@Test
+	public void testUpdateAll(){
+		List<CartItem> cartItems = new ArrayList<CartItem>();
+		CartItem cartItem1 = new CartItem();
+		cartItem1.setGoodsId("1");
+		cartItem1.setGoodsCount(2);
+		CartItem cartItem2 = new CartItem();
+		cartItem2.setGoodsId("3");
+		cartItem2.setGoodsCount(5);
+		cartItems.add(cartItem1);
+		cartItems.add(cartItem2);
+		
+		System.out.println(cartItemService.updateAll(
+				"17718c86-e8ca-4a9d-96f3-f1a4a3da04ab", cartItems));
+	}
 }

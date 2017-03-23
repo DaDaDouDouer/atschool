@@ -26,6 +26,8 @@ public interface CartItemDao {
 	
 	public List<CartItem> selectAllByUserId(String userId);
 	
+	public void deleteAllByUserId(String userId);
+	
 	public List<CartItem> selectAllWithGoods();
 	
 }

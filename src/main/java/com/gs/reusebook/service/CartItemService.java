@@ -1,5 +1,6 @@
 package com.gs.reusebook.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -7,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.CartItem;
+import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.dao.CartItemDao;
+import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.GeneralValidator;
@@ -22,6 +25,8 @@ public class CartItemService {
 
 	@Autowired
 	private CartItemDao cartItemDao;
+	@Autowired
+	private GoodsDao goodsDao;
 	
 	/**
 	 * 返回一个用户的所有购物车项
@@ -138,5 +143,60 @@ public class CartItemService {
 			return UiReturn.notOk("", "不能修改其它用户的购物车商品数量", REQ_ERROR_400);
 		}
 	}
-	
+
+	/**
+	 * 替换当前用户所有购物车项
+	 * @param userId
+	 * @param cartItems
+	 * @return
+	 */
+	public UiReturn updateAll(String userId, List<CartItem> cartItems) {
+		// userId校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, userId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		if(cartItems == null){
+			cartItems = new ArrayList<CartItem>();
+		}
+		// 校验数量和商品id
+		List<ValidatorType> types = new ArrayList<ValidatorType>();
+		List<Object> params = new ArrayList<Object>();
+		for(CartItem cartItem : cartItems){
+			params.add(cartItem.getGoodsId());
+			params.add(cartItem.getGoodsCount());
+			types.add(PKID);
+			types.add(INT_POSITIVE);
+		}
+		int size = types.size();
+		ValidatorReturnParams result2 = GeneralValidator.validate(
+				types.toArray(new ValidatorType[size]), 
+				params.toArray(new Object[size]));
+		if(!result2.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
+		// 检验每个goods是否都存在
+		for(CartItem cartItem : cartItems){
+			Goods goods = goodsDao.selectById(cartItem.getGoodsId());
+			// 如果商品不存在则返回失败，同时在other中返回不存在的id
+			// TODO （当前只会返回一个不存在的id）
+			if(goods == null){
+				return UiReturn.notOk(null, "商品不存在", REQ_ERROR_400, cartItem.getGoodsId());
+			}
+		}
+		
+		// 删除所有旧购物车项
+		cartItemDao.deleteAllByUserId(userId);
+		
+		// 字段赋值，入库
+		for(CartItem cartItem : cartItems){
+			cartItem.setId(UUID.randomUUID().toString());
+			cartItem.setUserId(userId);
+			cartItemDao.insertCartItem(cartItem);
+		}
+		
+		return UiReturn.ok(null, "更新购物车成功");
+	}
+
 }

@@ -447,6 +447,110 @@
 
 
 
+			<tr class="goods-type" id="goods-type-selet-all">
+				<td>获取所有分类</td>
+				<td>
+					goods/type/selectAll.do
+				</td>
+				<td>get</td>
+				<td></td>
+				<td>实际的返回值包含140多个类型</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "成功获取全部类型",
+  "data": {
+    "tab_book": {
+      "科技": [
+        {
+          "id": "0ebe39f6-42c5-46df-9dee-e8153d0bbd3a",
+          "name": "编程",
+          "baseName": "科技",
+          "linkTable": "tab_book"
+        },
+        {
+          "id": "1afb2e31-a398-4d9d-893f-794052e9e95e",
+          "name": "用户体验",
+          "baseName": "科技",
+          "linkTable": "tab_book"
+        }
+      ],
+      "生活": [
+        {
+          "id": "0454166e-cb8d-4e9c-9f43-72cdacfebad6",
+          "name": "生活",
+          "baseName": "生活",
+          "linkTable": "tab_book"
+        }
+       ]
+    },
+    "tab_test": {
+      "测试类型": [
+        {
+          "id": "111",
+          "name": "计算机",
+          "baseName": "测试类型",
+          "linkTable": "tab_test"
+        }
+      ]
+    }
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="goods-type" id="goods-type-select-by-link-table">
+				<td>获取某种商品的所有分类</td>
+				<td>
+					goods/type/selectByLinkTable.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>具体商品表名</p>
+					<pre>
+{
+	"linkTable":"tab_test"
+}
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "成功获取该表名下的全部类型",
+  "data": {
+    "测试类型": [
+      {
+        "id": "111",
+        "name": "计算机",
+        "baseName": "测试类型",
+        "linkTable": "tab_test"
+      },
+      {
+        "id": "112",
+        "name": "编程",
+        "baseName": "测试类型",
+        "linkTable": "tab_test"
+      },
+      {
+        "id": "113",
+        "name": "呵呵",
+        "baseName": "测试类型",
+        "linkTable": "tab_test"
+      }
+    ]
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
+
 
 
 
@@ -969,110 +1073,6 @@
   "status": 200,
   "msg": "修改状态成功",
   "data": "",
-  "other": null
-}
-					</pre>
-				</td>
-			</tr>
-
-
-			<tr class="book-type" id="book-type-selet-all">
-				<td>获取所有分类</td>
-				<td>
-					book/type/selectAll.do
-				</td>
-				<td>get</td>
-				<td></td>
-				<td>实际的返回值包含140多个类型</td>
-				<td>
-					<pre>
-{
-  "status": 200,
-  "msg": "成功获取全部类型",
-  "data": {
-    "tab_book": {
-      "科技": [
-        {
-          "id": "0ebe39f6-42c5-46df-9dee-e8153d0bbd3a",
-          "name": "编程",
-          "baseName": "科技",
-          "linkTable": "tab_book"
-        },
-        {
-          "id": "1afb2e31-a398-4d9d-893f-794052e9e95e",
-          "name": "用户体验",
-          "baseName": "科技",
-          "linkTable": "tab_book"
-        }
-      ],
-      "生活": [
-        {
-          "id": "0454166e-cb8d-4e9c-9f43-72cdacfebad6",
-          "name": "生活",
-          "baseName": "生活",
-          "linkTable": "tab_book"
-        }
-       ]
-    },
-    "tab_test": {
-      "测试类型": [
-        {
-          "id": "111",
-          "name": "计算机",
-          "baseName": "测试类型",
-          "linkTable": "tab_test"
-        }
-      ]
-    }
-  },
-  "other": null
-}
-					</pre>
-				</td>
-			</tr>
-
-			<tr class="book-type" id="book-type-select-by-link-table">
-				<td>获取某种商品的所有分类</td>
-				<td>
-					book/type/selectByLinkTable.do
-				</td>
-				<td>post</td>
-				<td>
-					<p>具体商品表名</p>
-					<pre>
-{
-	"linkTable":"tab_test"
-}
-					</pre>
-				</td>
-				<td></td>
-				<td>
-					<pre>
-{
-  "status": 200,
-  "msg": "成功获取该表名下的全部类型",
-  "data": {
-    "测试类型": [
-      {
-        "id": "111",
-        "name": "计算机",
-        "baseName": "测试类型",
-        "linkTable": "tab_test"
-      },
-      {
-        "id": "112",
-        "name": "编程",
-        "baseName": "测试类型",
-        "linkTable": "tab_test"
-      },
-      {
-        "id": "113",
-        "name": "呵呵",
-        "baseName": "测试类型",
-        "linkTable": "tab_test"
-      }
-    ]
-  },
   "other": null
 }
 					</pre>

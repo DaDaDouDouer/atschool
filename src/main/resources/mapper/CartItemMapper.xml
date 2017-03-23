@@ -49,6 +49,10 @@
 		delete from tab_cart_item where id = #{id}
 	</delete>
 	
+	<delete id="deleteAllByUserId" parameterType="String">
+		delete from tab_cart_item where user_id = #{userId}
+	</delete>
+	
 	<update id="updateGoodsCount">
 		update tab_cart_item set goods_count = #{goodsCount} where id = #{id}
 	</update>
