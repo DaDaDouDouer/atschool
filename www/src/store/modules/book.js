@@ -1,5 +1,8 @@
+import Router from 'vue-router'
 import API from '../../api'
 import { BOOK } from '../mutation-types'
+
+const router = new Router()
 
 // initial state
 // shape: [{ id, quantity }]
@@ -16,7 +19,7 @@ const actions = {
   getAllBookTypes: ({ commit, state }) => {
     // 缓存 bookTypes
     if (state.bookTypes === null) {
-      return API.book.getAllTypes().then(bookTypes => {
+      return API.book.getBookTypes().then(bookTypes => {
         commit(BOOK.GET_ALL_TYPES, bookTypes)
         return bookTypes
       }).catch(error => {
@@ -26,10 +29,12 @@ const actions = {
       commit(BOOK.GET_ALL_TYPES)
     }
   },
-  getBookByTypes: ({ commit, state }, id) => {
-    return API.book.searchByTypes([{id}]).then(bookList => {
+  getBooks: ({ commit, state }, conditions) => {
+    return API.goods.search(conditions).then(bookList => {
       commit(BOOK.SEARCH_BY_TYPES, bookList)
       return bookList
+    }).then(() => {
+      router.push('search-result')
     })
   }
 }

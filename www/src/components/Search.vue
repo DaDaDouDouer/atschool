@@ -1,6 +1,6 @@
 <template>
 <div class="search">
-  <v-text-input id="test3" name="test3" placeholder="搜索" v-model="searchInfo.keyword"></v-text-input>
+  <v-text-input id="test3" name="test3" placeholder="搜索" v-model="conditions.keyword"></v-text-input>
   <v-btn v-bind:loading="loading3" @click.native="search" class="blue-grey white--text">
     搜索
     <v-icon right>cloud_upload</v-icon>
@@ -13,7 +13,7 @@ export default {
   name: 'search',
   data () {
     return {
-      searchInfo: {
+      conditions: {
         keyword: '',
         pageNo: ''
       }
@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     search () {
-      this.$store.dispatch('goodsSearch', this.searchInfo)
+      this.$store.dispatch('getBooks', this.conditions)
     }
   }
 }

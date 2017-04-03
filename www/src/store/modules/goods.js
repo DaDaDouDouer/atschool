@@ -9,8 +9,8 @@ const getters = {}
 
 // actions
 const actions = {
-  goodsSearch ({ commit }, {keyword, pageNo}) {
-    return API.goods.search(keyword, pageNo)
+  goodsSearch ({ commit }, conditions) {
+    return API.goods.search(conditions)
   }
 }
 
