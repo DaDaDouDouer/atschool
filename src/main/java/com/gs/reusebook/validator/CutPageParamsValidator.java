@@ -36,6 +36,11 @@ public class CutPageParamsValidator {
 		int pageAllCount = itemAllCount % limit == 0 ? itemAllCount / limit : itemAllCount / limit + 1;
 		pageNo = pageNo > pageAllCount ? pageAllCount : pageNo;
 		
+		// 页数不能为非正数
+		if(pageNo <= 0){
+			pageNo = 1;
+		}
+		
 		// 确定数据库使用limit语句查询的偏移量
 		int offset = (pageNo - 1) * limit;
 		
