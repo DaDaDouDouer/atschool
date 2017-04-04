@@ -1,6 +1,11 @@
 <template>
   <div class="search-result">
-    {{ bookList }}
+    <div v-if="bookList && bookList.length > -1">
+      {{ bookList }}
+    </div>
+    <div v-else>
+      搜索结果为空
+    </div>
   </div>
 </template>
 
