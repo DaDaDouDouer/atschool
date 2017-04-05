@@ -14,6 +14,22 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'search-result',
+  beforeCreate () {
+    let conditions = null
+
+    try {
+      conditions = JSON.parse(this.$route.query.q)
+    } catch (error) {
+      console.error(error)
+      conditions = null
+    }
+
+    if (conditions !== null) {
+      this.$store.dispatch('getBooks', conditions)
+    }
+    debugger
+    console.log(this.$route)
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

@@ -1,8 +1,5 @@
-import Router from 'vue-router'
 import API from '../../api'
 import { BOOK } from '../mutation-types'
-
-const router = new Router()
 
 // initial state
 // shape: [{ id, quantity }]
@@ -33,8 +30,6 @@ const actions = {
     return API.goods.search(conditions).then(bookList => {
       commit(BOOK.SEARCH_BY_TYPES, bookList)
       return bookList
-    }).then(() => {
-      router.push('search-result')
     })
   }
 }
