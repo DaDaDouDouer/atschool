@@ -14,16 +14,19 @@ const getters = {}
 // actions
 const actions = {
   getAllBookTypes: ({ commit, state }) => {
-    // 缓存 bookTypes
-    if (state.bookTypes === null) {
+    let bookTypes = localStorage.getItem('bookTypes')
+    if (bookTypes === null) {
       return API.book.getBookTypes().then(bookTypes => {
+        // 缓存到localStorage中
+        localStorage.setItem('bookTypes', JSON.stringify(bookTypes))
+
         commit(BOOK.GET_ALL_TYPES, bookTypes)
         return bookTypes
       }).catch(error => {
         throw error
       })
     } else {
-      commit(BOOK.GET_ALL_TYPES)
+      commit(BOOK.GET_ALL_TYPES, JSON.parse(bookTypes))
     }
   },
   getBooks: ({ commit, state }, conditions) => {
