@@ -1,7 +1,7 @@
 <template>
   <v-app top-toolbar footer>
     <header>
-      <v-toolbar>
+      <v-toolbar class="blue">
         <v-toolbar-logo></v-toolbar-logo>
         <app-header></app-header>
       </v-toolbar>
@@ -13,7 +13,7 @@
         </v-container>
       </v-content>
     </main>
-    <v-footer><app-footer></app-footer></v-footer>
+    <v-footer class="blue"><app-footer class="blue"></app-footer></v-footer>
   </v-app>
 </template>
 

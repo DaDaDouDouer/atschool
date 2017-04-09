@@ -1,4 +1,7 @@
-import API from '../../api'
+import Router from 'vue-router'
+// import API from '../../api'
+
+const router = new Router()
 
 // initial state
 // shape: [{ id, quantity }]
@@ -10,7 +13,8 @@ const getters = {}
 // actions
 const actions = {
   goodsSearch ({ commit }, conditions) {
-    return API.goods.search(conditions)
+    conditions = JSON.stringify(conditions)
+    router.push(`/search-result?q=${conditions}`)
   }
 }
 

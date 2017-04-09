@@ -9,10 +9,6 @@
 </template>
 
 <script>
-import Router from 'vue-router'
-
-const router = new Router()
-
 export default {
   name: 'search',
   data () {
@@ -25,8 +21,7 @@ export default {
   },
   methods: {
     search () {
-      let conditions = JSON.stringify(this.conditions)
-      router.push(`/search-result?q=${conditions}`)
+      this.$store.dispatch('goodsSearch', this.conditions)
     }
   }
 }

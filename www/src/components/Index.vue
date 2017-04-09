@@ -30,10 +30,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Router from 'vue-router'
 import Search from './Search'
-
-const router = new Router()
 
 export default {
   name: 'index',
@@ -54,8 +51,7 @@ export default {
   }),
   methods: {
     search (e) {
-      let conditions = JSON.stringify({types: [{id: e.target.id}]})
-      router.push(`/search-result?q=${conditions}`)
+      this.$store.dispatch('goodsSearch', {types: [{id: e.target.id}]})
     }
   }
 }
