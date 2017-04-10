@@ -21,10 +21,17 @@
 		    AND g.`id` = tr.`goods_id` 
 		    AND tr.`type_id` = t.`id` 
 		    AND b.name LIKE '%%'
-		    AND t.`id` IN 
-		    <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
-				#{item}
-	        </foreach>
+		    AND (
+			    t.`id` IN 
+			    <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
+					#{item}
+		        </foreach>
+		        OR
+		        t.`base_id` IN
+		        <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
+					#{item}
+		        </foreach>
+		        )
 		  ) 
 		  <if test="conditions.minPrice != null">
 		  <![CDATA[ AND g2.`price` >= ]]>#{conditions.minPrice}
@@ -58,10 +65,17 @@
 		    AND g.`id` = tr.`goods_id` 
 		    AND tr.`type_id` = t.`id` 
 		    AND b.name LIKE '%%'
-		    AND t.`id` IN 
-		    <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
-				#{item}
-	        </foreach>
+		    AND (
+			    t.`id` IN 
+			    <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
+					#{item}
+		        </foreach>
+		        OR
+		        t.`base_id` IN
+		        <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
+					#{item}
+		        </foreach>
+		        )
 		  ) 
 		  <if test="conditions.minPrice != null">
 		  <![CDATA[ AND g2.`price` >= ]]>#{conditions.minPrice}

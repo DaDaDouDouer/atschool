@@ -31,12 +31,17 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 	 */
 	private void saveDefaultBookType(){
 		UiReturn result = goodsTypeService.selectById(DEFAULT_TYPE_ID);
+		
+		// TODO: 这里要判断查到的id是不是那个id，而且到时候要考虑是不是只能查到一个
+		
 		if(result.getData() == null){
 			goodsTypeService.insert(
 					DEFAULT_TYPE_ID,
 					DEFAULT_TYPE,
 					DEFAULT_TYPE_BASE,
-					TABLE_NAME_BOOK);
+					TABLE_NAME_BOOK,
+					DEFAULT_TYPE_BASE_ID
+					);
 		}
 	}
 	

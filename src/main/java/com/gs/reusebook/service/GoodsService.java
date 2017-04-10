@@ -62,6 +62,13 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	public UiReturn selectAndPaged
 		(String keyword, Integer pageNo, Integer limit, String linkTable, List<String> typeIds, Map<String, Object> conditions) {
 		
+		/* 
+		 * 此处condition不参与校验，直接在mapper中通过mybatis的语法取用
+		 * TODO:可能会造成500类型错误
+		 * 例如，如果order相关的值不是传入asc或desc则直接报错
+		 * 后期可能考虑添加针对condition的校验
+		 */
+		
 		// 获取实际商品对应的dao，并检验是否存在实际商品类型
 		RealGoodsBaseDao<?> realGoodsDao = daoPool.getDao(linkTable);
 		if(realGoodsDao == null){

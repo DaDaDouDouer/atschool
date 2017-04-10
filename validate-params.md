@@ -12,7 +12,7 @@
 
 1.  AuthBaseBean password
 
-    String not_empty length_6_20 a-z A-Z 0-9 下划线
+    String not_empty length_6_20 a-z A-Z 0-9 下划线 特殊字符【!@#$%^&*?.】
 
 1.  BookType name
 

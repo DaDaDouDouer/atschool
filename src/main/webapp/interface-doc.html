@@ -35,7 +35,7 @@
 			background-color: #93db70
 		}
 		
-		tr.book-type {
+		tr.goods-type {
 			background-color: #855e42
 		}
 		
@@ -256,6 +256,10 @@
 					<p>keyword 搜索关键字</p>
 					<p>pageNo 页数</p>
 					<p>limit 每页条数</p>
+					<p>maxPrice 最高价格</p>
+					<p>minPrice 最低价格</p>
+					<p>priceOrder 按照价格排序 只能传入asc desc</p>
+					<p>viaOrder 按照销量排序只能传入asc desc</p>
 					<pre>
 {
 	"keyword" : "",
@@ -276,7 +280,9 @@
 	],
 	"conditions" : {
 		"maxPrice": 1000,
-		"priceOrder": "asc"
+		"minPrice": 1000,
+		"priceOrder": "asc",
+		"viaOrder": "asc"
 	}
 }
 					</pre>
@@ -462,38 +468,48 @@
   "msg": "成功获取全部类型",
   "data": {
     "tab_book": {
-      "科技": [
-        {
-          "id": "0ebe39f6-42c5-46df-9dee-e8153d0bbd3a",
-          "name": "编程",
-          "baseName": "科技",
-          "linkTable": "tab_book"
+        "b03fb7ed-cfc8-4d76-b16a-ef8d5fb44a8d": {
+            "id": "b03fb7ed-cfc8-4d76-b16a-ef8d5fb44a8d",
+            "name": "文化",
+            "baseName": null,
+            "baseId": null,
+            "linkTable": "tab_book",
+            "subTypes": [
+                {
+                    "id": "0daa8ecc-1729-42c4-b30e-82ec2cc6b11a",
+                    "name": "军事",
+                    "baseName": "文化",
+                    "baseId": "b03fb7ed-cfc8-4d76-b16a-ef8d5fb44a8d",
+                    "linkTable": "tab_book",
+                    "subTypes": null
+                },
+                {
+                    "id": "0e7bd811-5a5f-4bfa-a8fb-f1ac146e81e0",
+                    "name": "人文",
+                    "baseName": "文化",
+                    "baseId": "b03fb7ed-cfc8-4d76-b16a-ef8d5fb44a8d",
+                    "linkTable": "tab_book",
+                    "subTypes": null
+                }
+            ]
         },
-        {
-          "id": "1afb2e31-a398-4d9d-893f-794052e9e95e",
-          "name": "用户体验",
-          "baseName": "科技",
-          "linkTable": "tab_book"
+        "e620629d-b8a6-48f4-acca-ac3d1206bcd2": {
+            "id": "e620629d-b8a6-48f4-acca-ac3d1206bcd2",
+            "name": "科技",
+            "baseName": null,
+            "baseId": null,
+            "linkTable": "tab_book",
+            "subTypes": [
+                {
+                    "id": "304d81a0-8b6a-46ce-b14d-6946c024623a",
+                    "name": "互联网",
+                    "baseName": "科技",
+                    "baseId": "e620629d-b8a6-48f4-acca-ac3d1206bcd2",
+                    "linkTable": "tab_book",
+                    "subTypes": null
+                }
+            ]
         }
-      ],
-      "生活": [
-        {
-          "id": "0454166e-cb8d-4e9c-9f43-72cdacfebad6",
-          "name": "生活",
-          "baseName": "生活",
-          "linkTable": "tab_book"
-        }
-       ]
-    },
-    "tab_test": {
-      "测试类型": [
-        {
-          "id": "111",
-          "name": "计算机",
-          "baseName": "测试类型",
-          "linkTable": "tab_test"
-        }
-      ]
     }
   },
   "other": null
@@ -522,28 +538,50 @@
 {
   "status": 200,
   "msg": "成功获取该表名下的全部类型",
-  "data": {
-    "测试类型": [
-      {
-        "id": "111",
-        "name": "计算机",
-        "baseName": "测试类型",
-        "linkTable": "tab_test"
-      },
-      {
-        "id": "112",
-        "name": "编程",
-        "baseName": "测试类型",
-        "linkTable": "tab_test"
-      },
-      {
-        "id": "113",
-        "name": "呵呵",
-        "baseName": "测试类型",
-        "linkTable": "tab_test"
-      }
-    ]
-  },
+  "data": [
+			    {
+			        "id": "b03fb7ed-cfc8-4d76-b16a-ef8d5fb44a8d",
+			        "name": "文化",
+			        "baseName": null,
+			        "baseId": null,
+			        "linkTable": "tab_book",
+			        "subTypes": [
+			            {
+			                "id": "0daa8ecc-1729-42c4-b30e-82ec2cc6b11a",
+			                "name": "军事",
+			                "baseName": "文化",
+			                "baseId": "b03fb7ed-cfc8-4d76-b16a-ef8d5fb44a8d",
+			                "linkTable": "tab_book",
+			                "subTypes": null
+			            },
+			            {
+			                "id": "0e7bd811-5a5f-4bfa-a8fb-f1ac146e81e0",
+			                "name": "人文",
+			                "baseName": "文化",
+			                "baseId": "b03fb7ed-cfc8-4d76-b16a-ef8d5fb44a8d",
+			                "linkTable": "tab_book",
+			                "subTypes": null
+			            }
+			        ]
+			    },
+			    {
+			        "id": "e620629d-b8a6-48f4-acca-ac3d1206bcd2",
+			        "name": "科技",
+			        "baseName": null,
+			        "baseId": null,
+			        "linkTable": "tab_book",
+			        "subTypes": [
+			            {
+			                "id": "304d81a0-8b6a-46ce-b14d-6946c024623a",
+			                "name": "互联网",
+			                "baseName": "科技",
+			                "baseId": "e620629d-b8a6-48f4-acca-ac3d1206bcd2",
+			                "linkTable": "tab_book",
+			                "subTypes": null
+			            }
+			        ]
+			    }
+			],
   "other": null
 }
 					</pre>

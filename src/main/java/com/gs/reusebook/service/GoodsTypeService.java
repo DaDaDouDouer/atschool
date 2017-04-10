@@ -32,18 +32,26 @@ public class GoodsTypeService {
 		// TODO linkTable的参数校验
 		
 		List<GoodsType> allTypes = goodsTypeDao.selectByLinkTable(linkTable);
-		Map<String, List<GoodsType>> totalType = new HashMap<String, List<GoodsType>>();
+		Map<String, GoodsType> typesTree = new HashMap<String, GoodsType>();
 		// 构建二级菜单
 		for(GoodsType type : allTypes){
-			String baseName = type.getBaseName();
 			
-			if(!totalType.containsKey(baseName)){
-				totalType.put(baseName, new ArrayList<GoodsType>());
+			String baseId = type.getBaseId();
+			
+			if(!typesTree.containsKey(baseId)){
+				
+				GoodsType baseType = new GoodsType();
+				baseType.setId(baseId);
+				baseType.setName(type.getBaseName());
+				baseType.setLinkTable(type.getLinkTable());
+				baseType.setSubTypes(new ArrayList<GoodsType>());
+				
+				typesTree.put(baseId, baseType);
 			}
-			totalType.get(baseName).add(type);
+			typesTree.get(baseId).getSubTypes().add(type);
 			
 		}
-		return UiReturn.ok(totalType, "成功获取该表名下的全部类型");
+		return UiReturn.ok(typesTree.values(), "成功获取该表名下的全部类型");
 		
 	}
 	
@@ -53,23 +61,30 @@ public class GoodsTypeService {
 	 */
 	public UiReturn selectAll(){
 		List<GoodsType> allTypes = goodsTypeDao.selectAll();
-		Map<String, Map<String, List<GoodsType>>> totalType = new HashMap<String, Map<String,List<GoodsType>>>();
+		Map<String, Map<String, GoodsType>> typeTree = new HashMap<String, Map<String,GoodsType>>();
 		// 构建主页显示需要的三级菜单
 		for(GoodsType type : allTypes){
 			
 			String linkTable = type.getLinkTable();
-			if(!totalType.containsKey(linkTable)){
-				totalType.put(linkTable, new HashMap<String, List<GoodsType>>());
+			if(!typeTree.containsKey(linkTable)){
+				typeTree.put(linkTable, new HashMap<String, GoodsType>());
 			}
 			
-			String baseName = type.getBaseName();
-			if(!totalType.get(linkTable).containsKey(baseName)){
-				totalType.get(linkTable).put(baseName, new ArrayList<GoodsType>());
+			String baseId = type.getBaseId();
+			if(!typeTree.get(linkTable).containsKey(baseId)){
+				
+				GoodsType baseType = new GoodsType();
+				baseType.setId(baseId);
+				baseType.setName(type.getBaseName());
+				baseType.setLinkTable(type.getLinkTable());
+				baseType.setSubTypes(new ArrayList<GoodsType>());
+				
+				typeTree.get(linkTable).put(baseId, baseType);
 			}
-			totalType.get(linkTable).get(baseName).add(type);
+			typeTree.get(linkTable).get(baseId).getSubTypes().add(type);
 			
 		}
-		return UiReturn.ok(totalType, "成功获取全部类型");
+		return UiReturn.ok(typeTree, "成功获取全部类型");
 	}
 	
 	/**
@@ -95,7 +110,7 @@ public class GoodsTypeService {
 	 * @param baseName
 	 * @return
 	 */
-	public UiReturn insert(String typeId, String name, String baseName, String linkTable){
+	public UiReturn insert(String typeId, String name, String baseName, String linkTable, String baseId){
 		
 		// 参数校验
 		// TODO linkTable的参数校验
@@ -110,6 +125,8 @@ public class GoodsTypeService {
 		type.setId(typeId);
 		type.setName(name);
 		type.setBaseName(baseName);
+		type.setBaseName(baseName);
+		type.setBaseId(baseId);
 		type.setLinkTable(linkTable);
 		goodsTypeDao.insert(type);
 		return UiReturn.ok("", "插入书籍类型成功");

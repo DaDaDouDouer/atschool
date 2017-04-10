@@ -24,12 +24,14 @@
 		id,
 		name,
 		base_name,
+		base_id,
 		link_table)
 
 		VALUES (
 		#{id},
 		#{name},
 		#{baseName},
+		#{baseId},
 		#{linkTable})
 	</insert>
 	
@@ -37,6 +39,7 @@
 		<id property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="baseName" column="base_name" />
+		<result property="baseId" column="base_id" />
 		<result property="linkTable" column="link_table" />
 	</resultMap>
 	

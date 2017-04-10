@@ -31,15 +31,16 @@ public class GoodsTest {
 	public void testSelectAndPagedByName(){
 		
 		List<String> typeIds = new ArrayList<String>();
+//		typeIds.add("09vc8c86-e8ca-hjc7-96f3-f1a4kd4804ab");
 		typeIds.add("111");
-		typeIds.add("112");
-		typeIds.add("113");
+//		typeIds.add("112");
+//		typeIds.add("113");
 		
 		Map<String, Object> conditions = new HashMap<String, Object>();
 		conditions.put("maxPrice", 1000);
 		conditions.put("viaOrder", "asc");
 		
-		UiReturn goodses = goodsService.selectAndPaged("", 1, 1, TABLE_NAME_BOOK, typeIds, conditions);
+		UiReturn goodses = goodsService.selectAndPaged("", 1,6, TABLE_NAME_BOOK, typeIds, conditions);
 		System.out.println(goodses);
 	}
 	

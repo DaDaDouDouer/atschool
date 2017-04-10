@@ -13,7 +13,6 @@ import com.gs.reusebook.bean.GoodsType;
 
 public class BookTest {
 
-	private BookService bookService;
 	private GoodsTypeService GoodsTypeService;
 	
 	@Before
@@ -22,16 +21,15 @@ public class BookTest {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[]{"classpath:conf/spring.xml"
 				,"classpath:conf/spring-mybatis.xml"});
-		bookService = (BookService) context.getBean("bookService");
 		GoodsTypeService = (GoodsTypeService) context.getBean("goodsTypeService");
 	}
 	
-	@Test
+//	@Test
 	public void testGetAllType(){
 		System.out.println(GoodsTypeService.selectAll());
 	}
 	
-//	@Test
+	@Test
 	public void testGetTypeByLinkTable(){
 		System.out.println(GoodsTypeService.selectByLinkTable("tab_book"));
 	}
