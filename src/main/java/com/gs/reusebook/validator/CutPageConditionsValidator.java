@@ -13,7 +13,18 @@ import java.util.Map;
  *
  */
 public class CutPageConditionsValidator {
-
+	
+	/**
+	 * condition中用来保存排序值的键
+	 */
+	private static String SORT_KEY = "sort";
+	
+	/**
+	 * condition中用保存排序的值的分隔符
+	 */
+	private static String SORT_VALUE_SPLITER = "_";
+	
+	
 	/**
 	 * 用于存放conditions里面能出现的key，但是不需要校验值
 	 */
@@ -47,6 +58,17 @@ public class CutPageConditionsValidator {
 	 * @return
 	 */
 	static public boolean validate(Map<String, Object> conditions){
+		
+		conditions = conditions == null ? new HashMap<String, Object>() : conditions;
+		
+		// 把sort值转化为排序的值
+		// 此处假定condition传来的sort值总是对的
+		if(conditions.containsKey(SORT_KEY)){
+			String sortStr = (String) conditions.get(SORT_KEY);
+			String[] entry = sortStr.split(SORT_VALUE_SPLITER);
+			conditions.put(entry[0], entry[1]);
+			conditions.remove(SORT_KEY);
+		}
 		
 		for(String key : conditions.keySet()){
 			if(legalKeys.contains(key)){

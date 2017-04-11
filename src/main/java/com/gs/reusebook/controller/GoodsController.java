@@ -55,7 +55,6 @@ public class GoodsController {
 	public UiReturn getRealGoods	(@RequestBody Goods goodsParams) {
 
 		// TODO 校验
-		
 		return goodsService.getRealGoods(goodsParams.getId());
 	}
 }

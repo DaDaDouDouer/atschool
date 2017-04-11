@@ -258,11 +258,10 @@
 					<p>limit 每页条数</p>
 					<p>maxPrice 最高价格</p>
 					<p>minPrice 最低价格</p>
-					<p>priceOrder 按照价格排序 只能传入asc desc</p>
-					<p>viaOrder 按照销量排序只能传入asc desc</p>
+					<p>sort 排序字段，只能填写四种：priceOrder_asc, priceOrder_desc, viaOrder_asc, viaOrder_desc </p>
 					<pre>
 {
-	"keyword" : "",
+	"keyword" : "dfs",
 	"pageNo" : 1,
 	"limit" : 3,
 	
@@ -281,8 +280,7 @@
 	"conditions" : {
 		"maxPrice": 1000,
 		"minPrice": 1000,
-		"priceOrder": "asc",
-		"viaOrder": "asc"
+		"sort": "priceOrder_asc",
 	}
 }
 					</pre>
