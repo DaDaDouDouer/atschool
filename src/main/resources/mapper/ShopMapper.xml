@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 这里要改为某个bean的dao -->
+<mapper namespace="com.gs.reusebook.dao.ShopDao">
+
+	<insert id="insert" parameterType="Shop" keyProperty="id">
+		insert
+		into
+
+		tab_shop(
+		id,
+		name,
+		seller_id)
+
+		values (
+		#{id},
+		#{name},
+		#{sellerId})
+	</insert>
+	
+	<select id="selectById" resultType="Shop" resultMap="normalShopResultMap">
+		SELECT * FROM tab_shop WHERE id = #{id}
+	</select>
+	
+	<update id="updateCarousel" >
+		update tab_shop set carousel_str = #{idsStr} where seller_id = #{sellerId}
+	</update>
+	
+	<update id="updateRecommand" >
+		update tab_shop set recommand_str = #{idsStr} where seller_id = #{sellerId}
+	</update>
+	
+	<resultMap type="com.gs.reusebook.bean.Shop" id="normalShopResultMap">
+		<!-- 用id标签来映射主键字段 -->
+		<id property="id" column="id" />
+		<!-- 用result标签来映射非主键字段 -->
+		<result property="name" column="name" />
+		<result property="sellerId" column="seller_id" />
+		<result property="imgUrl" column="img_url" />
+		<result property="recommandStr" column="recommand_str" />
+		<result property="carouselStr" column="carousel_str" />
+	</resultMap>
+	
+</mapper>
