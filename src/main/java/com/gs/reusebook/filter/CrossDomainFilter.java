@@ -16,6 +16,7 @@ public class CrossDomainFilter implements Filter{
 			FilterChain chain) throws IOException, ServletException {
 		
 		((HttpServletResponse)resp).addHeader("Access-Control-Allow-Origin", "http://localhost:8000");
+//		((HttpServletResponse)resp).addHeader("Access-Control-Allow-Origin", "*");
 		((HttpServletResponse)resp).addHeader("Access-Control-Allow-Credentials", "true");
 		((HttpServletResponse)resp).addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		((HttpServletResponse)resp).addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");

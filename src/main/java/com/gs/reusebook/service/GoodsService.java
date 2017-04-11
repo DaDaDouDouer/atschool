@@ -17,6 +17,7 @@ import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.DaoPool;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.CutPageConditionsValidator;
 import com.gs.reusebook.validator.CutPageParamsValidator;
 import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
@@ -75,6 +76,12 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 			return UiReturn.notOk("", "不存在该实际商品类型", REQ_ERROR_400);
 		}
 
+		// 校验查询条件
+		conditions = conditions == null ? new HashMap<String, Object>() : conditions;
+		if(!CutPageConditionsValidator.validate(conditions)){
+			return UiReturn.notOk("", "conditions填写错误", REQ_ERROR_400);
+		}
+		
 		// 校验传入的类型列表
 		if(typeIds == null){
 			typeIds = new ArrayList<String>();
@@ -82,8 +89,6 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		if(typeIds.isEmpty()){
 			typeIds.add(DEFAULT_TYPE_ID);
 		}
-		// 校验查询条件
-		conditions = conditions == null ? new HashMap<String, Object>() : conditions;
 		
 		// 1 分页参数校正
 		// 关键字null转化为空字符串
