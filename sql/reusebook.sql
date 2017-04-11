@@ -308,6 +308,33 @@ INSERT INTO `tab_seller` VALUES ('31c0d96d-0e94-4a52-8648-9c39009d5a72','Njupt@1
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tab_shop`
+--
+
+DROP TABLE IF EXISTS `tab_shop`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tab_shop` (
+  `id` varchar(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `seller_id` varchar(36) NOT NULL,
+  `img_url` varchar(36) DEFAULT NULL,
+  `recommand_str` varchar(1023) DEFAULT NULL,
+  `carousel_str` varchar(1023) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tab_shop`
+--
+
+LOCK TABLES `tab_shop` WRITE;
+/*!40000 ALTER TABLE `tab_shop` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tab_shop` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tab_user`
 --
 
@@ -366,4 +393,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-10 21:55:08
+-- Dump completed on 2017-04-11 21:43:52
