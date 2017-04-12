@@ -39,6 +39,10 @@
 			background-color: #855e42
 		}
 		
+		tr.shop {
+			background-color: #D19275
+		}
+		
 		td.pre {
 			width: 100%
 		}
@@ -47,12 +51,13 @@
 			filter: alpha(Opacity=80);
 			-moz-opacity: 0.5;
 			opacity: 0.5;
-			z-index: 100;
+			z-index: 10;
 			background-color: #ffffff;
 			position: fixed;
 			left: 90%;
-			font-size: 70%
-			
+			font-size: 70%;
+			overflow: scroll;
+			height: 500px;
 		}
 	</style>
 	<meta charset="UTF-8">
@@ -1115,9 +1120,93 @@
 				</td>
 			</tr>
 
+
+
+			<tr class="shop" id="shop-add">
+				<td>添加商铺</td>
+				<td>
+					shop/add.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>name 商铺名</p>
+					<pre>
+{
+	"name":"two shop"
+}
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+创建：
+{
+  "status": 200,
+  "msg": "创建成功",
+  "data": "",
+  "other": null
+}
+重复创建：
+{
+  "status": 400,
+  "msg": "只能创建一个店铺",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="shop" id="shop-update-carousel">
+				<td>更新轮播的商品信息</td>
+				<td>
+					shop/updateCarousel.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>需要轮播的goodId</p>
+					<pre>
+["1","2","4"]
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="shop" id="shop-update-command">
+				<td>更新推荐的商品信息</td>
+				<td>
+					shop/updateCommand.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>需要推荐的goodId</p>
+					<pre>
+["1","2","4"]
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
+
 		</tbody>
 	</table>
-
 </body>
-
 </html>

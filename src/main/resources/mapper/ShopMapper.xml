@@ -20,8 +20,8 @@
 		#{sellerId})
 	</insert>
 	
-	<select id="selectById" resultType="Shop" resultMap="normalShopResultMap">
-		SELECT * FROM tab_shop WHERE id = #{id}
+	<select id="selectBySellerId" resultType="Shop" resultMap="normalShopResultMap">
+		SELECT * FROM tab_shop WHERE seller_id = #{id}
 	</select>
 	
 	<update id="updateCarousel" >

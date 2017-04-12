@@ -43,6 +43,12 @@ public class ShopController {
 	}
 
 
+	/**
+	 * 更新轮播商品的good id目录
+	 * @param goodsIds
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/updateCarousel", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin(character = Seller.class)
@@ -53,7 +59,12 @@ public class ShopController {
 		
 	}
 	
-
+	/**
+	 * 更新推荐商品的good id目录
+	 * @param goodsIds
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/updateCommand", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin(character = Seller.class)

@@ -28,8 +28,9 @@ public class ShopService {
 	public UiReturn add(String name, String sellerId){
 		
 		// TODO 参数校验
+		// TODO 可能需要校验名字不能重复
 		
-		Shop shop = shopDao.selectById(sellerId);
+		Shop shop = shopDao.selectBySellerId(sellerId);
 		if(shop != null){
 			return UiReturn.notOk("", "只能创建一个店铺", REQ_ERROR_400);
 		}
@@ -53,8 +54,9 @@ public class ShopService {
 	public UiReturn updateGoodIds(String fieldName, List<String> goodIds, String sellerId){
 		
 		// TODO: 参数校验
+		// TODO: 没有校验传入的goodIds是不是都存在，而且是不是他自己的goods
 		
-		Shop shop = shopDao.selectById(sellerId);
+		Shop shop = shopDao.selectBySellerId(sellerId);
 		if(shop == null){
 			return UiReturn.notOk("", "店铺不存在", REQ_ERROR_400);
 		}
@@ -62,10 +64,10 @@ public class ShopService {
 		// 判空
 		goodIds = goodIds == null ? new ArrayList<String>() : goodIds;
 		
-		// 拼合goodId字符串
+		// 拼合goodId字符串，空格分隔（为了便于trim）
 		StringBuffer goodsIdSB = new StringBuffer();
 		for(String goodId : goodIds){
-			goodsIdSB.append(goodId + "");
+			goodsIdSB.append(goodId + " ");
 		}
 		// 去掉最后一个空格
 		String goodIdsStr = goodsIdSB.toString().trim();
