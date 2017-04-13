@@ -57,7 +57,7 @@
 			left: 90%;
 			font-size: 70%;
 			overflow: scroll;
-			height: 500px;
+			height: 630px;
 		}
 	</style>
 	<meta charset="UTF-8">
@@ -1204,8 +1204,153 @@
 					</pre>
 				</td>
 			</tr>
+			<tr class="shop" id="shop-get-own">
+				<td>商家得到自己的商铺信息</td>
+				<td>
+					shop/updateOwn.do
+				</td>
+				<td>get</td>
+				<td>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "查询商铺成功",
+  "data": {
+    "id": "e13cd0fa-225f-42d6-a970-ade9ba412f5b",
+    "sellerId": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+    "name": "two shop",
+    "imgUrl": null,
+    "carouselStr": "1 2 4",
+    "carousel": [
+      {
+        "id": "1",
+        "realGoodsId": "11",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C",
+        "price": 321.2,
+        "count": 1,
+        "via": 4,
+        "types": null,
+        "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg",
+        "realGoods": null
+      },
+      {
+        "id": "2",
+        "realGoodsId": "12",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "Java",
+        "price": 432.4,
+        "count": 5,
+        "via": 13,
+        "types": null,
+        "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg",
+        "realGoods": null
+      }
+    ],
+    "recommandStr": "3",
+    "recommand": [
+      {
+        "id": "3",
+        "realGoodsId": "13",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C++",
+        "price": 439.2,
+        "count": 2,
+        "via": 6,
+        "types": null,
+        "imgUrl": "http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg",
+        "realGoods": null
+      }
+    ]
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
 
-
+			<tr class="shop" id="shop-get-by-seller-id">
+				<td>买家得到某个商铺信息</td>
+				<td>
+					shop/getBySellerId.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>sellerId 卖家id</p>
+					<pre>
+{
+	"sellerId":"31c0d96d-0e94-4a52-8648-9c39009d5a72"
+}
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "查询商铺成功",
+  "data": {
+    "id": "e13cd0fa-225f-42d6-a970-ade9ba412f5b",
+    "sellerId": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+    "name": "two shop",
+    "imgUrl": null,
+    "carouselStr": "1 2 4",
+    "carousel": [
+      {
+        "id": "1",
+        "realGoodsId": "11",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C",
+        "price": 321.2,
+        "count": 1,
+        "via": 4,
+        "types": null,
+        "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg",
+        "realGoods": null
+      },
+      {
+        "id": "2",
+        "realGoodsId": "12",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "Java",
+        "price": 432.4,
+        "count": 5,
+        "via": 13,
+        "types": null,
+        "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg",
+        "realGoods": null
+      }
+    ],
+    "recommandStr": "3",
+    "recommand": [
+      {
+        "id": "3",
+        "realGoodsId": "13",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C++",
+        "price": 439.2,
+        "count": 2,
+        "via": 6,
+        "types": null,
+        "imgUrl": "http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg",
+        "realGoods": null
+      }
+    ]
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </body>

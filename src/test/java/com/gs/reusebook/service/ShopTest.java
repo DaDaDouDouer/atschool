@@ -28,7 +28,7 @@ public class ShopTest {
 		System.out.println(shopService.add("one shop", "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 	}
 	
-	@Test
+//	@Test
 	public void testUpdate(){
 		String[] ids = new String[]{"1", "3", "4"};
 		System.out.println(
@@ -36,5 +36,10 @@ public class ShopTest {
 				new ArrayList<String>(Arrays.asList(ids)),
 				"17718c86-e8ca-4a9d-96f3-f1a4a3da04ab")
 				);
+	}
+	
+	@Test
+	public void testGet(){
+		System.out.println(shopService.getBySellerId("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 	}
 }
