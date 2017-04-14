@@ -90,7 +90,7 @@ CREATE TABLE `tab_cart_item` (
 
 LOCK TABLES `tab_cart_item` WRITE;
 /*!40000 ALTER TABLE `tab_cart_item` DISABLE KEYS */;
-INSERT INTO `tab_cart_item` VALUES ('69ba6683-911c-4ae8-8a25-0ba7129123fc','0cc95799-4660-4758-9f7e-0053187eac7a','3',3),('9ec7964e-3973-4665-856a-89c1f0346fa4','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',12),('c60232f9-e26e-4499-ba9f-dc9bef5fc152','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','3',5);
+INSERT INTO `tab_cart_item` VALUES ('1ffac5a8-5709-411b-81f6-0c082765cfc7','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',12),('3d567ac3-a05a-4bd2-8d9b-5ea24470a782','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','2',5),('69ba6683-911c-4ae8-8a25-0ba7129123fc','0cc95799-4660-4758-9f7e-0053187eac7a','3',3);
 /*!40000 ALTER TABLE `tab_cart_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,7 +331,7 @@ CREATE TABLE `tab_shop` (
 
 LOCK TABLES `tab_shop` WRITE;
 /*!40000 ALTER TABLE `tab_shop` DISABLE KEYS */;
-INSERT INTO `tab_shop` VALUES ('a16f7356-9f59-48c5-9265-92f36ad04719','one shop','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',NULL,'1 3 4','');
+INSERT INTO `tab_shop` VALUES ('a16f7356-9f59-48c5-9265-92f36ad04719','one shop','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',NULL,'1 3 4','2'),('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'3','1 2 4');
 /*!40000 ALTER TABLE `tab_shop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -394,4 +394,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-12 10:12:28
+-- Dump completed on 2017-04-14 11:24:30

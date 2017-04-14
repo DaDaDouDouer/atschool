@@ -54,10 +54,11 @@
 			z-index: 10;
 			background-color: #ffffff;
 			position: fixed;
-			left: 90%;
+			left: 88%;
 			font-size: 70%;
 			overflow: scroll;
 			height: 630px;
+			width: 150px;
 		}
 	</style>
 	<meta charset="UTF-8">
@@ -823,6 +824,40 @@
   "status": 200,
   "msg": "删除购物车项成功",
   "data": "",
+  "other": null
+}
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="cartitem" id="cartitem-update-all">
+				<td>替换所有购物车商品项</td>
+				<td>
+					cartitem/updateAll.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>goodsId 商品项的id</p>
+					<p>goodsCount 商品项的数量</p>
+					<pre>
+[
+	{
+		"goodsId":"1",
+		"goodsCount":12
+	},{
+		"goodsId":"3",
+		"goodsCount":5
+	}
+]
+					</pre>
+				</td>
+				<td>需要登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "更新购物车成功",
+  "data": null,
   "other": null
 }
 						</pre>
