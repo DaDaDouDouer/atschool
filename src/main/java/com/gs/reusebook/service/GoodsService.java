@@ -77,6 +77,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		}
 
 		// 校验查询条件
+		conditions = conditions == null ? new HashMap<String, Object>() : conditions;
 		if(!CutPageConditionsValidator.validate(conditions)){
 			return UiReturn.notOk("", "conditions填写错误", REQ_ERROR_400);
 		}

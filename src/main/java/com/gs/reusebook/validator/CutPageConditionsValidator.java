@@ -59,8 +59,6 @@ public class CutPageConditionsValidator {
 	 */
 	static public boolean validate(Map<String, Object> conditions){
 		
-		conditions = conditions == null ? new HashMap<String, Object>() : conditions;
-		
 		// 把sort值转化为排序的值
 		// 此处假定condition传来的sort值总是对的
 		if(conditions.containsKey(SORT_KEY)){
