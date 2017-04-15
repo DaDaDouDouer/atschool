@@ -703,6 +703,26 @@
   "msg": "返回购物车项成功",
   "data": [
     {
+      "id": "66539c3e-2b4f-4f98-98c2-01a30d95ff7a",
+      "userId": null,
+      "goodsId": "1",
+      "goodsCount": 2,
+      "goods": {
+        "id": "1",
+        "realGoodsId": "11",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C",
+        "price": 321.2,
+        "count": 1,
+        "via": 0,
+        "types": null,
+        "imgUrl": null,
+        "realGoods": null
+      },
+      "selected": false
+    },
+    {
       "id": "69ba6683-911c-4ae8-8a25-0ba7129123fc",
       "userId": null,
       "goodsId": "3",
@@ -714,23 +734,33 @@
         "linkTable": "tab_book",
         "name": "C++",
         "price": 439.2,
-        "count": 3
-      }
+        "count": 2,
+        "via": 0,
+        "types": null,
+        "imgUrl": null,
+        "realGoods": null
+      },
+      "selected": false
     },
     {
-      "id": "dc31af78-035d-410b-9d13-82e3fa7e393c",
+      "id": "71e204ae-47b7-4e6a-bafe-17a587071a6f",
       "userId": null,
-      "goodsId": "2",
-      "goodsCount": 10,
+      "goodsId": "3",
+      "goodsCount": 5,
       "goods": {
-        "id": "2",
-        "realGoodsId": "12",
+        "id": "3",
+        "realGoodsId": "13",
         "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
         "linkTable": "tab_book",
-        "name": "Java",
-        "price": 432.4,
-        "count": 9
-      }
+        "name": "C++",
+        "price": 439.2,
+        "count": 2,
+        "via": 0,
+        "types": null,
+        "imgUrl": null,
+        "realGoods": null
+      },
+      "selected": false
     }
   ],
   "other": null
@@ -775,7 +805,7 @@
 			</tr>
 
 			<tr class="cartitem" id="cartitem-update-goods-count">
-				<td>借书</td>
+				<td>更新商品数量</td>
 				<td>
 					cartitem/updateGoodsCount.do
 				</td>
@@ -843,10 +873,12 @@
 [
 	{
 		"goodsId":"1",
-		"goodsCount":12
+		"goodsCount":12,
+		"isSelected":false
 	},{
-		"goodsId":"3",
-		"goodsCount":5
+		"goodsId":"2",
+		"goodsCount":5,
+		"isSelected":true
 	}
 ]
 					</pre>

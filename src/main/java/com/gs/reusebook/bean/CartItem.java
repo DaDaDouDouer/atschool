@@ -78,6 +78,14 @@ public class CartItem {
 	 * 该商品是否被选中
 	 * @return
 	 */
+	public boolean getIsSelected() {
+		return isSelected;
+	}
+
+	/**
+	 * 该商品是否被选中
+	 * @return
+	 */
 	public boolean isSelected() {
 		return isSelected;
 	}
