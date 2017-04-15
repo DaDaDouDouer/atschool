@@ -48,9 +48,8 @@
 		}
 		
 		#indexList {
-			filter: alpha(Opacity=80);
-			-moz-opacity: 0.5;
-			opacity: 0.5;
+			filter: alpha(Opacity=100);
+			opacity: 0.3;
 			z-index: 10;
 			background-color: #ffffff;
 			position: fixed;
@@ -59,6 +58,11 @@
 			overflow: scroll;
 			height: 630px;
 			width: 150px;
+		}
+		
+		#indexList p{
+			font-size: medium;
+			font-weight: bold;
 		}
 	</style>
 	<meta charset="UTF-8">
@@ -101,6 +105,12 @@
 				}
 			}
 
+			indexListDiv.onmouseover = function(e){
+				this.style.opacity = 1;
+			}
+			indexListDiv.onmouseout = function(e){
+				this.style.opacity = 0.3;
+			}
 		}
 	</script>
 <!--	
