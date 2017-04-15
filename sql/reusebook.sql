@@ -80,6 +80,7 @@ CREATE TABLE `tab_cart_item` (
   `user_id` varchar(36) NOT NULL,
   `goods_id` varchar(36) NOT NULL,
   `goods_count` int(16) NOT NULL,
+  `is_selected` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -90,7 +91,7 @@ CREATE TABLE `tab_cart_item` (
 
 LOCK TABLES `tab_cart_item` WRITE;
 /*!40000 ALTER TABLE `tab_cart_item` DISABLE KEYS */;
-INSERT INTO `tab_cart_item` VALUES ('1ffac5a8-5709-411b-81f6-0c082765cfc7','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',12),('3d567ac3-a05a-4bd2-8d9b-5ea24470a782','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','2',5),('69ba6683-911c-4ae8-8a25-0ba7129123fc','0cc95799-4660-4758-9f7e-0053187eac7a','3',3);
+INSERT INTO `tab_cart_item` VALUES ('66539c3e-2b4f-4f98-98c2-01a30d95ff7a','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',2,1),('69ba6683-911c-4ae8-8a25-0ba7129123fc','0cc95799-4660-4758-9f7e-0053187eac7a','3',3,0),('71e204ae-47b7-4e6a-bafe-17a587071a6f','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','3',5,0);
 /*!40000 ALTER TABLE `tab_cart_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -394,4 +395,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-14 11:24:30
+-- Dump completed on 2017-04-15  9:54:06

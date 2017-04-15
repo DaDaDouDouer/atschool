@@ -36,13 +36,15 @@
 		id,
 		user_id,
 		goods_id,
-		goods_count)
+		goods_count,
+		is_selected)
 
 		values (
 		#{id},
 		#{userId},
 		#{goodsId},
-		#{goodsCount})
+		#{goodsCount},
+		#{isSelected})
 	</insert>
 	
 	<delete id="deleteById" parameterType="String">
@@ -63,6 +65,7 @@
 		<result property="userId" column="user_id" />
 		<result property="goodsId" column="goods_id" />
 		<result property="goodsCount" column="goods_count" />
+		<result property="isSelected" column="is_selected" />
 	</resultMap>
 	
 	<resultMap type="com.gs.reusebook.bean.CartItem" id="cartItemWithGoodsResultMap">
@@ -70,6 +73,7 @@
 		<result property="userId" column="user_id" />
 		<result property="goodsId" column="goods_id" />
 		<result property="goodsCount" column="goods_count" />
+		<result property="isSelected" column="is_selected" />
 		<association property="goods" javaType="com.gs.reusebook.bean.Goods">
 			<id property="id" column="goods_id_pk" />
 			<result property="realGoodsId" column="real_goods_id" />

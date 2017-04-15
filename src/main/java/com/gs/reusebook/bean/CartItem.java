@@ -14,7 +14,9 @@ public class CartItem {
 	private String goodsId;
 
 	private int goodsCount;
-	
+
+	private boolean isSelected;
+
 	private Goods goods;
 
 	public String getId() {
@@ -24,7 +26,10 @@ public class CartItem {
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	/**
+	 * 买家id
+	 * @return
+	 */
 	public String getUserId() {
 		return userId;
 	}
@@ -32,7 +37,10 @@ public class CartItem {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
+	/**
+	 * 商品id
+	 * @return
+	 */
 	public String getGoodsId() {
 		return goodsId;
 	}
@@ -40,7 +48,10 @@ public class CartItem {
 	public void setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
 	}
-
+	/**
+	 * 实际的商品信息
+	 * @return
+	 */
 	public Goods getGoods() {
 		return goods;
 	}
@@ -48,12 +59,26 @@ public class CartItem {
 	public void setGoods(Goods goods) {
 		this.goods = goods;
 	}
-	
+
 	public void setGoodsCount(int goodsCount) {
 		this.goodsCount = goodsCount;
 	}
-	
+	/**
+	 * 购物车中商品的数量
+	 * @return
+	 */
 	public int getGoodsCount() {
 		return goodsCount;
+	}
+
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
+	/**
+	 * 该商品是否被选中
+	 * @return
+	 */
+	public boolean isSelected() {
+		return isSelected;
 	}
 }
