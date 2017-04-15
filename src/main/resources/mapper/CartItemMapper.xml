@@ -22,10 +22,12 @@
 
 	<select id="selectAllByUserId" parameterType="String" resultType="CartItem"
 		resultMap="cartItemWithGoodsResultMap">
-		SELECT c.id, c.goods_id, c.goods_count, 
-		g.id goods_id_pk, g.real_goods_id, g.seller_id, g.link_table, g.name, g.price, g.count 
-		FROM tab_cart_item c, tab_goods g, tab_user u WHERE
-		g.id = c.goods_id AND u.id = c.user_id
+		SELECT c.id, c.goods_id, c.goods_count, c.user_id,
+		g.id goods_id_pk, g.real_goods_id, g.seller_id, g.link_table, g.name, g.price, g.count, g.img_url, g.via
+		 
+		FROM tab_cart_item c, tab_goods g 
+		
+		WHERE g.id = c.goods_id AND c.user_id = #{userId}
 	</select>
 	
 	<insert id="insertCartItem" parameterType="CartItem" keyProperty="id">
@@ -83,6 +85,8 @@
 			
 			<result property="price" column="price" />
 			<result property="count" column="count" />
+			<result property="imgUrl" column="img_url" />
+			<result property="via" column="via" />
 		</association>
 	</resultMap>
 
