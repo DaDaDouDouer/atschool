@@ -37,8 +37,9 @@ public class GoodsTest {
 //		typeIds.add("113");
 		
 		Map<String, Object> conditions = new HashMap<String, Object>();
-		conditions.put("maxPrice", 1000);
-		conditions.put("sort", "priceOrder_desc");
+		conditions.put("maxPrice", null);
+		conditions.put("minPrice", "");
+		conditions.put("sort", "");
 		
 		UiReturn goodses = goodsService.selectAndPaged("", 1,6, TABLE_NAME_BOOK, typeIds, conditions);
 		System.out.println(goodses);

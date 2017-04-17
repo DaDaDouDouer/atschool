@@ -9,4 +9,5 @@ public interface ShopDao {
 	public Shop selectBySellerId(String id);
 	public void updateCarousel(@Param("idsStr") String idsStr, @Param("sellerId") String sellerId);
 	public void updateRecommand(@Param("idsStr") String idsStr, @Param("sellerId") String sellerId);
+	
 }

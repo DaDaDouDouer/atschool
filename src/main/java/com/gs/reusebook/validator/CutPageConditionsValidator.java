@@ -3,6 +3,7 @@ package com.gs.reusebook.validator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,14 @@ public class CutPageConditionsValidator {
 	 */
 	static public boolean validate(Map<String, Object> conditions){
 		
+		// 去除所有值为空字符串，以及为null的映射
+		for(String key : new HashSet<String>(conditions.keySet())){
+			Object value = conditions.get(key);
+			if(value == null || (value instanceof String && "".equals((String)value))){
+				conditions.remove(key);
+			}
+		}
+		
 		// 把sort值转化为排序的值
 		// 此处假定condition传来的sort值总是对的
 		if(conditions.containsKey(SORT_KEY)){
@@ -68,6 +77,7 @@ public class CutPageConditionsValidator {
 			conditions.remove(SORT_KEY);
 		}
 		
+		// TODO 检测minPrice等值是不是数字
 		for(String key : conditions.keySet()){
 			if(legalKeys.contains(key)){
 				continue;
