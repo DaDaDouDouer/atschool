@@ -11,12 +11,12 @@ public class BookConnectProperty {
 	}
 	private BookConnectProperty(){
 		try{
-			InputStream inputStream = this.getClass().getResourceAsStream("book-connect.properties");
+			InputStream inputStream = this.getClass().getResourceAsStream("/conf/book-connect.properties");
 			properties.load(inputStream);
 			if(inputStream != null)
 				inputStream.close();
 		}catch(Exception e){
-			System.out.println(e + "file not fount");
+			System.out.println(e + " file not fount");
 		}
 	}
 	/**
