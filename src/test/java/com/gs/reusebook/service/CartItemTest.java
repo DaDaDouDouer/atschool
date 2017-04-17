@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.gs.reusebook.bean.CartItem;
-import com.sun.org.apache.xml.internal.security.encryption.CipherData;
 
 public class CartItemTest {
 
@@ -52,6 +51,7 @@ public class CartItemTest {
 		CartItem cartItem1 = new CartItem();
 		cartItem1.setGoodsId("1");
 		cartItem1.setGoodsCount(2);
+		cartItem1.setSelected(true);
 		CartItem cartItem2 = new CartItem();
 		cartItem2.setGoodsId("3");
 		cartItem2.setGoodsCount(5);

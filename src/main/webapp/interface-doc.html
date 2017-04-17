@@ -39,20 +39,30 @@
 			background-color: #855e42
 		}
 		
+		tr.shop {
+			background-color: #D19275
+		}
+		
 		td.pre {
 			width: 100%
 		}
 		
 		#indexList {
-			filter: alpha(Opacity=80);
-			-moz-opacity: 0.5;
-			opacity: 0.5;
-			z-index: 100;
+			filter: alpha(Opacity=100);
+			opacity: 0.3;
+			z-index: 10;
 			background-color: #ffffff;
 			position: fixed;
-			left: 90%;
-			font-size: 70%
-			
+			left: 88%;
+			font-size: 70%;
+			overflow: scroll;
+			height: 630px;
+			width: 150px;
+		}
+		
+		#indexList p{
+			font-size: medium;
+			font-weight: bold;
 		}
 	</style>
 	<meta charset="UTF-8">
@@ -95,6 +105,12 @@
 				}
 			}
 
+			indexListDiv.onmouseover = function(e){
+				this.style.opacity = 1;
+			}
+			indexListDiv.onmouseout = function(e){
+				this.style.opacity = 0.3;
+			}
 		}
 	</script>
 <!--	
@@ -258,11 +274,10 @@
 					<p>limit 每页条数</p>
 					<p>maxPrice 最高价格</p>
 					<p>minPrice 最低价格</p>
-					<p>priceOrder 按照价格排序 只能传入asc desc</p>
-					<p>viaOrder 按照销量排序只能传入asc desc</p>
+					<p>sort 排序字段，只能填写四种：priceOrder_asc, priceOrder_desc, viaOrder_asc, viaOrder_desc </p>
 					<pre>
 {
-	"keyword" : "",
+	"keyword" : "dfs",
 	"pageNo" : 1,
 	"limit" : 3,
 	
@@ -281,8 +296,7 @@
 	"conditions" : {
 		"maxPrice": 1000,
 		"minPrice": 1000,
-		"priceOrder": "asc",
-		"viaOrder": "asc"
+		"sort": "priceOrder_asc",
 	}
 }
 					</pre>
@@ -699,25 +713,32 @@
   "msg": "返回购物车项成功",
   "data": [
     {
-      "id": "69ba6683-911c-4ae8-8a25-0ba7129123fc",
-      "userId": null,
-      "goodsId": "3",
-      "goodsCount": 3,
+      "id": "31f96e10-802b-4bd1-b40d-903eeafb5d07",
+      "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "goodsId": "1",
+      "goodsCount": 12,
+      "isSelected": false,
       "goods": {
-        "id": "3",
-        "realGoodsId": "13",
+        "id": "1",
+        "realGoodsId": "11",
         "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
         "linkTable": "tab_book",
-        "name": "C++",
-        "price": 439.2,
-        "count": 3
-      }
+        "name": "C",
+        "price": 321.2,
+        "count": 1,
+        "via": 4,
+        "types": null,
+        "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg",
+        "realGoods": null
+      },
+      "selected": false
     },
     {
-      "id": "dc31af78-035d-410b-9d13-82e3fa7e393c",
-      "userId": null,
+      "id": "799d15ce-151b-4816-95e3-4c8c03f7683b",
+      "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
       "goodsId": "2",
-      "goodsCount": 10,
+      "goodsCount": 5,
+      "isSelected": false,
       "goods": {
         "id": "2",
         "realGoodsId": "12",
@@ -725,8 +746,13 @@
         "linkTable": "tab_book",
         "name": "Java",
         "price": 432.4,
-        "count": 9
-      }
+        "count": 5,
+        "via": 13,
+        "types": null,
+        "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg",
+        "realGoods": null
+      },
+      "selected": false
     }
   ],
   "other": null
@@ -771,7 +797,7 @@
 			</tr>
 
 			<tr class="cartitem" id="cartitem-update-goods-count">
-				<td>借书</td>
+				<td>更新商品数量</td>
 				<td>
 					cartitem/updateGoodsCount.do
 				</td>
@@ -820,6 +846,43 @@
   "status": 200,
   "msg": "删除购物车项成功",
   "data": "",
+  "other": null
+}
+						</pre>
+				</td>
+			</tr>
+
+			<tr class="cartitem" id="cartitem-update-all">
+				<td>替换所有购物车商品项</td>
+				<td>
+					cartitem/updateAll.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>goodsId 商品项的id</p>
+					<p>goodsCount 商品项的数量</p>
+					<p>isSelected 布尔值，是否被选中</p>
+					<pre>
+[
+	{
+		"goodsId":"1",
+		"goodsCount":12,
+		"isSelected":false
+	},{
+		"goodsId":"2",
+		"goodsCount":5,
+		"isSelected":true
+	}
+]
+					</pre>
+				</td>
+				<td>需要登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "更新购物车成功",
+  "data": null,
   "other": null
 }
 						</pre>
@@ -1117,9 +1180,238 @@
 				</td>
 			</tr>
 
+
+
+			<tr class="shop" id="shop-add">
+				<td>添加商铺</td>
+				<td>
+					shop/add.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>name 商铺名</p>
+					<pre>
+{
+	"name":"two shop"
+}
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+创建：
+{
+  "status": 200,
+  "msg": "创建成功",
+  "data": "",
+  "other": null
+}
+重复创建：
+{
+  "status": 400,
+  "msg": "只能创建一个店铺",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="shop" id="shop-update-carousel">
+				<td>更新轮播的商品信息</td>
+				<td>
+					shop/updateCarousel.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>需要轮播的goodId</p>
+					<pre>
+["1","2","4"]
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="shop" id="shop-update-command">
+				<td>更新推荐的商品信息</td>
+				<td>
+					shop/updateCommand.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>需要推荐的goodId</p>
+					<pre>
+["1","2","4"]
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="shop" id="shop-get-own">
+				<td>商家得到自己的商铺信息</td>
+				<td>
+					shop/updateOwn.do
+				</td>
+				<td>get</td>
+				<td>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "查询商铺成功",
+  "data": {
+    "id": "e13cd0fa-225f-42d6-a970-ade9ba412f5b",
+    "sellerId": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+    "name": "two shop",
+    "imgUrl": null,
+    "carouselStr": "1 2 4",
+    "carousel": [
+      {
+        "id": "1",
+        "realGoodsId": "11",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C",
+        "price": 321.2,
+        "count": 1,
+        "via": 4,
+        "types": null,
+        "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg",
+        "realGoods": null
+      },
+      {
+        "id": "2",
+        "realGoodsId": "12",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "Java",
+        "price": 432.4,
+        "count": 5,
+        "via": 13,
+        "types": null,
+        "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg",
+        "realGoods": null
+      }
+    ],
+    "recommandStr": "3",
+    "recommand": [
+      {
+        "id": "3",
+        "realGoodsId": "13",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C++",
+        "price": 439.2,
+        "count": 2,
+        "via": 6,
+        "types": null,
+        "imgUrl": "http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg",
+        "realGoods": null
+      }
+    ]
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="shop" id="shop-get-by-seller-id">
+				<td>买家得到某个商铺信息</td>
+				<td>
+					shop/getBySellerId.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>sellerId 卖家id</p>
+					<pre>
+{
+	"sellerId":"31c0d96d-0e94-4a52-8648-9c39009d5a72"
+}
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "查询商铺成功",
+  "data": {
+    "id": "e13cd0fa-225f-42d6-a970-ade9ba412f5b",
+    "sellerId": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+    "name": "two shop",
+    "imgUrl": null,
+    "carouselStr": "1 2 4",
+    "carousel": [
+      {
+        "id": "1",
+        "realGoodsId": "11",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C",
+        "price": 321.2,
+        "count": 1,
+        "via": 4,
+        "types": null,
+        "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg",
+        "realGoods": null
+      },
+      {
+        "id": "2",
+        "realGoodsId": "12",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "Java",
+        "price": 432.4,
+        "count": 5,
+        "via": 13,
+        "types": null,
+        "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg",
+        "realGoods": null
+      }
+    ],
+    "recommandStr": "3",
+    "recommand": [
+      {
+        "id": "3",
+        "realGoodsId": "13",
+        "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+        "linkTable": "tab_book",
+        "name": "C++",
+        "price": 439.2,
+        "count": 2,
+        "via": 6,
+        "types": null,
+        "imgUrl": "http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg",
+        "realGoods": null
+      }
+    ]
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
 		</tbody>
 	</table>
-
 </body>
-
 </html>

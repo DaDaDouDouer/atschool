@@ -5,8 +5,13 @@ import http from '../utils/http'
 
 export const search = function (conditions) {
   return http.post('goods/search.do', {...conditions, linkTable: 'tab_book'})
-    .then(function (response) {
-      return response.data
+    .then(function ({data}) {
+      let response = data
+
+      return {
+        bookList: response.data,
+        pageCount: response.other.pageAllCount
+      }
     })
 }
 

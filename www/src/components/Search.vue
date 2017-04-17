@@ -1,10 +1,16 @@
 <template>
 <div class="search">
-  <v-text-input id="test3" name="test3" placeholder="搜索" v-model="conditions.keyword"></v-text-input>
-  <v-btn v-bind:loading="loading3" @click.native="search" class="blue-grey white--text">
-    搜索
-    <v-icon right>cloud_upload</v-icon>
-  </v-btn>
+  <v-row>
+    <v-col xs5 offset-xs3>
+      <v-text-field id="test3" name="test3" placeholder="搜索" class="input-group--focused" v-model="conditions.keyword"></v-text-field>
+    </v-col>
+    <v-col xs1 mt-1>
+      <v-btn v-bind:loading="loading3" @click.native="search" class="green white--text">
+        搜索
+        <v-icon right>search</v-icon>
+      </v-btn>
+    </v-col>
+  </v-row>
 </div>
 </template>
 

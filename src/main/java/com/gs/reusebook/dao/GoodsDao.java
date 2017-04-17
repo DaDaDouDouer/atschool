@@ -21,6 +21,8 @@ public interface GoodsDao {
 	public Integer selectCountBySellerId(String sellerId);
 	
 	public Goods selectById(String id);
+	
 	public List<Goods> selectByIds(List<String> ids);
+	
 	public void updateCount(@Param("id") String id, @Param("count") int count);
 }

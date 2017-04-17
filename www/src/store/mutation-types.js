@@ -5,5 +5,5 @@ export const USER = {
 
 export const BOOK = {
   GET_ALL_TYPES: 'GET_ALL_TYPES',
-  SEARCH_BY_TYPES: 'SEARCH_BY_TYPES'
+  SEARCH: 'SEARCH'
 }

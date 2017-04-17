@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <typeAlias alias="Order" type="com.gs.reusebook.bean.Order"/>
         <typeAlias alias="OrderItem" type="com.gs.reusebook.bean.OrderItem"/>
         <typeAlias alias="Seller" type="com.gs.reusebook.bean.Seller"/>
+        <typeAlias alias="Shop" type="com.gs.reusebook.bean.Shop"/>
         <typeAlias alias="User" type="com.gs.reusebook.bean.User"/>
         <typeAlias alias="UserInfoInMarket" type="com.gs.reusebook.bean.UserInfoInMarket"/>
     </typeAliases>

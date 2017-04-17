@@ -3,6 +3,7 @@ package com.gs.reusebook.validator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,18 @@ import java.util.Map;
  *
  */
 public class CutPageConditionsValidator {
-
+	
+	/**
+	 * condition中用来保存排序值的键
+	 */
+	private static String SORT_KEY = "sort";
+	
+	/**
+	 * condition中用保存排序的值的分隔符
+	 */
+	private static String SORT_VALUE_SPLITER = "_";
+	
+	
 	/**
 	 * 用于存放conditions里面能出现的key，但是不需要校验值
 	 */
@@ -48,6 +60,24 @@ public class CutPageConditionsValidator {
 	 */
 	static public boolean validate(Map<String, Object> conditions){
 		
+		// 去除所有值为空字符串，以及为null的映射
+		for(String key : new HashSet<String>(conditions.keySet())){
+			Object value = conditions.get(key);
+			if(value == null || (value instanceof String && "".equals((String)value))){
+				conditions.remove(key);
+			}
+		}
+		
+		// 把sort值转化为排序的值
+		// 此处假定condition传来的sort值总是对的
+		if(conditions.containsKey(SORT_KEY)){
+			String sortStr = (String) conditions.get(SORT_KEY);
+			String[] entry = sortStr.split(SORT_VALUE_SPLITER);
+			conditions.put(entry[0], entry[1]);
+			conditions.remove(SORT_KEY);
+		}
+		
+		// TODO 检测minPrice等值是不是数字
 		for(String key : conditions.keySet()){
 			if(legalKeys.contains(key)){
 				continue;

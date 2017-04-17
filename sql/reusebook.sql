@@ -80,6 +80,7 @@ CREATE TABLE `tab_cart_item` (
   `user_id` varchar(36) NOT NULL,
   `goods_id` varchar(36) NOT NULL,
   `goods_count` int(16) NOT NULL,
+  `is_selected` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -90,7 +91,7 @@ CREATE TABLE `tab_cart_item` (
 
 LOCK TABLES `tab_cart_item` WRITE;
 /*!40000 ALTER TABLE `tab_cart_item` DISABLE KEYS */;
-INSERT INTO `tab_cart_item` VALUES ('69ba6683-911c-4ae8-8a25-0ba7129123fc','0cc95799-4660-4758-9f7e-0053187eac7a','3',3),('9ec7964e-3973-4665-856a-89c1f0346fa4','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',12),('c60232f9-e26e-4499-ba9f-dc9bef5fc152','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','3',5);
+INSERT INTO `tab_cart_item` VALUES ('66539c3e-2b4f-4f98-98c2-01a30d95ff7a','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',2,1),('69ba6683-911c-4ae8-8a25-0ba7129123fc','0cc95799-4660-4758-9f7e-0053187eac7a','3',3,0),('71e204ae-47b7-4e6a-bafe-17a587071a6f','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','3',5,0);
 /*!40000 ALTER TABLE `tab_cart_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,6 +309,34 @@ INSERT INTO `tab_seller` VALUES ('31c0d96d-0e94-4a52-8648-9c39009d5a72','Njupt@1
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tab_shop`
+--
+
+DROP TABLE IF EXISTS `tab_shop`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tab_shop` (
+  `id` varchar(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `seller_id` varchar(36) NOT NULL,
+  `img_url` varchar(36) DEFAULT NULL,
+  `recommand_str` varchar(1023) DEFAULT NULL,
+  `carousel_str` varchar(1023) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tab_shop`
+--
+
+LOCK TABLES `tab_shop` WRITE;
+/*!40000 ALTER TABLE `tab_shop` DISABLE KEYS */;
+INSERT INTO `tab_shop` VALUES ('a16f7356-9f59-48c5-9265-92f36ad04719','one shop','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',NULL,'1 3 4','2'),('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'3','1 2 4');
+/*!40000 ALTER TABLE `tab_shop` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tab_user`
 --
 
@@ -366,4 +395,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-10 21:55:08
+-- Dump completed on 2017-04-15  9:54:06

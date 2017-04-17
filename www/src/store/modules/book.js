@@ -5,7 +5,8 @@ import { BOOK } from '../mutation-types'
 // shape: [{ id, quantity }]
 const state = {
   bookTypes: null,
-  bookList: null
+  bookList: null,
+  pageCount: null
 }
 
 // getters
@@ -17,6 +18,10 @@ const actions = {
     let bookTypes = localStorage.getItem('bookTypes')
     if (bookTypes === null) {
       return API.book.getBookTypes().then(bookTypes => {
+        // 删除无用元素
+        let defaultTypeIndex = bookTypes.findIndex((bookType) => (bookType.id === 'default_type_base_id'))
+        bookTypes.splice(defaultTypeIndex, 1)
+
         // 缓存到localStorage中
         localStorage.setItem('bookTypes', JSON.stringify(bookTypes))
 
@@ -30,9 +35,9 @@ const actions = {
     }
   },
   getBooks: ({ commit, state }, conditions) => {
-    return API.goods.search(conditions).then(bookList => {
-      commit(BOOK.SEARCH_BY_TYPES, bookList)
-      return bookList
+    return API.goods.search(conditions).then(books => {
+      commit(BOOK.SEARCH, books)
+      return books.bookList
     })
   }
 }
@@ -44,10 +49,9 @@ const mutations = {
       state.bookTypes = bookTypes
     }
   },
-  [BOOK.SEARCH_BY_TYPES] (state, bookList) {
-    if (bookList) {
-      state.bookList = bookList
-    }
+  [BOOK.SEARCH] (state, books) {
+    state.bookList = books.bookList
+    state.pageCount = books.pageCount
   }
 }
 
