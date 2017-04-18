@@ -20,6 +20,8 @@ public interface GoodsDao {
 	
 	public Integer selectCountBySellerId(String sellerId);
 	
+	public List<String> selectIdsBySellerId(String sellerId);
+	
 	public Goods selectById(String id);
 	
 	public List<Goods> selectByIds(List<String> ids);

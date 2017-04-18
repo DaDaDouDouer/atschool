@@ -2,9 +2,12 @@ package com.gs.reusebook.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +15,13 @@ import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.bean.Shop;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.ShopDao;
+import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.GeneralValidator;
+import com.gs.reusebook.validator.base.ValidatorType;
+
 import static com.gs.reusebook.util.GlobalStatus.*;
+import static com.gs.reusebook.validator.base.ValidatorType.*;
 import static com.gs.reusebook.bean.Shop.*;
 
 @Service
@@ -39,9 +47,22 @@ public class ShopService {
 	 */
 	public UiReturn add(String name, String sellerId){
 		
-		// TODO 参数校验
-		// TODO 可能需要校验名字不能重复
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, STRING_30}, new Object[]{sellerId, name});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		if(StringUtils.isEmpty(name)){
+			return UiReturn.notOk(null, "名字不能为空", REQ_ERROR_400);
+		}
+		// 校验名字不能重复
+		Shop shopInDB = shopDao.selectByName(name);
+		if(shopInDB != null){
+			return UiReturn.notOk(null, "名字重复", REQ_ERROR_400);
+		}
 		
+		// 创建店铺
 		Shop shop = shopDao.selectBySellerId(sellerId);
 		if(shop != null){
 			return UiReturn.notOk("", "只能创建一个店铺", REQ_ERROR_400);
@@ -63,22 +84,32 @@ public class ShopService {
 	 * @param sellerId
 	 * @return
 	 */
-	public UiReturn updateGoodIds(String fieldName, List<String> goodIds, String sellerId){
+	public UiReturn updateGoodIds(String fieldName, List<String> updateGoodIds, String sellerId){
 		
-		// TODO: 参数校验
-		// TODO: 没有校验传入的goodIds是不是都存在，而且是不是他自己的goods
-		
+		// 参数校验
+		// 因为field会参与if else判断，所以不需要校验
+		// goodIds会在之后与数据库中的数据校验，所以不用校验器校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, sellerId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		// 判断店铺是否存在
 		Shop shop = shopDao.selectBySellerId(sellerId);
 		if(shop == null){
 			return UiReturn.notOk("", "店铺不存在", REQ_ERROR_400);
 		}
-		
-		// 判空
-		goodIds = goodIds == null ? new ArrayList<String>() : goodIds;
+		// 判断goodIds是不是都是自己的
+		Set<String> allGoodsIds = new HashSet<String>(goodsDao.selectIdsBySellerId(sellerId)); 
+		updateGoodIds = updateGoodIds == null ? new ArrayList<String>() : updateGoodIds;
+		for (String id : updateGoodIds) {
+			if(!allGoodsIds.contains(id)){
+				return UiReturn.notOk(null, "不能使用不属于自己的Goods", REQ_ERROR_400);
+			}
+		}
 		
 		// 拼合goodId字符串，空格分隔（为了便于trim）
 		StringBuffer goodsIdSB = new StringBuffer();
-		for(String goodId : goodIds){
+		for(String goodId : updateGoodIds){
 			goodsIdSB.append(goodId + ID_SPLITER);
 		}
 		// 去掉最后一个空格
@@ -107,7 +138,11 @@ public class ShopService {
 	 */
 	public UiReturn getBySellerId(String sellerId){
 
-		// TODO 参数校验
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, sellerId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 
 		Shop shop = shopDao.selectBySellerId(sellerId);
 		if(shop == null){

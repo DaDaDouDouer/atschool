@@ -30,6 +30,7 @@ public class GeneralValidator {
 		validatorPool.put(AUTH_PASSWORD, new AuthPasswordValidator());
 		validatorPool.put(STRING_255, new String255Validator());
 		validatorPool.put(STRING_20, new String20Validator());
+		validatorPool.put(STRING_30, new String30Validator());
 		validatorPool.put(INT_POSITIVE, new PositiveIntegerValidator());
 	}
 

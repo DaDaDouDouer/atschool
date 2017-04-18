@@ -12,6 +12,10 @@
 		SELECT count(*) FROM tab_goods WHERE seller_id = #{sellerId}
 	</select>
 	
+	<select id="selectIdsBySellerId" resultType="String">
+		SELECT id FROM tab_goods WHERE seller_id = #{sellerId}
+	</select>
+	
 	<select id="selectAndPagedBySellerId" resultType="Goods" resultMap="normalGoodsResultMap">
 		SELECT * FROM tab_goods WHERE seller_id = #{sellerId} LIMIT #{offset},#{limit}
 	</select>

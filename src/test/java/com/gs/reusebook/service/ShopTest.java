@@ -25,12 +25,12 @@ public class ShopTest {
 	
 //	@Test
 	public void testAdd(){
-		System.out.println(shopService.add("one shop", "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
+		System.out.println(shopService.add("two b", "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 	}
 	
-//	@Test
+	@Test
 	public void testUpdate(){
-		String[] ids = new String[]{"1", "3", "4"};
+		String[] ids = new String[]{"1", "3", "4", "5"};
 		System.out.println(
 				shopService.updateGoodIds(Shop.RECOMMAND_NAME, 
 				new ArrayList<String>(Arrays.asList(ids)),
@@ -38,7 +38,7 @@ public class ShopTest {
 				);
 	}
 	
-	@Test
+//	@Test
 	public void testGet(){
 		System.out.println(shopService.getBySellerId("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 	}
