@@ -7,14 +7,14 @@
       </v-card-title>
     </v-card-row>
     <v-card-text class="input" v-for='(input, index) in formItems'>
-      <v-text-input
+      <v-text-field
         v-model="form[input.name]"
         :id="input.index"
         :name="input.name"
         :type="input.type"
         :label="input.label"
         :placeholder="input.placeholder"
-      ></v-text-input>
+      ></v-text-field>
     </v-card-text>
     </v-card-text>
     <v-card-text>
