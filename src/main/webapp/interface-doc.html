@@ -43,6 +43,10 @@
 			background-color: #D19275
 		}
 		
+		tr.file-pic {
+			background-color: #BC8F8F
+		}
+		
 		td.pre {
 			width: 100%
 		}
@@ -1408,6 +1412,57 @@
   },
   "other": null
 }
+					</pre>
+				</td>
+				
+			</tr>
+			
+			<tr class="file-pic" id="file-pic-up-load">
+				<td>上传图片</td>
+				<td>
+					file/pic/upload.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>表单方式 图片</p>
+					<p>请求头</p>
+					<pre>
+enctype = multipart/form-data
+					</pre>
+				</td>
+				<td>需要卖家或买家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "上传成功",
+  "data": "/file/pic/get.do?picId=e0791497-9a14-482c-bab2-d1534f15ee01.jpg",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			
+			<tr class="file-pic" id="file-pic-get">
+				<td>获取图片</td>
+				<td>
+					file/pic/get.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>picId url参数方式，图片id</p>
+					<pre>
+picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+图片
+<xmp>
+html方式：
+<img src="/file/pic/get.do?picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png">
+</xmp>
 					</pre>
 				</td>
 			</tr>
