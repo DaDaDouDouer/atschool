@@ -2,13 +2,13 @@
 <div class="index">
   <search></search>
   <div class="menu-container">
-    <div v-for="(menu, menuName) in menus">
+    <div v-for="menu in menus">
       <v-menu transition="v-slide-x-transition" bottom right>
         <v-btn primary dark slot="activator" class="deep-orange">
-          {{ menuName }}
+          {{ menu.name }}
         </v-btn>
         <v-list style="position: relation; left: 190px">
-          <v-list-item v-for="menuItem in menu" @click="search">
+          <v-list-item v-for="menuItem in menu.subTypes" @click="search">
             <v-list-tile>
               <v-list-tile-title :id="menuItem.id">{{ menuItem.name }}</v-list-tile-title>
             </v-list-tile>

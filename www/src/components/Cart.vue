@@ -10,13 +10,10 @@
     <tbody>
       <tr>
         <td v-for="goods in goodsList">
-          <v-checkbox v-bind:id="'checkbox' + index" filled class="text-xs-center"></v-checkbox>
         </td>
-        <td>{goods}</td>
+        <td>{{goods}}</td>
         <td>
-          <v-btn icon="icon">
-            <v-icon>edit</v-icon>
-          </v-btn>
+          <v-btn-toggle :options="actions"></v-btn-toggle>
         </td>
       </tr>
     </tbody>
@@ -36,7 +33,11 @@ export default {
         '金额',
         '操作'
       ],
-      goodsList: [1, 2, 3, 4]
+      goodsList: [1, 2, 3, 4],
+      actions: [
+        { text: '添加', value: 1 },
+        { text: '删除', value: 2 }
+      ]
     }
   }
 }
