@@ -33,7 +33,6 @@ public class CartItemController {
 	@ResponseBody
 	@NeedUserLogin
 	public UiReturn selectAll(HttpSession session) {
-		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 		return cartItemService.selectAll(userId);
 	}
@@ -48,7 +47,6 @@ public class CartItemController {
 	@ResponseBody
 	@NeedUserLogin
 	public UiReturn add(@RequestBody CartItem cartItem, HttpSession session) {
-		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 		return cartItemService.addToCart(userId, cartItem.getGoodsId(), cartItem.getGoodsCount());
 	}
@@ -63,7 +61,6 @@ public class CartItemController {
 	@ResponseBody
 	@NeedUserLogin
 	public UiReturn deleteById(@RequestBody CartItem cartItem, HttpSession session) {
-		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 		return cartItemService.deleteCartItem(userId, cartItem.getId());
 	}
@@ -78,7 +75,6 @@ public class CartItemController {
 	@ResponseBody
 	@NeedUserLogin
 	public UiReturn updateGoodsCount(@RequestBody CartItem cartItem, HttpSession session) {
-		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 		return cartItemService.updateGoodsCount(userId, cartItem.getId(), cartItem.getGoodsCount()); 
 	}
@@ -94,7 +90,6 @@ public class CartItemController {
 	@ResponseBody
 	@NeedUserLogin
 	public UiReturn updateAll(@RequestBody List<CartItem> cartItems, HttpSession session) {
-		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 		return cartItemService.updateAll(userId, cartItems); 
 	}
