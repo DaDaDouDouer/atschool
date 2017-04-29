@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +51,12 @@ public class LoginCheckFilter extends GenericFilterBean{
 	/**
 	 * 存放所有需要验证的用户角色以及其对应的需要验证的url
 	 */
-	private Map<Class<? extends AuthBaseBean>, List<String>> authBeansLimitedUrls;
+	private Map<Class<? extends AuthBaseBean>, Set<String>> authBeansLimitedUris;
 	
+	/**
+	 * 存放所有不需要经过登陆就能调用的url
+	 */
+	private Set<String> unlimitedUris;
 	
 	/**
 	 * 自动扫描controller包下的controller，<br>
@@ -77,35 +81,38 @@ public class LoginCheckFilter extends GenericFilterBean{
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		
 		String requestUri = httpRequest.getRequestURI();
-		
-		// 保存用户的登录验证状态
-		boolean isLogin = true;
-		
-		// 遍历存放限制url的map，对每个角色执行一次查询，看是否对这条url有限制
-		for(Class<? extends AuthBaseBean> characterClass : authBeansLimitedUrls.keySet()){
-			if(authBeansLimitedUrls.get(characterClass).contains(requestUri)){
-				HttpSession session = httpRequest.getSession();
-				
-				try {
-					// 检查session中是否有登录之后的信息
-					String characterId = (String) session.getAttribute(characterClass.newInstance().fatchIdSessionKey());
-					
-					if(StringUtils.isEmpty(characterId)){
-						response.getWriter().append(UiReturn.notOk("", "需要用户登录", NOT_VALIDATE_401).toJsonString());
-						isLogin = false;
-						break;
-					}
-				} catch (Exception e) {
-					// TODO 打印日志
-					e.printStackTrace();
-				}
-				
-			}
+
+		// 如果调用的是非受限url则直接调用
+		if(unlimitedUris.contains(requestUri)){
+			chain.doFilter(request, response);
+			return;
 		}
 		
-		// 如果在执行了response.getWriter().append()后再调用doFilter会导致报错
-		if(isLogin){
-			chain.doFilter(request, response);
+		HttpSession session = httpRequest.getSession();
+		try{
+			
+			// 遍历当前系统中的角色，判断session中是否存在登陆的角色
+			for(Class<? extends AuthBaseBean> characterClass : authBeansLimitedUris.keySet()){
+				String characterId = (String) session.getAttribute(
+						characterClass.newInstance().fatchIdSessionKey());
+				
+				// 如果某角色登陆，且拥有请求该url的权限，则通过请求，否则测试下个角色
+				if(StringUtils.isNotEmpty(characterId) 
+						&& authBeansLimitedUris.get(characterClass).contains(requestUri)){
+					
+					chain.doFilter(request, response);
+					return;
+				}
+			}
+			
+			// 如果没有任何一个角色登陆，或者登陆的角色都没有请求该url的权限，则阻止请求
+			response.getWriter().append(
+					UiReturn.notOk("", "需要用户登录", NOT_VALIDATE_401).toJsonString());
+			return;
+			
+		}catch(Exception e){
+			// TODO 处理，日志
+			e.printStackTrace();
 		}
 	}
 
@@ -137,49 +144,57 @@ public class LoginCheckFilter extends GenericFilterBean{
 		
 		/*
 		 * 循环存放类的集合，检查类上是否有springMVC路径注解，如果有则获取，
-		 * 之后获取全部方法，检查方法上是否有springMVC路径注解，如果有则获取，
+		 * 之后获取类上的全部方法，检查方法上是否有springMVC路径注解，如果有则获取，
 		 * 之后检查方法上是否有自定义登录检查注解，
 		 * 如果有，则把类上的路径和方法上的路径合并再加上.do拼合成为请求路径的形式。
 		 */
-		authBeansLimitedUrls = new HashMap<Class<? extends AuthBaseBean>, List<String>>();
-		authBeansLimitedUrls.put(User.class, new ArrayList<String>());
-		authBeansLimitedUrls.put(Seller.class, new ArrayList<String>());
+		unlimitedUris = new HashSet<String>();
+		authBeansLimitedUris = new HashMap<Class<? extends AuthBaseBean>, Set<String>>();
+		authBeansLimitedUris.put(User.class, new HashSet<String>());
+		authBeansLimitedUris.put(Seller.class, new HashSet<String>());
 
 		for(Class<?> clazz : controllerClasses){
 			
-			RequestMapping requestMappingOnClass = (RequestMapping) clazz.getAnnotation(RequestMapping.class);
+			RequestMapping requestMappingOnClass = clazz.getAnnotation(RequestMapping.class);
 			if(requestMappingOnClass != null){
 				String[] pathValuesOnClass = requestMappingOnClass.value();
 				
 				Method[] methods = clazz.getMethods();
 				for(Method method : methods){
 					
-					// 检查需要用户登录的注解
-					NeedUserLogin needUserLogin = (NeedUserLogin) method.getAnnotation(NeedUserLogin.class);
-					if(needUserLogin != null){
-						RequestMapping requestMappingOnMethod= (RequestMapping) method.getAnnotation(RequestMapping.class);
-						if(requestMappingOnMethod != null){
-							String[] pathValuesOnMethod = requestMappingOnMethod.value();
-							
-							for(int i = 0; i<pathValuesOnClass.length;i++){
-								for(int j = 0; j<pathValuesOnMethod.length;j++){
+					RequestMapping requestMappingOnMethod= method.getAnnotation(RequestMapping.class);
+					if(requestMappingOnMethod != null){
+						String[] pathValuesOnMethod = requestMappingOnMethod.value();
+						
+						/*
+						 * 实际代码编写中，pathValuesOnClass和pathValuesOnMethod都只有一个值
+						 * 但因为获取注解的方法返回值为数组，所以这里用遍历的写法
+						 */
+						for(int i = 0; i<pathValuesOnClass.length;i++){
+							for(int j = 0; j<pathValuesOnMethod.length;j++){
+								String url = pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do";
+								
+								// 检查需要用户登录的注解
+								NeedUserLogin needUserLogin = method.getAnnotation(NeedUserLogin.class);
+								if(needUserLogin != null){
 									List<Class<? extends AuthBaseBean>> characters = Arrays.asList(needUserLogin.character());
+									// 如果接口需要登陆，则加入限制url集合中。不需要则加到不限制url集合。
 									if(!characters.isEmpty()){
 										for(Class<? extends AuthBaseBean> characterClass : characters){
-											authBeansLimitedUrls.get(characterClass).add(pathValuesOnClass[i] + pathValuesOnMethod[j] + ".do");
+											authBeansLimitedUris.get(characterClass).add(url);
 										}
+									}else{
+										// TODO 此为系统异常，因为characterClass本应该有默认值
 									}
+								}else{
+									unlimitedUris.add(url);
 								}
 							}
-							
 						}
 					}
-										
 				}
-				
 			}
 		}
-		
 	}
 
 	/**

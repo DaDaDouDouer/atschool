@@ -12,4 +12,7 @@
     
     <!-- 扫描文件（自动将servicec层注入） -->
     <context:component-scan base-package="com.gs.reusebook.service;com.gs.reusebook.listener;com.gs.reusebook.connect"/>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    
 </beans>

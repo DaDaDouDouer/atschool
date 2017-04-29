@@ -24,6 +24,10 @@
 		SELECT * FROM tab_shop WHERE seller_id = #{id}
 	</select>
 	
+	<select id="selectByName" resultType="Shop" resultMap="normalShopResultMap">
+		SELECT * FROM tab_shop WHERE name = #{name}
+	</select>
+	
 	<update id="updateCarousel" >
 		update tab_shop set carousel_str = #{idsStr} where seller_id = #{sellerId}
 	</update>

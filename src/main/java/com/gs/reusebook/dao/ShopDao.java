@@ -7,6 +7,9 @@ import com.gs.reusebook.bean.Shop;
 public interface ShopDao {
 	public int insert(Shop shop);
 	public Shop selectBySellerId(String id);
+
+	public Shop selectByName(String name);
+	
 	public void updateCarousel(@Param("idsStr") String idsStr, @Param("sellerId") String sellerId);
 	public void updateRecommand(@Param("idsStr") String idsStr, @Param("sellerId") String sellerId);
 	

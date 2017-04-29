@@ -5,7 +5,7 @@
       <v-text-field id="test3" name="test3" placeholder="搜索" class="input-group--focused" v-model="conditions.keyword"></v-text-field>
     </v-col>
     <v-col xs1 mt-1>
-      <v-btn v-bind:loading="loading3" @click.native="search" class="green white--text">
+      <v-btn @click.native="search" class="green white--text">
         搜索
         <v-icon right>search</v-icon>
       </v-btn>
@@ -17,17 +17,26 @@
 <script>
 export default {
   name: 'search',
+  props: ['keyword'],
   data () {
     return {
       conditions: {
-        keyword: '',
-        pageNo: ''
+        keyword: this.keyword || ''
       }
     }
   },
   methods: {
     search () {
+      localStorage.setItem('keyword', this.conditions.keyword)
       this.$store.dispatch('goodsSearch', this.conditions)
+    }
+  },
+  watch: {
+    conditions: {
+      handler: function (val, oldVal) {
+        this.$emit('keywordChange', val.keyword)
+      },
+      deep: true
     }
   }
 }
