@@ -25,7 +25,7 @@ const config = {
   }, errorProcess],
   // `withCredentials` indicates whether or not cross-site Access-Control requests
   // should be made using credentials
-  withCredentials: false // default
+  withCredentials: true // default
 }
 
 const instance = axios.create(config)
