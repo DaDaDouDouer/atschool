@@ -90,7 +90,6 @@ public class ShopController {
 		
 	}
 	
-
 	/**
 	 * 买家通过卖家id获取全部的商铺信息
 	 * @param session
@@ -103,4 +102,5 @@ public class ShopController {
 		return shopService.getBySellerId(shopParams.getSellerId());
 		
 	}
+	
 }

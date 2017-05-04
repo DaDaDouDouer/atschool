@@ -56,6 +56,10 @@
 		UPDATE tab_goods SET count = #{count} WHERE id = #{id}
 	</update>
 
+	<update id="updateField">
+		UPDATE tab_goods SET ${name} = #{value} WHERE id = #{id}
+	</update>
+	
 	<select id="selectByIds" resultType="Goods" resultMap="normalGoodsResultMap">
 		SELECT * FROM tab_goods WHERE id IN
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">

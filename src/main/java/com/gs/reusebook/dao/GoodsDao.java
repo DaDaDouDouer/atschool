@@ -13,7 +13,7 @@ public interface GoodsDao {
 	(@Param("name") String name, @Param("offset") int offset, @Param("limit") int limit, @Param("amap") Map<String, Object> amap);
 	
 	public List<Goods> selectAndPagedBySellerId
-	(@Param("sellerId") String sellerId, @Param("offset") int offset, @Param("limit") int limit);
+		(@Param("sellerId") String sellerId, @Param("offset") int offset, @Param("limit") int limit);
 	
 	
 	public Integer selectCountByName(String name);
@@ -27,4 +27,7 @@ public interface GoodsDao {
 	public List<Goods> selectByIds(List<String> ids);
 	
 	public void updateCount(@Param("id") String id, @Param("count") int count);
+	
+	public void updateField
+		(@Param("id") String id, @Param("name") String name, @Param("value") Object value);
 }
