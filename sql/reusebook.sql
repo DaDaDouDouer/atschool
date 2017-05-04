@@ -91,7 +91,7 @@ CREATE TABLE `tab_cart_item` (
 
 LOCK TABLES `tab_cart_item` WRITE;
 /*!40000 ALTER TABLE `tab_cart_item` DISABLE KEYS */;
-INSERT INTO `tab_cart_item` VALUES ('66539c3e-2b4f-4f98-98c2-01a30d95ff7a','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',2,1),('69ba6683-911c-4ae8-8a25-0ba7129123fc','0cc95799-4660-4758-9f7e-0053187eac7a','3',3,0),('71e204ae-47b7-4e6a-bafe-17a587071a6f','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','3',5,0);
+INSERT INTO `tab_cart_item` VALUES ('31f96e10-802b-4bd1-b40d-903eeafb5d07','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',12,0),('69ba6683-911c-4ae8-8a25-0ba7129123fc','0cc95799-4660-4758-9f7e-0053187eac7a','3',3,0),('799d15ce-151b-4816-95e3-4c8c03f7683b','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','2',5,1);
 /*!40000 ALTER TABLE `tab_cart_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,6 +164,7 @@ CREATE TABLE `tab_goods` (
   `count` int(32) DEFAULT NULL,
   `img_url` varchar(255) DEFAULT NULL,
   `via` int(16) DEFAULT NULL COMMENT '销量',
+  `description` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -174,7 +175,7 @@ CREATE TABLE `tab_goods` (
 
 LOCK TABLES `tab_goods` WRITE;
 /*!40000 ALTER TABLE `tab_goods` DISABLE KEYS */;
-INSERT INTO `tab_goods` VALUES ('1','11','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','C',321.2,1,'http://evgetgif.qiniudn.com/C-language-book-2.jpg',4),('2','12','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','Java',432.4,5,'http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',13),('3','13','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','C++',439.2,2,'http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',6),('4','14','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','tab_book','PHP',32.6,4,'http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',2);
+INSERT INTO `tab_goods` VALUES ('1','11','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C',321.2,1,'http://evgetgif.qiniudn.com/C-language-book-2.jpg',4,'a new desp2'),('2','12','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','Java',432.4,5,'http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',13,NULL),('3','13','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C++',439.2,2,'http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',6,NULL),('4','14','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','PHP',32.6,4,'http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',2,NULL);
 /*!40000 ALTER TABLE `tab_goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,7 +333,7 @@ CREATE TABLE `tab_shop` (
 
 LOCK TABLES `tab_shop` WRITE;
 /*!40000 ALTER TABLE `tab_shop` DISABLE KEYS */;
-INSERT INTO `tab_shop` VALUES ('a16f7356-9f59-48c5-9265-92f36ad04719','one shop','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',NULL,'1 3 4','2'),('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'3','1 2 4');
+INSERT INTO `tab_shop` VALUES ('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'3','1 2 4'),('f2a24593-b857-4ca9-84c1-48f351434ebd','two b','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `tab_shop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,7 +359,7 @@ CREATE TABLE `tab_user` (
 
 LOCK TABLES `tab_user` WRITE;
 /*!40000 ALTER TABLE `tab_user` DISABLE KEYS */;
-INSERT INTO `tab_user` VALUES ('0cc95799-4660-4758-9f7e-0053187eac7a','123','ba','2017-03-17 10:22:22'),('17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','Njupt@123','njuptuser','2017-02-15 00:00:00'),('3b07f71d-50c7-4861-a25d-b598093bf861','98','happy','2017-02-17 00:00:00'),('921c0989-9654-439f-800a-978144c1c2f1','12345','ba23r','2017-02-27 14:18:59'),('996fd11b-817c-4419-9272-7c1e7a3f57b0','12345','bar','2017-02-27 13:29:00');
+INSERT INTO `tab_user` VALUES ('0cc95799-4660-4758-9f7e-0053187eac7a','123','ba','2017-03-17 10:22:22'),('17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','Njupt@123','njuptuser','2017-02-15 00:00:00'),('3b07f71d-50c7-4861-a25d-b598093bf861','98','happy','2017-02-17 00:00:00'),('921c0989-9654-439f-800a-978144c1c2f1','12345','ba23r','2017-02-27 14:18:59'),('981f806c-41bb-45df-a0da-d00a65a5707e','123','admin2','2017-05-04 15:48:41'),('996fd11b-817c-4419-9272-7c1e7a3f57b0','12345','bar','2017-02-27 13:29:00');
 /*!40000 ALTER TABLE `tab_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -395,4 +396,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-15  9:54:06
+-- Dump completed on 2017-05-04 16:18:58
