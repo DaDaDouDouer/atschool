@@ -24,7 +24,7 @@
 
 
 	<select id="selectByName" parameterType="String" resultType="Admin" resultMap="normalAdminResultMap">
-		select * from tab_admin where username like #{username}
+		SELECT * FROM tab_admin WHERE BINARY username = #{username}
 	</select>
 
 

@@ -149,12 +149,11 @@
 		</thead>
 
 		<tbody id="interfaces">
+		
 			<tr class="auth" id="auth-login">
 				<td>一般用户或商家或管理员登录</td>
 				<td>
-					auth/user/login.do<br>
-					auth/seller/login.do<br>
-					auth/admin/login.do
+					auth/login.do
 				</td>
 				<td>post</td>
 				<td>
@@ -172,45 +171,40 @@
 					<pre>
 登录成功
 {
-    "status": 200,
-    "msg": "登录成功",
-    "data": {
-        "id": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
-        "username": "sad",
-        "password": ""
-    },
-    "other": null
+  "status": 200,
+  "msg": "登录成功",
+  "data": {
+    "id": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+    "username": "njuptseller",
+    "password": "",
+    "createTime": 1488177679000
+  },
+  "other": "Seller"
 }
 该用户已登录
 {
-    "status": 200,
-    "msg": "已登录",
-    "data": {
-        "id": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
-        "username": "sad",
-        "password": ""
-    },
-    "other": null
+  "status": 200,
+  "msg": "已登录",
+  "data": {
+    "id": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+    "username": "njuptseller",
+    "password": "",
+    "createTime": 1488177679000
+  },
+  "other": "Seller"
 }
-用户名输入错误
+登陆失败
 {
-    "status": 400,
-    "msg": "用户不存在",
-    "data": null,
-    "other": null
-}
-密码输入错误
-{
-    "status": 400,
-    "msg": "密码错误",
-    "data": null,
-    "other": null
+  "status": 400,
+  "msg": "登陆失败",
+  "data": null,
+  "other": null
 }
 						</pre>
 				</td>
 			</tr>
 			<tr class="auth" id="auth-register">
-				<td>一般用户或商家注册</td>
+				<td>一般用户注册</td>
 				<td>
 					auth/user/register.do<br>
 					auth/seller/register.do
@@ -246,9 +240,7 @@
 			<tr class="auth" id="auth-logout">
 				<td>一般用户或商家或管理员注销</td>
 				<td>
-					auth/user/logout.do<br>
-					auth/seller/logout.do<br>
-					auth/admin/logout.do
+					auth/logout.do
 				</td>
 				<td>get</td>
 				<td>
@@ -469,6 +461,34 @@
 				</td>
 			</tr>
 
+			<tr class="goods" id="goods-update-description">
+				<td>更新某商品的描述</td>
+				<td>
+					goods/updateDescription.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id 商品id</p>
+					<p>description 商品描述</p>
+					<pre>
+{
+	"id":"1",
+	"description":"a new desp2"
+}
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>		
+{
+  "status": 200,
+  "msg": "更新成功",
+  "data": null,
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
 
 
 			<tr class="goods-type" id="goods-type-selet-all">

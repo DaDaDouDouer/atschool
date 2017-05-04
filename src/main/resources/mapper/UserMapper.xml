@@ -49,7 +49,7 @@
 
 
 	<select id="selectByName" parameterType="String" resultType="User">
-		select * from tab_user where username like #{username}
+		SELECT * FROM tab_user WHERE BINARY username = #{username}
 	</select>
 
 	<delete id="deleteById" parameterType="String">

@@ -24,7 +24,7 @@
 
 
 	<select id="selectByName" parameterType="String" resultType="Seller" resultMap="normalSellerResultMap">
-		select * from tab_seller where username like #{username}
+		SELECT * FROM tab_seller WHERE BINARY username = #{username}
 	</select>
 
 
