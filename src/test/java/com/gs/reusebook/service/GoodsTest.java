@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.util.UiReturn;
 import static com.gs.reusebook.util.ReusebookStatic.TABLE_NAME_BOOK;
 
@@ -27,7 +28,7 @@ public class GoodsTest {
 		goodsService = (GoodsService) context.getBean("goodsService");
 	}
 	
-	@Test
+//	@Test
 	public void testSelectAndPagedByName(){
 		
 		List<String> typeIds = new ArrayList<String>();
@@ -49,5 +50,10 @@ public class GoodsTest {
 	public void testGetRealGoods(){
 		UiReturn realGoods = goodsService.getRealGoods("1");
 		System.out.println(realGoods);
+	}
+	
+	@Test
+	public void testUpdateField(){
+		System.out.println(goodsService.updateGoodsField("1", Goods.COLUMN_NAME_DESCRIPTION, "adesp", "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 	}
 }

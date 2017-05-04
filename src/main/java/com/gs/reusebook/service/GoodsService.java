@@ -173,6 +173,31 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		return UiReturn.ok(goods, "获取成功");
 	}
 	
+	/**
+	 * 
+	 * 更新goods中的某个字段
+	 * 
+	 * @param goodsId
+	 * @param columnName
+	 * @param fieldValue
+	 * @param sellerId
+	 * @return
+	 */
+	public UiReturn updateGoodsField(String goodsId, String columnName, String fieldValue, String sellerId){
+		
+		// 校验
+		Goods goods = goodsDao.selectById(goodsId);
+		if(goods == null){
+			return UiReturn.notOk(null, "该商品不存在", REQ_ERROR_400);
+		}
+		if(!sellerId.equals(goods.getSellerId())){
+			return UiReturn.notOk(null, "不能修改其它用户的商品", REQ_ERROR_400);
+		}
+		
+		goodsDao.updateField(goodsId, columnName, fieldValue);
+		
+		return UiReturn.ok(null, "更新成功");
+	}
 	
 	public BookDao getBookDao() {
 		return bookDao;

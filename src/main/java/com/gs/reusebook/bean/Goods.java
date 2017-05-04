@@ -13,6 +13,11 @@ import com.gs.reusebook.bean.base.RealGoods;
  */
 public class Goods {
 
+	/**
+	 * 字段的列名
+	 */
+	public static final String COLUMN_NAME_DESCRIPTION = "description" ;
+	
 	private String id;
 	private String realGoodsId;
 	private String sellerId;
@@ -25,7 +30,7 @@ public class Goods {
 	private String imgUrl;
 	private RealGoods realGoods;
 
-	
+	private String description;
 	
 	
 	public String getId() {
@@ -131,4 +136,17 @@ public class Goods {
 	public RealGoods getRealGoods() {
 		return realGoods;
 	}
+	
+	/**
+	 * 商品的详细描述
+	 * @return
+	 */
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 }

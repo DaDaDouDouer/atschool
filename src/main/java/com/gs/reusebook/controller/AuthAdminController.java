@@ -43,7 +43,6 @@ public class AuthAdminController extends AuthAdminBaseController{
 
 	}
 	
-
 	/**
 	 * 注销操作
 	 */
@@ -52,4 +51,6 @@ public class AuthAdminController extends AuthAdminBaseController{
 	public UiReturn logout(HttpSession session) {
 		return logoutProcess(session);
 	}
+	
+	
 }
