@@ -1,5 +1,9 @@
 package com.gs.reusebook.service;
 
+import static com.gs.reusebook.util.GlobalStatus.REQ_ERROR_400;
+import static com.gs.reusebook.validator.base.ValidatorType.AUTH_PASSWORD;
+import static com.gs.reusebook.validator.base.ValidatorType.AUTH_USERNAME;
+
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -8,22 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.User;
+import com.gs.reusebook.bean.base.AuthBaseBean;
+import com.gs.reusebook.dao.AuthDao;
 import com.gs.reusebook.dao.base.AuthBaseDao;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.service.base.AuthBaseService;
 import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
-import static com.gs.reusebook.validator.base.ValidatorType.*;
-
-import static com.gs.reusebook.util.GlobalStatus.*;
 
 @Service
 public class AuthUserService implements AuthBaseService{
 
 	@Autowired
-	public AuthBaseDao<User> userDao;
-
+	AuthBaseDao<User> userDao;
+	@Autowired
+	AuthDao authDao;
+	
 	/**
 	 * 一般用户注册
 	 * @param username 用户名
@@ -39,8 +44,8 @@ public class AuthUserService implements AuthBaseService{
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
 		
-		// 检查是否重名
-		List<User> usersInDB = userDao.selectByName(username);
+		// TODO 检查是否重名，跨表查
+		List<AuthBaseBean> usersInDB = authDao.selectByName(username);
 		if(usersInDB != null && !usersInDB.isEmpty()){
 			return UiReturn.notOk(null, "名字重复", REQ_ERROR_400);
 		}

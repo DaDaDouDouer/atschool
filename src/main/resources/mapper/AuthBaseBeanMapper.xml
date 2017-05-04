@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 这里要改为某个bean的dao -->
+<mapper namespace="com.gs.reusebook.dao.AuthDao">
+
+	<select id="selectByName" parameterType="String" resultType="Admin" resultMap="normalAuthResultMap">
+		(SELECT 
+		  * 
+		FROM
+		  tab_admin a 
+		WHERE a.username = #{username}) 
+		UNION
+		(SELECT 
+		  * 
+		FROM
+		  tab_user u 
+		WHERE u.username = #{username}) 
+		UNION
+		(SELECT 
+		  * 
+		FROM
+		  tab_seller s 
+		WHERE s.username = #{username})
+	</select>
+
+	<resultMap type="com.gs.reusebook.bean.base.AuthBaseBean" id="normalAuthResultMap">
+		<!-- 用id标签来映射主键字段 -->
+		<id property="id" column="id" />
+		<!-- 用result标签来映射非主键字段 -->
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+</mapper>

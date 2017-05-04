@@ -25,12 +25,12 @@ public class AuthPasswordValidator extends ParamsValidator{
 		}
 		
 		// 格式校验
-		String username = (String) params[0];
+		String password = (String) params[0];
 		/*
 		 *  正则表达式特殊字符在[]中会变为普通字符，除了 \ [ ] : ^ -
 		 *  所以^要转义 
 		 */
-		if(!username.matches("^[\\w_!@#$%\\^&*?.]{6,20}$")){
+		if(!password.matches("^[\\w_!@#$%\\^&*?.]{6,20}$")){
 			return new ValidatorReturnParams(false, "传入参数格式必须符合password格式");
 		}
 		

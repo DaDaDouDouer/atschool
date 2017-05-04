@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.Seller;
+import com.gs.reusebook.bean.base.AuthBaseBean;
+import com.gs.reusebook.dao.AuthDao;
 import com.gs.reusebook.dao.base.AuthBaseDao;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.service.base.AuthBaseService;
@@ -24,6 +26,8 @@ public class AuthSellerService implements AuthBaseService{
 
 	@Autowired
 	public AuthBaseDao<Seller> sellerDao;
+	@Autowired
+	AuthDao authDao;
 
 	/**
 	 * 卖家注册
@@ -40,8 +44,8 @@ public class AuthSellerService implements AuthBaseService{
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
 		
-		// 检查是否重名
-		List<Seller> usersInDB = sellerDao.selectByName(username);
+		// TODO 检查是否重名，跨表查
+		List<AuthBaseBean> usersInDB = authDao.selectByName(username);
 		if(usersInDB != null && !usersInDB.isEmpty()){
 			return UiReturn.notOk(null, "名字重复", REQ_ERROR_400);
 		}
