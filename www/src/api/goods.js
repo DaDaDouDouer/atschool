@@ -17,7 +17,9 @@ export const search = function (conditions) {
 
 export const getGoodsDetail = function (id) {
   return http.post('goods/getRealGoods.do', {id})
-    .then(function (response) {
+    .then(function ({data}) {
+      let response = data
       console.log(response)
+      return response.data
     })
 }

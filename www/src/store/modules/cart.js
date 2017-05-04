@@ -1,5 +1,6 @@
 import API from '../../api'
 import { CART } from '../mutation-types'
+import order from './order'
 
 // initial state
 const state = {
@@ -25,7 +26,9 @@ const getters = {
 // actions
 const actions = {
   addCartItem ({ commit }, item) {
-    commit(CART.ADD, item)
+    return API.cart.add(item).then((goods) => {
+      return goods !== null
+    })
   },
   deleteCartItem ({ commit }, goodsId) {
     commit(CART.DELETE, goodsId)
@@ -44,7 +47,7 @@ const actions = {
       return goodsList
     })
   },
-  createOrder ({commit, state}) {
+  submitGoodsList ({commit, state}) {
     let goodsList = {}
     state.goodsList.forEach((item) => {
       if (item.isSelected) {
@@ -52,17 +55,14 @@ const actions = {
       }
     })
 
-    return API.order.create(goodsList).then((data) => {
-      console.warn('orderCreate', data)
+    return order.actions.createOrder({}, goodsList).then((data) => {
+      console.warn('cart submit', data)
     })
   }
 }
 
 // mutations
 const mutations = {
-  [CART.ADD] (state, item) {
-    state.goodsList.push(item)
-  },
   [CART.DELETE] (state, goodsId) {
     state.goodsList = state.goodsList.filter((item) => {
       return item.goodsId !== goodsId

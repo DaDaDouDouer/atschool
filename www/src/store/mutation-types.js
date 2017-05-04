@@ -9,7 +9,6 @@ export const BOOK = {
 }
 
 export const CART = {
-  ADD: 'ADD',
   DELETE: 'DELETE',
   TOGGLE_ALL_STATUS: 'TOGGLE_ALL_STATUS',
   GET: 'GET'

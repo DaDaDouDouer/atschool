@@ -26,8 +26,8 @@
       <v-container>
         <v-row>
           <v-col xs3 v-for="book in bookList">
-            <v-card horizontal>
-              <v-card-row :img="book.imgUrl" height="200px" class="row"></v-card-row>
+            <v-card   horizontal>
+              <v-card-row :img="book.imgUrl" @click.native="redirectToGoodsDetail(book.id)" height="200px" class="row pointer"></v-card-row>
               <v-card-column width="100px">
                 <v-card-row class="grey--text">
                   <v-card-text>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Search from './Search'
 
 export default {
@@ -91,6 +91,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'redirectToGoodsDetail'
+    ]),
     searchByTypes (e) {
       this.allConditions.types = [{id: e.target.id}]
       this.search()
@@ -163,5 +166,9 @@ export default {
 
 .row {
   flex: 0 1 60%!important;
+}
+
+.pointer {
+  cursor: pointer;
 }
 </style>

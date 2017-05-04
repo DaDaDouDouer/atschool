@@ -1,5 +1,5 @@
 import Router from 'vue-router'
-// import API from '../../api'
+import API from '../../api'
 
 const router = new Router()
 
@@ -15,6 +15,14 @@ const actions = {
   goodsSearch ({ commit }, conditions) {
     conditions = JSON.stringify(conditions)
     router.push(`/search-result?q=${conditions}`)
+  },
+  getGoodsDetail ({ commit }, id) {
+    return API.goods.getGoodsDetail(id).then(goodsDetail => {
+      return goodsDetail
+    })
+  },
+  redirectToGoodsDetail ({ commit }, id) {
+    router.push(`/goods-detail?id=${id}`)
   }
 }
 

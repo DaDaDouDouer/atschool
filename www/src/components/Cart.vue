@@ -43,7 +43,7 @@
   </table>
   <div style="float: right; margin-top: 20px;">
     <p>总计： ￥{{total}}</p>
-    <v-btn primary dark @click.native="createOrder">支付</v-btn>
+    <v-btn primary dark @click.native="submitGoodsList">支付</v-btn>
   </div>
 </div>
 </template>
@@ -84,7 +84,7 @@ export default {
     'toggleAllCartItemStatus',
     'deleteCartItem',
     'updateGoodsList',
-    'createOrder'
+    'submitGoodsList'
   ])},
   watch: {
     goodsList: {

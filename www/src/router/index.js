@@ -6,8 +6,9 @@ import Login from 'components/Login'
 import SignUp from 'components/SignUp'
 import Cart from 'components/Cart'
 import SearchResult from 'components/SearchResult'
+import GoodsDetail from 'components/GoodsDetail'
 
-const pages = {Index, Hello, Login, SignUp, Cart, SearchResult}
+const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail}
 
 Vue.use(Router)
 
