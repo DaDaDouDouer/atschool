@@ -1,16 +1,29 @@
 <template>
   <div class="my-order">
     my-order
+    {{order}}
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'my-order',
+  mounted () {
+    this.getUserOrder().then((order) => {
+      this.order = order
+    })
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      order: null
     }
+  },
+  methods: {
+    ...mapActions([
+      'getUserOrder'
+    ])
   }
 }
 </script>

@@ -14,6 +14,9 @@ const actions = {
   },
   userSignUp ({ commit }, userInfo) {
     return API.user.signUp(userInfo)
+  },
+  updatePassword ({ commit }, fields) {
+    return API.user.updatePassword(fields)
   }
 }
 
