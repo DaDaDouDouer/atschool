@@ -61,7 +61,7 @@ public class OrderController {
 	@NeedUserLogin
 	public UiReturn add(@RequestBody OrderAddParams params, HttpSession session){
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
-		return orderService.insertOrder(userId, params.goodsIdAndCount);
+		return orderService.insertOrder(userId, params.goodsIdAndCount, params.address);
 	}
 	
 	//---------------------------------以下是修改订单状态接口---------------------------------

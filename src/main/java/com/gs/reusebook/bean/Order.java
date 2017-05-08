@@ -17,6 +17,8 @@ public class Order {
 	
 	private int status;
 
+	private String address;
+	
 	private List<OrderItem> orderItems;
 	
 	/*
@@ -61,6 +63,14 @@ public class Order {
 	
 	public List<OrderItem> getOrderItems() {
 		return orderItems;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 }

@@ -175,7 +175,7 @@ CREATE TABLE `tab_goods` (
 
 LOCK TABLES `tab_goods` WRITE;
 /*!40000 ALTER TABLE `tab_goods` DISABLE KEYS */;
-INSERT INTO `tab_goods` VALUES ('1','11','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C',321.2,1,'http://evgetgif.qiniudn.com/C-language-book-2.jpg',4,'a new desp2'),('2','12','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','Java',432.4,5,'http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',13,NULL),('3','13','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C++',439.2,2,'http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',6,NULL),('4','14','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','PHP',32.6,4,'http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',2,NULL);
+INSERT INTO `tab_goods` VALUES ('1','11','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C',321.2,0,'http://evgetgif.qiniudn.com/C-language-book-2.jpg',4,'a new desp2'),('2','12','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','Java',432.4,4,'http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',13,NULL),('3','13','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C++',439.2,2,'http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',6,NULL),('4','14','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','PHP',32.6,4,'http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',2,NULL);
 /*!40000 ALTER TABLE `tab_goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,6 +243,7 @@ CREATE TABLE `tab_order` (
   `user_id` varchar(36) NOT NULL,
   `seller_id` varchar(36) NOT NULL,
   `status` int(16) NOT NULL,
+  `address` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -253,7 +254,7 @@ CREATE TABLE `tab_order` (
 
 LOCK TABLES `tab_order` WRITE;
 /*!40000 ALTER TABLE `tab_order` DISABLE KEYS */;
-INSERT INTO `tab_order` VALUES ('92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','31c0d96d-0e94-4a52-8648-9c39009d5a72',1001),('ad259009-d18a-42e6-898b-8f79d14da0bd','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',1000);
+INSERT INTO `tab_order` VALUES ('ad259009-d18a-42e6-898b-8f79d14da0bd','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',1000,NULL),('b496bf63-e15c-4ba9-944b-b45b7916f94d','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','31c0d96d-0e94-4a52-8648-9c39009d5a72',1000,'jia');
 /*!40000 ALTER TABLE `tab_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +280,7 @@ CREATE TABLE `tab_order_item` (
 
 LOCK TABLES `tab_order_item` WRITE;
 /*!40000 ALTER TABLE `tab_order_item` DISABLE KEYS */;
-INSERT INTO `tab_order_item` VALUES ('34f6ec8d-a855-40d3-b271-3a720b6f23dd','92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c','1',2),('68f72aea-9893-4fa1-aab5-9851b8a7ea3f','92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c','2',3),('c51f00d9-1a47-464a-96e5-bbd8e10734b1','ad259009-d18a-42e6-898b-8f79d14da0bd','3',1),('fb653ed2-f8e3-4346-9bdb-bc9f9279d0f1','ad259009-d18a-42e6-898b-8f79d14da0bd','2',1);
+INSERT INTO `tab_order_item` VALUES ('16929d98-b345-4ccd-b50e-f10f8d4ff740','b496bf63-e15c-4ba9-944b-b45b7916f94d','2',1),('9c95ae7c-d2d3-48e2-8e2d-877669b89e6f','b496bf63-e15c-4ba9-944b-b45b7916f94d','1',1),('c51f00d9-1a47-464a-96e5-bbd8e10734b1','ad259009-d18a-42e6-898b-8f79d14da0bd','3',1),('fb653ed2-f8e3-4346-9bdb-bc9f9279d0f1','ad259009-d18a-42e6-898b-8f79d14da0bd','2',1);
 /*!40000 ALTER TABLE `tab_order_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,4 +397,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-04 16:18:58
+-- Dump completed on 2017-05-08 15:35:07

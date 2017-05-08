@@ -77,7 +77,7 @@ public class OrderService {
 	 * @param goodsIds
 	 * @return
 	 */
-	public UiReturn insertOrder(String userId, Map<String, Integer> goodsIdAndCount){
+	public UiReturn insertOrder(String userId, Map<String, Integer> goodsIdAndCount, String address){
 		
 		// userId参数校验
 		ValidatorReturnParams result = GeneralValidator.validate(PKID, userId);
@@ -102,6 +102,8 @@ public class OrderService {
 		if(!result.isRight){
 			return UiReturn.notOk(null, result2.msg, REQ_ERROR_400);
 		}
+		
+		// TODO address的校验
 		
 		// 获取商品
 		List<Goods> goods = goodsDao.selectByIds(new ArrayList<String>(goodsIdAndCount.keySet()));
@@ -151,6 +153,7 @@ public class OrderService {
 			for(OrderItem orderItem : order.getOrderItems()){
 				orderItemDao.insertOrderItem(orderItem);
 			}
+			order.setAddress(address);
 			orderDao.insertOrder(order);
 		}
 		

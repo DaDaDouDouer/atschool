@@ -68,12 +68,14 @@
 		id,
 		user_id,
 		seller_id,
-		status)
+		status,
+		address)
 		VALUES (
 		#{id},
 		#{userId},
 		#{sellerId},
-		#{status})
+		#{status},
+		#{address})
 	</insert>
 	
 	<resultMap type="com.gs.reusebook.bean.Order" id="orderResultMap">
@@ -81,6 +83,7 @@
 		<result property="userId" column="user_id" />
 		<result property="sellerId" column="seller_id" />
 		<result property="status" column="status" />
+		<result property="address" column="address" />
 		<collection property="orderItems" column="order_id" ofType="com.gs.reusebook.bean.OrderItem">
 			<id property="id" column="order_item_id" />
 			<result property="orderId" column="order_id" />
