@@ -9,3 +9,13 @@ export const create = function (goodsList) {
       return response.data
     })
 }
+
+// 获取用户的订单
+export const getUserOrder = function (goodsList) {
+  return http.get('order/selectAllByUserId.do')
+    .then(function ({data}) {
+      let response = data
+      console.log(response)
+      return response.data
+    })
+}

@@ -14,6 +14,11 @@ const actions = {
       console.warn('orderCreate', data)
       return data
     })
+  },
+  getUserOrder ({commit, state}) {
+    return API.order.getUserOrder().then((order) => {
+      return order
+    })
   }
 }
 
