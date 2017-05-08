@@ -1,9 +1,10 @@
 import http from '../utils/http'
 
 export const login = function (userInfo) {
-  return http.post('auth/user/login.do', userInfo)
-    .then(function (response) {
-      console.log(response)
+  return http.post('auth/login.do', userInfo)
+    .then(function ({data}) {
+      console.log(data)
+      return data.other
     })
 }
 
@@ -11,6 +12,7 @@ export const signUp = function (userInfo) {
   return http.post('auth/user/register.do', userInfo)
     .then(function (response) {
       console.log(response)
+      return null
     })
 }
 

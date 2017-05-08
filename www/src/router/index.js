@@ -11,9 +11,11 @@ import PersonalCenter from 'components/PersonalCenter'
 import ChangePassword from 'components/ChangePassword'
 import ManageReceivingAddress from 'components/ManageReceivingAddress'
 import MyOrder from 'components/MyOrder'
+import Admin from 'components/Admin'
+import Seller from 'components/Seller'
 
 // const personalCenterChildern = {}
-const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder}
+const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller}
 // 配置嵌套子路由
 const routerConfig = {
   PersonalCenter: [
