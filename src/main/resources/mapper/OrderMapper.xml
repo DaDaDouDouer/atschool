@@ -5,15 +5,47 @@
 <mapper namespace="com.gs.reusebook.dao.OrderDao">
 
 	<select id="selectAllBySellerId" parameterType="String" resultType="Order" resultMap="orderResultMap">
-		SELECT o.id id, o.user_id user_id, o.seller_id seller_id, o.status status, i.id order_item_id, i.order_id order_id, i.goods_id goods_id, i.goods_count goods_count
-		FROM tab_order o, tab_order_item i 
-		WHERE seller_id = #{seller_id} AND i.order_id = o.id
+		SELECT 
+		  o.id id,
+		  o.user_id user_id,
+		  o.seller_id seller_id,
+		  o.status STATUS,
+		  i.id order_item_id,
+		  i.order_id order_id,
+		  i.goods_id goods_id,
+		  i.goods_count goods_count,
+		  g.id goods_id_pk,
+		  g.name goods_name,
+		  g.img_url goods_img_url 
+		FROM
+		  tab_order o,
+		  tab_order_item i,
+		  tab_goods g 
+		WHERE o.seller_id = #{seller_id} 
+		  AND i.order_id = o.id 
+		  AND i.goods_id = g.id 
 	</select>
 
 	<select id="selectAllByUserId" parameterType="String" resultType="Order" resultMap="orderResultMap">
-		SELECT o.id id, o.user_id user_id, o.seller_id seller_id, o.status status, i.id order_item_id, i.order_id order_id, i.goods_id goods_id, i.goods_count goods_count
-		FROM tab_order o, tab_order_item i 
-		WHERE user_id = #{user_id} AND i.order_id = o.id
+		SELECT 
+		  o.id id,
+		  o.user_id user_id,
+		  o.seller_id seller_id,
+		  o.status STATUS,
+		  i.id order_item_id,
+		  i.order_id order_id,
+		  i.goods_id goods_id,
+		  i.goods_count goods_count,
+		  g.id goods_id_pk,
+		  g.name goods_name,
+		  g.img_url goods_img_url 
+		FROM
+		  tab_order o,
+		  tab_order_item i,
+		  tab_goods g 
+		WHERE o.user_id = #{user_id} 
+		  AND i.order_id = o.id 
+		  AND i.goods_id = g.id 
 	</select>
 
 	<select id="selectByUserIdAndGoodsId" parameterType="String" resultType="Order" resultMap="orderResultMap">
@@ -54,6 +86,13 @@
 			<result property="orderId" column="order_id" />
 			<result property="goodsId" column="goods_id" />
 			<result property="goodsCount" column="goods_count" />
+			
+			<association property="goods"  javaType="com.gs.reusebook.bean.Goods" >
+				<id property="id" column="goods_id_pk" />
+				<result property="name" column="goods_name" />
+				<result property="imgUrl" column="goods_img_url" />
+			</association>
+			
 		</collection>
 	</resultMap>
 	
