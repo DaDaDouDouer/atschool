@@ -628,8 +628,41 @@
 
 
 
-
-
+			<tr class="user" id="user-get-user-info">
+				<td>修改密码</td>
+				<td>
+					user/getUserInfoInMarketByUserId.do
+				</td>
+				<td>get</td>
+				<td>
+				</td>
+				<td>需要登录</td>
+				<td>
+					<pre>	
+{
+  "status": 200,
+  "msg": "获取个人信息成功",
+  "data": {
+    "id": "2",
+    "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+    "deliveryAddresses": [
+      {
+        "id": "57de927e-e760-468f-b5d2-d61b5827bc56",
+        "userInfoId": "2",
+        "address": "江苏省南京市栖霞区文苑路南京邮电大学"
+      },
+      {
+        "id": "ae226d0c-27cf-4c32-ac4a-b96ac37ac2ab",
+        "userInfoId": "2",
+        "address": "山西省大同市御东新区大同大学"
+      }
+    ]
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
 
 
 			<tr class="user" id="user-update-password">
@@ -1476,11 +1509,6 @@ picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png
 				<td></td>
 				<td>
 					<pre>
-图片
-<xmp>
-html方式：
-<img src="/file/pic/get.do?picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png">
-</xmp>
 					</pre>
 				</td>
 			</tr>
