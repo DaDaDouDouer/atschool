@@ -628,8 +628,41 @@
 
 
 
-
-
+			<tr class="user" id="user-get-user-info">
+				<td>修改密码</td>
+				<td>
+					user/getUserInfoInMarketByUserId.do
+				</td>
+				<td>get</td>
+				<td>
+				</td>
+				<td>需要登录</td>
+				<td>
+					<pre>	
+{
+  "status": 200,
+  "msg": "获取个人信息成功",
+  "data": {
+    "id": "2",
+    "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+    "deliveryAddresses": [
+      {
+        "id": "57de927e-e760-468f-b5d2-d61b5827bc56",
+        "userInfoId": "2",
+        "address": "江苏省南京市栖霞区文苑路南京邮电大学"
+      },
+      {
+        "id": "ae226d0c-27cf-4c32-ac4a-b96ac37ac2ab",
+        "userInfoId": "2",
+        "address": "山西省大同市御东新区大同大学"
+      }
+    ]
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
 
 
 			<tr class="user" id="user-update-password">
@@ -1006,7 +1039,61 @@
 				<td>需要卖家登陆</td>
 				<td>
 					<pre>
-						...
+{
+  "status": 200,
+  "msg": "查询卖家订单成功",
+  "data": [
+    {
+      "id": "92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c",
+      "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "sellerId": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+      "status": 1001,
+      "orderItems": [
+        {
+          "id": "34f6ec8d-a855-40d3-b271-3a720b6f23dd",
+          "orderId": "92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c",
+          "goodsId": "1",
+          "goodsCount": 2,
+          "goods": {
+            "id": "1",
+            "realGoodsId": null,
+            "sellerId": null,
+            "linkTable": null,
+            "name": "C",
+            "price": 0,
+            "count": 0,
+            "via": 0,
+            "types": null,
+            "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg",
+            "realGoods": null,
+            "description": null
+          }
+        },
+        {
+          "id": "68f72aea-9893-4fa1-aab5-9851b8a7ea3f",
+          "orderId": "92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c",
+          "goodsId": "2",
+          "goodsCount": 3,
+          "goods": {
+            "id": "2",
+            "realGoodsId": null,
+            "sellerId": null,
+            "linkTable": null,
+            "name": "Java",
+            "price": 0,
+            "count": 0,
+            "via": 0,
+            "types": null,
+            "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg",
+            "realGoods": null,
+            "description": null
+          }
+        }
+      ]
+    }
+  ],
+  "other": null
+}
 					</pre>
 				</td>
 			</tr>
@@ -1030,20 +1117,48 @@
     {
       "id": "92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c",
       "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
-      "sellerId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
-      "status": 1000,
+      "sellerId": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+      "status": 1001,
       "orderItems": [
         {
           "id": "34f6ec8d-a855-40d3-b271-3a720b6f23dd",
           "orderId": "92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c",
           "goodsId": "1",
-          "goodsCount": 2
+          "goodsCount": 2,
+          "goods": {
+            "id": "1",
+            "realGoodsId": null,
+            "sellerId": null,
+            "linkTable": null,
+            "name": "C",
+            "price": 0,
+            "count": 0,
+            "via": 0,
+            "types": null,
+            "imgUrl": "http://evgetgif.qiniudn.com/C-language-book-2.jpg",
+            "realGoods": null,
+            "description": null
+          }
         },
         {
           "id": "68f72aea-9893-4fa1-aab5-9851b8a7ea3f",
           "orderId": "92b5b1e2-c3b0-4ac8-bf1c-7204e3b67b0c",
           "goodsId": "2",
-          "goodsCount": 3
+          "goodsCount": 3,
+          "goods": {
+            "id": "2",
+            "realGoodsId": null,
+            "sellerId": null,
+            "linkTable": null,
+            "name": "Java",
+            "price": 0,
+            "count": 0,
+            "via": 0,
+            "types": null,
+            "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg",
+            "realGoods": null,
+            "description": null
+          }
         }
       ]
     }
@@ -1476,11 +1591,6 @@ picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png
 				<td></td>
 				<td>
 					<pre>
-图片
-<xmp>
-html方式：
-<img src="/file/pic/get.do?picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png">
-</xmp>
 					</pre>
 				</td>
 			</tr>
