@@ -20,7 +20,7 @@
 		  WHERE b.id = g.`real_goods_id` 
 		    AND g.`id` = tr.`goods_id` 
 		    AND tr.`type_id` = t.`id` 
-		    AND b.name LIKE '%%'
+		    AND b.name LIKE #{name}
 		    AND (
 			    t.`id` IN 
 			    <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
@@ -64,7 +64,7 @@
 		  WHERE b.id = g.`real_goods_id` 
 		    AND g.`id` = tr.`goods_id` 
 		    AND tr.`type_id` = t.`id` 
-		    AND b.name LIKE '%%'
+		    AND b.name LIKE #{name}
 		    AND (
 			    t.`id` IN 
 			    <foreach item="item" index="index" collection="typeIds" open="(" separator="," close=")">
