@@ -14,9 +14,9 @@
   "dependencies": {
     "axios": "^0.15.3",
     "material-design-icons": "^3.0.1",
-    "vue": "^2.1.10",
+    "vue": "^2.3.2",
     "vue-router": "^2.2.0",
-    "vuetify": "^0.10.3",
+    "vuetify": "^0.11.1",
     "vuex": "^2.1.2"
   },
   "devDependencies": {
@@ -71,7 +71,7 @@
     "url-loader": "^0.5.7",
     "vue-loader": "^10.3.0",
     "vue-style-loader": "^2.0.0",
-    "vue-template-compiler": "^2.1.10",
+    "vue-template-compiler": "^2.3.2",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",
