@@ -16,19 +16,24 @@ export const signUp = function (userInfo) {
     })
 }
 
-// 收货地址
+// 获取用户信息
 
-export const getAllAddress = function () {
-  return http.get('auth/user/register.do')
-    .then(function (response) {
+export const getUserInfo = function () {
+  return http.get('user/getUserInfoInMarketByUserId.do')
+    .then(function ({data}) {
+      let response = data
       console.log(response)
+      return response.data
     })
 }
+
+// 收货地址
 
 export const addAddress = function (address) {
   return http.post('user/addAddress.do', {address})
     .then(function (response) {
       console.log(response)
+      return null
     })
 }
 
@@ -36,6 +41,7 @@ export const deleteAddress = function (id) {
   return http.post('user/deleteAddress.do', {id})
     .then(function (response) {
       console.log(response)
+      return null
     })
 }
 
@@ -43,7 +49,9 @@ export const deleteAddress = function (id) {
 
 export const updatePassword = function (fields) {
   return http.post('user/updatePassword.do', fields)
-    .then(function (response) {
+    .then(function ({data}) {
+      let response = data
       console.log(response)
+      return response.data
     })
 }

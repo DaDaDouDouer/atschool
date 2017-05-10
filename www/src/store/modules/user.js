@@ -31,6 +31,15 @@ const actions = {
   },
   updatePassword ({ commit }, fields) {
     return API.user.updatePassword(fields)
+  },
+  getUserInfo ({ commit }, fields) {
+    return API.user.getUserInfo()
+  },
+  addAddress ({ commit }, address) {
+    return API.user.addAddress(address)
+  },
+  deleteAddress ({ commit }, id) {
+    return API.user.deleteAddress(id)
   }
 }
 

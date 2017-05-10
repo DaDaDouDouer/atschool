@@ -17,7 +17,7 @@
     </v-row>
     <v-row>
       <v-col xs2 offset-xs5>
-        <v-btn block primary dark @click.native="updatePassword(fields)">确认更改</v-btn>
+        <v-btn block primary dark @click.native="submit">确认更改</v-btn>
       </v-col>
     </v-row>
   </div>
@@ -53,7 +53,12 @@ export default {
   methods: {
     ...mapActions([
       'updatePassword'
-    ])
+    ]),
+    submit () {
+      this.updatePassword(this.fields).then((response) => {
+        debugger
+      })
+    }
   }
 }
 </script>
