@@ -9,6 +9,7 @@
 		  o.id id,
 		  o.user_id user_id,
 		  o.seller_id seller_id,
+		  s.username seller_name,
 		  o.status STATUS,
 		  i.id order_item_id,
 		  i.order_id order_id,
@@ -19,9 +20,11 @@
 		  g.img_url goods_img_url 
 		FROM
 		  tab_order o,
+		  tab_seller s,
 		  tab_order_item i,
-		  tab_goods g 
-		WHERE o.seller_id = #{seller_id} 
+		  tab_goods g
+		WHERE o.seller_id = "31c0d96d-0e94-4a52-8648-9c39009d5a72" 
+		  AND s.id = o.seller_id
 		  AND i.order_id = o.id 
 		  AND i.goods_id = g.id 
 	</select>
@@ -31,6 +34,7 @@
 		  o.id id,
 		  o.user_id user_id,
 		  o.seller_id seller_id,
+		  s.username seller_name,
 		  o.status STATUS,
 		  i.id order_item_id,
 		  i.order_id order_id,
@@ -41,9 +45,11 @@
 		  g.img_url goods_img_url 
 		FROM
 		  tab_order o,
+		  tab_seller s,
 		  tab_order_item i,
-		  tab_goods g 
-		WHERE o.user_id = #{user_id} 
+		  tab_goods g
+		WHERE o.user_id = "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab" 
+		  AND s.id = o.seller_id
 		  AND i.order_id = o.id 
 		  AND i.goods_id = g.id 
 	</select>
@@ -82,6 +88,7 @@
 		<id property="id" column="id" />
 		<result property="userId" column="user_id" />
 		<result property="sellerId" column="seller_id" />
+		<result property="sellerName" column="seller_name" />
 		<result property="status" column="status" />
 		<result property="address" column="address" />
 		<collection property="orderItems" column="order_id" ofType="com.gs.reusebook.bean.OrderItem">
@@ -104,6 +111,7 @@
 		<id property="id" column="id" />
 		<result property="userId" column="user_id" />
 		<result property="sellerId" column="seller_id" />
+		<result property="sellerName" column="seller_name" />
 		<result property="status" column="status" />
 	</resultMap>
 	

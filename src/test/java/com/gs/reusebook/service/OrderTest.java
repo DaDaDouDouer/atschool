@@ -21,7 +21,7 @@ public class OrderTest {
 		orderService = (OrderService) context.getBean("orderService");
 	}
 	
-	@Test
+//	@Test
 	public void insertOrder(){
 		Map<String, Integer> goodsIdAndCount = new HashMap<String, Integer>();
 		goodsIdAndCount.put("1", 1);
@@ -29,7 +29,7 @@ public class OrderTest {
 		System.out.println(orderService.insertOrder("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab", goodsIdAndCount, "jia"));
 	}
 	
-//	@Test
+	@Test
 	public void getOrder(){
 		System.out.println(orderService.selectAllBySellerId("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 		System.out.println(orderService.selectAllByUserId("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));

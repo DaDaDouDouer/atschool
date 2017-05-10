@@ -14,6 +14,7 @@ public class Order {
 	
 	private String userId;
 	private String sellerId;
+	private String sellerName;
 	
 	private int status;
 
@@ -73,4 +74,11 @@ public class Order {
 		this.address = address;
 	}
 	
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+	
+	public String getSellerName() {
+		return sellerName;
+	}
 }
