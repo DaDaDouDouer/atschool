@@ -10,12 +10,31 @@
 		id,
 		order_id,
 		goods_id,
-		goods_count)
+		goods_count,
+		status
+		)
 		VALUES (
 		#{id},
 		#{orderId},
 		#{goodsId},
-		#{goodsCount})
+		#{goodsCount},
+		#{status})
 	</insert>
 
+	<update id="updateStatus">
+		UPDATE tab_order_item SET status = #{status} WHERE id = #{id}
+	</update>
+	
+	
+	<select id="selectById" parameterType="String" resultType="OrderItem" resultMap="normalOrderItemResultMap">
+		SELECT * FROM tab_order_item WHERE id = #{id}
+	</select>
+	
+	<resultMap type="com.gs.reusebook.bean.OrderItem" id="normalOrderItemResultMap">
+		<id property="id" column="id" />
+		<result property="orderId" column="order_id" />
+		<result property="goodsId" column="goods_id" />
+		<result property="goodsCount" column="goods_count" />
+		<result property="status" column="status" />
+	</resultMap>
 </mapper>

@@ -10,7 +10,10 @@
 		  o.user_id user_id,
 		  o.seller_id seller_id,
 		  s.username seller_name,
-		  o.status STATUS,
+		  u.username user_name,
+		  o.address address,
+		  o.total_price total_price,
+		  o.create_time create_time,
 		  i.id order_item_id,
 		  i.order_id order_id,
 		  i.goods_id goods_id,
@@ -21,10 +24,12 @@
 		FROM
 		  tab_order o,
 		  tab_seller s,
+		  tab_user u,
 		  tab_order_item i,
-		  tab_goods g
-		WHERE o.seller_id = "31c0d96d-0e94-4a52-8648-9c39009d5a72" 
+		  tab_goods g 
+		WHERE o.seller_id = #{sellerId} 
 		  AND s.id = o.seller_id
+		  AND u.id = o.user_id 
 		  AND i.order_id = o.id 
 		  AND i.goods_id = g.id 
 	</select>
@@ -35,7 +40,10 @@
 		  o.user_id user_id,
 		  o.seller_id seller_id,
 		  s.username seller_name,
-		  o.status STATUS,
+		  u.username user_name,
+		  o.address address,
+		  o.total_price total_price,
+		  o.create_time create_time,
 		  i.id order_item_id,
 		  i.order_id order_id,
 		  i.goods_id goods_id,
@@ -46,16 +54,25 @@
 		FROM
 		  tab_order o,
 		  tab_seller s,
+		  tab_user u,
 		  tab_order_item i,
-		  tab_goods g
-		WHERE o.user_id = "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab" 
+		  tab_goods g 
+		WHERE o.user_id = #{userId} 
 		  AND s.id = o.seller_id
+		  AND u.id = o.user_id 
 		  AND i.order_id = o.id 
 		  AND i.goods_id = g.id 
 	</select>
 
 	<select id="selectByUserIdAndGoodsId" parameterType="String" resultType="Order" resultMap="orderResultMap">
-		SELECT o.id id, o.user_id user_id, o.seller_id seller_id, o.status status, i.id order_item_id, i.order_id order_id, i.goods_id goods_id, i.goods_count goods_count
+		SELECT 
+		  o.id id, 
+		  o.user_id user_id, 
+		  o.seller_id seller_id, 
+		  i.id order_item_id, 
+		  i.order_id order_id, 
+		  i.goods_id goods_id, 
+		  i.goods_count goods_count
 		FROM tab_order o, tab_order_item i 
 		WHERE user_id = #{userId} AND i.order_id = o.id AND i.goods_id = #{goodsId}
 	</select>
@@ -64,24 +81,32 @@
 		SELECT * FROM tab_order o WHERE id = #{id}
 	</select>
 
-	<update id="updateStatus">
-		UPDATE tab_order SET status = #{status} WHERE id = #{id}
-	</update>
-
+	<select id="selectByItemId" parameterType="String" resultType="Order" resultMap="normalOrderResultMap">
+		SELECT 
+		  o.*
+		FROM
+		  tab_order o,
+		  tab_order_item oi 
+		WHERE o.id = oi.order_id 
+		  AND oi.id = #{itemId}
+	</select>
+	
 	<insert id="insertOrder" parameterType="Order" keyProperty="id">
 		INSERT INTO
 		tab_order(
 		id,
 		user_id,
 		seller_id,
-		status,
-		address)
+		address,
+		create_time,
+		total_price)
 		VALUES (
 		#{id},
 		#{userId},
 		#{sellerId},
-		#{status},
-		#{address})
+		#{address},
+		#{createTime},
+		#{totalPrice})
 	</insert>
 	
 	<resultMap type="com.gs.reusebook.bean.Order" id="orderResultMap">
@@ -89,8 +114,10 @@
 		<result property="userId" column="user_id" />
 		<result property="sellerId" column="seller_id" />
 		<result property="sellerName" column="seller_name" />
-		<result property="status" column="status" />
+		<result property="userName" column="user_name" />
 		<result property="address" column="address" />
+		<result property="createTime" column="create_time" />
+		<result property="totalPrice" column="total_price" />
 		<collection property="orderItems" column="order_id" ofType="com.gs.reusebook.bean.OrderItem">
 			<id property="id" column="order_item_id" />
 			<result property="orderId" column="order_id" />
@@ -111,8 +138,9 @@
 		<id property="id" column="id" />
 		<result property="userId" column="user_id" />
 		<result property="sellerId" column="seller_id" />
-		<result property="sellerName" column="seller_name" />
-		<result property="status" column="status" />
+		<result property="address" column="address" />
+		<result property="createTime" column="create_time" />
+		<result property="totalPrice" column="total_price" />
 	</resultMap>
 	
 </mapper>
