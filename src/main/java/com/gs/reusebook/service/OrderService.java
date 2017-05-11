@@ -125,21 +125,21 @@ public class OrderService {
 			}
 			// 向卖家的订单里追加订单项
 			Order order = orders.get(sellerId);
-			// 增加总价
-			order.setTotalPrice(order.getTotalPrice() + oneGoods.getPrice() * oneGoods.getCount());
-			
-			OrderItem orderItem = new OrderItem();
-			orderItem.setId(UUID.randomUUID().toString());
-			
-			// 修改库中商品的数量，如果数量不够则不能生成订单
+			// 修改总价
 			String goodsId = oneGoods.getId();
 			int requestCount = goodsIdAndCount.get(goodsId);
+			order.setTotalPrice(order.getTotalPrice() + oneGoods.getPrice() * requestCount);
+			
+			
+			// 修改库中商品的数量，如果数量不够则不能生成订单
 			if(oneGoods.getCount() < requestCount){
 				return UiReturn.notOk("", "商品的数量不够", REQ_ERROR_400);
 			}else{
 				oneGoods.setCount(oneGoods.getCount() - requestCount);
 			}
 			
+			OrderItem orderItem = new OrderItem();
+			orderItem.setId(UUID.randomUUID().toString());
 			orderItem.setStatus(ORDER_STATUS_START);
 			orderItem.setGoodsCount(requestCount);
 			orderItem.setGoodsId(goodsId);

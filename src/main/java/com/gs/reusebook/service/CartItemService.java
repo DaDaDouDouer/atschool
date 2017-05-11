@@ -64,6 +64,9 @@ public class CartItemService {
 		if(cartItems != null && !cartItems.isEmpty()){
 			return UiReturn.notOk("", "不能向购物车中添加重复商品", REQ_ERROR_400);
 		}else{
+			
+			
+			// TODO 数量校验
 			CartItem cartItem = new CartItem();
 			cartItem.setId(UUID.randomUUID().toString());
 			cartItem.setUserId(userId);

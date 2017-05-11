@@ -91,7 +91,7 @@ CREATE TABLE `tab_cart_item` (
 
 LOCK TABLES `tab_cart_item` WRITE;
 /*!40000 ALTER TABLE `tab_cart_item` DISABLE KEYS */;
-INSERT INTO `tab_cart_item` VALUES ('31f96e10-802b-4bd1-b40d-903eeafb5d07','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',12,0),('69ba6683-911c-4ae8-8a25-0ba7129123fc','0cc95799-4660-4758-9f7e-0053187eac7a','3',3,0),('799d15ce-151b-4816-95e3-4c8c03f7683b','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','2',5,1);
+INSERT INTO `tab_cart_item` VALUES ('abe7693c-482f-404d-9a9f-da82a9544c56','0cc95799-4660-4758-9f7e-0053187eac7a','3',2,0),('b9cd18fa-a864-4253-ab85-49193bbaf1c7','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',0,0),('d82dcd9a-0e40-410d-bb5e-b90388bb6539','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','2',4,0);
 /*!40000 ALTER TABLE `tab_cart_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +175,7 @@ CREATE TABLE `tab_goods` (
 
 LOCK TABLES `tab_goods` WRITE;
 /*!40000 ALTER TABLE `tab_goods` DISABLE KEYS */;
-INSERT INTO `tab_goods` VALUES ('1','11','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C',321.2,0,'http://evgetgif.qiniudn.com/C-language-book-2.jpg',4,'a new desp2'),('2','12','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','Java',432.4,4,'http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',13,NULL),('3','13','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C++',439.2,2,'http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',6,NULL),('4','14','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','PHP',32.6,4,'http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',2,NULL);
+INSERT INTO `tab_goods` VALUES ('1','11','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C',321.2,0,'http://evgetgif.qiniudn.com/C-language-book-2.jpg',4,'a new desp2'),('2','12','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','Java',432.4,3,'http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',13,NULL),('3','13','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C++',439.2,2,'http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',6,NULL),('4','14','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','PHP',32.6,4,'http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',2,NULL);
 /*!40000 ALTER TABLE `tab_goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,8 +242,9 @@ CREATE TABLE `tab_order` (
   `id` varchar(36) NOT NULL,
   `user_id` varchar(36) NOT NULL,
   `seller_id` varchar(36) NOT NULL,
-  `status` int(16) NOT NULL,
   `address` varchar(128) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `total_price` double DEFAULT '0' COMMENT '总价',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -254,7 +255,7 @@ CREATE TABLE `tab_order` (
 
 LOCK TABLES `tab_order` WRITE;
 /*!40000 ALTER TABLE `tab_order` DISABLE KEYS */;
-INSERT INTO `tab_order` VALUES ('ad259009-d18a-42e6-898b-8f79d14da0bd','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',1000,NULL),('b496bf63-e15c-4ba9-944b-b45b7916f94d','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','31c0d96d-0e94-4a52-8648-9c39009d5a72',1000,'jia');
+INSERT INTO `tab_order` VALUES ('0306ef42-f64a-4512-960d-095d139981cc','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','31c0d96d-0e94-4a52-8648-9c39009d5a72','jia','2017-05-11 09:47:10',1186),('ad259009-d18a-42e6-898b-8f79d14da0bd','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','31c0d96d-0e94-4a52-8648-9c39009d5a72','xuexiao','2017-05-10 23:51:21',134);
 /*!40000 ALTER TABLE `tab_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,6 +271,7 @@ CREATE TABLE `tab_order_item` (
   `order_id` varchar(36) NOT NULL,
   `goods_id` varchar(36) NOT NULL,
   `goods_count` int(16) NOT NULL,
+  `status` int(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -280,7 +282,7 @@ CREATE TABLE `tab_order_item` (
 
 LOCK TABLES `tab_order_item` WRITE;
 /*!40000 ALTER TABLE `tab_order_item` DISABLE KEYS */;
-INSERT INTO `tab_order_item` VALUES ('16929d98-b345-4ccd-b50e-f10f8d4ff740','b496bf63-e15c-4ba9-944b-b45b7916f94d','2',1),('9c95ae7c-d2d3-48e2-8e2d-877669b89e6f','b496bf63-e15c-4ba9-944b-b45b7916f94d','1',1),('c51f00d9-1a47-464a-96e5-bbd8e10734b1','ad259009-d18a-42e6-898b-8f79d14da0bd','3',1),('fb653ed2-f8e3-4346-9bdb-bc9f9279d0f1','ad259009-d18a-42e6-898b-8f79d14da0bd','2',1);
+INSERT INTO `tab_order_item` VALUES ('3974de48-a93f-4e82-943b-ebbdfd676343','0306ef42-f64a-4512-960d-095d139981cc','2',2,1000),('c51f00d9-1a47-464a-96e5-bbd8e10734b1','ad259009-d18a-42e6-898b-8f79d14da0bd','3',1,NULL),('dcb47ad6-1b73-4cf1-a652-41a6b32102da','0306ef42-f64a-4512-960d-095d139981cc','1',1,1000),('fb653ed2-f8e3-4346-9bdb-bc9f9279d0f1','ad259009-d18a-42e6-898b-8f79d14da0bd','2',1,NULL);
 /*!40000 ALTER TABLE `tab_order_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,7 +362,7 @@ CREATE TABLE `tab_user` (
 
 LOCK TABLES `tab_user` WRITE;
 /*!40000 ALTER TABLE `tab_user` DISABLE KEYS */;
-INSERT INTO `tab_user` VALUES ('0cc95799-4660-4758-9f7e-0053187eac7a','123','ba','2017-03-17 10:22:22'),('17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','Njupt@123','njuptuser','2017-02-15 00:00:00'),('3b07f71d-50c7-4861-a25d-b598093bf861','98','happy','2017-02-17 00:00:00'),('921c0989-9654-439f-800a-978144c1c2f1','12345','ba23r','2017-02-27 14:18:59'),('981f806c-41bb-45df-a0da-d00a65a5707e','123','admin2','2017-05-04 15:48:41'),('996fd11b-817c-4419-9272-7c1e7a3f57b0','12345','bar','2017-02-27 13:29:00');
+INSERT INTO `tab_user` VALUES ('0cc95799-4660-4758-9f7e-0053187eac7a','1234','ba','2017-03-17 10:22:22'),('17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','Njupt@123','njuptuser','2017-02-15 00:00:00'),('3b07f71d-50c7-4861-a25d-b598093bf861','98','happy','2017-02-17 00:00:00'),('921c0989-9654-439f-800a-978144c1c2f1','12345','ba23r','2017-02-27 14:18:59'),('981f806c-41bb-45df-a0da-d00a65a5707e','123','admin2','2017-05-04 15:48:41'),('996fd11b-817c-4419-9272-7c1e7a3f57b0','12345','bar','2017-02-27 13:29:00');
 /*!40000 ALTER TABLE `tab_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -397,4 +399,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-08 15:35:07
+-- Dump completed on 2017-05-11  9:49:07
