@@ -23,9 +23,9 @@ public class CartItemTest {
 		cartItemService = (CartItemService) context.getBean("cartItemService");
 	}
 	
-//	 @Test
+	 @Test
 	public void testAddCartItem(){
-		System.out.println(cartItemService.addToCart("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab","3" , 3));
+		System.out.println(cartItemService.addToCart("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab","3" , 1));
 	}
 	
 
@@ -45,7 +45,7 @@ public class CartItemTest {
 		System.out.println(cartItemService.selectAll("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 	}
 	
-	@Test
+//	@Test
 	public void testUpdateAll(){
 		List<CartItem> cartItems = new ArrayList<CartItem>();
 		CartItem cartItem1 = new CartItem();

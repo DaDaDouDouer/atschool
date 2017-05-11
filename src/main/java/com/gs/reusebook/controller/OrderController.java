@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.bean.Order;
+import com.gs.reusebook.bean.OrderItem;
 import com.gs.reusebook.bean.Seller;
 import com.gs.reusebook.paramsbean.OrderAddParams;
 import com.gs.reusebook.service.OrderService;
@@ -68,57 +69,57 @@ public class OrderController {
 	
 	/**
 	 * 买家确认已支付，需要用户登录
-	 * @param orderParams
+	 * @param orderItemParams
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = "/userPayed", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin
-	public UiReturn add(@RequestBody Order orderParams, HttpSession session){
+	public UiReturn add(@RequestBody OrderItem orderItemParams, HttpSession session){
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
-		return orderService.updateStatus(orderParams.getId(), ORDER_STATUS_PAYED, true, userId);
+		return orderService.updateStatus(orderItemParams.getId(), ORDER_STATUS_PAYED, true, userId);
 	}
 
 	/**
 	 * 卖家确认买家已支付，需要卖家登陆
-	 * @param orderParams
+	 * @param orderItemParams
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = "/userPayedOk", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin(character = Seller.class)
-	public UiReturn userPayedOk(@RequestBody Order orderParams, HttpSession session){
+	public UiReturn userPayedOk(@RequestBody OrderItem orderItemParams, HttpSession session){
 		String sellerId= (String) session.getAttribute(SELLER_ID_SESSION_KEY);
-		return orderService.updateStatus(orderParams.getId(), ORDER_STATUS_PAYED_OK, false, sellerId);
+		return orderService.updateStatus(orderItemParams.getId(), ORDER_STATUS_PAYED_OK, false, sellerId);
 	}
 
 	/**
 	 * 卖家确认已发货，需要卖家登陆
-	 * @param orderParams
+	 * @param orderItemParams
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = "/sellerSended", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin(character = Seller.class)
-	public UiReturn sellerSended(@RequestBody Order orderParams, HttpSession session){
+	public UiReturn sellerSended(@RequestBody OrderItem orderItemParams, HttpSession session){
 		String sellerId= (String) session.getAttribute(SELLER_ID_SESSION_KEY);
-		return orderService.updateStatus(orderParams.getId(), ORDER_STATUS_SENDED, false, sellerId);
+		return orderService.updateStatus(orderItemParams.getId(), ORDER_STATUS_SENDED, false, sellerId);
 	}
 
 	/**
 	 * 买家确认已收货，需要买家登陆
-	 * @param orderParams
+	 * @param orderItemParams
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = "/userReceived", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin
-	public UiReturn userReceived(@RequestBody Order orderParams, HttpSession session){
+	public UiReturn userReceived(@RequestBody OrderItem orderItemParams, HttpSession session){
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
-		return orderService.updateStatus(orderParams.getId(), ORDER_STATUS_END, true, userId);
+		return orderService.updateStatus(orderItemParams.getId(), ORDER_STATUS_END, true, userId);
 	}
 }

@@ -15,7 +15,7 @@ public class CartItem {
 
 	private int goodsCount;
 
-	private boolean isSelected;
+	private boolean isSelected = true;
 
 	private Goods goods;
 
