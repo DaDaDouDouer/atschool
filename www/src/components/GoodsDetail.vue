@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-detail">
+  <v-container class="goods-detail">
     <!-- {{goodsDetail}} -->
     <div class="goods-info">
       <v-card v-if="goodsDetail" horizontal>
@@ -76,7 +76,7 @@
         </v-tab-content>
       </v-tabs>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

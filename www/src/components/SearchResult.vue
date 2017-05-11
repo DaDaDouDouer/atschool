@@ -1,5 +1,5 @@
 <template>
-  <div class="search-result">
+  <v-container class="search-result">
     <search @keywordChange="keywordChange" :keyword="allConditions.keyword"></search>
     <div class="filter">
       <v-row>
@@ -46,7 +46,7 @@
     <div v-else>
       搜索结果为空
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

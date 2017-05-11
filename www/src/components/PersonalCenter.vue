@@ -1,5 +1,5 @@
 <template>
-  <div class="personal-center">
+  <v-container class="personal-center">
     <v-row>
       <v-col xs3>
         <div v-for="button in buttonGroup">
@@ -12,7 +12,7 @@
         <router-view></router-view>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>

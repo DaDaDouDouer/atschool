@@ -1,5 +1,5 @@
 <template>
-<div class="cart">
+<v-container class="cart">
   <table>
     <thead>
       <tr>
@@ -45,7 +45,7 @@
     <p>总计： ￥{{total}}</p>
     <v-btn primary dark @click.native="submitGoodsList">支付</v-btn>
   </div>
-</div>
+</v-container>
 </template>
 
 <script>

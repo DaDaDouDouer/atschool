@@ -8,9 +8,7 @@
     </header>
     <main>
       <v-content>
-        <v-container>
-          <router-view></router-view>
-        </v-container>
+        <router-view></router-view>
       </v-content>
     </main>
     <v-footer class="blue"><app-footer class="blue"></app-footer></v-footer>

@@ -1,12 +1,12 @@
 <template>
-  <v-container class="seller">
-    seller
-  </v-container>
+  <div class="user-manager">
+    user-manager
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'seller',
+  name: 'user-manager',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
