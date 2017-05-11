@@ -138,6 +138,7 @@ public class OrderService {
 				oneGoods.setCount(oneGoods.getCount() - requestCount);
 			}
 			
+			// 构造OrderItem
 			OrderItem orderItem = new OrderItem();
 			orderItem.setId(UUID.randomUUID().toString());
 			orderItem.setStatus(ORDER_STATUS_START);
