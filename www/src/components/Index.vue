@@ -1,5 +1,5 @@
 <template>
-<div class="index">
+<v-container class="index">
   <search></search>
   <div class="menu-container">
     <div v-for="menu in menus">
@@ -25,7 +25,7 @@
   <div class="recommend-book">
 
   </div>
-</div>
+</v-container>
 </template>
 
 <script>

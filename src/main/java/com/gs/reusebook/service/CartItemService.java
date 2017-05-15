@@ -63,17 +63,23 @@ public class CartItemService {
 		List<CartItem> cartItems = cartItemDao.selectByGoodsId(userId, goodsId);
 		if(cartItems != null && !cartItems.isEmpty()){
 			return UiReturn.notOk("", "不能向购物车中添加重复商品", REQ_ERROR_400);
-		}else{
-			CartItem cartItem = new CartItem();
-			cartItem.setId(UUID.randomUUID().toString());
-			cartItem.setUserId(userId);
-			cartItem.setGoodsId(goodsId);
-			cartItem.setGoodsCount(goodsCount);
-			
-			cartItemDao.insertCartItem(cartItem);
-			
-			return UiReturn.ok(cartItem, "添加至购物车成功");
 		}
+		
+		// 数量校验
+		Goods goods = goodsDao.selectById(goodsId);
+		if(goodsCount > goods.getCount()){
+			return UiReturn.notOk("", "商品数量不够，不能添加至购物车", REQ_ERROR_400);
+		}
+		
+		CartItem cartItem = new CartItem();
+		cartItem.setId(UUID.randomUUID().toString());
+		cartItem.setUserId(userId);
+		cartItem.setGoodsId(goodsId);
+		cartItem.setGoodsCount(goodsCount);
+		
+		cartItemDao.insertCartItem(cartItem);
+		
+		return UiReturn.ok(cartItem, "添加至购物车成功");
 		
 	}
 	

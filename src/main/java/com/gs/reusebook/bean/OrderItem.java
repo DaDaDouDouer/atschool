@@ -16,6 +16,8 @@ public class OrderItem {
 	private long goodsCount;
 
 	private Goods goods;
+
+	private int status;
 	
 	public String getId() {
 		return id;
@@ -55,6 +57,14 @@ public class OrderItem {
 	
 	public void setGoods(Goods goods) {
 		this.goods = goods;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 }

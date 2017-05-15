@@ -13,15 +13,19 @@ import ManageReceivingAddress from 'components/ManageReceivingAddress'
 import MyOrder from 'components/MyOrder'
 import Admin from 'components/Admin'
 import Seller from 'components/Seller'
+import UserManager from 'components/UserManager'
 
 // const personalCenterChildern = {}
-const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller}
+const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller, UserManager}
 // 配置嵌套子路由
 const routerConfig = {
   PersonalCenter: [
     'ChangePassword',
     'ManageReceivingAddress',
     'MyOrder'
+  ],
+  Admin: [
+    'UserManager'
   ]
 }
 

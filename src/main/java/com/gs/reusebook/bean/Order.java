@@ -1,5 +1,6 @@
 package com.gs.reusebook.bean;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,10 +16,13 @@ public class Order {
 	private String userId;
 	private String sellerId;
 	private String sellerName;
+	private String userName;
 	
-	private int status;
-
 	private String address;
+	
+	private Date createTime;
+	
+	private double totalPrice = 0.0;
 	
 	private List<OrderItem> orderItems;
 	
@@ -50,13 +54,6 @@ public class Order {
 		this.sellerId = sellerId;
 	}
 
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
 	
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
@@ -80,5 +77,29 @@ public class Order {
 	
 	public String getSellerName() {
 		return sellerName;
+	}
+	
+	public Date getCreateTime() {
+		return createTime;
+	}
+	
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+	
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 }

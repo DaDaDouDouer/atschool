@@ -1,6 +1,7 @@
 package com.gs.reusebook.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,25 +119,29 @@ public class OrderService {
 				order.setId(UUID.randomUUID().toString());
 				order.setOrderItems(new ArrayList<OrderItem>());
 				order.setSellerId(sellerId);
-				order.setStatus(ORDER_STATUS_START);
 				order.setUserId(userId);
 				
 				orders.put(sellerId, order);
 			}
 			// 向卖家的订单里追加订单项
 			Order order = orders.get(sellerId);
-			OrderItem orderItem = new OrderItem();
-			orderItem.setId(UUID.randomUUID().toString());
-			
-			// 修改库中商品的数量，如果数量不够则不能生成订单
+			// 修改总价
 			String goodsId = oneGoods.getId();
 			int requestCount = goodsIdAndCount.get(goodsId);
+			order.setTotalPrice(order.getTotalPrice() + oneGoods.getPrice() * requestCount);
+			
+			
+			// 修改库中商品的数量，如果数量不够则不能生成订单
 			if(oneGoods.getCount() < requestCount){
 				return UiReturn.notOk("", "商品的数量不够", REQ_ERROR_400);
 			}else{
 				oneGoods.setCount(oneGoods.getCount() - requestCount);
 			}
 			
+			// 构造OrderItem
+			OrderItem orderItem = new OrderItem();
+			orderItem.setId(UUID.randomUUID().toString());
+			orderItem.setStatus(ORDER_STATUS_START);
 			orderItem.setGoodsCount(requestCount);
 			orderItem.setGoodsId(goodsId);
 			orderItem.setOrderId(order.getId());
@@ -154,6 +159,7 @@ public class OrderService {
 				orderItemDao.insertOrderItem(orderItem);
 			}
 			order.setAddress(address);
+			order.setCreateTime(new Date());
 			orderDao.insertOrder(order);
 		}
 		
@@ -165,22 +171,22 @@ public class OrderService {
 	 * 修改订单状态。<br>
 	 * 把给定的订单状态修改为目标状态，在修改前会校验是否可以修改。<br>
 	 * 并且还会校验是否是属于给定用户的订单。<br>
-	 * @param orderId
+	 * @param orderItemId
 	 * @param aimStatus
 	 * @param isUser 是用户修改还是商家修改
 	 * @param authId 用户或者商家的id
 	 * @return
 	 */
-	public UiReturn updateStatus(String orderId, Integer aimStatus, boolean isUser, String authId){
+	public UiReturn updateStatus(String orderItemId, Integer aimStatus, boolean isUser, String authId){
 		// 参数校验，isUser不参与校验
 		ValidatorReturnParams result = GeneralValidator.validate(
 				new ValidatorType[]{PKID, INT_POSITIVE, PKID},
-				new Object[]{orderId, aimStatus, authId});
+				new Object[]{orderItemId, aimStatus, authId});
 		if(!result.isRight){
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
 		
-		Order order = orderDao.selectById(orderId);
+		Order order = orderDao.selectByItemId(orderItemId);
 		
 		// null校验
 		if(order == null){
@@ -198,9 +204,10 @@ public class OrderService {
 			}
 		}
 		
+		OrderItem orderItem = orderItemDao.selectById(orderItemId);
 		// 校验是否可以修改状态
-		if(OrderStatusMachine.changeStatus(order.getStatus(), aimStatus)){
-			orderDao.updateStatus(aimStatus, orderId);
+		if(OrderStatusMachine.changeStatus(orderItem.getStatus(), aimStatus)){
+			orderItemDao.updateStatus(aimStatus, orderItemId);
 			return UiReturn.ok("", "修改状态成功");
 		}else{
 			return UiReturn.notOk("", "不能进行这样的订单状态修改", REQ_ERROR_400);

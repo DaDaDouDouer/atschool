@@ -1,6 +1,6 @@
 <template>
-  <div class="example">
-  </div>
+  <v-container class="example">
+  </v-container>
 </template>
 
 <script>
