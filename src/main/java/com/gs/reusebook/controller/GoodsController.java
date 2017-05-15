@@ -80,4 +80,19 @@ public class GoodsController {
 				(goodsParams.getId(), Goods.COLUMN_NAME_DESCRIPTION, goodsParams.getDescription(), sellerId);
 	}
 	
+	/**
+	 * 添加goods
+	 * @param goodsParams
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@NeedUserLogin(character = Seller.class)
+	@ResponseBody
+	public UiReturn addGoods(@RequestBody Goods goodsParams, HttpSession session){
+		
+		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return goodsService.addGoods(goodsParams, sellerId);
+	}
+	
 }

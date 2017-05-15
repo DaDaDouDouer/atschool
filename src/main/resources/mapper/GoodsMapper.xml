@@ -66,7 +66,31 @@
 			#{item}
         </foreach>
 	</select>
-
+	
+	<insert id="insertGoods" parameterType="Goods" keyProperty="id">
+		INSERT INTO 
+		tab_goods(
+		id,
+		real_goods_id,
+		seller_id,
+		link_table,
+		name,
+		price,
+		count,
+		img_url,
+		via) 
+		VALUES(
+		#{id},
+		#{realGoodsId},
+		#{sellerId},
+		#{linkTable},
+		#{name},
+		#{price},
+		#{count},
+		#{imgUrl},
+		#{via})
+	</insert>
+	
 	<resultMap type="com.gs.reusebook.bean.Goods" id="normalGoodsResultMap">
 		<id property="id" column="id" />
 		<result property="realGoodsId" column="real_goods_id" />

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -198,7 +199,18 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		
 		return UiReturn.ok(null, "更新成功");
 	}
-	
+	/**
+	 * 添加goods
+	 * @param goods
+	 * @param sellerId
+	 * @return
+	 */
+	public UiReturn addGoods(Goods goods, String sellerId){
+		goods.setSellerId(sellerId);
+		goods.setId(UUID.randomUUID().toString());
+		goodsDao.insertGoods(goods);
+		return UiReturn.ok(goods, "添加成功");
+	}
 	public BookDao getBookDao() {
 		return bookDao;
 	}

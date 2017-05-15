@@ -95,6 +95,26 @@
 		SELECT * FROM tab_book WHERE id = #{id}
 	</select>
 	
+	<select id="selectByIsbn" resultType="Book" resultMap="normalBookResultMap">
+		SELECT * FROM tab_book WHERE isbn = #{isbn}
+	</select>
+	
+	<insert id="insertBook" parameterType="Evaluation" keyProperty="id">
+		INSERT INTO
+		tab_book(
+		id,
+		name,
+		author,
+		isbn,
+		img_url)
+		VALUES (
+		#{id},
+		#{name},
+		#{author},
+		#{isbn},
+		#{imgUrl})
+	</insert>
+	
 	<resultMap type="com.gs.reusebook.bean.Goods" id="normalGoodsResultMap">
 		<id property="id" column="id" />
 		<result property="realGoodsId" column="real_goods_id" />

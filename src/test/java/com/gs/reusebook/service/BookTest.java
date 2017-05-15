@@ -33,4 +33,5 @@ public class BookTest {
 	public void testGetTypeByLinkTable(){
 		System.out.println(GoodsTypeService.selectByLinkTable("tab_book"));
 	}
+	
 }

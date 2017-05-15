@@ -30,4 +30,6 @@ public interface GoodsDao {
 	
 	public void updateField
 		(@Param("id") String id, @Param("name") String name, @Param("value") Object value);
+	
+	public int insertGoods(Goods goods);
 }

@@ -52,8 +52,22 @@ public class GoodsTest {
 		System.out.println(realGoods);
 	}
 	
-	@Test
+//	@Test
 	public void testUpdateField(){
 		System.out.println(goodsService.updateGoodsField("1", Goods.COLUMN_NAME_DESCRIPTION, "adesp", "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
+	}
+	
+	@Test
+	public void testAddGoods(){
+		Goods goods = new Goods();
+		goods.setCount(1);
+		goods.setId("7");
+		goods.setImgUrl("http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg");
+		goods.setLinkTable("tab_book");
+		goods.setName("测试书籍");
+		goods.setRealGoodsId("14");
+		goods.setPrice(10.2);
+		goods.setVia(0);
+		goodsService.addGoods(goods, "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab");
 	}
 }
