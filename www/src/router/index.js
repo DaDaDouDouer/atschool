@@ -14,9 +14,10 @@ import MyOrder from 'components/MyOrder'
 import Admin from 'components/Admin'
 import Seller from 'components/Seller'
 import UserManager from 'components/UserManager'
+import SellerManager from 'components/SellerManager'
 
 // const personalCenterChildern = {}
-const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller, UserManager}
+const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller, UserManager, SellerManager}
 // 配置嵌套子路由
 const routerConfig = {
   PersonalCenter: [
@@ -25,7 +26,8 @@ const routerConfig = {
     'MyOrder'
   ],
   Admin: [
-    'UserManager'
+    'UserManager',
+    'SellerManager'
   ]
 }
 

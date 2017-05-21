@@ -1,6 +1,6 @@
 <template>
 <v-container class="cart">
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>
@@ -98,7 +98,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 .cart th, .cart td {
   text-align: center;
   padding: 10px;
