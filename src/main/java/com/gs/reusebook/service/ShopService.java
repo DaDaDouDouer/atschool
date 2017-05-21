@@ -1,13 +1,16 @@
 package com.gs.reusebook.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -149,12 +152,11 @@ public class ShopService {
 			return UiReturn.notOk("", "店铺不存在", REQ_ERROR_400);
 		}
 		
-		if(shop.getCarouselStr() == null || "".equals(shop.getCarouselStr())){
-			shop.setCarousel(new ArrayList<Goods>());
-		}else{
-			List<String> carouselIds = new ArrayList<String>(
-					Arrays.asList(shop.getCarouselStr().split(ID_SPLITER)));
-			shop.setCarousel(goodsDao.selectByIds(carouselIds));
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			shop.setCarouselObj(mapper.readValue(shop.getCarouselStr(), Object.class));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 		if(shop.getRecommandStr() == null || "".equals(shop.getRecommandStr())){
@@ -166,6 +168,36 @@ public class ShopService {
 		}
 		
 		return UiReturn.ok(shop, "查询商铺成功");
+	}
+	
+	public UiReturn updateCarousel(List<Map<String,String>> urlAndDescs, String sellerId){
+		
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, sellerId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
+		List<Map<String,String>> urlAndDescsInDB = new ArrayList<Map<String,String>>();
+		// FIXME urlAndDescs 不需要经过参数校验
+		for(Map<String,String> urlAndDesc : urlAndDescs){
+			if(urlAndDesc.containsKey(CAROUSEL_URL) && urlAndDesc.containsKey(CAROUSEL_DESC)){
+				if(StringUtils.isNotEmpty(urlAndDesc.get(CAROUSEL_URL)) && StringUtils.isNotEmpty(urlAndDesc.get(CAROUSEL_DESC))){
+					urlAndDescsInDB.add(urlAndDesc);
+				}
+			}
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String carouselStr = "";
+		try {
+			carouselStr = mapper.writeValueAsString(urlAndDescsInDB);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		shopDao.updateCarousel(carouselStr, sellerId);
+		
+		return UiReturn.ok("", "修改成功");
 	}
 	
 }
