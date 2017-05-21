@@ -54,7 +54,25 @@
               {{orderStatusCodeToText[orderItem.status]}}
             </v-col>
             <v-col xs2 class="text-center" v-if="orderItem.status === 1004">
-              <v-btn small primary dark>添加评论</v-btn>
+              <v-dialog v-model="orderItem.isShowDialog">
+                <v-btn small primary dark slot="activator">添加评论</v-btn>
+                <v-card>
+                  <v-card-row>
+                    <v-card-title>添加评论</v-card-title>
+                  </v-card-row>
+                  <v-card-row>
+                    <v-card-text>
+                      <v-container fluid>
+                        <v-text-field label="评论内容" v-model="evaluation.content" required />
+                      </v-container>
+                    </v-card-text>
+                  </v-card-row>
+                  <v-card-row actions>
+                    <v-btn class="blue--text darken-1" flat @click.native="orderItem.isShowDialog = false">取消</v-btn>
+                    <v-btn class="blue--text darken-1" flat @click.native="(orderItem.isShowDialog = false) || add(orderItem.goodsId)">确认</v-btn>
+                  </v-card-row>
+                </v-card>
+              </v-dialog>
             </v-col>
           </v-card-row>
           <v-divider v-if="order.orderItems.length - index > 1" />
@@ -87,22 +105,35 @@ export default {
   name: 'my-orderList',
   mounted () {
     this.getUserOrder().then((orderList) => {
+      orderList.forEach(order => {
+        order.orderItems = order.orderItems.map(orderItem => {
+          orderItem.isShowDialog = false
+          return orderItem
+        })
+      })
+
       this.orderList = orderList
-      console.log(orderList)
     })
   },
   data () {
     return {
+      isShowDialog: false,
       orderStatusCodeToText,
-      orderList: []
+      orderList: [],
+      evaluation: {
+        goodsId: '',
+        content: ''
+      }
     }
   },
   methods: {
     ...mapActions([
-      'getUserOrder'
+      'getUserOrder',
+      'addEvaluation'
     ]),
-    getOrders () {
-
+    add (goodsId) {
+      this.evaluation.goodsId = goodsId
+      this.addEvaluation(this.evaluation)
     }
   }
 }
