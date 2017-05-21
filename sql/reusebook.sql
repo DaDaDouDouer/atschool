@@ -91,7 +91,7 @@ CREATE TABLE `tab_cart_item` (
 
 LOCK TABLES `tab_cart_item` WRITE;
 /*!40000 ALTER TABLE `tab_cart_item` DISABLE KEYS */;
-INSERT INTO `tab_cart_item` VALUES ('abe7693c-482f-404d-9a9f-da82a9544c56','0cc95799-4660-4758-9f7e-0053187eac7a','3',2,0),('b9cd18fa-a864-4253-ab85-49193bbaf1c7','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',0,0),('d82dcd9a-0e40-410d-bb5e-b90388bb6539','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','2',4,0);
+INSERT INTO `tab_cart_item` VALUES ('3ce00ccc-269f-452d-ac53-7a1c543d7222','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','1',1,0),('9c142036-8a5b-4721-84f8-34a672130c56','0cc95799-4660-4758-9f7e-0053187eac7a','3',2,1),('9d5b12a9-1c15-44d4-ac27-00d6b01820fd','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','2',1,1);
 /*!40000 ALTER TABLE `tab_cart_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +116,7 @@ CREATE TABLE `tab_delivery_address` (
 
 LOCK TABLES `tab_delivery_address` WRITE;
 /*!40000 ALTER TABLE `tab_delivery_address` DISABLE KEYS */;
-INSERT INTO `tab_delivery_address` VALUES ('57de927e-e760-468f-b5d2-d61b5827bc56','2','江苏省南京市栖霞区文苑路南京邮电大学'),('6abd4f8d-3a79-4fb7-b573-add4f449d32c','1','nju'),('ae226d0c-27cf-4c32-ac4a-b96ac37ac2ab','2','山西省大同市御东新区大同大学');
+INSERT INTO `tab_delivery_address` VALUES ('57de927e-e760-468f-b5d2-d61b5827bc56','2','江苏省南京市栖霞区文苑路南京邮电大学'),('9eb86ebf-f93a-41ab-ad44-56414d4222b7','2','山西省大同市御东新区大同大学'),('ae226d0c-27cf-4c32-ac4a-b96ac37ac2ab','2','山西省大同市御东新区大同大学'),('c5e978c5-ad4f-42ac-ad92-ee612bf6027a','1','nanyou');
 /*!40000 ALTER TABLE `tab_delivery_address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,6 +133,7 @@ CREATE TABLE `tab_evaluation` (
   `content` varchar(256) NOT NULL,
   `create_time` datetime NOT NULL,
   `user_id` varchar(36) NOT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -143,7 +144,7 @@ CREATE TABLE `tab_evaluation` (
 
 LOCK TABLES `tab_evaluation` WRITE;
 /*!40000 ALTER TABLE `tab_evaluation` DISABLE KEYS */;
-INSERT INTO `tab_evaluation` VALUES ('6d91f93f-2102-4833-846a-0226a5cbbb6f','3','sdftt65676yut','2017-02-24 18:59:08','0cc95799-4660-4758-9f7e-0053187eac7a'),('8f4b6144-6da8-4d60-b0aa-5a70a5ec3915','','111111是短发当时的分隔符','2017-02-24 19:27:11','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab');
+INSERT INTO `tab_evaluation` VALUES ('49f4c96a-f28d-4b5d-a292-47c4cdf83e3b','1','qewrew4334','2017-05-21 10:06:15','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','njuptuser'),('6d91f93f-2102-4833-846a-0226a5cbbb6f','3','sdftt65676yut','2017-02-24 18:59:08','0cc95799-4660-4758-9f7e-0053187eac7a','ba'),('8f4b6144-6da8-4d60-b0aa-5a70a5ec3915','1','111111是短发当时的分隔符','2017-02-24 19:27:11','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','njuptuser');
 /*!40000 ALTER TABLE `tab_evaluation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,7 +283,7 @@ CREATE TABLE `tab_order_item` (
 
 LOCK TABLES `tab_order_item` WRITE;
 /*!40000 ALTER TABLE `tab_order_item` DISABLE KEYS */;
-INSERT INTO `tab_order_item` VALUES ('3974de48-a93f-4e82-943b-ebbdfd676343','0306ef42-f64a-4512-960d-095d139981cc','2',2,1000),('c51f00d9-1a47-464a-96e5-bbd8e10734b1','ad259009-d18a-42e6-898b-8f79d14da0bd','3',1,NULL),('dcb47ad6-1b73-4cf1-a652-41a6b32102da','0306ef42-f64a-4512-960d-095d139981cc','1',1,1000),('fb653ed2-f8e3-4346-9bdb-bc9f9279d0f1','ad259009-d18a-42e6-898b-8f79d14da0bd','2',1,NULL);
+INSERT INTO `tab_order_item` VALUES ('3974de48-a93f-4e82-943b-ebbdfd676343','0306ef42-f64a-4512-960d-095d139981cc','2',2,1000),('c51f00d9-1a47-464a-96e5-bbd8e10734b1','ad259009-d18a-42e6-898b-8f79d14da0bd','3',1,1000),('dcb47ad6-1b73-4cf1-a652-41a6b32102da','0306ef42-f64a-4512-960d-095d139981cc','1',1,1000),('fb653ed2-f8e3-4346-9bdb-bc9f9279d0f1','ad259009-d18a-42e6-898b-8f79d14da0bd','2',1,1000);
 /*!40000 ALTER TABLE `tab_order_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -399,4 +400,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-11  9:49:07
+-- Dump completed on 2017-05-21 20:10:01

@@ -34,6 +34,7 @@
 		<result property="userId" column="user_id" />
 		<result property="content" column="content" />
 		<result property="createTime" column="create_time" />
+		<result property="username" column="user_name" />
 	</resultMap>
 
 </mapper>

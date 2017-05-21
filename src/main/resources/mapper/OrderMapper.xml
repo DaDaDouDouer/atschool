@@ -18,9 +18,11 @@
 		  i.order_id order_id,
 		  i.goods_id goods_id,
 		  i.goods_count goods_count,
+		  i.status goods_status,
 		  g.id goods_id_pk,
 		  g.name goods_name,
-		  g.img_url goods_img_url 
+		  g.img_url goods_img_url,
+		  g.price goods_price
 		FROM
 		  tab_order o,
 		  tab_seller s,
@@ -48,9 +50,11 @@
 		  i.order_id order_id,
 		  i.goods_id goods_id,
 		  i.goods_count goods_count,
+		  i.status goods_status,
 		  g.id goods_id_pk,
 		  g.name goods_name,
-		  g.img_url goods_img_url 
+		  g.img_url goods_img_url ,
+		  g.price goods_price
 		FROM
 		  tab_order o,
 		  tab_seller s,
@@ -123,11 +127,13 @@
 			<result property="orderId" column="order_id" />
 			<result property="goodsId" column="goods_id" />
 			<result property="goodsCount" column="goods_count" />
+			<result property="status" column="goods_status" />
 			
 			<association property="goods"  javaType="com.gs.reusebook.bean.Goods" >
 				<id property="id" column="goods_id_pk" />
 				<result property="name" column="goods_name" />
 				<result property="imgUrl" column="goods_img_url" />
+				<result property="price" column="goods_price" />
 			</association>
 			
 		</collection>
