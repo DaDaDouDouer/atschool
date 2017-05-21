@@ -125,7 +125,6 @@ public class GoodsTypeService {
 		type.setId(typeId);
 		type.setName(name);
 		type.setBaseName(baseName);
-		type.setBaseName(baseName);
 		type.setBaseId(baseId);
 		type.setLinkTable(linkTable);
 		goodsTypeDao.insert(type);
