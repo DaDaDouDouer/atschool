@@ -1378,9 +1378,19 @@
 				</td>
 				<td>post</td>
 				<td>
-					<p>需要轮播的goodId</p>
+					<p>url 需要轮播的图片url</p>
+					<p>desc 图片描述</p>
 					<pre>
-["1","2","4"]
+[
+	{
+		"url":"qreqwreq.com",
+		"desc":"332143"
+	},
+	{
+		"url":"qreqwreq.com",
+		"desc":"332143"
+	}
+]
 					</pre>
 				</td>
 				<td>需要卖家登陆</td>
@@ -1413,6 +1423,73 @@
 {
   "status": 200,
   "msg": "修改成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="shop" id="shop-add-recommand">
+				<td>添加一个需要推荐的商品</td>
+				<td>
+					shop/addRecommand.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>需要推荐的goodsId</p>
+					<pre>
+{
+	"id":"1"
+}
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改成功",
+  "data": "",
+  "other": null
+}
+若已经添加过了该商品
+{
+  "status": 400,
+  "msg": "已添加该商品",
+  "data": "",
+  "other": null
+}
+
+					</pre>
+				</td>
+			</tr>
+			<tr class="shop" id="shop-remove-recommand">
+				<td>去除一个推荐的商品</td>
+				<td>
+					shop/remoceRecommand.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>需要去除的的goodsId</p>
+					<pre>
+{
+	"id":"1"
+}
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "删除成功",
+  "data": "",
+  "other": null
+}
+若没有添加过该商品
+{
+  "status": 400,
+  "msg": "没有添加过该商品",
   "data": "",
   "other": null
 }
