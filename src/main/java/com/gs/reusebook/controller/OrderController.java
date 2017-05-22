@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.annotation.NeedUserLogin;
-import com.gs.reusebook.bean.Order;
 import com.gs.reusebook.bean.OrderItem;
 import com.gs.reusebook.bean.Seller;
 import com.gs.reusebook.paramsbean.OrderAddParams;

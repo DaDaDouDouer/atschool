@@ -17,6 +17,7 @@ import com.gs.reusebook.util.UiReturn;
 import static com.gs.reusebook.util.ReusebookStatic.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/shop")
@@ -51,11 +52,10 @@ public class ShopController {
 	@RequestMapping(value = "/updateCarousel", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin(character = Seller.class)
-	public UiReturn updateCarousel(@RequestBody List<String> goodsIds, HttpSession session) {
+	public UiReturn updateCarousel(@RequestBody List<Map<String,String>> urlAndDescs, HttpSession session) {
 		
 		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
-		return shopService.updateGoodIds(Shop.CAROUSEL_NAME, goodsIds, sellerId);
-		
+		return shopService.updateCarousel(urlAndDescs, sellerId);
 	}
 	
 	/**

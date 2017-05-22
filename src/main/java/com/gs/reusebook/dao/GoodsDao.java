@@ -20,6 +20,11 @@ public interface GoodsDao {
 	
 	public Integer selectCountBySellerId(String sellerId);
 	
+	/**
+	 * 通过卖家id获取其全部的商品id 
+	 * @param sellerId
+	 * @return
+	 */
 	public List<String> selectIdsBySellerId(String sellerId);
 	
 	public Goods selectById(String id);

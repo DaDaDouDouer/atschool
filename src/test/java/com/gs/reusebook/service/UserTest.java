@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.gs.reusebook.bean.DeliveryAddress;
-import com.gs.reusebook.bean.User;
 
 public class UserTest {
 

@@ -19,13 +19,17 @@
 		goods_id,
 		user_id,
 		content,
-		create_time)
+		create_time,
+		user_name,
+		seller_name)
 		VALUES (
 		#{id},
 		#{goodsId},
 		#{userId},
 		#{content},
-		#{createTime})
+		#{createTime},
+		#{username},
+		#{sellername})
 	</insert>
 	
 	<resultMap type="com.gs.reusebook.bean.Evaluation" id="normalEvaluationMap">
@@ -34,6 +38,8 @@
 		<result property="userId" column="user_id" />
 		<result property="content" column="content" />
 		<result property="createTime" column="create_time" />
+		<result property="username" column="user_name" />
+		<result property="sellername" column="seller_name" />
 	</resultMap>
 
 </mapper>

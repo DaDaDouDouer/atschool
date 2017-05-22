@@ -2,6 +2,8 @@
   <v-container class="goods-detail">
     <!-- {{goodsDetail}} -->
     <div class="goods-info">
+      <h4>商品详情</h4>
+      <v-divider/>
       <v-card v-if="goodsDetail" horizontal>
         <v-card-column class="row">
           <img :src="goodsDetail.imgUrl" :alt="goodsDetail.name" class="goods-img">
@@ -69,9 +71,29 @@
           v-for="(title, index) in tabsTitle"
           :id="'tabs-' + index"
           slot="content"
+          style="min-height: 400px"
         >
-          <v-card>
-            <v-card-text>{{title}}</v-card-text>
+          <v-card v-if="index === 0">
+            商品详情
+          </v-card>
+          <v-card v-else-if="index === 1">
+            <v-list two-line subheader>
+              <v-list-item v-for="evaluation in evaluations" v-bind:key="evaluation.id">
+                <v-list-tile avatar>
+                  <v-row>
+                    <v-col xs3>
+                        {{ evaluation.username }}
+                    </v-col>
+                    <v-col xs9>
+                      <v-list-tile-content>
+                        <v-list-tile-title>{{ evaluation.content }}</v-list-tile-title>
+                        <v-list-tile-sub-title>{{ new Date(evaluation.createTime).toLocaleDateString() }}</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-col>
+                  </v-row>
+                </v-list-tile>
+              </v-list-item>
+            </v-list>
           </v-card>
         </v-tab-content>
       </v-tabs>
@@ -90,6 +112,9 @@ export default {
       this.getGoodsDetail(id).then((goodsDetail) => {
         this.goodsDetail = goodsDetail
       })
+      this.getAllEvaluation(id).then((evaluations) => {
+        this.evaluations = evaluations
+      })
     }
   },
   data () {
@@ -99,7 +124,8 @@ export default {
       tabsTitle: [
         '书籍详情',
         '评论'
-      ]
+      ],
+      evaluations: []
     }
   },
   computed: {
@@ -108,7 +134,8 @@ export default {
     ...mapActions([
       'getGoodsDetail',
       'createOrder',
-      'addCartItem'
+      'addCartItem',
+      'getAllEvaluation'
     ])
   }
 }
@@ -116,6 +143,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.goods-info {
+  margin-bottom: 50px;
+}
+.other {
+  margin-bottom: 100px;
+}
+
 .goods-info dd, .goods-info dt {
   float: left;
 }

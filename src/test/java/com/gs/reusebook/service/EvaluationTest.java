@@ -25,6 +25,6 @@ public class EvaluationTest {
 	
 	@Test
 	public void testAdd(){
-		System.out.println(evaluationService.addEvaluation("0cc95799-4660-4758-9f7e-0053187eac7a", "0cc95799-4660-4758-9f7e-0053187eac7a", "qewrew4334"));
+		System.out.println(evaluationService.addEvaluation("17718c86-e8ca-4a9d-96f3-f1a4a3da04ab", "1", "新加的评论", "njuptuser"));
 	}
 }

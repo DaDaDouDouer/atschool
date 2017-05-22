@@ -1,6 +1,6 @@
 <template>
 <v-container class="cart">
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>
@@ -41,9 +41,26 @@
       </tr>
     </tbody>
   </table>
+  <v-row>
+    <v-col xs2>
+      <v-subheader style="margin-top: 10px; font-size: 20px; text-align: center;">收货地址</v-subheader>
+    </v-col>
+    <v-col xs6>
+      <v-select
+        :items="addressList"
+        v-model="address"
+        label="请选择收货地址"
+        single-line
+        auto
+      ></v-select>
+    </v-col>
+    <v-col xs2 offset-xs2 style="margin-top: 50px;">
+      <p>总计： ￥{{total.toFixed(2)}}</p>
+      <v-btn primary dark @click.native="submitGoodsList(address)">支付</v-btn>
+    </v-col>
+  </v-row>
   <div style="float: right; margin-top: 20px;">
-    <p>总计： ￥{{total}}</p>
-    <v-btn primary dark @click.native="submitGoodsList">支付</v-btn>
+
   </div>
 </v-container>
 </template>
@@ -56,6 +73,7 @@ export default {
   mounted () {
     // 获取商品列表
     this.getGoodsList()
+    this.getReceivingAddress()
   },
   data () {
     return {
@@ -65,7 +83,9 @@ export default {
         '数量',
         '金额',
         '操作'
-      ]
+      ],
+      address: '',
+      addressList: []
     }
   },
   computed: {
@@ -84,8 +104,17 @@ export default {
     'toggleAllCartItemStatus',
     'deleteCartItem',
     'updateGoodsList',
-    'submitGoodsList'
-  ])},
+    'submitGoodsList',
+    'getUserInfo'
+  ]),
+    getReceivingAddress () {
+      this.getUserInfo().then((userInfo) => {
+        this.addressList = userInfo.deliveryAddresses.map(item => {
+          return item.address
+        })
+      })
+    }
+  },
   watch: {
     goodsList: {
       handler: function (val, oldVal) {
@@ -98,7 +127,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 .cart th, .cart td {
   text-align: center;
   padding: 10px;

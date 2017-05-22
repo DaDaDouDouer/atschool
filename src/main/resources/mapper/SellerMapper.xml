@@ -42,6 +42,11 @@
 		DELETE FROM tab_seller WHERE id = #{id}
 	</delete>
 
+
+	<select id="selectByGoodsId" parameterType="String" resultType="Seller" resultMap="normalSellerResultMap">
+		SELECT * FROM tab_seller s,tab_goods g WHERE g.id = #{goodsId} AND s.id = g.seller_id
+	</select>
+
 	<resultMap type="com.gs.reusebook.bean.Seller" id="normalSellerResultMap">
 		<!-- 用id标签来映射主键字段 -->
 		<id property="id" column="id" />
