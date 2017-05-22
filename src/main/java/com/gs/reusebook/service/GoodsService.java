@@ -252,6 +252,27 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		}
 	}
 	
+	public UiReturn updateGoods(String goodsId, Double price, Integer count,String sellerId){
+		Goods goods = goodsDao.selectById(goodsId);
+		if(goods == null || !goods.getSellerId().equals(sellerId))
+			return UiReturn.notOk(null, "不能删除其他卖家的订单", REQ_ERROR_400);
+		
+		String msg = "";
+		if(count >= 0){
+			goodsDao.updateCount(goodsId,count);
+			msg += "更改数量成功！";
+		}
+		else
+			msg += "数量不能小于零！";
+		if(price >= 0){
+			goodsDao.updateField(goodsId, "price", price);
+			msg += "更改价格成功！";
+		}
+		else
+			msg += "价格不能小于零！";
+		
+		return UiReturn.ok(null, msg);
+	}
 	public BookDao getBookDao() {
 		return bookDao;
 	}
