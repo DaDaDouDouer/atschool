@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.filter.GenericFilterBean;
 
 import com.gs.reusebook.annotation.NeedUserLogin;
+import com.gs.reusebook.bean.Admin;
 import com.gs.reusebook.bean.Seller;
 import com.gs.reusebook.bean.User;
 import com.gs.reusebook.bean.base.AuthBaseBean;
@@ -152,6 +153,7 @@ public class LoginCheckFilter extends GenericFilterBean{
 		authBeansLimitedUris = new HashMap<Class<? extends AuthBaseBean>, Set<String>>();
 		authBeansLimitedUris.put(User.class, new HashSet<String>());
 		authBeansLimitedUris.put(Seller.class, new HashSet<String>());
+		authBeansLimitedUris.put(Admin.class, new HashSet<String>());
 
 		for(Class<?> clazz : controllerClasses){
 			

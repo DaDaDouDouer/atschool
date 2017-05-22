@@ -28,6 +28,18 @@
 		SELECT * FROM tab_shop WHERE name = #{name}
 	</select>
 	
+	<select id="selectAndPagedByName" resultType="User" resultMap="normalShopResultMap">
+		SELECT * FROM tab_shop WHERE name like #{name} LIMIT #{offset},#{limit}
+	</select>
+	
+	<select id="selectCountByName" resultType="Integer">
+		SELECT count(*) FROM tab_shop WHERE name LIKE #{name}
+	</select>
+	
+	<update id="updateName" >
+		update tab_shop set name = #{idsStr} where id = #{id}
+	</update>
+	
 	<update id="updateCarousel" >
 		update tab_shop set carousel_str = #{idsStr} where seller_id = #{sellerId}
 	</update>
@@ -35,6 +47,10 @@
 	<update id="updateRecommand" >
 		update tab_shop set recommand_str = #{idsStr} where seller_id = #{sellerId}
 	</update>
+	
+	<delete id="deleteShop" parameterType="String">
+		DELETE FROM tab_shop WHERE id = #{id}
+	</delete>
 	
 	<resultMap type="com.gs.reusebook.bean.Shop" id="normalShopResultMap">
 		<!-- 用id标签来映射主键字段 -->

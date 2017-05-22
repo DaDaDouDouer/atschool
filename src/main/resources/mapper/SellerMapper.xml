@@ -5,6 +5,14 @@
 <!-- 这里要改为某个bean的dao -->
 <mapper namespace="com.gs.reusebook.dao.SellerDao">
 
+	<select id="selectAndPagedByName" resultType="User" resultMap="normalSellerResultMap">
+		SELECT * FROM tab_seller WHERE username like #{username} LIMIT #{offset},#{limit}
+	</select>
+	
+	<select id="selectCountByName" resultType="Integer">
+		SELECT count(*) FROM tab_seller WHERE username LIKE #{username}
+	</select>
+	
 	<insert id="insert" parameterType="Seller" keyProperty="id">
 		insert
 		into
@@ -22,11 +30,17 @@
 		#{createTime})
 	</insert>
 
-
+	<update id="updatePassword">
+		update tab_seller set password = #{password} where id = #{id}
+	</update>
+	
 	<select id="selectByName" parameterType="String" resultType="Seller" resultMap="normalSellerResultMap">
 		SELECT * FROM tab_seller WHERE BINARY username = #{username}
 	</select>
-
+	
+	<delete id="deleteSeller" parameterType="String">
+		DELETE FROM tab_seller WHERE id = #{id}
+	</delete>
 
 	<resultMap type="com.gs.reusebook.bean.Seller" id="normalSellerResultMap">
 		<!-- 用id标签来映射主键字段 -->

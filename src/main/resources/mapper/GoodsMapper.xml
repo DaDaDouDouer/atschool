@@ -91,6 +91,10 @@
 		#{via})
 	</insert>
 	
+	<delete id="deleteGoods" parameterType="String">
+		DELETE FROM tab_goods WHERE id = #{id}
+	</delete>
+	
 	<resultMap type="com.gs.reusebook.bean.Goods" id="normalGoodsResultMap">
 		<id property="id" column="id" />
 		<result property="realGoodsId" column="real_goods_id" />

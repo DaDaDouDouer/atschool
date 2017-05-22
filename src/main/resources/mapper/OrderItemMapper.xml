@@ -30,6 +30,14 @@
 		SELECT * FROM tab_order_item WHERE id = #{id}
 	</select>
 	
+	<select id="selectByOrderId" parameterType="String" resultType="OrderItem" resultMap="normalOrderItemResultMap">
+		SELECT * FROM tab_order_item WHERE order_id = #{id}
+	</select>
+	
+	<delete id="deleteOrderItem" parameterType="String">
+		DELETE FROM tab_order_item WHERE id = #{id}
+	</delete>
+	
 	<resultMap type="com.gs.reusebook.bean.OrderItem" id="normalOrderItemResultMap">
 		<id property="id" column="id" />
 		<result property="orderId" column="order_id" />

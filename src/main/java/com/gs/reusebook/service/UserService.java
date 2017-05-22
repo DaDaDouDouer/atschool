@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.DeliveryAddress;
+import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.bean.User;
 import com.gs.reusebook.bean.UserInfoInMarket;
 import com.gs.reusebook.dao.DeliveryAddressDao;
 import com.gs.reusebook.dao.UserDao;
+import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.CutPageParamsValidator;
 import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
 
@@ -18,6 +21,9 @@ import static com.gs.reusebook.validator.base.ValidatorType.PKID;
 import static com.gs.reusebook.validator.base.ValidatorType.AUTH_PASSWORD;
 import static com.gs.reusebook.validator.base.ValidatorType.STRING_255;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -29,6 +35,24 @@ public class UserService {
 	@Autowired
 	private DeliveryAddressDao deliveryAddressDao;
 	
+	public UiReturn selectAndPagedByName(String username, Integer pageNo, Integer limit){
+				
+		// 获取到可查询到的用户总量
+		int userAllCount = userDao.selectCountByName("%"+ username + "%");
+				
+		// 特殊的分页校验
+		CutPageValidatorReturnParams rst = 
+		CutPageParamsValidator.validate(pageNo, limit, userAllCount);
+	
+		// 分页查询用户
+		List<User> user = userDao.selectAndPagedByName("%"+ username + "%", rst.offset, rst.limit); 
+				
+		// 将查询到的总页数放入other中返回
+		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
+		otherMap.put("pageAllCount", rst.pageAllCount);
+				
+		return UiReturn.ok(user, "获取用户成功", otherMap);		
+	}
 	
 	public UiReturn getUserInfoInMarketByUserId(String userId){
 		// 参数校验
@@ -131,5 +155,22 @@ public class UserService {
 			return UiReturn.notOk(null, "不能删除其他用户的收货地址", REQ_ERROR_400);
 		}
 		
+	}
+	/**
+	 * 根据Id删除user
+	 * @param userId
+	 * @return
+	 */
+	public UiReturn deleteUser(String userId){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID}, 
+				new Object[]{userId});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		userDao.deleteUser(userId);
+		return UiReturn.ok(null, "删除用户成功");
+			
 	}
 }

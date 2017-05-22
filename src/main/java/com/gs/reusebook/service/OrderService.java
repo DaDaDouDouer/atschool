@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,11 @@ import com.gs.reusebook.bean.OrderItem;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.OrderDao;
 import com.gs.reusebook.dao.OrderItemDao;
+import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.OrderStatusMachine;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.CutPageParamsValidator;
 import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
 
@@ -38,7 +41,20 @@ public class OrderService {
 	@Autowired
 	private GoodsDao goodsDao;
 	
-	
+	public UiReturn selectAndPagedById(String orderId, Integer pageNo, Integer limit) {
+
+		int orderAllCount = orderDao.selectCountById("%" + orderId + "%");
+		// 特殊的分页校验
+		CutPageValidatorReturnParams rst = CutPageParamsValidator.validate(pageNo, limit, orderAllCount);
+
+		List<Order> order = orderDao.selectAndPagedById("%" + orderId + "%", rst.offset, rst.limit);
+
+		// 将查询到的总页数放入other中返回
+		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
+		otherMap.put("pageAllCount", rst.pageAllCount);
+
+		return UiReturn.ok(order, "获取订单成功", otherMap);
+	}
 	
 	/**
 	 * 查询某卖家的所有订单
@@ -212,5 +228,26 @@ public class OrderService {
 		}else{
 			return UiReturn.notOk("", "不能进行这样的订单状态修改", REQ_ERROR_400);
 		}
+	}
+	
+	public UiReturn deleteOrder(String orderId){
+		// 参数校验，isUser不参与校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID},
+				new Object[]{orderId});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		Order order = orderDao.selectById(orderId);
+		if(order != null && order.getId() != null && !order.getId().isEmpty()){
+			List<OrderItem> orderItems = orderItemDao.selectByOrderId(order.getId());
+			if(orderItems != null){
+				for(OrderItem item : orderItems){
+					orderItemDao.deleteOrderItem(item.getId());
+				}
+			}
+		}
+		orderDao.deleteOrder(orderId);
+		return UiReturn.ok(null, "删除订单成功");
 	}
 }

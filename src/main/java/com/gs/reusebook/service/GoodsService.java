@@ -25,6 +25,7 @@ import com.gs.reusebook.validator.base.ValidatorType;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
 import static com.gs.reusebook.util.ReusebookStatic.DEFAULT_TYPE_ID;
+import static com.gs.reusebook.validator.base.ValidatorType.PKID;
 
 @Service
 public class GoodsService implements ServiceWhichUseDaoPool{
@@ -211,6 +212,46 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		goodsDao.insertGoods(goods);
 		return UiReturn.ok(goods, "添加成功");
 	}
+	/**
+	 * 根据Id删除商品,不做用户验证
+	 * @param goodsId
+	 * @return
+	 */
+	public UiReturn deleteGoods(String goodsId){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID}, 
+				new Object[]{goodsId});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		goodsDao.deleteGoods(goodsId);
+		return UiReturn.ok(null, "删除商品成功");
+	}
+	
+	/**
+	 * 根据Id删除商品，做用户验证，卖家只有属于自己的订单才能删除
+	 * @param goodsId
+	 * @return
+	 */
+	public UiReturn deleteGoods(String goodsId, String sellerId){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID,PKID}, 
+				new Object[]{goodsId,sellerId});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		Goods goods = goodsDao.selectById(goodsId);
+		if(goods != null && goods.getSellerId().equals(sellerId)){
+			goodsDao.deleteGoods(goodsId);
+			return UiReturn.ok(null, "删除商品成功");
+		}
+		else{
+			return UiReturn.notOk(null, "不能删除其他卖家的订单", REQ_ERROR_400);
+		}
+	}
+	
 	public BookDao getBookDao() {
 		return bookDao;
 	}

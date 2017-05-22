@@ -95,4 +95,18 @@ public class GoodsController {
 		return goodsService.addGoods(goodsParams, sellerId);
 	}
 	
+	/**
+	 * 删除goods
+	 * @param goodsParams
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@NeedUserLogin(character = Seller.class)
+	@ResponseBody
+	public UiReturn deleteGoods(@RequestBody Goods goodsParams,HttpSession session){
+		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return goodsService.deleteGoods(goodsParams.getId(),sellerId);
+	}
+	
 }

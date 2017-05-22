@@ -32,4 +32,6 @@ public interface GoodsDao {
 		(@Param("id") String id, @Param("name") String name, @Param("value") Object value);
 	
 	public int insertGoods(Goods goods);
+	
+	public void deleteGoods(String id);
 }
