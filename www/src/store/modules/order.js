@@ -9,8 +9,8 @@ const getters = {}
 
 // actions
 const actions = {
-  createOrder ({commit, state}, goodsList) {
-    return API.order.create(goodsList).then((data) => {
+  createOrder ({commit, state}, order) {
+    return API.order.create(order).then((data) => {
       console.warn('orderCreate', data)
       return data
     })

@@ -47,7 +47,7 @@ const actions = {
       return goodsList
     })
   },
-  submitGoodsList ({commit, state}) {
+  submitGoodsList ({commit, state}, address) {
     let goodsList = {}
     state.goodsList.forEach((item) => {
       if (item.isSelected) {
@@ -55,7 +55,7 @@ const actions = {
       }
     })
 
-    return order.actions.createOrder({}, goodsList).then((data) => {
+    return order.actions.createOrder({}, {goodsIdAndCount: goodsList, address}).then((data) => {
       console.warn('cart submit', data)
     })
   }
