@@ -2,11 +2,6 @@
   <div class="admin">
     <v-row>
       <v-col xs2>
-        <!-- <div v-for="item in menu">
-          <a :href="'#/' + item.path">
-            <v-btn block dark large class="teal" >{{item.text}}</v-btn>
-          </a>
-        </div> -->
         <v-sidebar :value="true" height="auto">
           <v-list dense>
             <template v-for="(item,i) in itemGroup">
@@ -20,7 +15,7 @@
                   </v-list-tile>
                 </v-list-item>
                 <v-list-item v-for="(subItem,i) in item.items" :key="i">
-                  <v-list-tile :href="'#/' + item.path" ripple>
+                  <v-list-tile :href="'#/' + subItem.path" ripple>
                     <v-list-tile-title v-text="subItem.title" />
                   </v-list-tile>
                 </v-list-item>
@@ -58,38 +53,22 @@ export default {
         path: 'seller-manager',
         items: [{
           title: '查看卖家',
-          path: ''
+          path: 'seller-manager'
         }, {
           title: '修改卖家信息',
-          path: ''
+          path: 'update-seller'
         }, {
           title: '添加卖家',
-          path: ''
+          path: 'add-seller'
         }]
       }, {
         title: '店铺管理',
-        path: ''
-      }, {
-        title: '商品管理',
-        path: ''
-      }, {
-        title: '订单管理',
-        path: ''
-      }],
-      menu: [{
-        text: '用户管理',
-        path: 'user-manager'
-      }, {
-        text: '卖家管理',
-        path: 'seller-manager'
-      }, {
-        text: '店铺管理',
         path: 'shop-manager'
       }, {
-        text: '商品管理',
+        title: '商品管理',
         path: 'goods-manager'
       }, {
-        text: '订单管理',
+        title: '订单管理',
         path: 'order-manager'
       }]
     }

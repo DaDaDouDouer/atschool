@@ -15,9 +15,14 @@ import Admin from 'components/Admin'
 import Seller from 'components/Seller'
 import UserManager from 'components/UserManager'
 import SellerManager from 'components/SellerManager'
+import UpdateSeller from 'components/UpdateSeller'
+import AddSeller from 'components/AddSeller'
+import ShopManager from 'components/ShopManager'
+import GoodsManager from 'components/GoodsManager'
+import OrderManager from 'components/OrderManager'
 
 // const personalCenterChildern = {}
-const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller, UserManager, SellerManager}
+const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller, UserManager, SellerManager, UpdateSeller, AddSeller, ShopManager, GoodsManager, OrderManager}
 // 配置嵌套子路由
 const routerConfig = {
   PersonalCenter: [
@@ -27,7 +32,12 @@ const routerConfig = {
   ],
   Admin: [
     'UserManager',
-    'SellerManager'
+    'SellerManager',
+    'UpdateSeller',
+    'AddSeller',
+    'ShopManager',
+    'GoodsManager',
+    'OrderManager'
   ]
 }
 
