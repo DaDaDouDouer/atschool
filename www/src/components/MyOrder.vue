@@ -83,7 +83,7 @@
             总计：{{order.totalPrice}}元
           </v-col>
           <v-col xs8>
-            购买时间：{{order.createTime}}
+            购买时间：{{(new Date(order.createTime)).toLocaleDateString()}}
           </v-col>
         </v-card-row>
         <v-divider/>
