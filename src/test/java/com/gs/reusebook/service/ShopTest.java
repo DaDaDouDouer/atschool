@@ -38,8 +38,18 @@ public class ShopTest {
 				);
 	}
 	
-	@Test
+//	@Test
 	public void testGet(){
 		System.out.println(shopService.getBySellerId("31c0d96d-0e94-4a52-8648-9c39009d5a72"));
+	}
+	
+	@Test
+	public void testAddRecommand(){
+		System.out.println(shopService.addRecommand("4", "31c0d96d-0e94-4a52-8648-9c39009d5a72"));
+	}
+
+//	@Test
+	public void testRemoveRecommand(){
+		System.out.println(shopService.removeRecommand("4", "31c0d96d-0e94-4a52-8648-9c39009d5a72"));
 	}
 }

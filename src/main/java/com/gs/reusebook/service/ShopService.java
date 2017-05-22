@@ -80,6 +80,67 @@ public class ShopService {
 		return UiReturn.ok("", "创建成功");
 	}
 	
+	public UiReturn addRecommand(String goodsId, String sellerId){
+		
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, PKID}, new Object[]{goodsId, sellerId});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
+		Shop shop = shopDao.selectBySellerId(sellerId);
+		String recommandStr = shop.getRecommandStr();
+		Set<String> recommandList = new HashSet<String>(Arrays.asList(recommandStr.split(ID_SPLITER)));
+		
+		if(recommandList.contains(goodsId)){
+			return UiReturn.notOk(null, "已添加该商品", REQ_ERROR_400);
+		}else{
+			recommandList.add(goodsId);
+		}
+		
+		// 拼合goodId字符串，空格分隔（为了便于trim）
+		StringBuffer goodsIdSB = new StringBuffer();
+		for(String goodId : recommandList){
+			goodsIdSB.append(goodId + ID_SPLITER);
+		}
+		// 去掉最后一个空格
+		String finalRecommandStr = goodsIdSB.toString().trim();
+		
+		shopDao.updateRecommand(finalRecommandStr, sellerId);
+		
+		return UiReturn.ok("", "添加成功");
+	}
+
+	public UiReturn removeRecommand(String goodsId, String sellerId){
+		
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, PKID}, new Object[]{goodsId, sellerId});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
+		Shop shop = shopDao.selectBySellerId(sellerId);
+		String recommandStr = shop.getRecommandStr();
+		Set<String> recommandList = new HashSet<String>(Arrays.asList(recommandStr.split(ID_SPLITER)));
+
+		if(recommandList.contains(goodsId)){
+			recommandList.remove(goodsId);
+		}else{
+			return UiReturn.notOk(null, "没有添加过该商品", REQ_ERROR_400);
+		}
+		
+		// 拼合goodId字符串，空格分隔（为了便于trim）
+		StringBuffer goodsIdSB = new StringBuffer();
+		for(String goodId : recommandList){
+			goodsIdSB.append(goodId + ID_SPLITER);
+		}
+		// 去掉最后一个空格
+		String finalRecommandStr = goodsIdSB.toString().trim();
+		
+		shopDao.updateRecommand(finalRecommandStr, sellerId);
+		
+		return UiReturn.ok("", "删除成功");
+	}
 	/**
 	 * 更新某个字段的字段值
 	 * @param fieldName

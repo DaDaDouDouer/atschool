@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.annotation.NeedUserLogin;
+import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.bean.Seller;
 import com.gs.reusebook.bean.Shop;
 import com.gs.reusebook.service.ShopService;
@@ -74,6 +75,37 @@ public class ShopController {
 		
 	}
 	
+	/**
+	 * 添加一个推荐商品
+	 * @param goodsParam
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/addRecommand", method = RequestMethod.POST)
+	@ResponseBody
+	@NeedUserLogin(character = Seller.class)
+	public UiReturn addRecommand(@RequestBody Goods goodsParam, HttpSession session) {
+		
+		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return shopService.addRecommand(goodsParam.getId(), sellerId);
+		
+	}
+	
+	/**
+	 * 去除一个推荐商品
+	 * @param goodsParam
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/removeRecommand", method = RequestMethod.POST)
+	@ResponseBody
+	@NeedUserLogin(character = Seller.class)
+	public UiReturn remoceRecommand(@RequestBody Goods goodsParam, HttpSession session) {
+		
+		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return shopService.removeRecommand(goodsParam.getId(), sellerId);
+		
+	}
 
 	/**
 	 * 卖家获取自己全部的商铺信息
