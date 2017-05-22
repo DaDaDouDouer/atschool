@@ -38,7 +38,7 @@ public class ManagerGoodsController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	//@NeedUserLogin(character = Admin.class)
+	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn deleteGoods(@RequestBody Goods goodsParams){
 		return goodsService.deleteGoods(goodsParams.getId());

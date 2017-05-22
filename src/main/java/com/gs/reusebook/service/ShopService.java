@@ -215,6 +215,8 @@ public class ShopService {
 		return UiReturn.ok(null, "更改店铺名成功");
 	}
 	public UiReturn selectAndPagedByName(String name, Integer pageNo, Integer limit){
+		if(name == null)
+			name = "";
 		// 获取到可查询到的店铺总量
 		int shopAllCount = shopDao.selectCountByName("%"+ name + "%");
 						
@@ -229,7 +231,7 @@ public class ShopService {
 		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
 		otherMap.put("pageAllCount", rst.pageAllCount);
 						
-		return UiReturn.ok(shop, "获取用户成功", otherMap);	
+		return UiReturn.ok(shop, "获取店铺成功", otherMap);	
 	}
 	public UiReturn deleteShop(String shopId){
 		// 参数校验

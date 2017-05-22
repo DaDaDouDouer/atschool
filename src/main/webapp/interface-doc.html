@@ -47,6 +47,10 @@
 			background-color: #BC8F8F
 		}
 		
+		tr.manager {
+			background-color: #46A3FF
+		}
+		
 		td.pre {
 			width: 100%
 		}
@@ -1605,6 +1609,504 @@ picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png
 				<td></td>
 				<td>
 					<pre>
+					</pre>
+				</td>
+			</tr>
+
+			<tr class="manager" id="manager-user-search">
+				<td>分页获取普通用户</td>
+				<td>manager-user/search.do</td>
+				<td>post</td>
+				<td>
+					<p>keyword 搜索关键字，根据用户名搜索（获取全部普通用户，请不要加此字段）</p>
+					<p>pageNo 页数</p>
+					<p>limit 每页条数</p>
+					<pre>
+{
+	"keyword":"a", 
+	"pageNo":2, 
+	"limit": 2 
+}
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "获取用户成功",
+  "data": [
+    {
+      "id": "921c0989-9654-439f-800a-978144c1c2f1",
+      "username": "ba23r",
+      "password": "12345",
+      "createTime": 1488176339000,
+      "cartItems": [
+        {
+          "id": "921c0989-9654-439f-800a-978144c1c2f1",
+          "userId": null,
+          "goodsId": null,
+          "goodsCount": 0,
+          "isSelected": true,
+          "goods": {
+            "id": "921c0989-9654-439f-800a-978144c1c2f1",
+            "realGoodsId": null,
+            "sellerId": null,
+            "linkTable": null,
+            "name": null,
+            "price": 0,
+            "count": 0,
+            "via": 0,
+            "types": null,
+            "imgUrl": null,
+            "realGoods": null,
+            "description": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "981f806c-41bb-45df-a0da-d00a65a5707e",
+      "username": "admin2",
+      "password": "123",
+      "createTime": 1493884121000,
+      "cartItems": [
+        {
+          "id": "981f806c-41bb-45df-a0da-d00a65a5707e",
+          "userId": null,
+          "goodsId": null,
+          "goodsCount": 0,
+          "isSelected": true,
+          "goods": {
+            "id": "981f806c-41bb-45df-a0da-d00a65a5707e",
+            "realGoodsId": null,
+            "sellerId": null,
+            "linkTable": null,
+            "name": null,
+            "price": 0,
+            "count": 0,
+            "via": 0,
+            "types": null,
+            "imgUrl": null,
+            "realGoods": null,
+            "description": null
+          }
+        }
+      ]
+    }
+  ],
+  "other": {
+    "pageAllCount": 3
+  }
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-user-delete">
+				<td>删除普通用户</td>
+				<td>manager-user/delete.do</td>
+				<td>post</td>
+				<td>
+					<p>id用户id</p>
+					<pre>
+{
+	"id":"3b07f71d-50c7-4861-a25d-b598093bf861"
+}					
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td><pre>
+{
+  "status": 200,
+  "msg": "删除用户成功",
+  "data": null,
+  "other": null
+}
+					</pre></td>
+			</tr>
+			<tr class="manager" id="manager-seller-add">
+				<td>增加卖家</td>
+				<td>
+					manager-seller/add.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>username:卖家名</p>
+					<p>password:卖家密码</p>
+					<pre>
+{
+	"username":"abc",
+	"password":"123"
+}
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "注册成功",
+  "data": {
+    "id": "d2057395-0b7e-4e41-9841-94af9066b4c4",
+    "username": "abc",
+    "password": "",
+    "createTime": 1495456194643
+  },
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-seller-delete">
+				<td>删除卖家</td>
+				<td>
+					manager-seller/delete.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id：卖家id</p>
+					<pre>
+{
+	"id": "f6fc289e-f6fd-44d6-9879-c90acae24291"
+}
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "删除卖家成功",
+  "data": null,
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-seller-updatePassword">
+				<td>更改卖家密码</td>
+				<td>
+					manager-seller/updatePassword.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id：卖家id</p>
+					<p>password：新密码</p>
+					<pre>
+{
+	"id":"31c0d96d-0e94-4a52-8648-9c39009d5a72",
+	"password":"123"
+}
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "修改成功",
+  "data": null,
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-seller-search">
+				<td>搜索卖家</td>
+				<td>
+					manager-seller/search.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>keyword 搜索关键字，根据卖家名搜索（获取全部卖家，请不要加此字段）</p>
+					<p>pageNo 页数</p>
+					<p>limit 每页条数</p>
+					<pre>
+{
+	"keyword":"a", 
+	"pageNo":1, 
+	"limit": 2 
+}
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "获取卖家成功",
+  "data": [
+    {
+      "id": "1ad422e9-705c-4059-9ab4-5d49834d68df",
+      "username": "abcd",
+      "password": "123",
+      "createTime": 1495456161000
+    },
+    {
+      "id": "5f97d096-0c09-4906-bc26-c556c772e4a4",
+      "username": "asellader",
+      "password": "12345",
+      "createTime": 1488177763000
+    }
+  ],
+  "other": {
+    "pageAllCount": 2
+  }
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-shop-delete">
+				<td>删除店铺</td>
+				<td>
+					manager-shop/delete.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id：店铺id</p>
+					<pre>
+{					
+	"id":"f2a24593-b857-4ca9-84c1-48f351434ebd"					
+}
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "删除店铺成功",
+  "data": null,
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-shop-updateName">
+				<td>更改店铺名</td>
+				<td>
+					manager-shop/updateName.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id：店铺id</p>
+					<p>name:新店铺名</p>
+					<pre>
+{
+	"id":"e13cd0fa-225f-42d6-a970-ade9ba412f5b",
+	"name":"four shop"
+}
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "更改店铺名成功",
+  "data": null,
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-shop-search">
+				<td>搜索店铺</td>
+				<td>
+					manager-shop/search.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>keyword 搜索关键字，根据店铺名搜索（获取全部店铺，请不要加此字段）</p>
+					<p>pageNo 页数</p>
+					<p>limit 每页条数</p>
+					<pre>
+{
+	"keyword":"t", 
+	"pageNo":1, 
+	"limit": 2 
+}
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "获取店铺成功",
+  "data": [
+    {
+      "id": "e13cd0fa-225f-42d6-a970-ade9ba412f5b",
+      "sellerId": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+      "name": "two shop",
+      "imgUrl": null,
+      "carouselObj": null,
+      "carouselStr": "[{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"},{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"}]",
+      "carousel": null,
+      "recommandStr": "1 2 4",
+      "recommand": null
+    }
+  ],
+  "other": {
+    "pageAllCount": 1
+  }
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-goods-delete">
+				<td>删除商品</td>
+				<td>
+					manager-goods/delete.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id：商品id</p>
+					<pre>
+{
+	"id":"1"
+}
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "删除商品成功",
+  "data": null,
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-goods-search">
+				<td>查询商品</td>
+				<td>
+					manager-goods/search.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>格式和goods/search.do相同，请参照goods search。若想查询全部商品，请求时删除keyword字段即可</p>
+					<pre>
+					</pre>
+				</td>
+				<td></td>
+				<td>
+					<pre>
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-order-delete">
+				<td>删除订单</td>
+				<td>
+					manager-order/delete.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id:订单id</p>
+					<pre>
+{
+	"id":"0306ef42-f64a-4512-960d-095d139981cc"
+}
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "删除订单成功",
+  "data": null,
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="manager" id="manager-order-search">
+				<td>查询订单</td>
+				<td>
+					manager-order/search.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>keyword 搜索关键字，根据订单号搜索（获取全部订单，请不要加此字段）</p>
+					<p>pageNo 页数</p>
+					<p>limit 每页条数</p>
+					<pre>
+{
+	"keyword":"2", 
+	"pageNo":1, 
+	"limit": 2
+}
+					</pre>
+				</td>
+				<td>需要管理员登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "获取订单成功",
+  "data": [
+    {
+      "id": "ad259009-d18a-42e6-898b-8f79d14da0bd",
+      "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "sellerId": "31c0d96d-0e94-4a52-8648-9c39009d5a72",
+      "sellerName": "njuptseller",
+      "userName": "njuptuser",
+      "address": "xuexiao",
+      "createTime": 1494431481000,
+      "totalPrice": 134,
+      "orderItems": [
+        {
+          "id": "fb653ed2-f8e3-4346-9bdb-bc9f9279d0f1",
+          "orderId": "ad259009-d18a-42e6-898b-8f79d14da0bd",
+          "goodsId": "2",
+          "goodsCount": 1,
+          "goods": {
+            "id": "2",
+            "realGoodsId": null,
+            "sellerId": null,
+            "linkTable": null,
+            "name": "Java",
+            "price": 0,
+            "count": 0,
+            "via": 0,
+            "types": null,
+            "imgUrl": "http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg",
+            "realGoods": null,
+            "description": null
+          },
+          "status": 0
+        },
+        {
+          "id": "c51f00d9-1a47-464a-96e5-bbd8e10734b1",
+          "orderId": "ad259009-d18a-42e6-898b-8f79d14da0bd",
+          "goodsId": "3",
+          "goodsCount": 1,
+          "goods": {
+            "id": "3",
+            "realGoodsId": null,
+            "sellerId": null,
+            "linkTable": null,
+            "name": "C++",
+            "price": 0,
+            "count": 0,
+            "via": 0,
+            "types": null,
+            "imgUrl": "http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg",
+            "realGoods": null,
+            "description": null
+          },
+          "status": 0
+        }
+      ]
+    }
+  ],
+  "other": {
+    "pageAllCount": 1
+  }
+}
 					</pre>
 				</td>
 			</tr>

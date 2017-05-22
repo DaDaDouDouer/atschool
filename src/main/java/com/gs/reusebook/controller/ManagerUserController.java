@@ -21,13 +21,13 @@ public class ManagerUserController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	//@NeedUserLogin(character = Admin.class)
+	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn search(@RequestBody CommonSearchParams searchParams){
 		return userService.selectAndPagedByName(searchParams.getKeyword(), searchParams.getPageNo(), searchParams.getLimit());
 	}
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	//@NeedUserLogin(character = Admin.class)
+	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn deleteUser(@RequestBody User userParams){
 		return userService.deleteUser(userParams.getId());

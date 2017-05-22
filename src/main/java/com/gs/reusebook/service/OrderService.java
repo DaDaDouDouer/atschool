@@ -42,7 +42,8 @@ public class OrderService {
 	private GoodsDao goodsDao;
 	
 	public UiReturn selectAndPagedById(String orderId, Integer pageNo, Integer limit) {
-
+		if(orderId == null)
+			orderId = "";
 		int orderAllCount = orderDao.selectCountById("%" + orderId + "%");
 		// 特殊的分页校验
 		CutPageValidatorReturnParams rst = CutPageParamsValidator.validate(pageNo, limit, orderAllCount);

@@ -36,7 +36,8 @@ public class UserService {
 	private DeliveryAddressDao deliveryAddressDao;
 	
 	public UiReturn selectAndPagedByName(String username, Integer pageNo, Integer limit){
-				
+		if(username == null)
+			username = "";
 		// 获取到可查询到的用户总量
 		int userAllCount = userDao.selectCountByName("%"+ username + "%");
 				

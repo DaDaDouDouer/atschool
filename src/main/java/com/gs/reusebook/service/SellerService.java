@@ -27,6 +27,9 @@ public class SellerService {
 	private SellerDao sellerDao;
 	
 	public UiReturn searchAndPagedByName(String username, Integer pageNo, Integer limit){
+		
+		if(username == null)
+			username = "";
 		// 获取到可查询到的卖家总量
 		int sellerAllCount = sellerDao.selectCountByName("%"+ username + "%");
 						

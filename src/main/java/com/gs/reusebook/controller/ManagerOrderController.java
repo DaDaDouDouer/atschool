@@ -21,14 +21,14 @@ public class ManagerOrderController {
 	private OrderService orderService;
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	//@NeedUserLogin(character = Admin.class)
+	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn search(@RequestBody CommonSearchParams searchParams){
 		return orderService.selectAndPagedById(searchParams.getKeyword(), searchParams.getPageNo(), searchParams.getLimit());
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	//@NeedUserLogin(character = Admin.class)
+	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn deleteOrder(@RequestBody Order orderParams){
 		return orderService.deleteOrder(orderParams.getId());

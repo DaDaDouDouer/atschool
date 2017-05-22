@@ -21,20 +21,20 @@ public class ManagerShopController {
 	private ShopService shopService;
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	//@NeedUserLogin(character = Admin.class)
+	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn search(@RequestBody CommonSearchParams searchParams){
 		return shopService.selectAndPagedByName(searchParams.getKeyword(), searchParams.getPageNo(), searchParams.getLimit());
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	//@NeedUserLogin(character = Admin.class)
+	@RequestMapping(value = "/updateName", method = RequestMethod.POST)
+	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn updateShopName(@RequestBody Shop shopParams){
 		return shopService.updateShopName(shopParams.getName(), shopParams.getId());
 	}
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	//@NeedUserLogin(character = Admin.class)
+	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn deleteShop(@RequestBody Shop shopParams){
 		return shopService.deleteShop(shopParams.getId());
