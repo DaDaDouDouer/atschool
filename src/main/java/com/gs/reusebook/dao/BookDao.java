@@ -1,9 +1,5 @@
 package com.gs.reusebook.dao;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.gs.reusebook.bean.Book;
 import com.gs.reusebook.dao.base.RealGoodsBaseDao;
 

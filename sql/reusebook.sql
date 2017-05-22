@@ -133,7 +133,8 @@ CREATE TABLE `tab_evaluation` (
   `content` varchar(256) NOT NULL,
   `create_time` datetime NOT NULL,
   `user_id` varchar(36) NOT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `seller_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -144,7 +145,7 @@ CREATE TABLE `tab_evaluation` (
 
 LOCK TABLES `tab_evaluation` WRITE;
 /*!40000 ALTER TABLE `tab_evaluation` DISABLE KEYS */;
-INSERT INTO `tab_evaluation` VALUES ('49f4c96a-f28d-4b5d-a292-47c4cdf83e3b','1','qewrew4334','2017-05-21 10:06:15','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','njuptuser'),('6d91f93f-2102-4833-846a-0226a5cbbb6f','3','sdftt65676yut','2017-02-24 18:59:08','0cc95799-4660-4758-9f7e-0053187eac7a','ba'),('8f4b6144-6da8-4d60-b0aa-5a70a5ec3915','1','111111是短发当时的分隔符','2017-02-24 19:27:11','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','njuptuser');
+INSERT INTO `tab_evaluation` VALUES ('6d91f93f-2102-4833-846a-0226a5cbbb6f','3','sdftt65676yut','2017-02-24 18:59:08','0cc95799-4660-4758-9f7e-0053187eac7a','ba','njuptseller'),('a48fee1c-0893-403b-a7f6-54a3c95a63ef','1','新加的评论','2017-05-22 11:16:36','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab','njuptuser','njuptseller');
 /*!40000 ALTER TABLE `tab_evaluation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,7 +327,7 @@ CREATE TABLE `tab_shop` (
   `seller_id` varchar(36) NOT NULL,
   `img_url` varchar(36) DEFAULT NULL,
   `recommand_str` varchar(1023) DEFAULT NULL,
-  `carousel_str` varchar(1023) DEFAULT NULL,
+  `carousel_str` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -337,7 +338,7 @@ CREATE TABLE `tab_shop` (
 
 LOCK TABLES `tab_shop` WRITE;
 /*!40000 ALTER TABLE `tab_shop` DISABLE KEYS */;
-INSERT INTO `tab_shop` VALUES ('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'3','1 2 4'),('f2a24593-b857-4ca9-84c1-48f351434ebd','two b','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',NULL,NULL,NULL);
+INSERT INTO `tab_shop` VALUES ('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'1 2 4','[{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"},{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"}]'),('f2a24593-b857-4ca9-84c1-48f351434ebd','two b','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `tab_shop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -400,4 +401,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-21 20:10:01
+-- Dump completed on 2017-05-22 11:21:11
