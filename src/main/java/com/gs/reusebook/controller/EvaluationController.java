@@ -34,7 +34,8 @@ public class EvaluationController {
 	public UiReturn add(@RequestBody Evaluation evaluation, HttpSession session){
 		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
-		return evaluationService.addEvaluation(userId, evaluation.getGoodsId(), evaluation.getContent());
+		String username = (String) session.getAttribute(USER_NAME_SESSION_KEY);
+		return evaluationService.addEvaluation(userId, evaluation.getGoodsId(), evaluation.getContent(), username);
 	}
 	
 	/**

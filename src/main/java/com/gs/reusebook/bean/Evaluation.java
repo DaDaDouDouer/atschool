@@ -12,6 +12,9 @@ public class Evaluation {
 	private String id;
 
 	private String goodsId;
+	
+	private String sellername;
+	
 	private String userId;
 	
 	private String username;
@@ -66,4 +69,13 @@ public class Evaluation {
 	public String getUsername() {
 		return username;
 	}
+	
+	public String getSellername() {
+		return sellername;
+	}
+	
+	public void setSellername(String sellername) {
+		this.sellername = sellername;
+	}
+	
 }

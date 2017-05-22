@@ -11,6 +11,7 @@ import com.gs.reusebook.bean.Evaluation;
 import com.gs.reusebook.bean.Order;
 import com.gs.reusebook.dao.EvaluationDao;
 import com.gs.reusebook.dao.OrderDao;
+import com.gs.reusebook.dao.SellerDao;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.GeneralValidator;
@@ -26,6 +27,8 @@ public class EvaluationService {
 	private EvaluationDao evaluationDao;
 	@Autowired
 	private OrderDao orderDao;
+	@Autowired
+	private SellerDao sellerDao;
 	
 	/**
 	 * 查询商品的所有评论
@@ -49,7 +52,7 @@ public class EvaluationService {
 	 * @param content
 	 * @return
 	 */
-	public UiReturn addEvaluation(String userId, String goodsId, String content){
+	public UiReturn addEvaluation(String userId, String goodsId, String content, String username){
 		
 		// 参数校验
 		ValidatorReturnParams result = GeneralValidator.validate(
@@ -76,6 +79,9 @@ public class EvaluationService {
 			evaluation.setUserId(userId);
 			evaluation.setContent(content);
 			evaluation.setCreateTime(new Date());
+			
+			evaluation.setUsername(username);
+			evaluation.setSellername(sellerDao.selectByGoodsId(goodsId).getUsername());
 			
 			evaluationDao.insertEvaluation(evaluation);
 			return UiReturn.ok(evaluation, "添加评论成功");
