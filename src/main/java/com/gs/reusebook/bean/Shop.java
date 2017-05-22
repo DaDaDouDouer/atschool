@@ -15,6 +15,8 @@ public class Shop {
 	private String name;
 	private String imgUrl;
 	
+	private Object carouselObj;
+	
 	private String carouselStr;
 	private List<Goods> carousel;
 	private String recommandStr;
@@ -29,6 +31,18 @@ public class Shop {
 	 * 表示推荐字段的常量
 	 */
 	public static final String RECOMMAND_NAME = "recommand";
+	
+
+	/**
+	 * 表示轮播字段的常量
+	 */
+	public static final String CAROUSEL_URL = "url";
+
+	/**
+	 * 表示推荐字段的常量
+	 */
+	public static final String CAROUSEL_DESC = "desc";
+	
 	
 	public String getId() {
 		return id;
@@ -113,4 +127,15 @@ public class Shop {
 	public void setRecommand(List<Goods> recommand) {
 		this.recommand = recommand;
 	}
+	
+	
+	public Object getCarouselObj() {
+		return carouselObj;
+	}
+	
+	public void setCarouselObj(Object carouselObj) {
+		this.carouselObj = carouselObj;
+	}
+	
+	
 }
