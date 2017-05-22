@@ -7,6 +7,13 @@ import org.apache.ibatis.annotations.Param;
 import com.gs.reusebook.bean.Order;
 
 public interface OrderDao {
+	public List<Order> selectAndPagedById(@Param("id")String id,@Param("offset") int offset, @Param("limit") int limit);
+	/**
+	 * 根据id模糊查询出数量，为selectAndPagedById服务
+	 * @param id
+	 * @return
+	 */
+	public Integer selectCountById(String id);
 	public List<Order> selectAllBySellerId(String sellerId);
 	public List<Order> selectAllByUserId(String userId);
 	
@@ -19,4 +26,6 @@ public interface OrderDao {
 	public void updateStatus(@Param("status") int status, @Param("id") String id);
 	
 	public int insertOrder(Order order);
+	
+	public void deleteOrder(String id);
 }

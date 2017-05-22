@@ -3,6 +3,7 @@ package com.gs.reusebook.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +17,13 @@ import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.bean.Shop;
+import com.gs.reusebook.bean.User;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.ShopDao;
+import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.UiReturn;
+import com.gs.reusebook.validator.CutPageParamsValidator;
 import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
 
@@ -261,4 +265,41 @@ public class ShopService {
 		return UiReturn.ok("", "修改成功");
 	}
 	
+	public UiReturn updateShopName(String name, String id){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID, STRING_30}, new Object[]{id, name});
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		shopDao.updateName(name, id);
+		return UiReturn.ok(null, "更改店铺名成功");
+	}
+	public UiReturn selectAndPagedByName(String name, Integer pageNo, Integer limit){
+		// 获取到可查询到的店铺总量
+		int shopAllCount = shopDao.selectCountByName("%"+ name + "%");
+						
+		// 特殊的分页校验
+		CutPageValidatorReturnParams rst = 
+		CutPageParamsValidator.validate(pageNo, limit, shopAllCount);
+		
+		// 分页查询用户
+		List<Shop> shop = shopDao.selectAndPagedByName("%"+ name + "%", rst.offset, rst.limit); 
+						
+		// 将查询到的总页数放入other中返回
+		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
+		otherMap.put("pageAllCount", rst.pageAllCount);
+						
+		return UiReturn.ok(shop, "获取用户成功", otherMap);	
+	}
+	public UiReturn deleteShop(String shopId){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, shopId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+
+		shopDao.deleteShop(shopId);
+		return UiReturn.ok(null, "删除店铺成功");
+	}
 }

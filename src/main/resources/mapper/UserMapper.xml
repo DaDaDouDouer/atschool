@@ -51,10 +51,17 @@
 	<select id="selectByName" parameterType="String" resultType="User">
 		SELECT * FROM tab_user WHERE BINARY username = #{username}
 	</select>
+	
+	<select id="selectAndPagedByName" resultType="User" resultMap="userResultMap">
+		SELECT * FROM tab_user WHERE username like #{username} LIMIT #{offset},#{limit}
+	</select>
+	
+	<select id="selectCountByName" resultType="Integer">
+		SELECT count(*) FROM tab_user WHERE username LIKE #{username}
+	</select>
 
-	<delete id="deleteById" parameterType="String">
-		delete from tab_user where
-		id = #{id}
+	<delete id="deleteUser" parameterType="String">
+		delete from tab_user where id = #{id}
 	</delete>
 
 	<resultMap type="com.gs.reusebook.bean.User" id="normalUserResultMap">
