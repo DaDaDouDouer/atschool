@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.Seller;
-import com.gs.reusebook.bean.User;
 import com.gs.reusebook.dao.SellerDao;
 import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
@@ -38,7 +37,7 @@ public class SellerService {
 		CutPageParamsValidator.validate(pageNo, limit, sellerAllCount);
 			
 		// 分页查询卖家
-		List<User> seller = sellerDao.selectAndPagedByName("%"+ username + "%", rst.offset, rst.limit); 
+		List<Seller> seller = sellerDao.selectAndPagedByName("%"+ username + "%", rst.offset, rst.limit); 
 						
 		// 将查询到的总页数放入other中返回
 		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);

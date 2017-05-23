@@ -36,7 +36,7 @@ public class ShopController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin(character = Seller.class)
-	public UiReturn updatePassword(@RequestBody Shop shopParams, HttpSession session) {
+	public UiReturn add(@RequestBody Shop shopParams, HttpSession session) {
 		
 		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
 		return shopService.add(shopParams.getName(), sellerId);
@@ -100,7 +100,7 @@ public class ShopController {
 	@RequestMapping(value = "/removeRecommand", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin(character = Seller.class)
-	public UiReturn remoceRecommand(@RequestBody Goods goodsParam, HttpSession session) {
+	public UiReturn removeRecommand(@RequestBody Goods goodsParam, HttpSession session) {
 		
 		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
 		return shopService.removeRecommand(goodsParam.getId(), sellerId);
