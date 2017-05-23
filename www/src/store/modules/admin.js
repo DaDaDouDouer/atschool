@@ -38,6 +38,26 @@ const actions = {
     return API.admin.updateSellerPassword(conditions).then(data => {
       return data
     })
+  },
+  getGoodsByAdmin ({commit, state}, conditions) {
+    return API.admin.getGoods(conditions).then(({data, other}) => {
+      return {goodsList: data, pageCount: other.pageAllCount}
+    })
+  },
+  deleteGoodsByAdmin ({commit, state}, id) {
+    return API.admin.deleteGoods({id}).then(data => {
+      return data
+    })
+  },
+  getOrderByAdmin ({commit, state}, conditions) {
+    return API.admin.getOrder(conditions).then(({data, other}) => {
+      return {orderList: data, pageCount: other.pageAllCount}
+    })
+  },
+  deleteOrderByAdmin ({commit, state}, id) {
+    return API.admin.deleteOrder({id}).then(data => {
+      return data
+    })
   }
 }
 

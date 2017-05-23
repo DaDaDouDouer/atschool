@@ -59,7 +59,7 @@ export const getShop = function (id) {
   return http.post('manager-shop/search.do', id)
     .then(function ({data}) {
       let response = data
-      return response.data
+      return response
     })
 }
 
@@ -86,7 +86,7 @@ export const getGoods = function (conditions) {
   return http.post('manager-goods/search.do', conditions)
     .then(function ({data}) {
       let response = data
-      return response.data
+      return response
     })
 }
 
@@ -104,7 +104,7 @@ export const getOrder = function (conditions) {
   return http.post('manager-order/search.do', conditions)
     .then(function ({data}) {
       let response = data
-      return response.data
+      return response
     })
 }
 
