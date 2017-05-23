@@ -20,11 +20,9 @@
           no-data-text="没有数据"
         >
         <template slot="items" scope="props">
-          <td class="text-xs-center">{{ props.item.userName }}</td>
-          <td class="text-xs-center">{{ props.item.sellerName }}</td>
-          <td class="text-xs-center">{{ new Date(props.item.createTime).toLocaleDateString() }}</td>
-          <td class="text-xs-center">￥{{ props.item.totalPrice.toFixed(2) }}</td>
-          <td class="text-xs-center">{{ props.item.address }}</td>
+          <td class="text-xs-center">{{ props.item.name }}</td>
+          <td class="text-xs-center">{{ props.item.count }}</td>
+          <td class="text-xs-center">￥{{ props.item.price.toFixed(2) }}</td>
           <td class="text-xs-center">
             <v-btn small primary dark slot="activator" @click.native="remove(props.item.id)">删除</v-btn>
           </td>
@@ -48,15 +46,11 @@ export default {
   data () {
     return {
       headers: [{
-        text: '买家名'
+        text: '书名'
       }, {
-        text: '卖家名'
+        text: '单价'
       }, {
-        text: '创建时间'
-      }, {
-        text: '总价'
-      }, {
-        text: '收货地址'
+        text: '数量'
       }, {
         text: '操作'
       }],
@@ -82,7 +76,7 @@ export default {
     },
     remove (id) {
       this.deleteGoodsByAdmin(id).then(data => {
-        alert('删除普通用户成功！')
+        alert('删除商品成功！')
         return this.getGoodsList()
       })
     }

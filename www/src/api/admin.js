@@ -83,7 +83,7 @@ export const updateShopName = function (conditions) {
 
 // 获取商品
 export const getGoods = function (conditions) {
-  return http.post('manager-goods/search.do', conditions)
+  return http.post('manager-goods/search.do', {...conditions, 'linkTable': 'tab_book'})
     .then(function ({data}) {
       let response = data
       return response
