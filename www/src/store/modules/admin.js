@@ -39,6 +39,16 @@ const actions = {
       return data
     })
   },
+  getShopByAdmin ({commit, state}, conditions) {
+    return API.admin.getShop(conditions).then(({data, other}) => {
+      return {shopList: data, pageCount: other.pageAllCount}
+    })
+  },
+  deleteShopByAdmin ({commit, state}, id) {
+    return API.admin.deleteShop({id}).then(data => {
+      return data
+    })
+  },
   getGoodsByAdmin ({commit, state}, conditions) {
     return API.admin.getGoods(conditions).then(({data, other}) => {
       return {goodsList: data, pageCount: other.pageAllCount}
