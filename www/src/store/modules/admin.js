@@ -9,9 +9,9 @@ const getters = {}
 
 // actions
 const actions = {
-  getAllUserByAdmin ({commit, state}, conditions) {
-    return API.admin.getAllUser(conditions).then(users => {
-      return users
+  getUserByAdmin ({commit, state}, conditions) {
+    return API.admin.getUser(conditions).then(({data, other}) => {
+      return {userList: data, pageCount: other.pageAllCount}
     })
   },
   deleteUserByAdmin ({commit, state}, id) {

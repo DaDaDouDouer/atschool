@@ -9,103 +9,85 @@
           label="搜索"
           single-line
           hide-details
-          v-model="userName"
+          v-model="conditions.keyword"
+          @keyup.enter.native="getUserList"
         ></v-text-field>
       </v-card-title>
       <v-data-table
           :headers="headers"
           v-model="userList"
-          :search="userName"
-          select-all
+          hide-actions
           no-data-text="没有数据"
-          no-results-text="没有匹配的结果"
-          rows-per-page-text="每页条数"
-          :rows-per-page="10"
-          :rows-per-page-items="[10, 20, 30]"
         >
         <template slot="items" scope="props">
-          <td>
-            <v-checkbox
-              hide-details
-              primary
-              v-model="props.item.value"
-            ></v-checkbox>
-          </td>
-          <td>
-            <v-edit-dialog
-              @open="props.item._name = props.item.name"
-              @cancel="props.item.name = props.item._name || props.item.name"
-              lazy
-            > {{ props.item.name }}
-              <v-text-field
-                slot="input"
-                label="Edit"
-                v-bind:value="props.item.name"
-                v-on:change="val => props.item.name = val"
-                single-line counter="counter"
-              ></v-text-field>
-            </v-edit-dialog>
-          </td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.sodium }}</td>
-          <td class="text-xs-right">{{ props.item.calcium }}</td>
-          <td>
-            <v-edit-dialog
-              class="text-xs-right"
-              @open="props.item._iron = props.item.iron"
-              @cancel="props.item.iron = props.item._iron || props.item.iron"
-              large
-              lazy
-            >
-              <div class="text-xs-right">{{ props.item.iron }}</div>
-              <div slot="input" class="mt-3 title">Update Iron</div>
-              <v-text-field
-                slot="input"
-                label="Edit"
-                v-bind:value="props.item.iron"
-                v-on:blur="val => props.item.iron = val"
-                single-line
-                counter
-                autofocus
-              ></v-text-field>
-            </v-edit-dialog>
+          <td class="text-xs-center">{{ props.item.username }}</td>
+          <td class="text-xs-center">{{ new Date(props.item.createTime).toLocaleDateString() }}</td>
+          <td class="text-xs-center">
+            <v-btn small primary dark slot="activator" @click.native="remove(props.item.id)">删除</v-btn>
           </td>
         </template>
       </v-data-table>
+      <div class="text-xs-center">
+        <v-pagination :length.number="pageCount" v-model="conditions.pageNo"></v-pagination>
+      </div>
     </v-card>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'user-manager',
+  mounted () {
+    this.getUserList()
+  },
   data () {
     return {
-      userName: '',
       headers: [{
         text: '用户名'
-      }],
-      userList: [{
-        name: '123',
-        value: false
       }, {
-        name: '234',
-        value: true
-      }]
+        text: '创建时间'
+      }, {
+        text: '操作'
+      }],
+      userList: [],
+      conditions: {
+        keyword: '',
+        pageNo: 1,
+        limit: 20
+      },
+      pageCount: 0
     }
   },
   methods: {
-    search (e) {
-      debugger
+    ...mapActions([
+      'getUserByAdmin',
+      'deleteUserByAdmin'
+    ]),
+    getUserList () {
+      return this.getUserByAdmin(this.conditions).then(({userList, pageCount}) => {
+        this.userList = userList
+        this.pageCount = pageCount
+      })
+    },
+    remove (id) {
+      this.deleteUserByAdmin(id).then(data => {
+        return this.getUserList()
+      })
+    }
+  },
+  watch: {
+    'conditions.pageNo': function (val, oldVal) {
+      this.getUserList()
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
+<style>
+.user-manager tr th {
+  text-align: center!important;
+}
 </style>

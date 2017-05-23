@@ -6,7 +6,7 @@ const router = new Router()
 const roleMapToRouter = {
   Seller: '/seller',
   User: '/',
-  Admin: '/admin'
+  Admin: '/user-manager'
 }
 
 // initial state

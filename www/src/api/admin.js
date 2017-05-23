@@ -1,11 +1,11 @@
 import http from '../utils/http'
 
 // 搜索普通用户
-export const getAllUser = function (conditions) {
+export const getUser = function (conditions) {
   return http.post('manager-user/search.do', conditions)
     .then(function ({data}) {
       let response = data
-      return response.data
+      return response
     })
 }
 
@@ -19,7 +19,7 @@ export const deleteUser = function (id) {
 }
 
 // 搜索卖家
-export const getAllSeller = function (conditions) {
+export const getSeller = function (conditions) {
   return http.post('manager-seller/search.do', conditions)
     .then(function ({data}) {
       let response = data
