@@ -8,6 +8,14 @@
 		SELECT count(*) FROM tab_order WHERE id like #{id} 
 	</select>
 	
+	<select id="selectCountBySellerId" resultType="Integer">
+		SELECT count(*) FROM tab_order WHERE seller_id = #{sellerId} 
+	</select>
+	
+	<select id="selectCountByUserId" resultType="Integer">
+		SELECT count(*) FROM tab_order WHERE user_id like #{user_id} 
+	</select>
+	
 	<select id="selectAndPagedById" resultType="Order" resultMap="orderResultMap">
 		SELECT 
 		  o.id id,
@@ -39,7 +47,7 @@
 		LIMIT #{offset},#{limit} 
 	</select>
 	
-	<select id="selectAllBySellerId" parameterType="String" resultType="Order" resultMap="orderResultMap">
+	<select id="selectAllBySellerId" resultType="Order" resultMap="orderResultMap">
 		SELECT 
 		  o.id id,
 		  o.user_id user_id,
@@ -69,9 +77,10 @@
 		  AND u.id = o.user_id 
 		  AND i.order_id = o.id 
 		  AND i.goods_id = g.id 
+		LIMIT #{offset},#{limit} 
 	</select>
 
-	<select id="selectAllByUserId" parameterType="String" resultType="Order" resultMap="orderResultMap">
+	<select id="selectAllByUserId" resultType="Order" resultMap="orderResultMap">
 		SELECT 
 		  o.id id,
 		  o.user_id user_id,
@@ -101,9 +110,10 @@
 		  AND u.id = o.user_id 
 		  AND i.order_id = o.id 
 		  AND i.goods_id = g.id 
+		LIMIT #{offset},#{limit} 
 	</select>
 
-	<select id="selectByUserIdAndGoodsId" parameterType="String" resultType="Order" resultMap="orderResultMap">
+	<select id="selectByUserIdAndGoodsId" resultType="Order" resultMap="orderResultMap">
 		SELECT 
 		  o.id id, 
 		  o.user_id user_id, 

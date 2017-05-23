@@ -352,12 +352,12 @@
 				</td>
 				<td>post</td>
 				<td>
-					<p>sellerId 商家id</p>
+					<p>keyword 需要搜索的商品名</p>
 					<p>pageNo 页数</p>
 					<p>limit 每页条数</p>
 					<pre>
 {
-	"sellerId" : "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+	"keyword" : "abc",
 	"pageNo" : 1,
 	"limit" : 1
 }
@@ -1036,12 +1036,20 @@
 
 			
 			<tr class="order" id="order-select-all-by-seller-id">
-				<td>查询卖家的所有订单</td>
+				<td>分页查询卖家的所有订单</td>
 				<td>
 					/order/selectAllBySellerId.do
 				</td>
-				<td>get</td>
+				<td>post</td>
 				<td>
+					<p>pageNo 页数</p>
+					<p>limit 每页条数</p>
+					<pre>
+{
+	"pageNo" : 1,
+	"limit" : 1
+}
+					</pre>
 				</td>
 				<td>需要卖家登陆</td>
 				<td>
@@ -1112,13 +1120,20 @@
 			</tr>
 			
 			<tr class="order" id="order-select-all-by-user-id">
-				<td>查询买家的所有订单</td>
+				<td>分页查询买家的所有订单</td>
 				<td>
 					order/selectAllByUserId.do
 				</td>
-				<td>get</td>
+				<td>post</td>
 				<td>
-					
+					<p>pageNo 页数</p>
+					<p>limit 每页条数</p>
+					<pre>
+{
+	"pageNo" : 1,
+	"limit" : 1
+}
+					</pre>
 				</td>
 				<td>需要登录</td>
 				<td>

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,7 +61,7 @@ public class OrderService {
 	 * @param sellerId
 	 * @return
 	 */
-	public UiReturn selectAllBySellerId(String sellerId){
+	public UiReturn selectAllBySellerId(String sellerId, Integer pageNo, Integer limit){
 		
 		// 参数校验
 		ValidatorReturnParams result = GeneralValidator.validate(PKID, sellerId);
@@ -70,7 +69,19 @@ public class OrderService {
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
 		
-		return UiReturn.ok(orderDao.selectAllBySellerId(sellerId), "查询卖家订单成功");
+		int goodsAllCount = orderDao.selectCountBySellerId(sellerId); 
+		
+		// 特殊的分页校验
+		CutPageValidatorReturnParams rst = 
+				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
+
+		List<Order> orders = orderDao.selectAllBySellerId(sellerId, pageNo, limit);
+		
+		// 将查询到的总页数放入other中返回
+		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
+		otherMap.put("pageAllCount", rst.pageAllCount);
+		
+		return UiReturn.ok(orders, "查询卖家订单成功", otherMap);
 	}
 	
 	/**
@@ -78,7 +89,7 @@ public class OrderService {
 	 * @param userId
 	 * @return
 	 */
-	public UiReturn selectAllByUserId(String userId){
+	public UiReturn selectAllByUserId(String userId, Integer pageNo, Integer limit){
 		
 		// 参数校验
 		ValidatorReturnParams result = GeneralValidator.validate(PKID, userId);
@@ -86,7 +97,19 @@ public class OrderService {
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
 		
-		return UiReturn.ok(orderDao.selectAllByUserId(userId), "查询买家订单成功");
+		int goodsAllCount = orderDao.selectCountByUserId(userId);
+		
+		// 特殊的分页校验
+		CutPageValidatorReturnParams rst = 
+				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
+				
+		List<Order> orders = orderDao.selectAllByUserId(userId, pageNo, limit);
+		
+		// 将查询到的总页数放入other中返回
+		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
+		otherMap.put("pageAllCount", rst.pageAllCount);
+				
+		return UiReturn.ok(orders, "查询买家订单成功", otherMap);
 	}
 	
 	/**

@@ -158,7 +158,7 @@ public class ReusebookStatic {
 	/**
 	 * 分页查询商品的每页显示最小值
 	 */
-	public final static int CUT_PAGE_LIMIT_MIN = 2;
+	public final static int CUT_PAGE_LIMIT_MIN = 1;
 	/**
 	 * 分页查询商品的每页显示最大值
 	 */

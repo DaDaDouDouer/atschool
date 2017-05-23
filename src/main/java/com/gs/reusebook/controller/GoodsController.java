@@ -32,7 +32,7 @@ public class GoodsController {
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	@ResponseBody
-	public UiReturn search	(@RequestBody GoodsSearchParams params) {
+	public UiReturn search(@RequestBody GoodsSearchParams params) {
 
 		return goodsService.selectAndPaged
 				(params.keyword, params.pageNo, params.limit, params.linkTable, params.fatchTypeIds(), params.conditions);
@@ -45,9 +45,10 @@ public class GoodsController {
 	 */
 	@RequestMapping(value = "/searchBySellerId", method = RequestMethod.POST)
 	@ResponseBody
-	public UiReturn searchBySellerId(@RequestBody GoodsSearchParams params) {
+	public UiReturn searchBySellerId(@RequestBody GoodsSearchParams params, HttpSession session) {
 
-		return goodsService.selectAndPagedBySellerId(params.sellerId, params.pageNo, params.limit);
+		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return goodsService.selectAndPagedBySellerId(params.keyword, sellerId, params.pageNo, params.limit);
 	}
 	
 	

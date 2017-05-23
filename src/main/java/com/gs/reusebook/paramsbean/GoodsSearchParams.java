@@ -6,12 +6,9 @@ import java.util.Map;
 
 import com.gs.reusebook.bean.GoodsType;
 
-public class GoodsSearchParams {
+public class GoodsSearchParams extends SearchParams{
 	
 	public String sellerId;
-	public String keyword;
-	public Integer pageNo;
-	public Integer limit;
 	
 	public String linkTable;
 	public Map<String, Object> conditions;

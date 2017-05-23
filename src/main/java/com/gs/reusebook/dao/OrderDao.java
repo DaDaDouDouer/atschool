@@ -14,8 +14,12 @@ public interface OrderDao {
 	 * @return
 	 */
 	public Integer selectCountById(String id);
-	public List<Order> selectAllBySellerId(String sellerId);
-	public List<Order> selectAllByUserId(String userId);
+	
+	public List<Order> selectAllBySellerId(@Param("sellerId") String sellerId, @Param("offset") int offset, @Param("limit") int limit);
+	public Integer selectCountBySellerId(String sellerId);
+	
+	public List<Order> selectAllByUserId(@Param("userId") String userId, @Param("offset") int offset, @Param("limit") int limit);
+	public Integer selectCountByUserId(String userId);
 	
 	public List<Order> selectByUserIdAndGoodsId(@Param("userId") String userId, @Param("goodsId") String goodsId);
 	
