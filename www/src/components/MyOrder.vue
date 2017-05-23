@@ -53,8 +53,9 @@
             <v-col xs2 class="text-center">
               {{orderStatusCodeToText[orderItem.status]}}
             </v-col>
-            <v-col xs2 class="text-center" v-if="orderItem.status === 1004">
-              <v-dialog v-model="orderItem.isShowDialog">
+            <v-col xs2 class="text-center">
+              <v-btn small primary dark v-if="orderItem.status === 1003" @click.native="confirmReceipt(orderItem.orderId)">确认收货</v-btn>
+              <v-dialog v-if="orderItem.status === 1004" v-model="orderItem.isShowDialog">
                 <v-btn small primary dark slot="activator">添加评论</v-btn>
                 <v-card>
                   <v-card-row>
@@ -129,7 +130,8 @@ export default {
   methods: {
     ...mapActions([
       'getUserOrder',
-      'addEvaluation'
+      'addEvaluation',
+      'confirmReceipt'
     ]),
     add (goodsId) {
       this.evaluation.goodsId = goodsId
