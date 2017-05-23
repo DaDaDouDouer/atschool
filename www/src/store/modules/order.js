@@ -22,7 +22,7 @@ const actions = {
   },
   getSellerOrder ({commit, state}) {
     return API.order.getSellerOrder().then((order) => {
-      return order
+      return {orderList: order}
     })
   },
   pay ({commit, state}, orderId) {
