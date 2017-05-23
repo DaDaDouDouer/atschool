@@ -18,7 +18,7 @@ import com.gs.reusebook.util.UiReturn;
 public class PicUploadService {
 	
 	// TODO 这个盘符可能需要修改，适配windows linux
-	private static final String PATH_WIN = "M:/graduate_files/";
+	private static final String PATH_WIN = "C:/graduate_files/";
 	
 	public UiReturn upload(MultipartFile file){
 			// TODO 校验
