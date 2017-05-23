@@ -109,4 +109,18 @@ public class GoodsController {
 		return goodsService.deleteGoods(goodsParams.getId(),sellerId);
 	}
 	
+	/**
+	 * 更新商品goods
+	 * @param goodsParams
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@NeedUserLogin(character = Seller.class)
+	@ResponseBody
+	public UiReturn updateGoods(@RequestBody Goods goodsParams,HttpSession session){
+		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return goodsService.updateGoods(goodsParams.getId(), goodsParams.getPrice(), goodsParams.getCount(),sellerId);
+	}
+	
 }

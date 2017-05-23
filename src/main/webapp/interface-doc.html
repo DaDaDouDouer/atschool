@@ -50,6 +50,9 @@
 		tr.manager {
 			background-color: #46A3FF
 		}
+		tr.seller {
+			background-color: #CA8EFF
+		}
 		
 		td.pre {
 			width: 100%
@@ -2187,6 +2190,185 @@ picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png
 					</pre>
 				</td>
 			</tr>
+			
+			<tr class="seller" id="seller-goods-delete">
+				<td>卖家删除商品</td>
+				<td>
+					goods/delete.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id：商品id</p>
+					<pre>
+{
+	"id":"1"
+}
+					</pre>
+				</td>
+				<td>需要管卖家登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "删除商品成功",
+  "data": null,
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="seller" id="seller-goods-update">
+				<td>卖家更新商品</td>
+				<td>
+					goods/update.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>id：商品id</p>
+					<p>price：商品价格（若不更新此字段，请填写负数）</p>
+					<p>count：商品数量（若不更新此字段，请填写负数）</p>
+					<pre>
+{
+	"id":"3",
+	"price":22.3,
+	"count":10
+}
+					</pre>
+				</td>
+				<td>需要管卖家登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "更改数量成功！更改价格成功！",
+  "data": null,
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="seller" id="seller-goods-search">
+				<td>卖家查找商品</td>
+				<td>
+					goods/searchBySellerId.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>请参照本说明书goods目录下的search-by-seller-id</p>
+					<pre>
+					</pre>
+				</td>
+				<td>需要管卖家登录</td>
+				<td>
+					<pre>
+					</pre>
+				</td>
+			</tr>
+			<tr class="seller" id="seller-shop-add">
+				<td>卖家添加店铺</td>
+				<td>
+					shop/add.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>请参照本说明shop目录下的add</p>
+					<pre>
+					</pre>
+				</td>
+				<td>需要管卖家登录</td>
+				<td>
+					<pre>
+					</pre>
+				</td>
+			</tr>
+			<tr class="seller" id="seller-shop-update">
+				<td>卖家店铺修改</td>
+				<td>
+				
+				</td>
+				<td>post</td>
+				<td>
+					<p>参见本说明书shop目录下update-carousel,update-command,add-recommand,remove-recommand</p>
+					<pre>
+					</pre>
+				</td>
+				<td>需要管卖家登录</td>
+				<td>
+					<pre>
+					</pre>
+				</td>
+			</tr>
+			<tr class="seller" id="seller-order-userPayedOk">
+				<td>卖家确认买家已付款</td>
+				<td>
+					order/userPayedOk.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>参见本说明书order目录下user-payed-ok</p>
+					<pre>
+					</pre>
+				</td>
+				<td>需要管卖家登录</td>
+				<td>
+					<pre>
+					</pre>
+				</td>
+			</tr>
+			<tr class="seller" id="seller-order-userReceived">
+				<td>卖家已发货</td>
+				<td>
+					order/sellerSended.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>参见本说本明书order目录下seller-sended</p>
+					<pre>
+					</pre>
+				</td>
+				<td>需要管卖家登录</td>
+				<td>
+					<pre>
+					</pre>
+				</td>
+			</tr>
+			<tr class="seller" id="seller-evaluation-search">
+				<td>获取商品评论</td>
+				<td>
+					evaluation/selectAll.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>goodsId：商品Id</p>
+					<pre>
+{
+	"goodsId":"1"
+}
+					</pre>
+				</td>
+				<td>不需要登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "查询商品评论成功",
+  "data": [
+    {
+      "id": "a48fee1c-0893-403b-a7f6-54a3c95a63ef",
+      "goodsId": "1",
+      "sellername": "njuptseller",
+      "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "username": "njuptuser",
+      "content": "新加的评论",
+      "createTime": 1495422996000
+    }
+  ],
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>		
+		
 		</tbody>
 	</table>
 </body>
