@@ -51,21 +51,21 @@ export const confirmReceipt = function (id) {
 }
 
 // 获取用户的订单
-export const getUserOrder = function () {
-  return http.get('order/selectAllByUserId.do')
+export const getUserOrder = function (conditions) {
+  return http.post('order/selectAllByUserId.do', conditions)
     .then(function ({data}) {
       let response = data
       console.log(response)
-      return response.data
+      return response
     })
 }
 
 // 获取用户的订单
-export const getSellerOrder = function () {
-  return http.get('/order/selectAllBySellerId.do')
+export const getSellerOrder = function (conditions) {
+  return http.post('/order/selectAllBySellerId.do', conditions)
     .then(function ({data}) {
       let response = data
       console.log(response)
-      return response.data
+      return response
     })
 }
