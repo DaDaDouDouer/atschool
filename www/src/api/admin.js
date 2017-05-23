@@ -23,7 +23,7 @@ export const getSeller = function (conditions) {
   return http.post('manager-seller/search.do', conditions)
     .then(function ({data}) {
       let response = data
-      return response.data
+      return response
     })
 }
 

@@ -18,6 +18,16 @@ const actions = {
     return API.admin.deleteUser({id}).then(data => {
       return data
     })
+  },
+  getSellerByAdmin ({commit, state}, conditions) {
+    return API.admin.getSeller(conditions).then(({data, other}) => {
+      return {sellerList: data, pageCount: other.pageAllCount}
+    })
+  },
+  deleteSellerByAdmin ({commit, state}, id) {
+    return API.admin.deleteSeller({id}).then(data => {
+      return data
+    })
   }
 }
 
