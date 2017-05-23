@@ -60,7 +60,7 @@ export default {
     ]),
     submit () {
       this.addSellerByAdmin(this.form).then(data => {
-        alert(data)
+        alert('添加卖家成功！')
         this.form.username = ''
         this.form.password = ''
       })

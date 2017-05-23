@@ -33,6 +33,11 @@ const actions = {
     return API.admin.addSeller(seller).then(data => {
       return data
     })
+  },
+  updateSellerPasswordByAdmin ({commit, state}, conditions) {
+    return API.admin.updateSellerPassword(conditions).then(data => {
+      return data
+    })
   }
 }
 

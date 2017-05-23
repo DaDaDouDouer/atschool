@@ -24,7 +24,7 @@
           <td class="text-xs-center">{{ new Date(props.item.createTime).toLocaleDateString() }}</td>
           <td class="text-xs-center">
             <v-btn small primary dark slot="activator" @click.native="remove(props.item.id)">删除</v-btn>
-            <a :href="'#/update-seller?q=' + props.item.id">
+            <a :href="'#/update-seller?id=' + props.item.id">
               <v-btn small primary dark slot="activator" >修改</v-btn>
             </a>
             <a href="#/add-seller">
@@ -79,6 +79,7 @@ export default {
     },
     remove (id) {
       this.deleteSellerByAdmin(id).then(data => {
+        alert('删除卖家成功！')
         return this.getSellerList()
       })
     }

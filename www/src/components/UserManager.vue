@@ -73,6 +73,7 @@ export default {
     },
     remove (id) {
       this.deleteUserByAdmin(id).then(data => {
+        alert('删除普通用户成功！')
         return this.getUserList()
       })
     }
