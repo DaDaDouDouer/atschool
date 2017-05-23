@@ -23,6 +23,11 @@ const actions = {
   },
   redirectToGoodsDetail ({ commit }, id) {
     router.push(`/goods-detail?id=${id}`)
+  },
+  getGoodsBySeller ({commit, state}, conditions) {
+    return API.goods.getGoodsBySeller(conditions).then(({data, other}) => {
+      return {goodsList: data, pageCount: other.pageAllCount}
+    })
   }
 }
 
