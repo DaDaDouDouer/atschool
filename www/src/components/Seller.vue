@@ -52,23 +52,23 @@ export default {
         header: '卖家管理'
       }, {
         title: '商品管理',
-        path: ''
+        path: 'seller-goods'
       }, {
         title: '商铺管理',
-        path: '',
+        path: 'update-shop',
         items: [{
-          title: '新建商铺',
-          path: ''
-        }, {
           title: '更新商铺',
-          path: ''
+          path: 'update-shop'
+        }, {
+          title: '新建商铺',
+          path: 'add-shop'
         }]
       }, {
         title: '订单管理',
-        path: ''
+        path: 'seller-order'
       }, {
         title: '查看商品评论',
-        path: ''
+        path: 'evaluation'
       }]
     }
   }
