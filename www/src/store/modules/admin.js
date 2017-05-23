@@ -28,6 +28,11 @@ const actions = {
     return API.admin.deleteSeller({id}).then(data => {
       return data
     })
+  },
+  addSellerByAdmin ({commit, state}, seller) {
+    return API.admin.addSeller(seller).then(data => {
+      return data
+    })
   }
 }
 
