@@ -43,7 +43,6 @@ public class ShopController {
 		
 	}
 
-
 	/**
 	 * 更新轮播商品的good id目录
 	 * @param goodsIds
