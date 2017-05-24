@@ -19,6 +19,11 @@ const actions = {
       return data
     })
   },
+  getIndex ({ commit, state }) {
+    return API.shop.getIndex().then(data => {
+      return data
+    })
+  },
   updateCarousel ({ commit, state }, carouselList) {
     return API.shop.updateCarousel(carouselList).then(data => {
       return data

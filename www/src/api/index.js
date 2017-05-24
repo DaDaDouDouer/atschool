@@ -7,6 +7,7 @@ import * as evaluation from './evaluation'
 import * as admin from './admin'
 import * as seller from './seller'
 import * as shop from './shop'
+import * as file from './file'
 
 const API = {
   user,
@@ -17,7 +18,8 @@ const API = {
   evaluation,
   admin,
   seller,
-  shop
+  shop,
+  file
 }
 
 export default API

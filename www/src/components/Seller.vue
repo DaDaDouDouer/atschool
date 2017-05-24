@@ -50,7 +50,14 @@ export default {
         path: 'seller-goods'
       }, {
         title: '商铺管理',
-        path: 'seller-shop'
+        path: 'seller-shop',
+        items: [{
+          title: '首页轮播管理',
+          path: 'seller-shop'
+        }, {
+          title: '添加轮播图片',
+          path: 'add-carousel'
+        }]
       }, {
         title: '订单管理',
         path: 'seller-order'

@@ -21,7 +21,7 @@
     </v-col>
     <v-col xs10>
       <v-carousel>
-        <v-carousel-item v-for="item in items" v-bind:src="item" />
+        <!-- <v-carousel-item v-for="item in items" v-bind:src="item" /> -->
       </v-carousel>
     </v-col>
   </v-row>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Search from './Search'
 
 export default {
@@ -45,11 +45,14 @@ export default {
   components: { Search },
   mounted () {
     this.$store.dispatch('getAllBookTypes')
+    this.getIndex().then(indexData => {
+      this.indexData = indexData
+    })
   },
   data () {
     return {
       index: 'index',
-      items: [1, 2, 3, 4]
+      indexData: {}
     }
   },
   computed: mapState({
@@ -58,6 +61,9 @@ export default {
     }
   }),
   methods: {
+    ...mapActions([
+      'getIndex'
+    ]),
     search (e) {
       this.$store.dispatch('goodsSearch', {types: [{id: e.target.id}]})
     }
