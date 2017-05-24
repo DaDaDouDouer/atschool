@@ -218,14 +218,10 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 * @param sellerId
 	 * @return
 	 */
-	public UiReturn addGoods(Goods goods, String sellerId){
-		// 参数校验
-		ValidatorReturnParams result = GeneralValidator.validate(PKID,sellerId);
-		if(!result.isRight){
-			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
-		}
+	public UiReturn addGoods(Goods goods, String sellerId, String sellername){
 		goods.setSellerId(sellerId);
 		goods.setId(UUID.randomUUID().toString());
+		goods.setSellername(sellername);
 		goodsDao.insertGoods(goods);
 		return UiReturn.ok(goods, "添加成功");
 	}
@@ -291,7 +287,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		return UiReturn.ok(null, msg);
 	}
 	
-	public UiReturn addGoodsByIsbn(String isbn, Double price, Integer count,String sellerId){
+	public UiReturn addGoodsByIsbn(String isbn, Double price, Integer count,String sellerId, String sellername){
 		Book book = bookConnect.getBookInformation(isbn);
 		if(book == null)
 			return UiReturn.notOk(null, "获取不到书籍信息", REQ_ERROR_400);
@@ -315,7 +311,8 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		goods.setDescription(book.getDescription());
 		goods.setCount(count);
 		goods.setPrice(price);
-		goods.setVia(10);
+		goods.setSellername(sellername);
+		
 		goodsDao.insertGoods(goods);
 		//生成类型
 		new Thread(new generateTypeTask(book,goods)).start();

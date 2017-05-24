@@ -1,6 +1,6 @@
 package com.gs.reusebook.controller;
 
-import static com.gs.reusebook.util.ReusebookStatic.SELLER_ID_SESSION_KEY;
+import static com.gs.reusebook.util.ReusebookStatic.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -95,7 +95,8 @@ public class GoodsController {
 	public UiReturn addGoods(@RequestBody Goods goodsParams, HttpSession session){
 		
 		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
-		return goodsService.addGoods(goodsParams, sellerId);
+		String sellername = (String) session.getAttribute(SELLER_NAME_SESSION_KEY);
+		return goodsService.addGoods(goodsParams, sellerId, sellername);
 	}
 	
 	/**
@@ -109,7 +110,8 @@ public class GoodsController {
 	@ResponseBody
 	public UiReturn addGoodsByIsbn(@RequestBody GoodsBookParam goodsBookParams, HttpSession session){
 		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
-		return goodsService.addGoodsByIsbn(goodsBookParams.getIsbn(), goodsBookParams.getPrice(), goodsBookParams.getCount(), sellerId);
+		String sellername = (String) session.getAttribute(SELLER_NAME_SESSION_KEY);
+		return goodsService.addGoodsByIsbn(goodsBookParams.getIsbn(), goodsBookParams.getPrice(), goodsBookParams.getCount(), sellerId, sellername);
 	}
 	/**
 	 * 删除goods
