@@ -21,6 +21,7 @@ public class Goods {
 	private String id;
 	private String realGoodsId;
 	private String sellerId;
+	private String sellername;
 	private String linkTable;
 	private String name;
 	private double price;
@@ -149,4 +150,11 @@ public class Goods {
 		this.description = description;
 	}
 	
+	public String getSellername() {
+		return sellername;
+	}
+	
+	public void setSellername(String sellername) {
+		this.sellername = sellername;
+	}
 }

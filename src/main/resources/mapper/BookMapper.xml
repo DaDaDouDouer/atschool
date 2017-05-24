@@ -5,18 +5,18 @@
 <mapper namespace="com.gs.reusebook.dao.BookDao">
 
 	<select id="selectAndPaged" resultType="Goods" resultMap="normalGoodsResultMap">
-		SELECT 
+		SELECT
 		  * 
 		FROM
-		  `tab_goods` g2 
-		WHERE g2.`id` IN 
-		  (SELECT 
-		    g.id 
+		  `tab_goods` g2
+		WHERE g2.`id` IN
+		  (SELECT
+		    g.id
 		  FROM
 		    `tab_book` b,
 		    `tab_goods` g,
 		    `tab_goods_type` t,
-		    `tab_goods_type_rel` tr 
+		    `tab_goods_type_rel` tr
 		  WHERE b.id = g.`real_goods_id` 
 		    AND g.`id` = tr.`goods_id` 
 		    AND tr.`type_id` = t.`id` 
@@ -125,6 +125,7 @@
 		<result property="count" column="count" />
 		<result property="imgUrl" column="img_url" />
 		<result property="via" column="via" />
+		<result property="sellername" column="sellername" />
 	</resultMap>
 	
 	<resultMap type="com.gs.reusebook.bean.Book" id="normalBookResultMap">
@@ -133,7 +134,7 @@
 		<result property="author" column="author" />
 		<result property="isbn" column="isbn" />
 		<result property="imgUrl" column="img_url" />
-		
+		<result property="description" column="description" />
 	</resultMap>
 
 </mapper>

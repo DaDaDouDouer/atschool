@@ -28,7 +28,7 @@ public class GoodsTest {
 		goodsService = (GoodsService) context.getBean("goodsService");
 	}
 	
-//	@Test
+	@Test
 	public void testSelectAndPagedByName(){
 		
 		List<String> typeIds = new ArrayList<String>();
@@ -74,10 +74,10 @@ public class GoodsTest {
 		goods.setRealGoodsId("14");
 		goods.setPrice(10.2);
 		goods.setVia(0);
-		goodsService.addGoods(goods, "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab");
+		goodsService.addGoods(goods, "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab", "njuptseller");
 	}
-	@Test
+//	@Test
 	public void testAddGoodsByIsbn(){
-		goodsService.addGoodsByIsbn("9787121287220", 12.2, 10, "1");
+		goodsService.addGoodsByIsbn("9787121287220", 12.2, 10, "1", "njuptseller");
 	}
 }

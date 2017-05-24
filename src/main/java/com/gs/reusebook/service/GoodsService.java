@@ -210,9 +210,10 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 * @param sellerId
 	 * @return
 	 */
-	public UiReturn addGoods(Goods goods, String sellerId){
+	public UiReturn addGoods(Goods goods, String sellerId, String sellername){
 		goods.setSellerId(sellerId);
 		goods.setId(UUID.randomUUID().toString());
+		goods.setSellername(sellername);
 		goodsDao.insertGoods(goods);
 		return UiReturn.ok(goods, "添加成功");
 	}
@@ -278,7 +279,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		return UiReturn.ok(null, msg);
 	}
 	
-	public UiReturn addGoodsByIsbn(String isbn, Double price, Integer count,String sellerId){
+	public UiReturn addGoodsByIsbn(String isbn, Double price, Integer count,String sellerId, String sellername){
 		Book book = bookConnect.getBookInformation(isbn);
 		if(book == null)
 			return UiReturn.notOk(null, "获取不到书籍信息", REQ_ERROR_400);
@@ -302,7 +303,8 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		goods.setDescription(book.getDescription());
 		goods.setCount(count);
 		goods.setPrice(price);
-		goods.setVia(10);
+		goods.setSellername(sellername);
+		
 		goodsDao.insertGoods(goods);
 		return UiReturn.ok(goods, "添加成功");
 	}
