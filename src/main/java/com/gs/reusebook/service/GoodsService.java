@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.Book;
 import com.gs.reusebook.bean.Goods;
+import com.gs.reusebook.bean.GoodsType;
+import com.gs.reusebook.bean.GoodsTypeRel;
 import com.gs.reusebook.bean.base.RealGoods;
 import com.gs.reusebook.connect.BookConnect;
 import com.gs.reusebook.dao.BookDao;
 import com.gs.reusebook.dao.GoodsDao;
+import com.gs.reusebook.dao.GoodsTypeDao;
+import com.gs.reusebook.dao.GoodsTypeRelDao;
 import com.gs.reusebook.dao.base.RealGoodsBaseDao;
 import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
@@ -34,6 +38,10 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 
 	@Autowired
 	private GoodsDao goodsDao;
+	@Autowired
+	private GoodsTypeDao goodsTypeDao;
+	@Autowired
+	private GoodsTypeRelDao goodsTypeRelDao;
 	
 	/**
 	 * dao池初始化时候会用到该变量，通过该service的this获取到
@@ -290,7 +298,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 			bookDao.insertBook(book);
 		else
 			book.setId(sameBook.getId());
-		
+			
 		Goods goods = new Goods();
 		goods.setSellerId(sellerId);
 		goods.setId(UUID.randomUUID().toString());
@@ -304,6 +312,8 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		goods.setPrice(price);
 		goods.setVia(10);
 		goodsDao.insertGoods(goods);
+		//生成类型
+		new Thread(new generateTypeTask(book,goods)).start();
 		return UiReturn.ok(goods, "添加成功");
 	}
 	public BookDao getBookDao() {
@@ -312,5 +322,40 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	
 	public void setBookDao(BookDao bookDao) {
 		this.bookDao = bookDao;
+	}
+	
+	public class generateTypeTask implements Runnable{
+		private Book book;
+		private Goods goods;
+		
+		public generateTypeTask(Book book, Goods goods) {
+			super();
+			this.book = book;
+			this.goods = goods;
+		}
+
+		public void run() {
+			List<GoodsType> goodsTypes = goodsTypeDao.selectAll();
+			for(GoodsType goodsType : goodsTypes){
+				if(goodsType.getName().equals("default_type")){
+					GoodsTypeRel goodsTypeRel = new GoodsTypeRel();
+					goodsTypeRel.setId(UUID.randomUUID().toString());
+					goodsTypeRel.setGoodsId(goods.getId());
+					goodsTypeRel.setTypeId(goodsType.getId());
+					goodsTypeRelDao.insert(goodsTypeRel);
+					continue;
+				}
+				for(String bookType : book.getTypes()){
+					if(bookType.equals(goodsType.getName())){
+						GoodsTypeRel goodsTypeRel = new GoodsTypeRel();
+						goodsTypeRel.setId(UUID.randomUUID().toString());
+						goodsTypeRel.setGoodsId(goods.getId());
+						goodsTypeRel.setTypeId(goodsType.getId());
+						goodsTypeRelDao.insert(goodsTypeRel);
+					}
+				}
+			}
+		}
+		
 	}
 }
