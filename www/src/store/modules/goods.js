@@ -38,6 +38,11 @@ const actions = {
     return API.goods.addGoodsByIsbn(fields).then(data => {
       return data
     })
+  },
+  updateGoodsBySeller ({commit, state}, fields) {
+    return API.goods.update(fields).then(data => {
+      return data
+    })
   }
 }
 

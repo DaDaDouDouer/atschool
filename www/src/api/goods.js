@@ -35,6 +35,16 @@ export const addGoodsByIsbn = function (fields) {
     })
 }
 
+// 修改商品
+export const update = function (fields) {
+  return http.post('goods/update.do', fields)
+    .then(function ({data}) {
+      let response = data
+      console.log(response)
+      return response.data
+    })
+}
+
 export const getGoodsDetail = function (id) {
   return http.post('goods/getRealGoods.do', {id})
     .then(function ({data}) {
