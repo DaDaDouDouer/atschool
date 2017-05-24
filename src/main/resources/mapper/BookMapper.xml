@@ -106,13 +106,15 @@
 		name,
 		author,
 		isbn,
-		img_url)
+		img_url,
+		description)
 		VALUES (
 		#{id},
 		#{name},
 		#{author},
 		#{isbn},
-		#{imgUrl})
+		#{imgUrl},
+		#{description})
 	</insert>
 	
 	<resultMap type="com.gs.reusebook.bean.Goods" id="normalGoodsResultMap">
