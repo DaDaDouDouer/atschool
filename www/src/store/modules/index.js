@@ -6,6 +6,7 @@ import order from './order'
 import evaluation from './evaluation'
 import admin from './admin'
 import seller from './seller'
+import shop from './shop'
 
 const modules = {
   book,
@@ -15,7 +16,8 @@ const modules = {
   order,
   evaluation,
   admin,
-  seller
+  seller,
+  shop
 }
 
 export default modules

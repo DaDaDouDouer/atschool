@@ -2,11 +2,6 @@
   <div class="seller">
     <v-row>
       <v-col xs2>
-        <!-- <div v-for="item in menu">
-          <a :href="'#/' + item.path">
-            <v-btn block dark large class="teal" >{{item.text}}</v-btn>
-          </a>
-        </div> -->
         <v-sidebar :value="true" height="auto">
           <v-list dense>
             <template v-for="(item,i) in itemGroup">
@@ -55,14 +50,7 @@ export default {
         path: 'seller-goods'
       }, {
         title: '商铺管理',
-        path: 'update-shop',
-        items: [{
-          title: '更新商铺',
-          path: 'update-shop'
-        }, {
-          title: '新建商铺',
-          path: 'add-shop'
-        }]
+        path: 'seller-shop'
       }, {
         title: '订单管理',
         path: 'seller-order'
