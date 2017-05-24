@@ -25,7 +25,7 @@ export const getGoodsDetail = function (id) {
 }
 
 export const getGoodsBySeller = function (conditions) {
-  return http.post('goods/searchBySellerId.do', {conditions})
+  return http.post('goods/searchBySellerId.do', conditions)
     .then(function ({data}) {
       let response = data
       console.log(response)

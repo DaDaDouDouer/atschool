@@ -21,8 +21,9 @@
         >
         <template slot="items" scope="props">
           <td class="text-xs-center">{{ props.item.name }}</td>
-          <td class="text-xs-center">{{ props.item.count }}</td>
           <td class="text-xs-center">￥{{ props.item.price.toFixed(2) }}</td>
+          <td class="text-xs-center">{{ props.item.count }}</td>
+          <td class="text-xs-center">{{ props.item.via }}</td>
           <td class="text-xs-center">
             <v-btn small primary dark slot="activator" @click.native="remove(props.item.id)">删除</v-btn>
           </td>
@@ -51,6 +52,8 @@ export default {
         text: '单价'
       }, {
         text: '数量'
+      }, {
+        text: '销量'
       }, {
         text: '操作'
       }],
