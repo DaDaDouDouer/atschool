@@ -24,9 +24,12 @@ import SellerGoods from 'components/SellerGoods'
 import SellerOrder from 'components/SellerOrder'
 import Evaluation from 'components/Evaluation'
 import SellerShop from 'components/SellerShop'
+import AddCarousel from 'components/AddCarousel'
+import AddGoods from 'components/AddGoods'
+import UpdateGoods from 'components/UpdateGoods'
 
 // const personalCenterChildern = {}
-const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller, UserManager, SellerManager, UpdateSeller, AddSeller, ShopManager, GoodsManager, OrderManager, SellerGoods, SellerOrder, Evaluation, SellerShop}
+const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller, UserManager, SellerManager, UpdateSeller, AddSeller, ShopManager, GoodsManager, OrderManager, SellerGoods, SellerOrder, Evaluation, SellerShop, AddCarousel, AddGoods, UpdateGoods}
 // 配置嵌套子路由
 const routerConfig = {
   PersonalCenter: [
@@ -47,7 +50,10 @@ const routerConfig = {
     'SellerGoods',
     'SellerOrder',
     'SellerShop',
-    'Evaluation'
+    'Evaluation',
+    'AddCarousel',
+    'AddGoods',
+    'UpdateGoods'
   ]
 }
 

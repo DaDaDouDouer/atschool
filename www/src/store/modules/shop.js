@@ -19,6 +19,11 @@ const actions = {
       return data
     })
   },
+  getIndex ({ commit, state }) {
+    return API.shop.getIndex().then(data => {
+      return data
+    })
+  },
   updateCarousel ({ commit, state }, carouselList) {
     return API.shop.updateCarousel(carouselList).then(data => {
       return data
@@ -31,6 +36,16 @@ const actions = {
   },
   removeRecommand ({ commit, state }, goodsId) {
     return API.shop.removeRecommand(goodsId).then(data => {
+      return data
+    })
+  },
+  addCarousel ({ commit, state }, carousel) {
+    return API.shop.addCarousel(carousel).then(data => {
+      return data
+    })
+  },
+  removeCarousel ({ commit, state }, imgUrl) {
+    return API.shop.removeCarousel(imgUrl).then(data => {
       return data
     })
   }

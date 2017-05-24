@@ -28,6 +28,21 @@ const actions = {
     return API.goods.getGoodsBySeller(conditions).then(({data, other}) => {
       return {goodsList: data, pageCount: other.pageAllCount}
     })
+  },
+  deleteGoodsBySeller ({commit, state}, id) {
+    return API.goods.remove(id).then(data => {
+      return data
+    })
+  },
+  addGoodsByIsbn ({commit, state}, fields) {
+    return API.goods.addGoodsByIsbn(fields).then(data => {
+      return data
+    })
+  },
+  updateGoodsBySeller ({commit, state}, fields) {
+    return API.goods.update(fields).then(data => {
+      return data
+    })
   }
 }
 

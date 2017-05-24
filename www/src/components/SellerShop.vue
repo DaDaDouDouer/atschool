@@ -45,8 +45,7 @@
             <td class="text-xs-center">{{ item.desc }}</td>
             <td class="text-xs-center">{{ item.url }}</td>
             <td class="text-xs-center">
-              <v-btn small primary dark slot="activator" @click.native="remove(props.item.id)">删除</v-btn>
-              <v-btn small primary dark slot="activator" @click.native="remove(props.item.id)">添加</v-btn>
+              <v-btn small primary dark slot="activator" @click.native="remove(item.url)">删除</v-btn>
             </td>
           </tr>
         </tbody>
@@ -61,13 +60,7 @@ import { mapActions } from 'vuex'
 export default {
   name: 'seller-shop',
   mounted () {
-    this.getShop().then(data => {
-      if (!data) {
-        this.isNewSeller = true
-      } else {
-        this.carouselList = data.carouselObj
-      }
-    })
+    this.getShopData()
   },
   data () {
     return {
@@ -98,11 +91,26 @@ export default {
   methods: {
     ...mapActions([
       'getShop',
-      'addShop'
+      'addShop',
+      'removeCarousel'
     ]),
     submit () {
       this.addShop(this.form.name).then(data => {
         location.reload()
+      })
+    },
+    remove (imgUrl) {
+      this.removeCarousel(imgUrl).then(data => {
+        this.getShopData()
+      })
+    },
+    getShopData () {
+      this.getShop().then(data => {
+        if (!data) {
+          this.isNewSeller = true
+        } else {
+          this.carouselList = data.carouselObj
+        }
       })
     }
   }

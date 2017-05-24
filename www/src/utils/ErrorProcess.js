@@ -16,8 +16,5 @@ export default function (data) {
     return
   }
 
-  return {
-    data: data.data,
-    other: data.other
-  }
+  return data
 }

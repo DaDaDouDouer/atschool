@@ -52,15 +52,15 @@ export const confirmReceipt = function (id) {
 
 // 获取用户的订单
 export const getUserOrder = function (conditions) {
-  return http.post('order/selectAllByUserId.do', conditions)
+  return http.post('order/selectAllByUserId.do', {pageNo: 1, limit: 30})
     .then(function ({data}) {
       let response = data
       console.log(response)
-      return response
+      return response.data
     })
 }
 
-// 获取用户的订单
+// 获取卖家的订单
 export const getSellerOrder = function (conditions) {
   return http.post('/order/selectAllBySellerId.do', conditions)
     .then(function ({data}) {
