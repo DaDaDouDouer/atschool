@@ -2,6 +2,8 @@ package com.gs.reusebook.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +45,7 @@ public class ShopTest {
 		System.out.println(shopService.getBySellerId("31c0d96d-0e94-4a52-8648-9c39009d5a72"));
 	}
 	
-	@Test
+//	@Test
 	public void testAddRecommand(){
 		System.out.println(shopService.addRecommand("4", "31c0d96d-0e94-4a52-8648-9c39009d5a72"));
 	}
@@ -51,5 +53,19 @@ public class ShopTest {
 //	@Test
 	public void testRemoveRecommand(){
 		System.out.println(shopService.removeRecommand("4", "31c0d96d-0e94-4a52-8648-9c39009d5a72"));
+	}
+
+//	@Test
+	public void testAddCarousel(){
+		
+		Map<String, String> entry = new HashMap<String, String>();
+		entry.put(Shop.CAROUSEL_URL, "com");
+		entry.put(Shop.CAROUSEL_DESC, "描述2");
+		System.out.println(shopService.addCarousel(entry, "31c0d96d-0e94-4a52-8648-9c39009d5a72"));
+	}
+
+	@Test
+	public void testRemoveCarousel(){
+		System.out.println(shopService.removeCarousel("com", "31c0d96d-0e94-4a52-8648-9c39009d5a72"));
 	}
 }
