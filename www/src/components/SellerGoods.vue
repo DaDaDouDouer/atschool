@@ -25,7 +25,12 @@
           <td class="text-xs-center">￥{{ props.item.price.toFixed(2) }}</td>
           <td class="text-xs-center">{{ props.item.via }}</td>
           <td class="text-xs-center">
-            <v-btn small primary dark slot="activator" @click.native="remove(props.item.id)">删除</v-btn>
+            <a :href="'#/update-goods?id=' + props.item.id">
+              <v-btn small primary dark>修改</v-btn>
+            </a>
+            <v-btn small primary dark @click.native="remove(props.item.id)">删除</v-btn>
+            <v-btn small primary dark @click.native="addRecommand(props.item.id)">推荐</v-btn>
+            <v-btn small primary dark @click.native="removeRecommand(props.item.id)">取消推荐</v-btn>
           </td>
         </template>
       </v-data-table>
@@ -69,7 +74,9 @@ export default {
   methods: {
     ...mapActions([
       'getGoodsBySeller',
-      'deleteGoodsByAdmin'
+      'deleteGoodsBySeller',
+      'addRecommand',
+      'removeRecommand'
     ]),
     getGoodsList () {
       return this.getGoodsBySeller(this.conditions).then(({goodsList, pageCount}) => {
@@ -78,7 +85,7 @@ export default {
       })
     },
     remove (id) {
-      this.deleteGoodsByAdmin(id).then(data => {
+      this.deleteGoodsBySeller(id).then(data => {
         alert('删除商品成功！')
         return this.getGoodsList()
       })

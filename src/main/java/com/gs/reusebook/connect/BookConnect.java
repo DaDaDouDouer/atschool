@@ -1,5 +1,8 @@
 package com.gs.reusebook.connect;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.codehaus.jackson.map.DeserializationConfig.Feature;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Component;
@@ -37,6 +40,11 @@ public class BookConnect {
 	        book.setAuthor(author);
 			book.setIsbn(response.getIsbn13());
 			book.setImgUrl(response.getImage());
+			List<String> types = new LinkedList<String>();
+			for(int i = 0; i < response.getTags().length; i++){
+				types.add(response.getTags()[i].name);
+			}
+			book.setTypes(types);
 			book.setDescription(response.getSummary());
 			return book;
 		} catch (Exception e) {

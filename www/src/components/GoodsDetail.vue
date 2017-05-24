@@ -74,7 +74,7 @@
           style="min-height: 400px"
         >
           <v-card v-if="index === 0">
-            商品详情
+            {{goodsDetail.realGoods.description}}
           </v-card>
           <v-card v-else-if="index === 1">
             <v-list two-line subheader>
@@ -112,7 +112,7 @@ export default {
       this.getGoodsDetail(id).then((goodsDetail) => {
         this.goodsDetail = goodsDetail
       })
-      this.getAllEvaluation(id).then((evaluations) => {
+      this.getEvaluationByGoodsId(id).then((evaluations) => {
         this.evaluations = evaluations
       })
     }
@@ -135,7 +135,7 @@ export default {
       'getGoodsDetail',
       'createOrder',
       'addCartItem',
-      'getAllEvaluation'
+      'getEvaluationByGoodsId'
     ])
   }
 }

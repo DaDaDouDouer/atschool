@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gs.reusebook.dao.GoodsTypeRelDao">
+	
+	<insert id="insert" parameterType="GoodsTypeRel" keyProperty="id">
+		INSERT
+		INTO
+
+		tab_goods_type_rel(
+		id,
+		goods_id,
+		type_id)
+
+		VALUES (
+		#{id},
+		#{goodsId},
+		#{typeId})
+	</insert>
+	
+	<resultMap type="com.gs.reusebook.bean.GoodsTypeRel" id="normalGoodsTypeRelResultMap">
+		<id property="id" column="id" />
+		<result property="goodsId" column="goods_id" />
+		<result property="typeId" column="type_id" />
+	</resultMap>
+	
+</mapper>
