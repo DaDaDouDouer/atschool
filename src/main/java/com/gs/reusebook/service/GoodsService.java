@@ -219,6 +219,11 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 * @return
 	 */
 	public UiReturn addGoods(Goods goods, String sellerId){
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID,sellerId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
 		goods.setSellerId(sellerId);
 		goods.setId(UUID.randomUUID().toString());
 		goodsDao.insertGoods(goods);

@@ -54,6 +54,7 @@ CREATE TABLE `tab_book` (
   `author` varchar(36) DEFAULT NULL,
   `isbn` varchar(36) DEFAULT NULL,
   `img_url` varchar(255) DEFAULT NULL,
+  `description` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
