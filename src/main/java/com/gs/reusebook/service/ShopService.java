@@ -12,12 +12,13 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.bean.Shop;
-import com.gs.reusebook.bean.User;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.ShopDao;
 import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
@@ -269,6 +270,69 @@ public class ShopService {
 		
 		return UiReturn.ok("", "修改成功");
 	}
+	
+	public UiReturn addCarousel(Map<String,String> urlAndDesc, String sellerId){
+
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, sellerId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
+		JSONObject newJson = new JSONObject(urlAndDesc);
+		
+		Shop shop = shopDao.selectBySellerId(sellerId);
+		String carouselStr = shop.getCarouselStr();
+		JSONArray carouselJson = new JSONArray(carouselStr);
+
+		Integer removeIndex = null; 
+		for(int i = 0; i < carouselJson.length(); i++){
+			JSONObject aEntry = (JSONObject)carouselJson.get(i);
+			if(aEntry.optString(CAROUSEL_URL).equals(urlAndDesc.get(CAROUSEL_URL))){
+				removeIndex = i;
+			}
+		}
+		if(removeIndex != null){
+			carouselJson.remove(removeIndex);
+		}
+		carouselJson.put(newJson);
+		
+		shopDao.updateCarousel(carouselJson.toString(), sellerId);
+		
+		return UiReturn.ok("", "增加成功");
+	}
+	
+	
+	public UiReturn removeCarousel(String url, String sellerId){
+
+		// 参数校验
+		ValidatorReturnParams result = GeneralValidator.validate(PKID, sellerId);
+		if(!result.isRight){
+			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+		}
+		
+		Shop shop = shopDao.selectBySellerId(sellerId);
+		String carouselStr = shop.getCarouselStr();
+		JSONArray carouselJson = new JSONArray(carouselStr);
+		
+		Integer removeIndex = null; 
+		for(int i = 0; i < carouselJson.length(); i++){
+			JSONObject aEntry = (JSONObject)carouselJson.get(i);
+			if(aEntry.optString(CAROUSEL_URL).equals(url)){
+				removeIndex = i;
+				break;
+			}
+		}
+		if(removeIndex != null){
+			carouselJson.remove(removeIndex);
+		}else{
+			return UiReturn.notOk(null, "没有添加过该轮播", REQ_ERROR_400);
+		}
+		shopDao.updateCarousel(carouselJson.toString(), sellerId);
+		
+		return UiReturn.ok("", "删除成功");
+	}
+
 	
 	public UiReturn updateShopName(String name, String id){
 		// 参数校验
