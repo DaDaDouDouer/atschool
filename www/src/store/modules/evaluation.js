@@ -13,6 +13,11 @@ const actions = {
       return {evaluationList: data, pageCount: other.pageAllCount}
     })
   },
+  getEvaluationByGoodsId ({commit, state}, id) {
+    return API.evaluation.getByGoodsId(id).then(({data}) => {
+      return data
+    })
+  },
   addEvaluation ({commit, state}, evaluation) {
     return API.evaluation.add(evaluation).then((data) => {
       return data
