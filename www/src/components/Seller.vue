@@ -47,7 +47,17 @@ export default {
         header: '卖家管理'
       }, {
         title: '商品管理',
-        path: 'seller-goods'
+        path: 'seller-goods',
+        items: [{
+          title: '查看全部商品',
+          path: 'seller-goods'
+        }, {
+          title: '添加商品',
+          path: 'add-goods'
+        }, {
+          title: '修改商品',
+          path: 'update-goods'
+        }]
       }, {
         title: '商铺管理',
         path: 'seller-shop',
