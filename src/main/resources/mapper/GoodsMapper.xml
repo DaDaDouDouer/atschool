@@ -38,6 +38,7 @@
 		  g.`name` `name`,
 		  g.`price` price,
 		  g.`seller_id` seller_id,
+		  g.`sellername` sellername,
 		  g.`via` via,
 		  t.`base_name` base_name,
 		  t.`id` type_id_pk,
@@ -79,7 +80,8 @@
 		count,
 		img_url,
 		via,
-		description) 
+		description，
+		sellername) 
 		VALUES(
 		#{id},
 		#{realGoodsId},
@@ -90,7 +92,8 @@
 		#{count},
 		#{imgUrl},
 		#{via},
-		#{description})
+		#{description}
+		#{sellername})
 	</insert>
 	
 	<delete id="deleteGoods" parameterType="String">
@@ -101,6 +104,7 @@
 		<id property="id" column="id" />
 		<result property="realGoodsId" column="real_goods_id" />
 		<result property="sellerId" column="seller_id" />
+		<result property="sellername" column="sellername" />
 		<result property="linkTable" column="link_table" />
 		<result property="name" column="name" />
 		<result property="price" column="price" />
@@ -113,6 +117,7 @@
 		<id property="id" column="id" />
 		<result property="realGoodsId" column="real_goods_id" />
 		<result property="sellerId" column="seller_id" />
+		<result property="sellername" column="sellername" />
 		<result property="linkTable" column="link_table" />
 		<result property="name" column="name" />
 		<result property="price" column="price" />

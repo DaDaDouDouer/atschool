@@ -28,7 +28,7 @@ public class GoodsTest {
 		goodsService = (GoodsService) context.getBean("goodsService");
 	}
 	
-	@Test
+//	@Test
 	public void testSelectAndPagedByName(){
 		
 		List<String> typeIds = new ArrayList<String>();
@@ -52,7 +52,7 @@ public class GoodsTest {
 		System.out.println(goodsService.selectAndPagedBySellerId("", "31c0d96d-0e94-4a52-8648-9c39009d5a72", 1, 4));
 	}
 	
-//	@Test
+	@Test
 	public void testGetRealGoods(){
 		UiReturn realGoods = goodsService.getRealGoods("1");
 		System.out.println(realGoods);
