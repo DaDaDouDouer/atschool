@@ -78,7 +78,8 @@
 		price,
 		count,
 		img_url,
-		via) 
+		via,
+		description) 
 		VALUES(
 		#{id},
 		#{realGoodsId},
@@ -88,7 +89,8 @@
 		#{price},
 		#{count},
 		#{imgUrl},
-		#{via})
+		#{via},
+		#{description})
 	</insert>
 	
 	<delete id="deleteGoods" parameterType="String">

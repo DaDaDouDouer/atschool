@@ -9,8 +9,10 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gs.reusebook.bean.Book;
 import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.bean.base.RealGoods;
+import com.gs.reusebook.connect.BookConnect;
 import com.gs.reusebook.dao.BookDao;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.base.RealGoodsBaseDao;
@@ -38,7 +40,9 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 */
 	@Autowired
 	private BookDao bookDao;
-
+	
+	@Autowired
+	private BookConnect bookConnect;
 	/**
 	 * 用于存储实际商品dao的dao池
 	 */
@@ -272,6 +276,35 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 			msg += "价格不能小于零！";
 		
 		return UiReturn.ok(null, msg);
+	}
+	
+	public UiReturn addGoodsByIsbn(String isbn, Double price, Integer count,String sellerId){
+		Book book = bookConnect.getBookInformation(isbn);
+		if(book == null)
+			return UiReturn.notOk(null, "获取不到书籍信息", REQ_ERROR_400);
+		
+		book.setId(UUID.randomUUID().toString());
+		Book sameBook = bookDao.selectByIsbn(book.getIsbn());
+		
+		if(sameBook == null || sameBook.getId() == null || sameBook.getId().isEmpty())
+			bookDao.insertBook(book);
+		else
+			book.setId(sameBook.getId());
+		
+		Goods goods = new Goods();
+		goods.setSellerId(sellerId);
+		goods.setId(UUID.randomUUID().toString());
+		goods.setRealGoodsId(book.getId());
+		
+		goods.setName(book.getName());
+		goods.setLinkTable("tab_book");
+		goods.setImgUrl(book.getImgUrl());
+		goods.setDescription(book.getDescription());
+		goods.setCount(count);
+		goods.setPrice(price);
+		goods.setVia(10);
+		goodsDao.insertGoods(goods);
+		return UiReturn.ok(goods, "添加成功");
 	}
 	public BookDao getBookDao() {
 		return bookDao;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.bean.Seller;
+import com.gs.reusebook.paramsbean.GoodsBookParam;
 import com.gs.reusebook.paramsbean.GoodsSearchParams;
 import com.gs.reusebook.service.GoodsService;
 import com.gs.reusebook.util.UiReturn;
@@ -97,6 +98,19 @@ public class GoodsController {
 		return goodsService.addGoods(goodsParams, sellerId);
 	}
 	
+	/**
+	 * 添加goods
+	 * @param goodsParams
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/addGoodsByIsbn", method = RequestMethod.POST)
+	@NeedUserLogin(character = Seller.class)
+	@ResponseBody
+	public UiReturn addGoodsByIsbn(@RequestBody GoodsBookParam goodsBookParams, HttpSession session){
+		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return goodsService.addGoodsByIsbn(goodsBookParams.getIsbn(), goodsBookParams.getPrice(), goodsBookParams.getCount(), sellerId);
+	}
 	/**
 	 * 删除goods
 	 * @param goodsParams
