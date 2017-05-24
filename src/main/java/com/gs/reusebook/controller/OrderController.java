@@ -36,7 +36,7 @@ public class OrderController {
 	@ResponseBody
 	public UiReturn selectAllBySellerId(@RequestBody SearchParams params, HttpSession session){
 		String sellerId= (String) session.getAttribute(SELLER_ID_SESSION_KEY);
-		return orderService.selectAllBySellerId(sellerId, params.pageNo, params.limit);
+		return orderService.selectAllBySellerId(params.keyword, sellerId, params.pageNo, params.limit);
 	}
 
 	/**

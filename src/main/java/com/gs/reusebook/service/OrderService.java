@@ -61,7 +61,7 @@ public class OrderService {
 	 * @param sellerId
 	 * @return
 	 */
-	public UiReturn selectAllBySellerId(String sellerId, Integer pageNo, Integer limit){
+	public UiReturn selectAllBySellerId(String username, String sellerId, Integer pageNo, Integer limit){
 		
 		// 参数校验
 		ValidatorReturnParams result = GeneralValidator.validate(PKID, sellerId);
@@ -69,13 +69,13 @@ public class OrderService {
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
 		
-		int goodsAllCount = orderDao.selectCountBySellerId(sellerId); 
+		int goodsAllCount = orderDao.selectCountBySellerId("%" + username + "%", sellerId); 
 		
 		// 特殊的分页校验
 		CutPageValidatorReturnParams rst = 
 				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
 
-		List<Order> orders = orderDao.selectAllBySellerId(sellerId, pageNo, limit);
+		List<Order> orders = orderDao.selectAllBySellerId("%" + username + "%", sellerId, pageNo, limit);
 		
 		// 将查询到的总页数放入other中返回
 		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);

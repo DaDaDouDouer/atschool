@@ -9,7 +9,14 @@
 	</select>
 	
 	<select id="selectCountBySellerId" resultType="Integer">
-		SELECT count(*) FROM tab_order WHERE seller_id = #{sellerId} 
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  tab_order o,
+		  tab_user u 
+		WHERE o.seller_id = #{sellerId} 
+		  AND u.username LIKE #{name}
+		  AND u.id = o.user_id 
 	</select>
 	
 	<select id="selectCountByUserId" resultType="Integer">
@@ -75,6 +82,7 @@
 		WHERE o.seller_id = #{sellerId} 
 		  AND s.id = o.seller_id
 		  AND u.id = o.user_id 
+		  AND u.username LIKE #{name}
 		  AND i.order_id = o.id 
 		  AND i.goods_id = g.id 
 		LIMIT #{offset},#{limit} 
