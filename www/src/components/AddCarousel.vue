@@ -20,7 +20,7 @@
         <form method= "post" enctype ="multipart/form-data" @submit.prevent="submit">
           <input type ="file" name="file"/>
           <div class="text-xs-center">
-            <v-btn primary dark type="submit">登录</v-btn>
+            <v-btn primary dark type="submit">添加</v-btn>
           </div>
         </form>
       </v-card-text>

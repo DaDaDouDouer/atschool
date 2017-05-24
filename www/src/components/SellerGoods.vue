@@ -69,7 +69,7 @@ export default {
   methods: {
     ...mapActions([
       'getGoodsBySeller',
-      'deleteGoodsByAdmin'
+      'deleteGoodsBySeller'
     ]),
     getGoodsList () {
       return this.getGoodsBySeller(this.conditions).then(({goodsList, pageCount}) => {
@@ -78,7 +78,7 @@ export default {
       })
     },
     remove (id) {
-      this.deleteGoodsByAdmin(id).then(data => {
+      this.deleteGoodsBySeller(id).then(data => {
         alert('删除商品成功！')
         return this.getGoodsList()
       })
