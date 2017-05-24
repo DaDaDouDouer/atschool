@@ -25,6 +25,7 @@ public class ManagerGoodsController {
 	 * @return
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn search	(@RequestBody GoodsSearchParams params) {
 
