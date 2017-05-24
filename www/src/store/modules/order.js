@@ -15,14 +15,14 @@ const actions = {
       return data
     })
   },
-  getUserOrder ({commit, state}) {
-    return API.order.getUserOrder().then((order) => {
+  getUserOrder ({commit, state}, conditions) {
+    return API.order.getUserOrder(conditions).then((order) => {
       return order
     })
   },
-  getSellerOrder ({commit, state}) {
-    return API.order.getSellerOrder().then((order) => {
-      return order
+  getSellerOrder ({commit, state}, conditions) {
+    return API.order.getSellerOrder(conditions).then(({data, other}) => {
+      return {orderList: data, pageCount: other.pageAllCount}
     })
   },
   pay ({commit, state}, orderId) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="order-manager">
+  <div class="seller-order">
     <v-card>
       <v-card-title>
         订单管理
@@ -35,6 +35,7 @@
                     <th>商品名</th>
                     <th>数量</th>
                     <th>价格</th>
+                    <th>操作</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -42,13 +43,18 @@
                     <td>{{goodsItem.goods.name}}</td>
                     <td>{{goodsItem.goodsCount}}</td>
                     <td>{{goodsItem.goods.price}}</td>
+                    <td class="text-xs-center">
+                      <v-btn small primary dark v-if="goodsItem.state === 1001" @click.native="confirmPayment(goodsItem.id)">确认用户已支付</v-btn>
+                      <v-btn small primary dark v-else-if="goodsItem.state === 1002" @click.native="delivery(goodsItem.id)">确认发货</v-btn>
+                      <div v-else>
+                        无可用操作
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </td>
-            <td class="text-xs-center">
-              <v-btn small primary dark slot="activator" @click.native="remove(item.id)">删除</v-btn>
-            </td>
+
           </tr>
         </tbody>
       </table>
@@ -63,7 +69,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'order-manager',
+  name: 'seller-order',
   mounted () {
     this.getOrderList()
   },
@@ -81,8 +87,6 @@ export default {
         text: '收货地址'
       }, {
         text: '订单详情'
-      }, {
-        text: '操作'
       }],
       orderList: [],
       conditions: {
@@ -95,19 +99,14 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getOrderByAdmin',
-      'deleteOrderByAdmin'
+      'getSellerOrder',
+      'confirmPayment',
+      'delivery'
     ]),
     getOrderList () {
-      return this.getOrderByAdmin(this.conditions).then(({orderList, pageCount}) => {
+      return this.getSellerOrder(this.conditions).then(({orderList, pageCount}) => {
         this.orderList = orderList
         this.pageCount = pageCount
-      })
-    },
-    remove (id) {
-      this.deleteOrderByAdmin(id).then(data => {
-        alert('删除订单成功！')
-        return this.getOrderList()
       })
     }
   },
@@ -121,7 +120,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.order-manager tr th {
+.seller-order tr th {
   text-align: center!important;
 }
 </style>

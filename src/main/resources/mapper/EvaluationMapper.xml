@@ -8,6 +8,27 @@
 		SELECT * FROM tab_evaluation WHERE goods_id = #{goodsId}
 	</select>
 
+	<select id="selectAllBySellerId" resultType="Evaluation" resultMap="normalEvaluationMap">
+		SELECT 
+		  * 
+		FROM
+		  tab_evaluation e,
+		  tab_goods g 
+		WHERE seller_id = #{sellerId}
+		  AND e.goods_id = g.id
+		LIMIT #{offset},#{limit} 
+	</select>
+	
+	<select id="selectCountBySellerId" parameterType="String" resultType="Integer">
+		SELECT 
+		  count(*) 
+		FROM
+		  tab_evaluation e,
+		  tab_goods g 
+		WHERE seller_id = #{sellerId}
+		  AND e.goods_id = g.id
+	</select>
+
 	<select id="selectByUserIdAndGoodsId" resultType="Evaluation" resultMap="normalEvaluationMap">
 		SELECT * FROM tab_evaluation WHERE goods_id = #{goodsId} AND user_id = #{userId}
 	</select>

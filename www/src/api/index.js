@@ -4,6 +4,9 @@ import * as book from './book'
 import * as cart from './cart'
 import * as order from './order'
 import * as evaluation from './evaluation'
+import * as admin from './admin'
+import * as seller from './seller'
+import * as shop from './shop'
 
 const API = {
   user,
@@ -11,7 +14,10 @@ const API = {
   book,
   cart,
   order,
-  evaluation
+  evaluation,
+  admin,
+  seller,
+  shop
 }
 
 export default API

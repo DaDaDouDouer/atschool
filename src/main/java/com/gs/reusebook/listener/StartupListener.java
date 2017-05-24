@@ -1,14 +1,21 @@
 package com.gs.reusebook.listener;
 
+import static com.gs.reusebook.util.ReusebookStatic.*;
+
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
+import com.gs.reusebook.bean.Seller;
+import com.gs.reusebook.bean.Shop;
+import com.gs.reusebook.dao.SellerDao;
+import com.gs.reusebook.dao.ShopDao;
 import com.gs.reusebook.service.GoodsTypeService;
 import com.gs.reusebook.util.UiReturn;
-
-import static com.gs.reusebook.util.ReusebookStatic.*;
 
 @Service
 public class StartupListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -16,12 +23,17 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 	@Autowired
 	private GoodsTypeService goodsTypeService;
 	
+	@Autowired
+	private ShopDao shopDao;
+	@Autowired
+	private SellerDao sellerDao;
+	
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		//root application context 没有parent，避免执行两次
 		if(event.getApplicationContext().getParent() == null){   
 			
 			saveDefaultBookType();
-			
+			setIndexShop();
        }  
 	}
 	
@@ -43,6 +55,35 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 					DEFAULT_TYPE_BASE_ID
 					);
 		}
+	}
+	
+	/**
+	 * 增加默认的首页用户和商铺
+	 */
+	private void setIndexShop(){
+		List<Seller> sellers = sellerDao.selectByName(INDEX_Seller_NAME);
+		
+		if(sellers == null || sellers.isEmpty()){
+			Seller seller = new Seller();
+			seller.setId(INDEX_SELLER_ID);
+			seller.setUsername(INDEX_Seller_NAME);
+			seller.setPassword(INDEX_Seller_PASSWORD);
+			seller.setCreateTime(new Date());
+			
+			sellerDao.insert(seller);
+		}
+		
+		Shop shop = shopDao.selectBySellerId(INDEX_SELLER_ID);
+		if(shop == null){
+			shop = new Shop();
+			shop.setId(INDEX_SHOP_ID);
+			shop.setName(INDEX_SHOP_NAME);
+			shop.setImgUrl(INDEX_SHOP_IMGURL);
+			shop.setSellerId(INDEX_SELLER_ID);
+			
+			shopDao.insert(shop);
+		}
+		
 	}
 	
 }

@@ -11,8 +11,8 @@ export const create = function (order) {
 }
 
 // 支付订单
-export const pay = function (orderId) {
-  return http.post('order/userPayed.do', orderId)
+export const pay = function (id) {
+  return http.post('order/userPayed.do', {id})
     .then(function ({data}) {
       let response = data
       console.log(response)
@@ -21,8 +21,8 @@ export const pay = function (orderId) {
 }
 
 // 确认支付
-export const confirmPayment = function (orderId) {
-  return http.post('order/userPayedOk.do', orderId)
+export const confirmPayment = function (id) {
+  return http.post('order/userPayedOk.do', {id})
     .then(function ({data}) {
       let response = data
       console.log(response)
@@ -31,8 +31,8 @@ export const confirmPayment = function (orderId) {
 }
 
 // 发货
-export const delivery = function (orderId) {
-  return http.post('order/sellerSended.do', orderId)
+export const delivery = function (id) {
+  return http.post('order/sellerSended.do', {id})
     .then(function ({data}) {
       let response = data
       console.log(response)
@@ -41,8 +41,8 @@ export const delivery = function (orderId) {
 }
 
 // 确认收货
-export const confirmReceipt = function (orderId) {
-  return http.post('order/userReceived.do', orderId)
+export const confirmReceipt = function (id) {
+  return http.post('order/userReceived.do', {id})
     .then(function ({data}) {
       let response = data
       console.log(response)
@@ -51,21 +51,21 @@ export const confirmReceipt = function (orderId) {
 }
 
 // 获取用户的订单
-export const getUserOrder = function () {
-  return http.get('order/selectAllByUserId.do')
+export const getUserOrder = function (conditions) {
+  return http.post('order/selectAllByUserId.do', conditions)
     .then(function ({data}) {
       let response = data
       console.log(response)
-      return response.data
+      return response
     })
 }
 
 // 获取用户的订单
-export const getSellerOrder = function () {
-  return http.get('/order/selectAllBySellerId.do')
+export const getSellerOrder = function (conditions) {
+  return http.post('/order/selectAllBySellerId.do', conditions)
     .then(function ({data}) {
       let response = data
       console.log(response)
-      return response.data
+      return response
     })
 }

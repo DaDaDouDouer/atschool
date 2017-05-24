@@ -46,6 +46,12 @@ public class GoodsTest {
 		System.out.println(goodses);
 	}
 	
+
+	@Test
+	public void testSelectBySellerId(){
+		System.out.println(goodsService.selectAndPagedBySellerId("", "31c0d96d-0e94-4a52-8648-9c39009d5a72", 1, 4));
+	}
+	
 //	@Test
 	public void testGetRealGoods(){
 		UiReturn realGoods = goodsService.getRealGoods("1");
@@ -57,7 +63,7 @@ public class GoodsTest {
 		System.out.println(goodsService.updateGoodsField("1", Goods.COLUMN_NAME_DESCRIPTION, "adesp", "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab"));
 	}
 	
-	@Test
+//	@Test
 	public void testAddGoods(){
 		Goods goods = new Goods();
 		goods.setCount(1);

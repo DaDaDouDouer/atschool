@@ -36,13 +36,12 @@ public class ShopController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin(character = Seller.class)
-	public UiReturn updatePassword(@RequestBody Shop shopParams, HttpSession session) {
+	public UiReturn add(@RequestBody Shop shopParams, HttpSession session) {
 		
 		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
 		return shopService.add(shopParams.getName(), sellerId);
 		
 	}
-
 
 	/**
 	 * 更新轮播商品的good id目录

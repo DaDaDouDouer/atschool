@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.bean.Evaluation;
+import com.gs.reusebook.bean.Seller;
+import com.gs.reusebook.paramsbean.SearchParams;
 import com.gs.reusebook.service.EvaluationService;
 import com.gs.reusebook.util.UiReturn;
 
@@ -32,7 +34,6 @@ public class EvaluationController {
 	@ResponseBody
 	@NeedUserLogin
 	public UiReturn add(@RequestBody Evaluation evaluation, HttpSession session){
-		// TODO 参数校验
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
 		String username = (String) session.getAttribute(USER_NAME_SESSION_KEY);
 		return evaluationService.addEvaluation(userId, evaluation.getGoodsId(), evaluation.getContent(), username);
@@ -46,7 +47,20 @@ public class EvaluationController {
 	@RequestMapping(value = "/selectAll", method = RequestMethod.POST)
 	@ResponseBody
 	public UiReturn selectAll(@RequestBody Evaluation evaluation){
-		// TODO 参数校验
 		return evaluationService.selectAll(evaluation.getGoodsId());
 	}
+
+	/**
+	 * 获取卖家的的全部商品的全部评论
+	 * @param evaluation
+	 * @return
+	 */
+	@RequestMapping(value = "/selectAllBySellerId", method = RequestMethod.POST)
+	@ResponseBody
+	@NeedUserLogin(character = Seller.class)
+	public UiReturn selectAllBySellerId(@RequestBody SearchParams params, HttpSession session){
+		String sellerId= (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return evaluationService.selectAllBySellerId(sellerId, params.pageNo, params.limit);
+	}
+	
 }

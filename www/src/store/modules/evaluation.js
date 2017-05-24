@@ -8,10 +8,9 @@ const getters = {}
 
 // actions
 const actions = {
-  getAllEvaluation ({commit, state}, id) {
-    return API.evaluation.getAll(id).then((evaluations) => {
-      console.warn('evaluations', evaluations)
-      return evaluations
+  getAllEvaluation ({commit, state}, conditions) {
+    return API.evaluation.getAll(conditions).then(({data, other}) => {
+      return {evaluationList: data, pageCount: other.pageAllCount}
     })
   },
   addEvaluation ({commit, state}, evaluation) {

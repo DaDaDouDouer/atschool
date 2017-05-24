@@ -9,7 +9,7 @@
 	</select>
 
 	<select id="selectCountBySellerId" resultType="Integer">
-		SELECT count(*) FROM tab_goods WHERE seller_id = #{sellerId}
+		SELECT count(*) FROM tab_goods WHERE seller_id = #{sellerId} AND name LIKE #{name}
 	</select>
 	
 	<select id="selectIdsBySellerId" resultType="String">
@@ -17,7 +17,7 @@
 	</select>
 	
 	<select id="selectAndPagedBySellerId" resultType="Goods" resultMap="normalGoodsResultMap">
-		SELECT * FROM tab_goods WHERE seller_id = #{sellerId} LIMIT #{offset},#{limit}
+		SELECT * FROM tab_goods WHERE seller_id = #{sellerId} AND name LIKE #{name} LIMIT #{offset},#{limit}
 	</select>
 	
 	<select id="selectAndPagedByName" resultType="Goods" resultMap="normalGoodsResultMap">

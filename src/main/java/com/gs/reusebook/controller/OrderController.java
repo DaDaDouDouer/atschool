@@ -15,6 +15,7 @@ import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.bean.OrderItem;
 import com.gs.reusebook.bean.Seller;
 import com.gs.reusebook.paramsbean.OrderAddParams;
+import com.gs.reusebook.paramsbean.SearchParams;
 import com.gs.reusebook.service.OrderService;
 import com.gs.reusebook.util.UiReturn;
 
@@ -30,12 +31,12 @@ public class OrderController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/selectAllBySellerId", method = RequestMethod.GET)
+	@RequestMapping(value = "/selectAllBySellerId", method = RequestMethod.POST)
 	@NeedUserLogin(character = Seller.class)
 	@ResponseBody
-	public UiReturn selectAllBySellerId(HttpSession session){
+	public UiReturn selectAllBySellerId(@RequestBody SearchParams params, HttpSession session){
 		String sellerId= (String) session.getAttribute(SELLER_ID_SESSION_KEY);
-		return orderService.selectAllBySellerId(sellerId);
+		return orderService.selectAllBySellerId(params.keyword, sellerId, params.pageNo, params.limit);
 	}
 
 	/**
@@ -43,12 +44,12 @@ public class OrderController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/selectAllByUserId", method = RequestMethod.GET)
+	@RequestMapping(value = "/selectAllByUserId", method = RequestMethod.POST)
 	@ResponseBody
 	@NeedUserLogin
-	public UiReturn selectAllByUserId(HttpSession session){
+	public UiReturn selectAllByUserId(@RequestBody SearchParams params,HttpSession session){
 		String userId= (String) session.getAttribute(USER_ID_SESSION_KEY);
-		return orderService.selectAllByUserId(userId);
+		return orderService.selectAllByUserId(userId, params.pageNo, params.limit);
 	}
 
 	/**

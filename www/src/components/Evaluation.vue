@@ -1,30 +1,20 @@
 <template>
-  <div class="user-manager">
+  <div class="evaluation">
     <v-card>
       <v-card-title>
-        用户管理
+        查看评论
         <v-spacer></v-spacer>
-        <v-text-field
-          append-icon="search"
-          label="搜索"
-          single-line
-          hide-details
-          v-model="conditions.keyword"
-          @keyup.enter.native="getUserList"
-        ></v-text-field>
       </v-card-title>
       <v-data-table
           :headers="headers"
-          v-model="userList"
+          v-model="evaluationList"
           hide-actions
           no-data-text="没有数据"
         >
         <template slot="items" scope="props">
           <td class="text-xs-center">{{ props.item.username }}</td>
+          <td class="text-xs-center">{{ props.item.content }}</td>
           <td class="text-xs-center">{{ new Date(props.item.createTime).toLocaleDateString() }}</td>
-          <td class="text-xs-center">
-            <v-btn small primary dark slot="activator" @click.native="remove(props.item.id)">删除</v-btn>
-          </td>
         </template>
       </v-data-table>
       <div class="text-xs-center">
@@ -38,22 +28,21 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'user-manager',
+  name: 'evaluation',
   mounted () {
-    this.getUserList()
+    this.getEvaluationList()
   },
   data () {
     return {
       headers: [{
-        text: '用户名'
+        text: '买家名'
       }, {
-        text: '创建时间'
+        text: '评论内容'
       }, {
-        text: '操作'
+        text: '评论时间'
       }],
-      userList: [],
+      evaluationList: [],
       conditions: {
-        keyword: '',
         pageNo: 1,
         limit: 20
       },
@@ -62,25 +51,18 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getUserByAdmin',
-      'deleteUserByAdmin'
+      'getAllEvaluation'
     ]),
-    getUserList () {
-      return this.getUserByAdmin(this.conditions).then(({userList, pageCount}) => {
-        this.userList = userList
+    getEvaluationList () {
+      return this.getAllEvaluation(this.conditions).then(({evaluationList, pageCount}) => {
+        this.evaluationList = evaluationList
         this.pageCount = pageCount
-      })
-    },
-    remove (id) {
-      this.deleteUserByAdmin(id).then(data => {
-        alert('删除普通用户成功！')
-        return this.getUserList()
       })
     }
   },
   watch: {
     'conditions.pageNo': function (val, oldVal) {
-      this.getUserList()
+      this.getEvaluationList()
     }
   }
 }
@@ -88,7 +70,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.user-manager tr th {
+.evaluation tr th {
   text-align: center!important;
 }
 </style>

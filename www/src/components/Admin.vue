@@ -62,7 +62,7 @@ export default {
           path: 'add-seller'
         }]
       }, {
-        title: '店铺管理',
+        title: '商铺管理',
         path: 'shop-manager'
       }, {
         title: '商品管理',

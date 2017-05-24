@@ -13,12 +13,12 @@ public interface GoodsDao {
 	(@Param("name") String name, @Param("offset") int offset, @Param("limit") int limit, @Param("amap") Map<String, Object> amap);
 	
 	public List<Goods> selectAndPagedBySellerId
-		(@Param("sellerId") String sellerId, @Param("offset") int offset, @Param("limit") int limit);
+		(@Param("name") String name, @Param("sellerId") String sellerId, @Param("offset") int offset, @Param("limit") int limit);
 	
 	
 	public Integer selectCountByName(String name);
 	
-	public Integer selectCountBySellerId(String sellerId);
+	public Integer selectCountBySellerId(@Param("name") String name, @Param("sellerId") String sellerId);
 	
 	/**
 	 * 通过卖家id获取其全部的商品id 

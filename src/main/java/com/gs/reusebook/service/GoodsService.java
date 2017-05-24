@@ -121,7 +121,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	 * @param limit
 	 * @return
 	 */
-	public UiReturn selectAndPagedBySellerId(String sellerId, Integer pageNo, Integer limit) {
+	public UiReturn selectAndPagedBySellerId(String name, String sellerId, Integer pageNo, Integer limit) {
 
 		// id校验
 		ValidatorReturnParams result = GeneralValidator.validate(ValidatorType.PKID, sellerId);
@@ -130,14 +130,14 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		}
 		
 		// 获取到可查询到的商品总量
-		int goodsAllCount = goodsDao.selectCountBySellerId(sellerId);
+		int goodsAllCount = goodsDao.selectCountBySellerId("%" + name + "%", sellerId);
 		
 		// 特殊的分页校验
 		CutPageValidatorReturnParams rst = 
 				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
 		
 		// 分页查询商品
-		List<Goods> goods = goodsDao.selectAndPagedBySellerId(sellerId, rst.offset, rst.limit); 
+		List<Goods> goods = goodsDao.selectAndPagedBySellerId("%" + name + "%", sellerId, rst.offset, rst.limit); 
 		
 		// 将查询到的总页数放入other中返回
 		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);

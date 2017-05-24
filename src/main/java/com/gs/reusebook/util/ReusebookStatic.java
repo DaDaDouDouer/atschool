@@ -100,6 +100,36 @@ public class ReusebookStatic {
 	
 	
 	
+
+	/**
+	 * 首页商铺的图片地址
+	 */
+	public final static String INDEX_Seller_PASSWORD = "index";
+	/**
+	 * 首页商铺的名字
+	 */
+	public final static String INDEX_Seller_NAME = "index";
+	/**
+	 * 首页商铺的id
+	 */	
+	public final static String INDEX_SELLER_ID = "586c450b-1d91-48af-8e1b-a12b8edfe03c";
+	
+	/**
+	 * 首页商铺的图片地址
+	 */
+	public final static String INDEX_SHOP_IMGURL = "";
+	/**
+	 * 首页商铺的名字
+	 */
+	public final static String INDEX_SHOP_NAME = "首页";
+	/**
+	 * 首页商铺的id
+	 */	
+	public final static String INDEX_SHOP_ID = "b2e58fd1-41e0-460c-ad90-347c8f4c9709";
+	
+	
+	
+	
 	/**
 	 * 订单状态，用户已下单
 	 */
@@ -128,9 +158,9 @@ public class ReusebookStatic {
 	/**
 	 * 分页查询商品的每页显示最小值
 	 */
-	public final static int CUT_PAGE_LIMIT_MIN = 2;
+	public final static int CUT_PAGE_LIMIT_MIN = 1;
 	/**
 	 * 分页查询商品的每页显示最大值
 	 */
-	public final static int CUT_PAGE_LIMIT_MAX = 5;
+	public final static int CUT_PAGE_LIMIT_MAX = 30;
 }

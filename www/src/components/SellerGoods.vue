@@ -1,8 +1,8 @@
 <template>
-  <div class="shop-manager">
+  <div class="seller-goods">
     <v-card>
       <v-card-title>
-        商铺管理
+        商品管理
         <v-spacer></v-spacer>
         <v-text-field
           append-icon="search"
@@ -10,17 +10,20 @@
           single-line
           hide-details
           v-model="conditions.keyword"
-          @keyup.enter.native="getShopList"
+          @keyup.enter.native="getGoodsList"
         ></v-text-field>
       </v-card-title>
       <v-data-table
           :headers="headers"
-          v-model="shopList"
+          v-model="goodsList"
           hide-actions
           no-data-text="没有数据"
         >
         <template slot="items" scope="props">
           <td class="text-xs-center">{{ props.item.name }}</td>
+          <td class="text-xs-center">{{ props.item.count }}</td>
+          <td class="text-xs-center">￥{{ props.item.price.toFixed(2) }}</td>
+          <td class="text-xs-center">{{ props.item.via }}</td>
           <td class="text-xs-center">
             <v-btn small primary dark slot="activator" @click.native="remove(props.item.id)">删除</v-btn>
           </td>
@@ -37,18 +40,24 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'shop-manager',
+  name: 'seller-goods',
   mounted () {
-    this.getShopList()
+    this.getGoodsList()
   },
   data () {
     return {
       headers: [{
-        text: '商铺名'
+        text: '书名'
+      }, {
+        text: '单价'
+      }, {
+        text: '数量'
+      }, {
+        text: '销量'
       }, {
         text: '操作'
       }],
-      shopList: [],
+      goodsList: [],
       conditions: {
         keyword: '',
         pageNo: 1,
@@ -59,25 +68,25 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getShopByAdmin',
-      'deleteShopByAdmin'
+      'getGoodsBySeller',
+      'deleteGoodsByAdmin'
     ]),
-    getShopList () {
-      return this.getShopByAdmin(this.conditions).then(({shopList, pageCount}) => {
-        this.shopList = shopList
+    getGoodsList () {
+      return this.getGoodsBySeller(this.conditions).then(({goodsList, pageCount}) => {
+        this.goodsList = goodsList
         this.pageCount = pageCount
       })
     },
     remove (id) {
-      this.deleteShopByAdmin(id).then(data => {
-        alert('删除商铺成功！')
-        return this.getShopList()
+      this.deleteGoodsByAdmin(id).then(data => {
+        alert('删除商品成功！')
+        return this.getGoodsList()
       })
     }
   },
   watch: {
     'conditions.pageNo': function (val, oldVal) {
-      this.getShopList()
+      this.getGoodsList()
     }
   }
 }
@@ -85,7 +94,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.shop-manager tr th {
+.seller-goods tr th {
   text-align: center!important;
 }
 </style>

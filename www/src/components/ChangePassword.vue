@@ -1,25 +1,35 @@
 <template>
   <div class="change-password">
-    <v-row row v-for='(input, index) in formItems'>
-      <v-col xs2 offset-xs2>
-        <v-subheader class="label">{{input.label}}</v-subheader>
-      </v-col>
-      <v-col xs5>
-        <v-text-field
-          v-model="fields[input.name]"
-          :id="input.index"
-          :name="input.name"
-          :type="input.type"
-          :label="input.placeholder"
-          single-line
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col xs2 offset-xs5>
-        <v-btn block primary dark @click.native="submit">确认更改</v-btn>
-      </v-col>
-    </v-row>
+    <v-col xs10 offset-xs1>
+      <v-card>
+        <v-card-row class="blue darken-1 title">
+          <v-card-title>
+            <span class="white--text">更改密码</span>
+            <v-spacer></v-spacer>
+          </v-card-title>
+        </v-card-row>
+        <v-row row v-for='(input, index) in formItems'>
+          <v-col xs2 offset-xs2>
+            <v-subheader class="label">{{input.label}}</v-subheader>
+          </v-col>
+          <v-col xs5>
+            <v-text-field
+              v-model="fields[input.name]"
+              :id="input.index"
+              :name="input.name"
+              :type="input.type"
+              :label="input.placeholder"
+              single-line
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col xs2 offset-xs5>
+            <v-btn block primary dark @click.native="submit">确认更改</v-btn>
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-col>
   </div>
 </template>
 
@@ -56,7 +66,7 @@ export default {
     ]),
     submit () {
       this.updatePassword(this.fields).then((response) => {
-        debugger
+        alert('修改密码成功！')
       })
     }
   }
