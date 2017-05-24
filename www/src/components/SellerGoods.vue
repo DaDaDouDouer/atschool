@@ -29,6 +29,8 @@
               <v-btn small primary dark>修改</v-btn>
             </a>
             <v-btn small primary dark @click.native="remove(props.item.id)">删除</v-btn>
+            <v-btn small primary dark @click.native="addRecommand(props.item.id)">推荐</v-btn>
+            <v-btn small primary dark @click.native="removeRecommand(props.item.id)">取消推荐</v-btn>
           </td>
         </template>
       </v-data-table>
@@ -72,7 +74,9 @@ export default {
   methods: {
     ...mapActions([
       'getGoodsBySeller',
-      'deleteGoodsBySeller'
+      'deleteGoodsBySeller',
+      'addRecommand',
+      'removeRecommand'
     ]),
     getGoodsList () {
       return this.getGoodsBySeller(this.conditions).then(({goodsList, pageCount}) => {

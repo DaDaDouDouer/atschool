@@ -41,6 +41,7 @@ export const addRecommand = function (id) {
   return http.post('shop/addRecommand.do', {id})
     .then(function ({data}) {
       let response = data
+      alert(response.msg)
       return response.data
     })
 }
@@ -50,6 +51,7 @@ export const removeRecommand = function (id) {
   return http.post('shop/removeRecommand.do', {id})
     .then(function ({data}) {
       let response = data
+      alert(response.msg)
       return response.data
     })
 }
