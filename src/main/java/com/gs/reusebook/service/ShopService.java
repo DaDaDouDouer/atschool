@@ -217,9 +217,14 @@ public class ShopService {
 			return UiReturn.notOk("", "店铺不存在", REQ_ERROR_400);
 		}
 		
+		// 防止轮播字符串为null造成NPE
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			shop.setCarouselObj(mapper.readValue(shop.getCarouselStr(), Object.class));
+			String carouselStr = shop.getCarouselStr();
+			if(StringUtils.isEmpty(carouselStr)){
+				carouselStr = "{}";
+			}
+			shop.setCarouselObj(mapper.readValue(carouselStr, Object.class));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
