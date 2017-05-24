@@ -288,17 +288,16 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 	}
 	
 	public UiReturn addGoodsByIsbn(String isbn, Double price, Integer count,String sellerId, String sellername){
-		Book book = bookConnect.getBookInformation(isbn);
-		if(book == null)
-			return UiReturn.notOk(null, "获取不到书籍信息", REQ_ERROR_400);
+		Book book = bookDao.selectByIsbn(isbn);
 		
-		book.setId(UUID.randomUUID().toString());
-		Book sameBook = bookDao.selectByIsbn(book.getIsbn());
-		
-		if(sameBook == null || sameBook.getId() == null || sameBook.getId().isEmpty())
+		if(book == null || book.getId() == null || book.getId().isEmpty()){
+			book = bookConnect.getBookInformation(isbn);
+			if(book == null)
+				return UiReturn.notOk(null, "获取不到书籍信息", REQ_ERROR_400);
+			
+			book.setId(UUID.randomUUID().toString());
 			bookDao.insertBook(book);
-		else
-			book.setId(sameBook.getId());
+		}
 			
 		Goods goods = new Goods();
 		goods.setSellerId(sellerId);
