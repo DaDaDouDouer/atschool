@@ -497,7 +497,6 @@
 				</td>
 			</tr>
 
-
 			<tr class="goods-type" id="goods-type-selet-all">
 				<td>获取所有分类</td>
 				<td>
@@ -1033,6 +1032,56 @@
 					</pre>
 				</td>
 			</tr>
+			
+			<tr class="evaluation" id="evaluation-select-all-by-seller-id">
+				<td>查询某个卖家的全部评论</td>
+				<td>
+					evaluation/selectAllBySellerId.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>pageNo 页码</p>
+					<p>limit 每页显示最大数量</p>
+					<pre>
+{
+	"pageNo":1,
+	"limit":2
+}
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "查询商品评论成功",
+  "data": [
+    {
+      "id": "6d91f93f-2102-4833-846a-0226a5cbbb6f",
+      "goodsId": "3",
+      "sellername": "njuptseller",
+      "userId": "0cc95799-4660-4758-9f7e-0053187eac7a",
+      "username": "ba",
+      "content": "sdftt65676yut",
+      "createTime": 1487933948000
+    },
+    {
+      "id": "a48fee1c-0893-403b-a7f6-54a3c95a63ef",
+      "goodsId": "1",
+      "sellername": "njuptseller",
+      "userId": "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab",
+      "username": "njuptuser",
+      "content": "新加的评论",
+      "createTime": 1495422996000
+    }
+  ],
+  "other": {
+    "pageAllCount": 1
+  }
+}
+					</pre>
+				</td>
+			</tr>
 
 			
 			<tr class="order" id="order-select-all-by-seller-id">
@@ -1511,6 +1560,65 @@
   "status": 400,
   "msg": "没有添加过该商品",
   "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="shop" id="shop-add-carousel">
+				<td>添加一个需要轮播的图片和描述</td>
+				<td>
+					shop/addCarousel.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>需要推荐的goodsId</p>
+					<pre>
+{
+	"url":"com",
+	"desc":"332143"
+}
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "增加成功",
+  "data": "",
+  "other": null
+}
+					</pre>
+				</td>
+			</tr>
+			<tr class="shop" id="shop-remove-carousel">
+				<td>去除一个需要轮播的图片和描述，通过图片url</td>
+				<td>
+					shop/removeCarousel.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>imgUrl 需要删除的图片url</p>
+					<pre>
+{
+	"imgUrl":"com"
+}
+					</pre>
+				</td>
+				<td>需要卖家登陆</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "删除成功",
+  "data": "",
+  "other": null
+}
+{
+  "status": 400,
+  "msg": "没有添加过该轮播",
+  "data": null,
   "other": null
 }
 					</pre>
@@ -2207,6 +2315,49 @@ picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png
 					</pre>
 				</td>
 			</tr>
+			<tr class="seller" id="seller-goods-addByIsbn">
+				<td>通过ISBN添加书籍</td>
+				<td>
+					goods/addGoodsByIsbn.do
+				</td>
+				<td>post</td>
+				<td>
+					<p>isbn:书籍isbn</p>
+					<p>price:书籍价格</p>
+					<p>count:书籍数量</p>
+					<pre>
+{
+  "isbn":"9787121287220",
+  "price":10.5,
+  "count":12
+}
+					</pre>
+				</td>
+				<td>需要卖家登录</td>
+				<td>
+					<pre>
+{
+  "status": 200,
+  "msg": "添加成功",
+  "data": {
+    "id": "f56bd2bc-474e-47a1-9fb1-14162f515933",
+    "realGoodsId": "76ebbb75-5717-4229-a0b1-15ea23d9c01e",
+    "sellerId": "1",
+    "linkTable": "tab_book",
+    "name": "Vue.js权威指南",
+    "price": 10.5,
+    "count": 12,
+    "via": 10,
+    "types": null,
+    "imgUrl": "https://img1.doubanio.com/mpic/s29029037.jpg",
+    "realGoods": null,
+    "description": "Vue.js 是一个用来开发Web 界面的前端库。《Vue.js权威指南》致力于普及国内Vue.js 技术体系，让更多喜欢前端的人员了解和学习Vue.js。如果你对Vue.js 基础知识感兴趣，如果你对源码解析感兴趣，如果你对Vue.js 2.0感兴趣，如果你对主流打包工具感兴趣，如果你对如何实践感兴趣，《Vue.js权威指南》都是一本不容错过的以示例代码为引导、知识涵盖全面的最佳选择。《Vue.js权威指南》一共30 章，由浅入深地讲解了Vue.js 基本语法及源码解析。主要内容包括数据绑定、指令、表单控件绑定、过滤器、组件、表单验证、服务通信、路由和视图、vue-cli、测试开发和调试、源码解析及主流打包构建工具等。该书内容全面，讲解细致，示例丰富，适用于各层次的开发者。"
+  },
+  "other": null
+}		
+					</pre>
+				</td>
+			</tr>		
 			
 			<tr class="seller" id="seller-goods-delete">
 				<td>卖家删除商品</td>
@@ -2384,7 +2535,7 @@ picId=fece31d7-7672-46f2-8b1b-d2487adaab14.png
 }
 					</pre>
 				</td>
-			</tr>		
+			</tr>
 		
 		</tbody>
 	</table>

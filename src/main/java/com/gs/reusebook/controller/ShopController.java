@@ -107,6 +107,37 @@ public class ShopController {
 	}
 
 	/**
+	 * 添加一个轮播图和描述
+	 * @param goodsParam
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/addCarousel", method = RequestMethod.POST)
+	@ResponseBody
+	@NeedUserLogin(character = Seller.class)
+	public UiReturn addCarousel(@RequestBody Map<String,String> urlAndDesc, HttpSession session) {
+		
+		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return shopService.addCarousel(urlAndDesc, sellerId);
+		
+	}
+	
+	/**
+	 * 去除一个轮播图和描述
+	 * @param goodsParam
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/removeCarousel", method = RequestMethod.POST)
+	@ResponseBody
+	@NeedUserLogin(character = Seller.class)
+	public UiReturn removeCarousel(@RequestBody Goods goodsParam, HttpSession session) {
+		
+		String sellerId = (String) session.getAttribute(SELLER_ID_SESSION_KEY);
+		return shopService.removeCarousel(goodsParam.getImgUrl(), sellerId);
+		
+	}
+	/**
 	 * 卖家获取自己全部的商铺信息
 	 * @param session
 	 * @return
@@ -128,7 +159,7 @@ public class ShopController {
 	 */
 	@RequestMapping(value = "/getBySellerId", method = RequestMethod.POST)
 	@ResponseBody
-	public UiReturn getBySellerId(@RequestBody Shop shopParams, HttpSession session) {
+	public UiReturn getBySellerId(@RequestBody Shop shopParams) {
 		
 		return shopService.getBySellerId(shopParams.getSellerId());
 		
