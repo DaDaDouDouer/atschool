@@ -65,7 +65,7 @@ CREATE TABLE `tab_book` (
 
 LOCK TABLES `tab_book` WRITE;
 /*!40000 ALTER TABLE `tab_book` DISABLE KEYS */;
-INSERT INTO `tab_book` VALUES ('11','C','daf','53426436','http://evgetgif.qiniudn.com/C-language-book-2.jpg'),('12','Java','ytutre','6744533','http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg'),('13','C++','fbds','465743','http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg'),('14','PHP','dsafsd','3214577','http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg'),('2ddb08d6-a0bd-4c3f-89fa-4db552aa1a76','龙族Ⅲ','江南 ','9787549220632','https://img3.doubanio.com/mpic/s27174422.jpg');
+INSERT INTO `tab_book` VALUES ('11','C','daf','53426436','http://evgetgif.qiniudn.com/C-language-book-2.jpg',''),('12','Java','ytutre','6744533','http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',''),('13','C++','fbds','465743','http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',''),('14','PHP','dsafsd','3214577','http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',''),('2ddb08d6-a0bd-4c3f-89fa-4db552aa1a76','龙族Ⅲ','江南 ','9787549220632','https://img3.doubanio.com/mpic/s27174422.jpg','');
 /*!40000 ALTER TABLE `tab_book` ENABLE KEYS */;
 UNLOCK TABLES;
 
