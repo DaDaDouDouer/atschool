@@ -38,6 +38,16 @@ const actions = {
     return API.shop.removeRecommand(goodsId).then(data => {
       return data
     })
+  },
+  addCarousel ({ commit, state }, carousel) {
+    return API.shop.addCarousel(carousel).then(data => {
+      return data
+    })
+  },
+  removeCarousel ({ commit, state }, imgUrl) {
+    return API.shop.removeCarousel(imgUrl).then(data => {
+      return data
+    })
   }
 }
 

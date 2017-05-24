@@ -53,3 +53,21 @@ export const removeRecommand = function (id) {
       return response.data
     })
 }
+
+// 添加轮播图
+export const addCarousel = function (carousel) {
+  return http.post('shop/addCarousel.do', carousel)
+    .then(function ({data}) {
+      let response = data
+      return response.data
+    })
+}
+
+// 删除轮播图
+export const removeCarousel = function (imgUrl) {
+  return http.post('shop/removeCarousel.do', {imgUrl})
+    .then(function ({data}) {
+      let response = data
+      return response.data
+    })
+}

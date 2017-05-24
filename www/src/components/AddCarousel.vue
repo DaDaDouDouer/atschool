@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import API from '../api'
 
 export default {
@@ -53,10 +54,17 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'addCarousel'
+    ]),
     submit (e) {
       let formData = new FormData(e.target)
-      API.file.upload(formData).then((data) => {
+      return API.file.upload(formData).then((data) => {
         this.form.url = data
+        return this.addCarousel(this.form).then(data => {
+          alert('添加轮播图片成功！')
+          location.reload()
+        })
       })
     }
   }
