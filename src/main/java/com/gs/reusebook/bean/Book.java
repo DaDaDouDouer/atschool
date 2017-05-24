@@ -16,6 +16,7 @@ public class Book extends RealGoods {
 	private String author;
 	private String isbn;
 	private String imgUrl;
+	private String description;
 
 	public void setId(String id) {
 		this.id = id;
@@ -56,4 +57,13 @@ public class Book extends RealGoods {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 }

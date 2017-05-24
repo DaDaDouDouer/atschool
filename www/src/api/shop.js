@@ -2,7 +2,7 @@ import http from '../utils/http'
 
 // 获取店铺信息
 export const get = function () {
-  return http.get('shop/updateOwn.do')
+  return http.get('shop/getOwn.do')
     .then(function ({data}) {
       let response = data
       return response.data

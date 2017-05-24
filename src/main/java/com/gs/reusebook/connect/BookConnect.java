@@ -30,9 +30,14 @@ public class BookConnect {
 			
 			Book book = new Book();
 			book.setName(response.getTitle());
-			book.setAuthor(response.getAuthor().toString());
+			StringBuffer sb = new StringBuffer();
+			for(int i = 0; i < response.getAuthor().length; i++)
+				sb. append(response.getAuthor()[i] + " ");
+	        String author = sb.toString();
+	        book.setAuthor(author);
 			book.setIsbn(response.getIsbn13());
 			book.setImgUrl(response.getImage());
+			book.setDescription(response.getSummary());
 			return book;
 		} catch (Exception e) {
 			e.printStackTrace();

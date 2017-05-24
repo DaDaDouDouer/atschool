@@ -47,7 +47,7 @@ public class GoodsTest {
 	}
 	
 
-	@Test
+//	@Test
 	public void testSelectBySellerId(){
 		System.out.println(goodsService.selectAndPagedBySellerId("", "31c0d96d-0e94-4a52-8648-9c39009d5a72", 1, 4));
 	}
@@ -75,5 +75,9 @@ public class GoodsTest {
 		goods.setPrice(10.2);
 		goods.setVia(0);
 		goodsService.addGoods(goods, "17718c86-e8ca-4a9d-96f3-f1a4a3da04ab");
+	}
+	@Test
+	public void testAddGoodsByIsbn(){
+		goodsService.addGoodsByIsbn("9787121287220", 12.2, 10, "1");
 	}
 }
