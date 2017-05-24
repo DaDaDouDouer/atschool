@@ -44,6 +44,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping(value = "/searchBySellerId", method = RequestMethod.POST)
+	@NeedUserLogin(character = Seller.class)
 	@ResponseBody
 	public UiReturn searchBySellerId(@RequestBody GoodsSearchParams params, HttpSession session) {
 

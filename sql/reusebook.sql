@@ -310,7 +310,7 @@ CREATE TABLE `tab_seller` (
 
 LOCK TABLES `tab_seller` WRITE;
 /*!40000 ALTER TABLE `tab_seller` DISABLE KEYS */;
-INSERT INTO `tab_seller` VALUES ('31c0d96d-0e94-4a52-8648-9c39009d5a72','Njupt@123','njuptseller','2017-02-27 14:41:19'),('5f97d096-0c09-4906-bc26-c556c772e4a4','12345','asellader','2017-02-27 14:42:43');
+INSERT INTO `tab_seller` VALUES ('31c0d96d-0e94-4a52-8648-9c39009d5a72','Njupt@123','njuptseller','2017-02-27 14:41:19'),('586c450b-1d91-48af-8e1b-a12b8edfe03c','index','index','2017-05-23 10:16:45'),('5f97d096-0c09-4906-bc26-c556c772e4a4','12345','asellader','2017-02-27 14:42:43');
 /*!40000 ALTER TABLE `tab_seller` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,7 +338,7 @@ CREATE TABLE `tab_shop` (
 
 LOCK TABLES `tab_shop` WRITE;
 /*!40000 ALTER TABLE `tab_shop` DISABLE KEYS */;
-INSERT INTO `tab_shop` VALUES ('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'1 2 4','[{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"},{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"}]'),('f2a24593-b857-4ca9-84c1-48f351434ebd','two b','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',NULL,NULL,NULL);
+INSERT INTO `tab_shop` VALUES ('b2e58fd1-41e0-460c-ad90-347c8f4c9709','首页','586c450b-1d91-48af-8e1b-a12b8edfe03c',NULL,NULL,NULL),('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'2 3 4','[{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"},{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"}]'),('f2a24593-b857-4ca9-84c1-48f351434ebd','two b','17718c86-e8ca-4a9d-96f3-f1a4a3da04ab',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `tab_shop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,4 +401,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-22 11:21:11
+-- Dump completed on 2017-05-24 11:04:00

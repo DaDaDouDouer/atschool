@@ -162,5 +162,5 @@ public class ReusebookStatic {
 	/**
 	 * 分页查询商品的每页显示最大值
 	 */
-	public final static int CUT_PAGE_LIMIT_MAX = 5;
+	public final static int CUT_PAGE_LIMIT_MAX = 30;
 }
