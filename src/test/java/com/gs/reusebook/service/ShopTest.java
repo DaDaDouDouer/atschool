@@ -55,16 +55,16 @@ public class ShopTest {
 		System.out.println(shopService.removeRecommand("4", "31c0d96d-0e94-4a52-8648-9c39009d5a72"));
 	}
 
-//	@Test
+	@Test
 	public void testAddCarousel(){
 		
 		Map<String, String> entry = new HashMap<String, String>();
-		entry.put(Shop.CAROUSEL_URL, "com");
+		entry.put(Shop.CAROUSEL_URL, "com2");
 		entry.put(Shop.CAROUSEL_DESC, "描述2");
 		System.out.println(shopService.addCarousel(entry, "31c0d96d-0e94-4a52-8648-9c39009d5a72"));
 	}
 
-	@Test
+//	@Test
 	public void testRemoveCarousel(){
 		System.out.println(shopService.removeCarousel("com", "31c0d96d-0e94-4a52-8648-9c39009d5a72"));
 	}

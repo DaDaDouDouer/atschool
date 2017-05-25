@@ -54,7 +54,7 @@ CREATE TABLE `tab_book` (
   `author` varchar(36) DEFAULT NULL,
   `isbn` varchar(36) DEFAULT NULL,
   `img_url` varchar(255) DEFAULT NULL,
-  `description` text,
+  `description` varchar(511) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -65,7 +65,7 @@ CREATE TABLE `tab_book` (
 
 LOCK TABLES `tab_book` WRITE;
 /*!40000 ALTER TABLE `tab_book` DISABLE KEYS */;
-INSERT INTO `tab_book` VALUES ('11','C','daf','53426436','http://evgetgif.qiniudn.com/C-language-book-2.jpg',''),('12','Java','ytutre','6744533','http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',''),('13','C++','fbds','465743','http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',''),('14','PHP','dsafsd','3214577','http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',''),('2ddb08d6-a0bd-4c3f-89fa-4db552aa1a76','龙族Ⅲ','江南 ','9787549220632','https://img3.doubanio.com/mpic/s27174422.jpg','');
+INSERT INTO `tab_book` VALUES ('11','C','daf','53426436','http://evgetgif.qiniudn.com/C-language-book-2.jpg',NULL),('12','Java','ytutre','6744533','http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',NULL),('13','C++','fbds','465743','http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',NULL),('14','PHP','dsafsd','3214577','http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',NULL),('5cdd98ca-8e4c-4c77-8f2b-63d68a95083d','龙族Ⅲ','江南 ','9787549220632','https://img3.doubanio.com/mpic/s27174422.jpg','日本海沟深处发现龙类遗迹，卡塞尔王牌专员组恺撒、楚子航、路明非在身深潜过程中遭遇龙类袭击。三人组挣扎逃离险境，试图联络本部，却发现遭到整个日本分部的背叛与追杀。千鹤町街头，三人与暴走族赤备狭路相逢，掀起疯狂的对决。死里逃生后，三人流落到歌舞伎町著名牛郎店高天原，开始了 牛郎生涯。与此同时，因日本分部的叛离，校长昂热孤身一人来到东京，与自己昔日的弟子犬山贺兵刃相见，卡塞尔学院与蛇岐八家彻底决裂！\n而对于牛郎三人组来说，高天原是个完美的庇护所，恺撒和楚子航迅速俘获了大量粉丝，成为高天原镇店之宝。为了复仇并找到蛇岐八家的秘密，他们决定夜探源氏重工！大厦里危机重重，日本分部的追杀，死侍的进攻，三人组力透重围，终于闯入了密室，并看到大量神秘壁画，龙族历史由此揭开。\n全新的龙族文化，全新的阅读体验。请细细品读最好看的热血幻想小说——《龙族Ⅲ黑月之潮》中集。');
 /*!40000 ALTER TABLE `tab_book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +179,7 @@ CREATE TABLE `tab_goods` (
 
 LOCK TABLES `tab_goods` WRITE;
 /*!40000 ALTER TABLE `tab_goods` DISABLE KEYS */;
-INSERT INTO `tab_goods` VALUES ('1','11','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C',321.2,0,'http://evgetgif.qiniudn.com/C-language-book-2.jpg',4,'a new desp2','njuptseller'),('2','12','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','Java',432.4,3,'http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',13,NULL,'njuptseller'),('3','13','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C++',439.2,2,'http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',6,NULL,'njuptseller'),('4','14','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','PHP',32.6,4,'http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',2,NULL,'njuptseller'),('53cecd2c-f258-4ea5-9264-af8eae8ef06b','2ddb08d6-a0bd-4c3f-89fa-4db552aa1a76','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','龙族Ⅲ',25,2,'https://img3.doubanio.com/mpic/s27174422.jpg',10,'日本海沟深处发现龙类遗迹，卡塞尔王牌专员组恺撒、楚子航、路明非在身深潜过程中遭遇龙类袭击。三人组挣扎逃离险境，试图联络本部，却发现遭到整个日本分部的背叛与追杀。千鹤町街头，三人与暴走族赤备狭路相逢，掀起疯狂的对决。死里逃生后，三人流落到歌舞伎町著名牛郎店高天原，开始了 牛郎生涯。与此同时，因日本分部的叛离，校长昂热孤身一人来到东京，与自己昔日的弟子犬山贺兵刃相见，卡塞尔学院与蛇岐八家彻底决裂！\n而对于牛郎三人组来说，高天原是个完美的庇护所，恺撒和楚子航迅速俘获了大量粉丝，成为高天原镇店之宝。为了复仇并找到蛇岐八家的秘密，他们决定夜探源氏重工！大厦里危机重重，日本分部的追杀，死侍的进攻，三人组力透重围，终于闯入了密室，并看到大量神秘壁画，龙族历史由此揭开。\n全新的龙族文化，全新的阅读体验。请细细品读最好看的热血幻想小说——《龙族Ⅲ黑月之潮》中集。','njuptseller');
+INSERT INTO `tab_goods` VALUES ('1','11','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C',321.2,0,'http://evgetgif.qiniudn.com/C-language-book-2.jpg',4,'a new desp2','njuptseller'),('2','12','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','Java',432.4,3,'http://cdn.jingkao.net/group1/M00/7B/49/rBoMg1MznqaAExOPAABoZrRB6Qg184.jpg',13,NULL,'njuptseller'),('3','13','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','C++',439.2,2,'http://img3x0.ddimg.cn/4/25/22910980-1_w_1.jpg',6,NULL,'njuptseller'),('4','14','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','PHP',32.6,4,'http://img3x9.ddimg.cn/94/4/21127189-1_w_2.jpg',2,NULL,'njuptseller'),('97a858ab-fd31-4fbd-aac8-953eb4487f4e','5cdd98ca-8e4c-4c77-8f2b-63d68a95083d','31c0d96d-0e94-4a52-8648-9c39009d5a72','tab_book','龙族Ⅲ',12.2,10,'https://img3.doubanio.com/mpic/s27174422.jpg',0,'日本海沟深处发现龙类遗迹，卡塞尔王牌专员组恺撒、楚子航、路明非在身深潜过程中遭遇龙类袭击。三人组挣扎逃离险境，试图联络本部，却发现遭到整个日本分部的背叛与追杀。千鹤町街头，三人与暴走族赤备狭路相逢，掀起疯狂的对决。死里逃生后，三人流落到歌舞伎町著名牛郎店高天原，开始了 牛郎生涯。与此同时，因日本分部的叛离，校长昂热孤身一人来到东京，与自己昔日的弟子犬山贺兵刃相见，卡塞尔学院与蛇岐八家彻底决裂！\n而对于牛郎三人组来说，高天原是个完美的庇护所，恺撒和楚子航迅速俘获了大量粉丝，成为高天原镇店之宝。为了复仇并找到蛇岐八家的秘密，他们决定夜探源氏重工！大厦里危机重重，日本分部的追杀，死侍的进攻，三人组力透重围，终于闯入了密室，并看到大量神秘壁画，龙族历史由此揭开。\n全新的龙族文化，全新的阅读体验。请细细品读最好看的热血幻想小说——《龙族Ⅲ黑月之潮》中集。','njuptseller');
 /*!40000 ALTER TABLE `tab_goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,7 +340,7 @@ CREATE TABLE `tab_shop` (
 
 LOCK TABLES `tab_shop` WRITE;
 /*!40000 ALTER TABLE `tab_shop` DISABLE KEYS */;
-INSERT INTO `tab_shop` VALUES ('9e297ad2-2609-4a11-8294-3c97d990ddec','still a shop','5f97d096-0c09-4906-bc26-c556c772e4a4',NULL,NULL,NULL),('b2e58fd1-41e0-460c-ad90-347c8f4c9709','首页','586c450b-1d91-48af-8e1b-a12b8edfe03c',NULL,NULL,NULL),('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'2 3 4','[{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"}]');
+INSERT INTO `tab_shop` VALUES ('9e297ad2-2609-4a11-8294-3c97d990ddec','still a shop','5f97d096-0c09-4906-bc26-c556c772e4a4',NULL,NULL,NULL),('b2e58fd1-41e0-460c-ad90-347c8f4c9709','首页','586c450b-1d91-48af-8e1b-a12b8edfe03c',NULL,NULL,NULL),('e13cd0fa-225f-42d6-a970-ade9ba412f5b','two shop','31c0d96d-0e94-4a52-8648-9c39009d5a72',NULL,'2 3 4','[{\"url\":\"qreqwreq.com\",\"desc\":\"332143\"},{\"url\":\"com2\",\"desc\":\"描述2\"}]');
 /*!40000 ALTER TABLE `tab_shop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,4 +403,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-25  0:07:25
+-- Dump completed on 2017-05-25  9:31:04
