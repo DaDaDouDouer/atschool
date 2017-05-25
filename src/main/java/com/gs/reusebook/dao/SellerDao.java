@@ -18,6 +18,7 @@ public interface SellerDao extends AuthBaseDao<Seller>{
 	public Integer selectCountByName(String username);
 	public List<Seller> selectByName(String username);
 	public Seller selectByGoodsId(String goodsId);
+	public Seller selectById(String id);
 	public int insert(User user);
 	public void updatePassword(@Param("id") String id, @Param("password") String password);
 	public void deleteSeller(String id);
