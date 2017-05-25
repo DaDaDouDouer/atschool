@@ -138,6 +138,40 @@
 		SELECT * FROM tab_order o WHERE id = #{id}
 	</select>
 
+
+	<select id="selectByIds" resultType="Order" resultMap="orderResultMap">
+		SELECT 
+		  o.id id,
+		  o.user_id user_id,
+		  o.seller_id seller_id,
+		  s.username seller_name,
+		  u.username user_name,
+		  o.address address,
+		  o.total_price total_price,
+		  o.create_time create_time,
+		  i.id order_item_id,
+		  i.order_id order_id,
+		  i.goods_id goods_id,
+		  i.goods_count goods_count,
+		  g.id goods_id_pk,
+		  g.name goods_name,
+		  g.img_url goods_img_url 
+		FROM
+		  tab_order o,
+		  tab_seller s,
+		  tab_user u,
+		  tab_order_item i,
+		  tab_goods g 
+		WHERE o.id IN 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+        </foreach>
+		  AND s.id = o.seller_id
+		  AND u.id = o.user_id 
+		  AND i.order_id = o.id 
+		  AND i.goods_id = g.id
+	</select>
+
 	<select id="selectByItemId" parameterType="String" resultType="Order" resultMap="normalOrderResultMap">
 		SELECT 
 		  o.*
