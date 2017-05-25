@@ -16,6 +16,7 @@ import com.gs.reusebook.bean.OrderItem;
 import com.gs.reusebook.dao.GoodsDao;
 import com.gs.reusebook.dao.OrderDao;
 import com.gs.reusebook.dao.OrderItemDao;
+import com.gs.reusebook.dao.SellerDao;
 import com.gs.reusebook.paramsbean.CutPageValidatorReturnParams;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.util.OrderStatusMachine;
@@ -33,12 +34,13 @@ public class OrderService {
 	
 	@Autowired
 	private OrderDao orderDao;
-	
 	@Autowired
 	private OrderItemDao orderItemDao; 
-	
 	@Autowired
 	private GoodsDao goodsDao;
+	@Autowired
+	private SellerDao sellerDao;
+	
 	
 	public UiReturn selectAndPagedById(String orderId, Integer pageNo, Integer limit) {
 		if(orderId == null)
@@ -118,7 +120,7 @@ public class OrderService {
 	 * @param goodsIds
 	 * @return
 	 */
-	public UiReturn insertOrder(String userId, Map<String, Integer> goodsIdAndCount, String address){
+	public UiReturn insertOrder(String userId, String username, Map<String, Integer> goodsIdAndCount, String address){
 		
 		// userId参数校验
 		ValidatorReturnParams result = GeneralValidator.validate(PKID, userId);
@@ -160,6 +162,10 @@ public class OrderService {
 				order.setOrderItems(new ArrayList<OrderItem>());
 				order.setSellerId(sellerId);
 				order.setUserId(userId);
+
+				// TODO 可能出现卖家不存在
+				order.setSellerName(sellerDao.selectById(sellerId).getUsername());
+				order.setUserName(username);
 				
 				orders.put(sellerId, order);
 			}
@@ -198,13 +204,14 @@ public class OrderService {
 			for(OrderItem orderItem : order.getOrderItems()){
 				orderItemDao.insertOrderItem(orderItem);
 			}
+			
 			order.setAddress(address);
 			order.setCreateTime(new Date());
 			orderDao.insertOrder(order);
 		}
 		
 		// TODO 这里要返回什么数据
-		return UiReturn.ok("", "生成订单成功");
+		return UiReturn.ok(orders, "生成订单成功");
 	}
 	
 	/**

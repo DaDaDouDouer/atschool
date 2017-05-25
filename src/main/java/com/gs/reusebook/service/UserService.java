@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.DeliveryAddress;
-import com.gs.reusebook.bean.Goods;
 import com.gs.reusebook.bean.User;
 import com.gs.reusebook.bean.UserInfoInMarket;
 import com.gs.reusebook.dao.DeliveryAddressDao;
