@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gs.reusebook.controller.PicUploadController;
 import com.gs.reusebook.util.UiReturn;
+import static com.gs.reusebook.util.GlobalStatus.*;
 
 @Service
 public class PicUploadService {
@@ -22,7 +23,10 @@ public class PicUploadService {
 	
 	public UiReturn upload(MultipartFile file){
 			// TODO 校验
-
+			if(file.getSize() <= 0){
+				return UiReturn.notOk("", "未选择文件", REQ_ERROR_400);
+			}
+			
 			String fileName = file.getOriginalFilename();
 	
 			// 图片扩展名
