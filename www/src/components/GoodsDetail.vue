@@ -48,7 +48,7 @@
                   <v-icon large class="blue--text text--darken-2 pointer" @click.native="(goodsCount > 1) && (goodsCount--)">remove</v-icon>
                 </v-col>
                 <v-col xs12>
-                  <v-btn light primary @click.native="createOrder({[goodsDetail.id]: goodsCount})">立即购买</v-btn>
+                  <v-btn light primary @click.native="buyNow({goodsId: goodsDetail.id, goodsCount})">立即购买</v-btn>
                   <v-btn light primary @click.native="addCartItem({goodsId: goodsDetail.id, goodsCount})">加入购物车</v-btn>
                 </v-col>
               </v-row>
@@ -103,6 +103,9 @@
 
 <script>
 import { mapActions } from 'vuex'
+import Router from 'vue-router'
+
+const router = new Router()
 
 export default {
   name: 'goods-detail',
@@ -136,7 +139,14 @@ export default {
       'createOrder',
       'addCartItem',
       'getEvaluationByGoodsId'
-    ])
+    ]),
+    buyNow (goods) {
+      this.addCartItem(goods).then(data => {
+        if (data) {
+          router.push('/cart')
+        }
+      })
+    }
   }
 }
 </script>

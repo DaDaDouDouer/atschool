@@ -4,7 +4,7 @@ import API from '../../api'
 const router = new Router()
 
 const roleMapToRouter = {
-  Seller: '/seller',
+  Seller: '/seller-goods',
   User: '/',
   Admin: '/user-manager'
 }

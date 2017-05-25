@@ -9,7 +9,7 @@ export const add = function (cartItem) {
   return http.post('cartitem/add.do', cartItem)
     .then(function ({data}) {
       let response = data
-      console.log(response)
+      alert(response.msg)
       return response.data
     })
 }

@@ -27,7 +27,7 @@ const getters = {
 const actions = {
   addCartItem ({ commit }, item) {
     return API.cart.add(item).then((goods) => {
-      return goods !== null
+      return goods !== ''
     })
   },
   deleteCartItem ({ commit }, goodsId) {
