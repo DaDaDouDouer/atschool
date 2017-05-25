@@ -28,24 +28,28 @@ const actions = {
   pay ({commit, state}, orderId) {
     return API.order.pay(orderId).then((data) => {
       console.warn('pay', data)
+      location.reload()
       return data
     })
   },
   confirmPayment ({commit, state}, orderId) {
     return API.order.confirmPayment(orderId).then((data) => {
       console.warn('confirmPayment', data)
+      location.reload()
       return data
     })
   },
   delivery ({commit, state}, orderId) {
     return API.order.delivery(orderId).then((data) => {
       console.warn('delivery', data)
+      location.reload()
       return data
     })
   },
   confirmReceipt ({commit, state}, orderId) {
     return API.order.confirmReceipt(orderId).then((data) => {
       console.warn('confirmReceipt', data)
+      location.reload()
       return data
     })
   }

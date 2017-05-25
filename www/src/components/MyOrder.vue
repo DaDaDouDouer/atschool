@@ -54,7 +54,8 @@
               {{orderStatusCodeToText[orderItem.status]}}
             </v-col>
             <v-col xs2 class="text-center">
-              <v-btn small primary dark v-if="orderItem.status === 1003" @click.native="confirmReceipt(orderItem.orderId)">确认收货</v-btn>
+              <v-btn small primary dark v-if="orderItem.status === 1000" @click.native="pay(orderItem.id)">支付</v-btn>
+              <v-btn small primary dark v-if="orderItem.status === 1003" @click.native="confirmReceipt(orderItem.id)">确认收货</v-btn>
               <v-dialog v-if="orderItem.status === 1004" v-model="orderItem.isShowDialog">
                 <v-btn small primary dark slot="activator">添加评论</v-btn>
                 <v-card>
@@ -131,7 +132,8 @@ export default {
     ...mapActions([
       'getUserOrder',
       'addEvaluation',
-      'confirmReceipt'
+      'confirmReceipt',
+      'pay'
     ]),
     add (goodsId) {
       this.evaluation.goodsId = goodsId

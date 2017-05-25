@@ -3,7 +3,7 @@ import http from '../utils/http'
 export const login = function (userInfo) {
   return http.post('auth/login.do', userInfo)
     .then(function ({data}) {
-      console.log(data)
+      alert('用户名或密码错误，请重新输入！')
       return data.other
     })
 }

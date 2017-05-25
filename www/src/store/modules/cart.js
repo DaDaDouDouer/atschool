@@ -1,6 +1,9 @@
 import API from '../../api'
+import Router from 'vue-router'
 import { CART } from '../mutation-types'
 import order from './order'
+
+const router = new Router()
 
 // initial state
 const state = {
@@ -57,6 +60,7 @@ const actions = {
 
     return order.actions.createOrder({}, {goodsIdAndCount: goodsList, address}).then((data) => {
       console.warn('cart submit', data)
+      router.push('/payment?orderList=' + JSON.stringify(data))
     })
   }
 }

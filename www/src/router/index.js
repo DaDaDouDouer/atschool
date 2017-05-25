@@ -28,9 +28,10 @@ import AddCarousel from 'components/AddCarousel'
 import AddGoods from 'components/AddGoods'
 import UpdateGoods from 'components/UpdateGoods'
 import Shop from 'components/Shop'
+import Payment from 'components/Payment'
 
 // const personalCenterChildern = {}
-const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller, UserManager, SellerManager, UpdateSeller, AddSeller, ShopManager, GoodsManager, OrderManager, SellerGoods, SellerOrder, Evaluation, SellerShop, AddCarousel, AddGoods, UpdateGoods, Shop}
+const pages = {Index, Hello, Login, SignUp, Cart, SearchResult, GoodsDetail, PersonalCenter, ChangePassword, ManageReceivingAddress, MyOrder, Admin, Seller, UserManager, SellerManager, UpdateSeller, AddSeller, ShopManager, GoodsManager, OrderManager, SellerGoods, SellerOrder, Evaluation, SellerShop, AddCarousel, AddGoods, UpdateGoods, Shop, Payment}
 // 配置嵌套子路由
 const routerConfig = {
   PersonalCenter: [

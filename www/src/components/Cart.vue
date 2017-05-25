@@ -129,7 +129,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 .cart th, .cart td {
-  text-align: center;
+  text-align: center!important;
   padding: 10px;
 }
 
