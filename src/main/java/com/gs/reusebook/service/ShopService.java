@@ -95,6 +95,11 @@ public class ShopService {
 		
 		Shop shop = shopDao.selectBySellerId(sellerId);
 		String recommandStr = shop.getRecommandStr();
+		
+		if(StringUtils.isEmpty(recommandStr)){
+			recommandStr = "";
+		}
+		
 		Set<String> recommandList = new HashSet<String>(Arrays.asList(recommandStr.split(ID_SPLITER)));
 		
 		if(recommandList.contains(goodsId)){
@@ -274,15 +279,23 @@ public class ShopService {
 	public UiReturn addCarousel(Map<String,String> urlAndDesc, String sellerId){
 
 		// 参数校验
-		ValidatorReturnParams result = GeneralValidator.validate(PKID, sellerId);
+		if(urlAndDesc == null){
+			return UiReturn.notOk(null, "输入参数为空", REQ_ERROR_400);
+		}
+		ValidatorReturnParams result = GeneralValidator.validate(
+				new ValidatorType[]{PKID,STRING_255}, new Object[]{sellerId, urlAndDesc.get(CAROUSEL_DESC)});
 		if(!result.isRight){
 			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
 		}
+		
 		
 		JSONObject newJson = new JSONObject(urlAndDesc);
 		
 		Shop shop = shopDao.selectBySellerId(sellerId);
 		String carouselStr = shop.getCarouselStr();
+		if(StringUtils.isEmpty(carouselStr)){
+			carouselStr = "[]";
+		}
 		JSONArray carouselJson = new JSONArray(carouselStr);
 
 		Integer removeIndex = null; 
