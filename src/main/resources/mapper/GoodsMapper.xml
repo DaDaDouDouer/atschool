@@ -80,7 +80,7 @@
 		count,
 		img_url,
 		via,
-		description，
+		description,
 		sellername) 
 		VALUES(
 		#{id},
@@ -92,7 +92,7 @@
 		#{count},
 		#{imgUrl},
 		#{via},
-		#{description}
+		#{description},
 		#{sellername})
 	</insert>
 	
