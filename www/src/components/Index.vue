@@ -21,17 +21,30 @@
     </v-col>
     <v-col xs10>
       <v-carousel>
-        <!-- <v-carousel-item v-for="item in items" v-bind:src="item" /> -->
+        <v-carousel-item v-for="item in indexData.carouselObj" :src="item.url" />
       </v-carousel>
     </v-col>
   </v-row>
-  <!-- <div class="ad-container">
-    <h4></h4>
-    <v-divider/>
-  </div> -->
   <div class="recommend-book">
     <h4>推荐书籍</h4>
     <v-divider/>
+    <v-row style="margin-top:50px;">
+      <v-col xs3 v-for="book in indexData.recommand">
+        <v-card   horizontal>
+          <v-card-row :img="book.imgUrl" @click.native="redirectToGoodsDetail(book.id)" height="200px" class="row pointer"></v-card-row>
+          <v-card-column width="100px">
+            <v-card-row class="grey--text">
+              <v-card-text>
+                <h6>{{book.name}}</h6>
+                <strong class="red--text">￥{{book.price}}</strong>
+                <div>销量：{{book.via}}</div>
+                <div>还有{{book.count}}本</div>
+              </v-card-text>
+            </v-card-row>
+          </v-card-column>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </v-container>
 </template>
