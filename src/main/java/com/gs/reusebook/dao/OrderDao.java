@@ -24,6 +24,8 @@ public interface OrderDao {
 	public List<Order> selectByUserIdAndGoodsId(@Param("userId") String userId, @Param("goodsId") String goodsId);
 	
 	public Order selectById(String id);
+
+	public List<Order> selectByIds(List<String> orderIds);
 	
 	public Order selectByItemId(String itemId);
 	
