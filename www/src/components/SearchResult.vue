@@ -33,7 +33,11 @@
                   <v-card-text>
                     <h4>{{book.name}}</h4>
                     <strong class="red--text">￥{{book.price}}</strong>
+                    <div>销量：{{book.via}}</div>
                     <div>还有{{book.count}}本</div>
+                    <div>
+                      商铺：<a :href="'#/shop?id=' + book.sellerId">{{book.sellername}}</a>
+                    </div>
                   </v-card-text>
                 </v-card-row>
               </v-card-column>

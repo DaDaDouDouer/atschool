@@ -19,6 +19,11 @@ const actions = {
       return data
     })
   },
+  getShopBySellerId ({ commit, state }, id) {
+    return API.shop.getBySellerId(id).then(data => {
+      return data
+    })
+  },
   getIndex ({ commit, state }) {
     return API.shop.getIndex().then(data => {
       return data

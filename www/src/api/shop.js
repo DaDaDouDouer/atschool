@@ -1,6 +1,6 @@
 import http from '../utils/http'
 
-// 获取店铺信息
+// 获取店铺信息，需要卖家登录
 export const get = function () {
   return http.get('shop/getOwn.do')
     .then(function ({data}) {
@@ -9,7 +9,16 @@ export const get = function () {
     })
 }
 
-// 获取店铺信息
+// 通过卖家ID获取商铺信息
+export const getBySellerId = function (sellerId) {
+  return http.post('shop/getBySellerId.do', {sellerId})
+    .then(function ({data}) {
+      let response = data
+      return response.data
+    })
+}
+
+// 获取首页信息
 export const getIndex = function () {
   return http.post('shop/getBySellerId.do', {sellerId: '586c450b-1d91-48af-8e1b-a12b8edfe03c'})
     .then(function ({data}) {
