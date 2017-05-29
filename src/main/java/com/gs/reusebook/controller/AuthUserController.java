@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gs.reusebook.bean.User;
+import com.gs.reusebook.bean.base.AuthBaseBean;
 import com.gs.reusebook.controller.base.AuthUserBaseController;
 import com.gs.reusebook.service.AuthUserService;
 import com.gs.reusebook.util.UiReturn;
@@ -47,7 +48,7 @@ public class AuthUserController extends AuthUserBaseController{
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public UiReturn login(@RequestBody User userParams, HttpSession session) {
+	public UiReturn login(@RequestBody AuthBaseBean userParams, HttpSession session) {
 
 		// TODO 校验
 		return loginProcess(userParams, session, authUserService);

@@ -10,6 +10,13 @@ public class ReusebookStatic {
 	private ReusebookStatic() {
 	}
 	
+
+	/**
+	 * session中保存user的键
+	 */
+	public final static String CHECK_CODE_SESSION_KEY = "thecheckcode";
+	
+	
 	/**
 	 * session中保存user的键
 	 */
