@@ -96,6 +96,15 @@ public class AuthController extends AuthUserBaseController{
 		
 	}
 	
+	/**
+	 * 找回密码   
+	 * @param mail 邮箱
+	 */
+	@RequestMapping(value = "/findPassword", method = RequestMethod.POST)
+	@ResponseBody
+	public UiReturn findPassword(@RequestBody AuthParams userParams) {
+		return authService.findPassword(userParams.getUsername());
+	}
 	
 	/**
 	 * 注销操作

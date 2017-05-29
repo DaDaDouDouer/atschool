@@ -8,11 +8,28 @@
       http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 引入jdbc配置文件 -->
-    <context:property-placeholder location="classpath:conf/jdbc.properties"/>
+    <context:property-placeholder location="classpath:conf/constant.properties"/>
     
     <!-- 扫描文件（自动将servicec层注入） -->
     <context:component-scan base-package="com.gs.reusebook.service;com.gs.reusebook.listener;com.gs.reusebook.connect"/>
     
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     
+	<!-- 发邮件类 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+			<property name="username"><value>${mail.smtp.username}</value></property>
+			<property name="password"><value>${mail.smtp.password}</value></property>
+			<property name="host"><value>${mail.smtp.host}</value></property>
+			<property name="javaMailProperties">
+				<props>
+					<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+					<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+				</props>
+			</property>
+	</bean>
+
+	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="bysjyx_qjy@163.com" />
+	</bean>
+	
 </beans>

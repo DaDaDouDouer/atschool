@@ -12,6 +12,8 @@ public class AuthBaseBean implements FatchAuthSessionKey{
 
 	private Date createTime;
 
+	private String mail;
+	
 	public String getId() {
 		return id;
 	}
@@ -44,6 +46,14 @@ public class AuthBaseBean implements FatchAuthSessionKey{
 		this.createTime = createTime;
 	}
 	
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
 	public String fatchIdSessionKey() {
 		throw new UnsupportedOperationException("父类不支持此方法，子类未实现。");
 	}
