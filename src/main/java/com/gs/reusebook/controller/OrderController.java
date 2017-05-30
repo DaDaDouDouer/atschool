@@ -1,6 +1,13 @@
 package com.gs.reusebook.controller;
 
-import static com.gs.reusebook.util.ReusebookStatic.*;
+import static com.gs.reusebook.util.ReusebookStatic.ORDER_STATUS_END;
+import static com.gs.reusebook.util.ReusebookStatic.ORDER_STATUS_PAYED;
+import static com.gs.reusebook.util.ReusebookStatic.ORDER_STATUS_PAYED_OK;
+import static com.gs.reusebook.util.ReusebookStatic.ORDER_STATUS_SENDED;
+import static com.gs.reusebook.util.ReusebookStatic.SELLER_ID_SESSION_KEY;
+import static com.gs.reusebook.util.ReusebookStatic.USER_ID_SESSION_KEY;
+
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gs.reusebook.annotation.NeedUserLogin;
 import com.gs.reusebook.bean.OrderItem;
 import com.gs.reusebook.bean.Seller;
+import com.gs.reusebook.bean.User;
 import com.gs.reusebook.paramsbean.OrderAddParams;
 import com.gs.reusebook.paramsbean.SearchParams;
 import com.gs.reusebook.service.OrderService;
@@ -93,6 +101,20 @@ public class OrderController {
 	public UiReturn userPayedOk(@RequestBody OrderItem orderItemParams, HttpSession session){
 		String sellerId= (String) session.getAttribute(SELLER_ID_SESSION_KEY);
 		return orderService.updateStatus(orderItemParams.getId(), ORDER_STATUS_PAYED_OK, false, sellerId);
+	}
+
+	/**
+	 * 卖家确认买家已支付，需要卖家登陆
+	 * @param orderItemParams
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/payAll", method = RequestMethod.POST)
+	@ResponseBody
+	@NeedUserLogin(character = User.class)
+	public UiReturn payAll(@RequestBody List<String> orderItemids, HttpSession session){
+		String userId = (String) session.getAttribute(USER_ID_SESSION_KEY);
+		return orderService.payAll(orderItemids, userId);
 	}
 
 	/**
