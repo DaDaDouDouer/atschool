@@ -26,7 +26,7 @@ public class AuthAdminService implements AuthBaseService{
 	/**
 	 * 管理员不能进行注册
 	 */
-	public UiReturn register(String username, String password){
+	public UiReturn register(String username, String password, String mail){
 		throw new UnsupportedOperationException("管理员不能进行注册");
 	}
 

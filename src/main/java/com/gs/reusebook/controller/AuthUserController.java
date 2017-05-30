@@ -35,10 +35,10 @@ public class AuthUserController extends AuthUserBaseController{
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
-	public UiReturn register(@RequestBody User userParams, HttpSession session) {
-
-		// TODO 校验
-		return registerProcess(userParams, session, authUserService);
+	public UiReturn register(@RequestBody AuthBaseBean userParams, HttpSession session) {
+		UiReturn result = registerProcess(userParams, session, authUserService);
+		result.setOther(User.class.getSimpleName());
+		return result;
 	}
 
 	/**

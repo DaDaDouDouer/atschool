@@ -35,7 +35,7 @@ public class AuthSellerService implements AuthBaseService{
 	 * @param password 密码
 	 * @return 
 	 */
-	public UiReturn register(String username, String password){
+	public UiReturn register(String username, String password, String mail){
 
 		ValidatorReturnParams result = GeneralValidator.validate(
 				new ValidatorType[]{AUTH_USERNAME, AUTH_PASSWORD}, 
@@ -55,6 +55,7 @@ public class AuthSellerService implements AuthBaseService{
 		user.setId(UUID.randomUUID().toString());
 		user.setPassword(password);
 		user.setUsername(username);
+		user.setMail(mail);
 		user.setCreateTime(new Date());
 		
 		// 入库

@@ -52,7 +52,7 @@ public class AuthBaseController {
 	public UiReturn registerProcess(AuthBaseBean params, HttpSession session, AuthBaseService authBaseService) {
 
 		// 注册操作
-		UiReturn uiReturn = authBaseService.register(params.getUsername(), params.getPassword());
+		UiReturn uiReturn = authBaseService.register(params.getUsername(), params.getPassword(), params.getMail());
 
 		// 如果登录成功，加入session
 		if (200 == uiReturn.getStatus()) {
