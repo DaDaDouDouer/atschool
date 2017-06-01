@@ -53,8 +53,7 @@ public class SecurityImageGenerate {
 		g.setColor(new Color(19, 148, 246));
 		g.setFont(new Font("Georgia", Font.BOLD, fSize));
 		for (int i = 0; i < codeLength; i++) {
-			g.drawString(String.valueOf(securityCode.charAt(i)), i * 16 + 5,
-					codeY);
+			g.drawString(String.valueOf(securityCode.charAt(i)), i * 16 + 5, codeY);
 		}
 		g.dispose();
 		return image;
