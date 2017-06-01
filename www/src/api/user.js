@@ -2,11 +2,12 @@ import http from '../utils/http'
 
 export const login = function (userInfo) {
   return http.post('auth/login.do', userInfo)
-    .then(function ({data}) {
-      if (data.status !== 200) {
-        alert('用户名或密码错误，请重新输入！')
+    .then(function (data) {
+      let response = JSON.parse(data.request.response)
+      if (response.status !== 200) {
+        alert(response.msg)
       }
-      return data.other
+      return response.other
     })
 }
 

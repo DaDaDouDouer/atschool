@@ -6,15 +6,33 @@
         <v-spacer></v-spacer>
       </v-card-title>
     </v-card-row>
-    <v-card-text class="input" v-for='(input, index) in formItems'>
-      <v-text-field
-        v-model="form[input.name]"
-        :id="input.index"
-        :name="input.name"
-        :type="input.type"
-        :label="input.label"
-        :placeholder="input.placeholder"
-      ></v-text-field>
+    <v-card-text class="input">
+      <v-row v-for='(input, index) in formItems'>
+          <v-col xs12>
+            <v-text-field
+              v-model="form[input.name]"
+              :id="input.index"
+              :name="input.name"
+              :type="input.type"
+              :label="input.label"
+              :placeholder="input.placeholder"
+            ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col xs8>
+          <v-text-field
+            v-model="form.checkCode"
+            name="checkCode"
+            type="text"
+            label="验证码"
+            placeholder="请输入验证码"
+          ></v-text-field>
+        </v-col>
+        <v-col xs4>
+          <img src="http://localhost:8080/auth/getCheckCode.do" alt="验证码">
+        </v-col>
+      </v-row>
     </v-card-text>
     </v-card-text>
     <v-card-text>
@@ -44,7 +62,8 @@ export default {
       ],
       form: {
         username: '',
-        password: ''
+        password: '',
+        checkCode: ''
       }
     }
   },
