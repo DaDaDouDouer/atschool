@@ -29,6 +29,9 @@ const actions = {
       router.push(`/`)
     })
   },
+  findPassword ({ commit }, username) {
+    return API.user.findPassword(username)
+  },
   updatePassword ({ commit }, fields) {
     return API.user.updatePassword(fields)
   },

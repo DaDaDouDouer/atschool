@@ -33,6 +33,28 @@
           <img src="http://localhost:8080/auth/getCheckCode.do" alt="验证码">
         </v-col>
       </v-row>
+      <v-row>
+        <v-col xs3 offset-xs8>
+          <v-dialog v-model="isShowDialog">
+            <a herf="javascript:void(0);" style="cursor: pointer;" slot="activator">忘记密码</a>
+            <!-- <v-btn primary light slot="activator">Open Dialog</v-btn> -->
+            <v-card>
+              <v-card-row>
+                <v-card-title>找回密码</v-card-title>
+              </v-card-row>
+              <v-card-row>
+                <v-card-text>
+                  <v-text-field label="用户名" placeholder="请输入您的用户名" v-model="username" required></v-text-field>
+                </v-card-text>
+              </v-card-row>
+              <v-card-row actions>
+                <v-btn class="blue--text darken-1" flat @click.native="isShowDialog = false">取消</v-btn>
+                <v-btn class="blue--text darken-1" flat @click.native="isShowDialog = false || resetPassword()">确认</v-btn>
+              </v-card-row>
+            </v-card>
+          </v-dialog>
+        </v-col>
+      </v-row>
     </v-card-text>
     </v-card-text>
     <v-card-text>
@@ -42,6 +64,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'login',
   data () {
@@ -64,12 +88,20 @@ export default {
         username: '',
         password: '',
         checkCode: ''
-      }
+      },
+      username: '',
+      isShowDialog: false
     }
   },
   methods: {
+    ...mapActions([
+      'findPassword'
+    ]),
     submit () {
       this.$store.dispatch('userLogin', this.form)
+    },
+    resetPassword () {
+      this.findPassword(this.username)
     }
   }
 }

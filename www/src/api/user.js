@@ -19,6 +19,15 @@ export const signUp = function (userInfo) {
     })
 }
 
+export const findPassword = function (username) {
+  return http.post('auth/findPassword.do', {username})
+    .then(function ({data}) {
+      let response = data
+      alert(response.msg)
+      return response.data
+    })
+}
+
 // 获取用户信息
 
 export const getUserInfo = function () {

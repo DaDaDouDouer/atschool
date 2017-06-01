@@ -106,7 +106,7 @@ export default {
       let orders = this.orderList.reduce((preOrder, order) => {
         return preOrder.concat(order.orderItems.map((orderItem) => orderItem.id))
       }, [])
-      debugger
+
       this.payAll(orders).then(data => {
         router.push('/my-order')
       })
