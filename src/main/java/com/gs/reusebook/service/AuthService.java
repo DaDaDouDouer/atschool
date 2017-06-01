@@ -72,7 +72,7 @@ public class AuthService {
 			
 			List<Seller> sellers = sellerDao.selectByName(username);
 			if(sellers == null || sellers.isEmpty()){
-				return UiReturn.notOk("", "", REQ_ERROR_400);
+				return UiReturn.notOk("", "该用户不存在", REQ_ERROR_400);
 			}else{
 				authBean = sellers.get(0);
 			}

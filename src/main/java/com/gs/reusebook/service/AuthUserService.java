@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gs.reusebook.bean.User;
+import com.gs.reusebook.bean.UserInfoInMarket;
 import com.gs.reusebook.bean.base.AuthBaseBean;
 import com.gs.reusebook.dao.AuthDao;
+import com.gs.reusebook.dao.UserInfoDao;
 import com.gs.reusebook.dao.base.AuthBaseDao;
 import com.gs.reusebook.paramsbean.ValidatorReturnParams;
 import com.gs.reusebook.service.base.AuthBaseService;
@@ -28,6 +30,8 @@ public class AuthUserService implements AuthBaseService{
 	AuthBaseDao<User> userDao;
 	@Autowired
 	AuthDao authDao;
+	@Autowired
+	UserInfoDao userInfoDao;
 	
 	/**
 	 * 一般用户注册
@@ -60,6 +64,12 @@ public class AuthUserService implements AuthBaseService{
 		
 		// 入库
 		userDao.insert(user);
+		
+		// 添加UserInfoInMarket
+		UserInfoInMarket userInfo = new UserInfoInMarket();
+		userInfo.setId(UUID.randomUUID().toString());
+		userInfo.setUserId(user.getId());
+		userInfoDao.insertInfoInMarket(userInfo);
 		
 		// 去除敏感信息
 		user.setPassword("");

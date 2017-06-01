@@ -34,7 +34,7 @@
 	</bean>
 
 	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-		<property name="from" value="bysjyx_qjy@163.com" />
+		<property name="from" value="906380576@qq.com" />
 	</bean>
 	
 </beans>
