@@ -32,6 +32,13 @@ const actions = {
       return data
     })
   },
+  payAll ({commit, state}, orders) {
+    return API.order.payAll(orders).then((data) => {
+      console.warn('payAll', data)
+      location.reload()
+      return data
+    })
+  },
   confirmPayment ({commit, state}, orderId) {
     return API.order.confirmPayment(orderId).then((data) => {
       console.warn('confirmPayment', data)

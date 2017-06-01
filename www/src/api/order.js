@@ -20,6 +20,16 @@ export const pay = function (id) {
     })
 }
 
+// 支付全部订单项
+export const payAll = function (orders) {
+  return http.post('order/payAll.do', orders)
+    .then(function ({data}) {
+      let response = data
+      console.log(response)
+      return response.data
+    })
+}
+
 // 确认支付
 export const confirmPayment = function (id) {
   return http.post('order/userPayedOk.do', {id})

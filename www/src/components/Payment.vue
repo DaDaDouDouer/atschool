@@ -72,7 +72,7 @@
           </v-col>
         </v-card-row>
         <div class="text-xs-right">
-          <v-btn primary dark @click.native="submit(order.id)">确认支付</v-btn>
+          <v-btn primary dark @click.native="submit">确认支付</v-btn>
         </div>
       </v-card>
     </div>
@@ -100,10 +100,14 @@ export default {
   methods: {
     ...mapActions([
       'confirmReceipt',
-      'pay'
+      'payAll'
     ]),
-    submit (id) {
-      this.pay(id).then(data => {
+    submit () {
+      let orders = this.orderList.reduce((preOrder, order) => {
+        return preOrder.concat(order.orderItems.map((orderItem) => orderItem.id))
+      }, [])
+      debugger
+      this.payAll(orders).then(data => {
         router.push('/my-order')
       })
     }
