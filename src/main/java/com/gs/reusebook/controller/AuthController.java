@@ -82,7 +82,6 @@ public class AuthController extends AuthUserBaseController{
 		
 	}
 	
-
 	/**
 	 * 获取登陆验证码
 	 */

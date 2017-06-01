@@ -1,5 +1,12 @@
 package com.gs.reusebook.service;
 
+import static com.gs.reusebook.util.GlobalStatus.REQ_ERROR_400;
+import static com.gs.reusebook.util.GlobalStatus.SUCCESS_200;
+import static com.gs.reusebook.util.ReusebookStatic.ORDER_STATUS_PAYED;
+import static com.gs.reusebook.util.ReusebookStatic.ORDER_STATUS_START;
+import static com.gs.reusebook.validator.base.ValidatorType.INT_POSITIVE;
+import static com.gs.reusebook.validator.base.ValidatorType.PKID;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,10 +30,6 @@ import com.gs.reusebook.util.UiReturn;
 import com.gs.reusebook.validator.CutPageParamsValidator;
 import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
-
-import static com.gs.reusebook.validator.base.ValidatorType.*;
-import static com.gs.reusebook.util.ReusebookStatic.*;
-import static com.gs.reusebook.util.GlobalStatus.*;
 
 @Service
 public class OrderService {
@@ -74,7 +77,7 @@ public class OrderService {
 		CutPageValidatorReturnParams rst = 
 				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
 
-		List<Order> orders = orderDao.selectAllBySellerId("%" + username + "%", sellerId, pageNo, limit);
+		List<Order> orders = orderDao.selectAllBySellerId("%" + username + "%", sellerId, rst.offset, rst.limit);
 		
 		// 将查询到的总页数放入other中返回
 		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
@@ -102,7 +105,7 @@ public class OrderService {
 		CutPageValidatorReturnParams rst = 
 				CutPageParamsValidator.validate(pageNo, limit, goodsAllCount);
 				
-		List<Order> orders = orderDao.selectAllByUserId(userId, pageNo, limit);
+		List<Order> orders = orderDao.selectAllByUserId(userId, rst.offset, rst.limit);
 		
 		// 将查询到的总页数放入other中返回
 		Map<String, Integer> otherMap = new HashMap<String, Integer>(1);
@@ -234,7 +237,7 @@ public class OrderService {
 		
 		// null校验
 		if(order == null){
-			return UiReturn.notOk(orderItemId, "订单，不存在的", REQ_ERROR_400);
+			return UiReturn.notOk(orderItemId, "订单不存在", REQ_ERROR_400);
 		}
 		
 		// 校验当前订单是否是属于当前用户自己的订单
@@ -252,28 +255,40 @@ public class OrderService {
 		// 校验是否可以修改状态
 		if(OrderStatusMachine.changeStatus(orderItem.getStatus(), aimStatus)){
 			orderItemDao.updateStatus(aimStatus, orderItemId);
-			return UiReturn.ok("", "修改状态成功");
+			return UiReturn.ok("", "修改状态成功"); 
 		}else{
-			return UiReturn.notOk(orderItemId, "不能进行这样的订单状态修改", REQ_ERROR_400);
+			return UiReturn.notOk(orderItemId, "不能从当前状态修改到目标状态", REQ_ERROR_400);
 		}
 	}
 	
+	/**
+	 * 一次性将提交的订单项状态全部修改为已支付
+	 * @param orderItemIds 要修改的订单项id
+	 * @param userId 用户id
+	 * @return
+	 */
 	public UiReturn payAll(List<String> orderItemIds, String userId){
 		// FIXME 没有事务性
 		if(orderItemIds == null){
 			return UiReturn.notOk("", "订单项为空", REQ_ERROR_400);
 		}
-		List<String> failedOrderItemIds = new ArrayList<String>();
+		// 修改失败的订单项会存放在此map中，订单项id为键，错误信息为值
+		Map<String, String> failedOrderItemIds = new HashMap<String, String>();
 		for (String orderItemId : orderItemIds) {
 			UiReturn singleReturn = updateStatus(orderItemId, ORDER_STATUS_PAYED, true, userId);
 			// 如果状态修改失败则返回失败的那些id
 			if(singleReturn.getStatus() != SUCCESS_200){
-				failedOrderItemIds.add(orderItemId);
+				failedOrderItemIds.put(orderItemId, singleReturn.getMsg());
 			}
 		}
-		return UiReturn.ok(failedOrderItemIds, "订单项修改成功");
+		return UiReturn.ok(failedOrderItemIds, "订单项状态修改完成");
 	}
 	
+	/**
+	 * 删除订单
+	 * @param orderId
+	 * @return
+	 */
 	public UiReturn deleteOrder(String orderId){
 		// 参数校验，isUser不参与校验
 		ValidatorReturnParams result = GeneralValidator.validate(

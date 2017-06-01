@@ -30,7 +30,7 @@ import com.gs.reusebook.validator.GeneralValidator;
 import com.gs.reusebook.validator.base.ValidatorType;
 
 import static com.gs.reusebook.util.GlobalStatus.*;
-import static com.gs.reusebook.util.ReusebookStatic.DEFAULT_TYPE_ID;
+import static com.gs.reusebook.util.ReusebookStatic.*;
 import static com.gs.reusebook.validator.base.ValidatorType.PKID;
 
 @Service
@@ -337,22 +337,25 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 
 		public void run() {
 			List<GoodsType> goodsTypes = goodsTypeDao.selectAll();
+			
+			GoodsTypeRel goodsTypeRel = new GoodsTypeRel();
+			goodsTypeRel.setId(UUID.randomUUID().toString());
+			goodsTypeRel.setGoodsId(goods.getId());
+			goodsTypeRel.setTypeId(DEFAULT_TYPE_ID);
+			goodsTypeRelDao.insert(goodsTypeRel);
+
+			if(goodsTypes == null)
+				return;
 			for(GoodsType goodsType : goodsTypes){
-				if(goodsType.getName().equals("default_type")){
-					GoodsTypeRel goodsTypeRel = new GoodsTypeRel();
-					goodsTypeRel.setId(UUID.randomUUID().toString());
-					goodsTypeRel.setGoodsId(goods.getId());
-					goodsTypeRel.setTypeId(goodsType.getId());
-					goodsTypeRelDao.insert(goodsTypeRel);
-					continue;
-				}
+				if(book.getTypes() == null)
+					break;
 				for(String bookType : book.getTypes()){
 					if(bookType.equals(goodsType.getName())){
-						GoodsTypeRel goodsTypeRel = new GoodsTypeRel();
-						goodsTypeRel.setId(UUID.randomUUID().toString());
-						goodsTypeRel.setGoodsId(goods.getId());
-						goodsTypeRel.setTypeId(goodsType.getId());
-						goodsTypeRelDao.insert(goodsTypeRel);
+						GoodsTypeRel goodsTypeRel2 = new GoodsTypeRel();
+						goodsTypeRel2.setId(UUID.randomUUID().toString());
+						goodsTypeRel2.setGoodsId(goods.getId());
+						goodsTypeRel2.setTypeId(goodsType.getId());
+						goodsTypeRelDao.insert(goodsTypeRel2);
 					}
 				}
 			}
