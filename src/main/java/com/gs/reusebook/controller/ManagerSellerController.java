@@ -36,7 +36,7 @@ public class ManagerSellerController extends AuthSellerBaseController{
 	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn addSeller(@RequestBody AuthBaseBean params){
-		return authSellerService.register(params.getUsername(), params.getPassword());
+		return authSellerService.register(params.getUsername(), params.getPassword(), params.getMail());
 	}
 	
 	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST)

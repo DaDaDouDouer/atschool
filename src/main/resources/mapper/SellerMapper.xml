@@ -21,13 +21,15 @@
 		id,
 		username,
 		password,
-		create_time)
+		create_time,
+		mail)
 
 		values (
 		#{id},
 		#{username},
 		#{password},
-		#{createTime})
+		#{createTime},
+		#{mail})
 	</insert>
 
 	<update id="updatePassword">

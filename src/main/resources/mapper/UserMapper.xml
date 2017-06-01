@@ -30,13 +30,15 @@
 		id,
 		username,
 		password,
-		create_time)
+		create_time,
+		mail)
 
 		values (
 		#{id},
 		#{username},
 		#{password},
-		#{createTime})
+		#{createTime},
+		#{mail})
 	</insert>
 
 	<select id="selectById" resultType="User" resultMap="normalUserResultMap">
@@ -71,6 +73,7 @@
 		<result property="username" column="username" />
 		<result property="password" column="password" />
 		<result property="createTime" column="create_time" />
+		<result property="mail" column="mail" />
 	</resultMap>
 	<!-- 解决bean字段和数据库列名不一致的问题，
 	需要用到此map的地方需要添加属性resultMap="userResultMap"
@@ -82,6 +85,7 @@
 		<result property="username" column="username" />
 		<result property="password" column="password" />
 		<result property="createTime" column="create_time" />
+		<result property="mail" column="mail" />
 		<!-- 购物车list -->
 		<collection property="cartItems" column="user_id" ofType="com.gs.reusebook.bean.CartItem">
 			<id property="id" column="id" />

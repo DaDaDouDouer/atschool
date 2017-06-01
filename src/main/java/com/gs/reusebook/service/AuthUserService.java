@@ -35,8 +35,8 @@ public class AuthUserService implements AuthBaseService{
 	 * @param password 密码
 	 * @return 
 	 */
-	public UiReturn register(String username, String password){
-
+	public UiReturn register(String username, String password, String mail){
+		// TODO 邮箱还未校验
 		ValidatorReturnParams result = GeneralValidator.validate(
 				new ValidatorType[]{AUTH_USERNAME, AUTH_PASSWORD}, 
 				new Object[]{username, password});
@@ -55,6 +55,7 @@ public class AuthUserService implements AuthBaseService{
 		user.setId(UUID.randomUUID().toString());
 		user.setPassword(password);
 		user.setUsername(username);
+		user.setMail(mail);
 		user.setCreateTime(new Date());
 		
 		// 入库

@@ -37,6 +37,7 @@
 		  i.order_id order_id,
 		  i.goods_id goods_id,
 		  i.goods_count goods_count,
+		  i.status goods_status,
 		  g.id goods_id_pk,
 		  g.name goods_name,
 		  g.img_url goods_img_url 
@@ -153,6 +154,7 @@
 		  i.order_id order_id,
 		  i.goods_id goods_id,
 		  i.goods_count goods_count,
+		  i.status goods_status,
 		  g.id goods_id_pk,
 		  g.name goods_name,
 		  g.img_url goods_img_url 
@@ -226,7 +228,6 @@
 				<result property="imgUrl" column="goods_img_url" />
 				<result property="price" column="goods_price" />
 			</association>
-			
 		</collection>
 	</resultMap>
 	

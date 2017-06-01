@@ -227,24 +227,24 @@ public class OrderService {
 				new ValidatorType[]{PKID, INT_POSITIVE, PKID},
 				new Object[]{orderItemId, aimStatus, authId});
 		if(!result.isRight){
-			return UiReturn.notOk(null, result.msg, REQ_ERROR_400);
+			return UiReturn.notOk(orderItemId, result.msg, REQ_ERROR_400);
 		}
 		
 		Order order = orderDao.selectByItemId(orderItemId);
 		
 		// null校验
 		if(order == null){
-			return UiReturn.notOk(null, "该订单不存在", REQ_ERROR_400);
+			return UiReturn.notOk(orderItemId, "订单，不存在的", REQ_ERROR_400);
 		}
 		
 		// 校验当前订单是否是属于当前用户自己的订单
 		if(isUser){
 			if(!order.getUserId().equals(authId)){
-				return UiReturn.notOk(null, "只能修改自己的订单状态", REQ_ERROR_400);
+				return UiReturn.notOk(orderItemId, "只能修改自己的订单状态", REQ_ERROR_400);
 			}
 		}else{
 			if(!order.getSellerId().equals(authId)){
-				return UiReturn.notOk(null, "只能修改自己的订单状态", REQ_ERROR_400);
+				return UiReturn.notOk(orderItemId, "只能修改自己的订单状态", REQ_ERROR_400);
 			}
 		}
 		
@@ -254,8 +254,24 @@ public class OrderService {
 			orderItemDao.updateStatus(aimStatus, orderItemId);
 			return UiReturn.ok("", "修改状态成功");
 		}else{
-			return UiReturn.notOk("", "不能进行这样的订单状态修改", REQ_ERROR_400);
+			return UiReturn.notOk(orderItemId, "不能进行这样的订单状态修改", REQ_ERROR_400);
 		}
+	}
+	
+	public UiReturn payAll(List<String> orderItemIds, String userId){
+		// FIXME 没有事务性
+		if(orderItemIds == null){
+			return UiReturn.notOk("", "订单项为空", REQ_ERROR_400);
+		}
+		List<String> failedOrderItemIds = new ArrayList<String>();
+		for (String orderItemId : orderItemIds) {
+			UiReturn singleReturn = updateStatus(orderItemId, ORDER_STATUS_PAYED, true, userId);
+			// 如果状态修改失败则返回失败的那些id
+			if(singleReturn.getStatus() != SUCCESS_200){
+				failedOrderItemIds.add(orderItemId);
+			}
+		}
+		return UiReturn.ok(failedOrderItemIds, "订单项修改成功");
 	}
 	
 	public UiReturn deleteOrder(String orderId){
