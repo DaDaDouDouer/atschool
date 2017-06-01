@@ -46,11 +46,18 @@ export default {
           type: 'password',
           label: '重复密码',
           placeholder: '请再次输入您的密码'
+        },
+        {
+          name: 'mail',
+          type: 'email',
+          label: '电子邮箱',
+          placeholder: '请输入您的电子邮箱'
         }
       ],
       form: {
         username: '',
-        password: ''
+        password: '',
+        mail: ''
       }
     }
   },
