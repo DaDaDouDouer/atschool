@@ -147,7 +147,9 @@ public class UserService {
 		// 不能删除别人的收货地址
 		UserInfoInMarket userInfoInMarket = userDao.getUserInfoInMarketByUserId(userId);
 		DeliveryAddress deliveryAddress = deliveryAddressDao.selectById(deliveryAddressId);
-		
+		if(deliveryAddress == null){
+			return UiReturn.notOk(null, "收货地址不存在", REQ_ERROR_400);
+		}
 		if(userInfoInMarket.getId().equals(deliveryAddress.getUserInfoId())){
 			deliveryAddressDao.deleteDeliveryAddress(deliveryAddress.getId());
 			return UiReturn.ok(null, "删除收货地址成功");

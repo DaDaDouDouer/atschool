@@ -30,7 +30,7 @@
           ></v-text-field>
         </v-col>
         <v-col xs4>
-          <img src="http://localhost:8080/auth/getCheckCode.do" alt="验证码">
+          <img src="/auth/getCheckCode.do" alt="验证码">
         </v-col>
       </v-row>
       <v-row>
