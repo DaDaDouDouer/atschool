@@ -298,7 +298,7 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 			book.setId(UUID.randomUUID().toString());
 			bookDao.insertBook(book);
 		}else{
-			book = bookConnect.getBookInformation(isbn);
+			book.setTypes(bookConnect.getBookInformation(isbn).getTypes());
 		}
 			
 		Goods goods = new Goods();
