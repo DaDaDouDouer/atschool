@@ -31,7 +31,7 @@
               <v-card-column width="100px">
                 <v-card-row class="grey--text">
                   <v-card-text>
-                    <h4>{{book.name}}</h4>
+                    <h6>{{book.name}}</h6>
                     <strong class="red--text">￥{{book.price}}</strong>
                     <div>销量：{{book.via}}</div>
                     <div>还有{{book.count}}本</div>
