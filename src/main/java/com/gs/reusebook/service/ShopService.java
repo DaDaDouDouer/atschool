@@ -84,7 +84,12 @@ public class ShopService {
 		
 		return UiReturn.ok("", "创建成功");
 	}
-	
+	/**
+	 * 卖家添加推荐书籍
+	 * @param goodsId
+	 * @param sellerId
+	 * @return
+	 */
 	public UiReturn addRecommand(String goodsId, String sellerId){
 		
 		ValidatorReturnParams result = GeneralValidator.validate(
@@ -120,7 +125,12 @@ public class ShopService {
 		
 		return UiReturn.ok("", "添加成功");
 	}
-
+	/**
+	 * 卖家删除推荐书籍
+	 * @param goodsId
+	 * @param sellerId
+	 * @return
+	 */
 	public UiReturn removeRecommand(String goodsId, String sellerId){
 		
 		ValidatorReturnParams result = GeneralValidator.validate(
@@ -152,7 +162,7 @@ public class ShopService {
 		return UiReturn.ok("", "删除成功");
 	}
 	/**
-	 * 更新某个字段的字段值
+	 * 卖家更新修改某个字段的字段值，（成为推荐）
 	 * @param fieldName
 	 * @param fieldValue
 	 * @param sellerId
@@ -275,7 +285,12 @@ public class ShopService {
 		
 		return UiReturn.ok("", "修改成功");
 	}
-	
+	/**
+	 * 卖家添加首页轮播图片
+	 * @param urlAndDesc
+	 * @param sellerId
+	 * @return
+	 */
 	public UiReturn addCarousel(Map<String,String> urlAndDesc, String sellerId){
 
 		// 参数校验
@@ -315,7 +330,12 @@ public class ShopService {
 		return UiReturn.ok("", "增加成功");
 	}
 	
-	
+	/**
+	 * 卖家删除首页轮播图片
+	 * @param url
+	 * @param sellerId
+	 * @return
+	 */
 	public UiReturn removeCarousel(String url, String sellerId){
 
 		// 参数校验

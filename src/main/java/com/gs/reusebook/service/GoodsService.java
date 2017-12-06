@@ -264,7 +264,14 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 			return UiReturn.notOk(null, "不能删除其他卖家的订单", REQ_ERROR_400);
 		}
 	}
-	
+	/**
+	 * 卖家更改商品价格和数量
+	 * @param goodsId
+	 * @param price
+	 * @param count
+	 * @param sellerId
+	 * @return
+	 */
 	public UiReturn updateGoods(String goodsId, Double price, Integer count,String sellerId){
 		Goods goods = goodsDao.selectById(goodsId);
 		if(goods == null || !goods.getSellerId().equals(sellerId))
@@ -286,7 +293,15 @@ public class GoodsService implements ServiceWhichUseDaoPool{
 		
 		return UiReturn.ok(null, msg);
 	}
-	
+	/**
+	 * 卖家添加商品
+	 * @param isbn  ISBN码
+	 * @param price 价格
+	 * @param count 数量
+	 * @param sellerId
+	 * @param sellername
+	 * @return
+	 */
 	public UiReturn addGoodsByIsbn(String isbn, Double price, Integer count,String sellerId, String sellername){
 		Book book = bookDao.selectByIsbn(isbn);
 		

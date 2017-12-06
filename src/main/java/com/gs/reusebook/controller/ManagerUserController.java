@@ -19,13 +19,22 @@ import com.gs.reusebook.util.UiReturn;
 public class ManagerUserController {
 	@Autowired
 	private UserService userService;
-	
+	/**
+	 * 后台搜索用户
+	 * @param searchParams
+	 * @return
+	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	@NeedUserLogin(character = Admin.class)
 	@ResponseBody
 	public UiReturn search(@RequestBody CommonSearchParams searchParams){
 		return userService.selectAndPagedByName(searchParams.getKeyword(), searchParams.getPageNo(), searchParams.getLimit());
 	}
+	/**
+	 * 后台管理员删除用户
+	 * @param userParams
+	 * @return
+	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@NeedUserLogin(character = Admin.class)
 	@ResponseBody

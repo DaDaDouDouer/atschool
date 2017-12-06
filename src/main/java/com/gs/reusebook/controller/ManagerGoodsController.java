@@ -34,7 +34,7 @@ public class ManagerGoodsController {
 	}
 	
 	/**
-	 * 根据商品Id删除商品
+	 * 管理员根据商品Id删除商品
 	 * @param goodsParams
 	 * @return
 	 */
